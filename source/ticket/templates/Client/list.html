@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Клиенты{% endblock %}
+{% block content %}
+    <br>
+    <a href="{% url 'ticket:client_create' %}" class="btn btn-primary mb-5">Создать Клиента</a>
+    {% for client in clients %}
+        <div>
+            <ul class="list-group">
+                <li class="list-group-item">Название: {{ client.name }}</li>
+                <li class="list-group-item">Тип компании: {{ client.type }}</li>
+                <li class="list-group-item"><a href="{% url 'ticket:client_detail' client.pk %}" class="btn btn-primary">Детальный просмотр</a></li>
+            </ul>
+        </div>
+        <br>
+        <hr>
+    {% endfor %}
+{% endblock %}
