@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Добавить объект обслуживания{% endblock %}
+{% block nav %} {% endblock %}
+{% block content %}
+    <br>
+    <h1>Добавить объект обслуживания</h1>
+    <form action="{% url "ticket:service_object_create" %}" method="post" >
+        {% include 'partial/form.html' with button_text="Добавить" %}
+    </form>
+{% endblock %}

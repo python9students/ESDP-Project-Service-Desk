@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Объекты обслуживания{% endblock %}
+{% block content %}
+    <br>
+    <a href="{% url 'ticket:service_object_create' %}" class="btn btn-primary mb-5">Создать Объект Обслуживания</a>
+    {% for s in service_objects %}
+        <div>
+            <ul class="list-group">
+                <li class="list-group-item">Серийный номер: {{ s.serial_number }}</li>
+                <li class="list-group-item">Модель: {{ s.model }}</li>
+                <li class="list-group-item">Клиент: {{ s.client }}</li>
+                <li class="list-group-item"><a href="{% url 'ticket:service_object_detail' s.id%}" class="btn btn-primary">Детальный просмотр</a></li>
+            </ul>
+        </div>
+        <br>
+        <hr>
+    {% endfor %}
+{% endblock %}

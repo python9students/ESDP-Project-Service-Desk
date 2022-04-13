@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Удаление объекта обслуживания{% endblock %}
+{% block content %}
+    <br>
+    <div>
+        <form action="{% url 'ticket:service_object_delete' service_object.id %}" method="POST">
+            {% csrf_token %}
+            <div class="card text-center" style="max-width: 18rem;">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Удаление Объекта обслуживания!</h5>
+                    <p class="card-text">Вы действительно хотите удалить Объект!!!
+                        <br> {{ service_object.serial_number }}</p>
+                    <div class="gap-2 col-6" style="float: right">
+                        <a>
+                            <button class="btn btn-danger" type="submit">Да</button>
+                        </a>
+                        <a href="{% url "ticket:service_object_detail" service_object.id %}">
+                            <button class="btn btn-primary" type="button">Нет</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Редактировать объект обслуживания{% endblock %}
+{% block nav %} {% endblock %}
+{% block content %}
+    <br>
+    <h1>Редактировать объект обслуживания</h1>
+        <form action="{% url "ticket:service_object_update" service_object.id %}" method="post" >
+        {% include 'partial/form.html' with button_text="Сохранить" %}
+    </form>
+    <br>
+    <p><a href="{% url "ticket:service_object_detail" service_object.pk %}" class="btn btn-primary" style="float: left">Назад</a></p>
+{% endblock %}
