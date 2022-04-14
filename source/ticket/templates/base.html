@@ -26,24 +26,25 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Register</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'ticket:service_object_list' %}">Просмотр Объектов
                             обслуживания</a>
                     </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item">
+                            <p class="nav-link">Привет, {{ user.username }}!</p>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link"
                                href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">Выход</a>
                         </li>
-                        <li class="nav-item">
-                            <p class="nav-link">Привет, {{ user.username }}!</p>
-                        </li>
+
                     {% else %}
                         <li class="nav-item">
                             <a class="nav-link"
                                href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Вход</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link"
+                                                href="{% url 'accounts:registration' %}">Регистрация</a>
                         </li>
                     {% endif %}
                 </ul>
