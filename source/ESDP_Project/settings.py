@@ -120,8 +120,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-LOGOUT_REDIRECT_URL = "ticket:service_object_list"
-LOGIN_REDIRECT_URL = "ticket:service_object_list"
+LOGOUT_REDIRECT_URL = "ticket:index"
+LOGIN_REDIRECT_URL = "ticket:index"
 
 LOGIN_URL = 'accounts:login'
 
