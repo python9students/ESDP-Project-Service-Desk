@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Объект обслуживания{% endblock %}
+{% block content %}
+    <br>
+    <div>
+        <ul class="list-group">
+            <li class="list-group-item">Серийный номер: {{ service_object.serial_number }}</li>
+            <li class="list-group-item">Модель: {{ service_object.model }}</li>
+            <li class="list-group-item">Клиент: {{ service_object.client }}</li>
+            <li class="list-group-item">Тип объекта обслуживания: {{ service_object.type }}</li>
+            <li class="list-group-item">Установлен: {% if  service_object.is_installed == True %} Да
+                                                    {% else %}Нет{% endif %}</li>
+            <li class="list-group-item">Действителен с: {% if not service_object.active_from %}
+                                                        {% else %}{{ service_object.active_from }}{% endif %}</li>
+            <li class="list-group-item">Адрес: {{ service_object.address }}</li>
+            <li class="list-group-item">Город: {{ service_object.city }}</li>
+            <li class="list-group-item">Страна: {{ service_object.country }}</li>
+            <li class="list-group-item"><a href="{% url 'ticket:service_object_update' service_object.pk %}"
+                                           class="btn btn-primary">Редактировать</a></li>
+            <li class="list-group-item"><a href="{% url 'ticket:service_object_delete' service_object.pk %}"
+                                           class="btn btn-danger">Удалить</a></li>
+        </ul>
+    </div>
+    <br>
+{% endblock %}

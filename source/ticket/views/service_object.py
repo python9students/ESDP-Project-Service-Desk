@@ -7,13 +7,13 @@ from ticket.models import ServiceObject
 
 class ServiceObjectListView(ListView):
     model = ServiceObject
-    template_name = 'service_Object/list.html'
+    template_name = 'service_object/list.html'
     context_object_name = 'service_objects'
 
 
 class ServiceObjectCreateView(CreateView):
     model = ServiceObject
-    template_name = 'service_Object/create.html'
+    template_name = 'service_object/create.html'
     form_class = ServiceObjectForm
 
     def get_success_url(self):
@@ -22,7 +22,7 @@ class ServiceObjectCreateView(CreateView):
 
 class ServiceObjectUpdateView(UpdateView):
     model = ServiceObject
-    template_name = 'service_Object/update.html'
+    template_name = 'service_object/update.html'
     context_object_name = 'service_object'
     form_class = ServiceObjectForm
 
@@ -32,12 +32,12 @@ class ServiceObjectUpdateView(UpdateView):
 
 class ServiceObjectDetailView(DetailView):
     model = ServiceObject
-    template_name = 'service_Object/detail.html'
+    template_name = 'service_object/detail.html'
     context_object_name = 'service_object'
 
 
 class ServiceObjectDeleteView(DeleteView):
     model = ServiceObject
-    template_name = 'service_Object/delete.html'
+    template_name = 'service_object/delete.html'
     context_object_name = 'service_object'
     success_url = reverse_lazy('ticket:service_object_list')
