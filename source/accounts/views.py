@@ -7,6 +7,7 @@ from source.accounts.forms import MyUserCreationForm
 
 User = get_user_model()
 
+
 class RegisterView(CreateView):
     model = User
     template_name = 'registration.html'
@@ -16,7 +17,6 @@ class RegisterView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect(self.get_success_url())
-
 
     def get_success_url(self):
         next_url = self.request.GET.get('next')
