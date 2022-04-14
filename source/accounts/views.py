@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import CreateView
 
-from source.accounts.forms import MyUserCreationForm
+from accounts.forms import MyUserCreationForm
 
 User = get_user_model()
 

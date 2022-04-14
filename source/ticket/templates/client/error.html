@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Клиенты{% endblock %}
+{% block content %}
+    <div class="container">
+    <div class="alert alert-danger mt-5" role="alert">
+        <p>Ошибка! Невозможно удалить клиента {{ client }}. Чтобы удалить, необходимо удлить "Объект обслуживания", которым пользуется клиент. </p>
+    </div>
+     <p class="mt-4"><a href="{% url 'ticket:client_list' %}" class="btn btn-primary" style="float: left">Назад</a></p>
+    </div>
+{% endblock %}
