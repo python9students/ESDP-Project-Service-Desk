@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Клиенты{% endblock %}
+{% block content %}
+    <br>
+        <div>
+            <ul class="list-group">
+                <li class="list-group-item">Название: {{ client.name }}</li>
+                <li class="list-group-item">Сокращенное название: {{ client.short_name }}</li>
+                <li class="list-group-item">Вебсайт: {{ client.website }}</li>
+                <li class="list-group-item">Тип компании: {{ client.type }}</li>
+                <li class="list-group-item">Адрес: {{ client.address }}</li>
+                <li class="list-group-item">Страна: {{ client.country }}</li>
+                <li class="list-group-item">Город: {{ client.city }}</li>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a href="{% url "ticket:client_update" client.pk %}" type="button" class="btn btn-primary">Редактировать</a>
+                    <a href="{% url 'ticket:client_delete' client.pk %}" type="button" class="btn btn-primary">Удалить</a>
+                </div>
+            </ul>
+        </div>
+        <p class="mt-4"><a href="{% url 'ticket:client_list' %}" class="btn btn-primary" style="float: left">Назад</a></p>
+{% endblock %}
