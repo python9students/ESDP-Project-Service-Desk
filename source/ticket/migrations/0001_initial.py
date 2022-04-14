@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Client',
+            name='client',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255, verbose_name='Название')),
@@ -89,7 +89,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Service_Object',
+            name='service_Object',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('serial_number', models.CharField(max_length=255, unique=True, verbose_name='Серийный номер')),

@@ -13,19 +13,19 @@ class IndexView(TemplateView):
 
 class ClientListView(ListView):
     model = Client
-    template_name = 'Client/list.html'
+    template_name = 'client/list.html'
     context_object_name = 'clients'
 
 
 class ClientDetailView(DetailView):
     model = Client
-    template_name = 'Client/detail.html'
+    template_name = 'client/detail.html'
     context_object_name = 'client'
 
 
 class ClientCreateView(CreateView):
     model = Client
-    template_name = 'Client/create.html'
+    template_name = 'client/create.html'
     form_class = ClientForm
 
     def get_success_url(self):
@@ -34,7 +34,7 @@ class ClientCreateView(CreateView):
 
 class ClientUpdateView(UpdateView):
     model = Client
-    template_name = 'Client/update.html'
+    template_name = 'client/update.html'
     context_object_name = 'client'
     form_class = ClientForm
 
@@ -44,6 +44,6 @@ class ClientUpdateView(UpdateView):
 
 class ClientDeleteView(DeleteView):
     model = Client
-    template_name = 'Client/delete.html'
+    template_name = 'client/delete.html'
     context_object_name = 'client'
     success_url = reverse_lazy('ticket:client_list')
