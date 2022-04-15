@@ -15,6 +15,7 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
+        login(self.request, user)
         return redirect(self.get_success_url())
 
     def get_success_url(self):
@@ -22,5 +23,5 @@ class RegisterView(CreateView):
         if not next_url:
             next_url = self.request.POST.get('next')
         if not next_url:
-            next_url = reverse('accounts:login')
+            next_url = reverse('ticket:index')
         return next_url
