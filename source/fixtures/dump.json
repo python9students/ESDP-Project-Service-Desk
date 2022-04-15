@@ -1,0 +1,97 @@
+[
+{
+    "model": "ticket.companytype",
+    "pk": 2,
+    "fields": {
+        "name": "Bank"
+    }
+},
+{
+    "model": "ticket.serviceobjecttype",
+    "pk": 2,
+    "fields": {
+        "name": "ATM"
+    }
+},
+{
+    "model": "ticket.serviceobjectmodel",
+    "pk": 2,
+    "fields": {
+        "name": "ATM"
+    }
+},
+{
+    "model": "ticket.country",
+    "pk": 2,
+    "fields": {
+        "name": "Kyrgyzstan"
+    }
+},
+{
+    "model": "ticket.city",
+    "pk": 2,
+    "fields": {
+        "name": "Bishkek",
+        "country": 2
+    }
+},
+{
+    "model": "ticket.city",
+    "pk": 3,
+    "fields": {
+        "name": "Osh",
+        "country": 2
+    }
+},
+{
+    "model": "ticket.city",
+    "pk": 4,
+    "fields": {
+        "name": "Tokmok",
+        "country": 2
+    }
+},
+{
+    "model": "ticket.client",
+    "pk": 2,
+    "fields": {
+        "name": "RSK bank",
+        "short_name": "rsk",
+        "website": "",
+        "type": 2,
+        "address": "",
+        "country": 2,
+        "city": 4
+    }
+},
+{
+    "model": "ticket.serviceobject",
+    "pk": 2,
+    "fields": {
+        "serial_number": "12531525637",
+        "model": 2,
+        "client": 2,
+        "type": 2,
+        "is_installed": false,
+        "active_from": null,
+        "address": "",
+        "country": 2,
+        "city": 2
+    }
+},
+{
+    "model": "ticket.serviceobject",
+    "pk": 3,
+    "fields": {
+        "serial_number": "2222222222",
+        "model": 2,
+        "client": 2,
+        "type": 2,
+        "is_installed": false,
+        "active_from": "2022-04-14T17:29:00Z",
+        "address": "Советская 122",
+        "country": 2,
+        "city": 3
+    }
+}
+]
