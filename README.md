@@ -30,6 +30,7 @@ pip install -r requirements.txt
 Загрузите фикстурные статьи командой
 ```bash
 ./manage.py loaddata auth_dump.json
+./manage.py loaddata dump.json
 ```
 
 Создайте в директории с проектом файл .env и заполните по примеру:
