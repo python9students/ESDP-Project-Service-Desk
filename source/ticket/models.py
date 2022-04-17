@@ -129,3 +129,81 @@ class ServiceObject(models.Model):
         verbose_name = 'Объект обслуживания'
         verbose_name_plural = 'Объекты обслуживания'
         db_table = 'service_object'
+
+
+class TicketPriority(models.Model):
+    """
+    Модель для создания приоритетов Заявки
+    """
+    name = models.CharField(max_length=50, verbose_name='Название')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Приоритет заявки'
+        verbose_name_plural = 'Приоритеты заявок'
+        db_table = 'ticket_priority'
+
+
+class TicketType(models.Model):
+    """
+    Модель для создания типов Заявки
+    """
+    name = models.CharField(max_length=50, verbose_name='Название')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Тип заявки'
+        verbose_name_plural = 'Типы заявок'
+        db_table = 'ticket_type'
+
+
+class TicketStatus(models.Model):
+    """
+    Модель для создания статусов Заявки
+    """
+    name = models.CharField(max_length=50, verbose_name='Название')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Статус заявки'
+        verbose_name_plural = 'Статусы заявок'
+        db_table = 'ticket_status'
+
+
+class EmployeePosition(models.Model):
+    """
+    Модель для создания должностей
+    """
+    name = models.CharField(max_length=50, verbose_name='Название')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Должность'
+        verbose_name_plural = 'Должность'
+        db_table = 'employee_position'
+
+
+class Employee(models.Model):
+    """
+    Модель для создания сотрудников
+    """
+    name = models.CharField(max_length=50, verbose_name='Имя')
+    surname = models.CharField(max_length=50, verbose_name='Фамилия')
+    position = models.ForeignKey('ticket.EmployeePosition', on_delete=models.PROTECT, verbose_name='Должность',
+                                 related_name='employees')
+
+    def __str__(self):
+        return f'{self.name} {self.surname}'
+
+    class Meta:
+        verbose_name = 'Сотрудник'
+        verbose_name_plural = 'Сотрудники'
+        db_table = 'employee'
