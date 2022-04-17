@@ -1,5 +1,7 @@
 from django.db import models
 
+from ticket.views.validators import OptionalSchemeURLValidator
+
 
 class CompanyType(models.Model):
     """
@@ -84,7 +86,7 @@ class Client(models.Model):
     """
     name = models.CharField(max_length=255, verbose_name='Название')
     short_name = models.CharField(max_length=50, verbose_name='Сокращенное название')
-    website = models.URLField(max_length=255, blank=True, verbose_name='Вебсайт')
+    website = models.URLField(max_length=255, blank=True, validators=[OptionalSchemeURLValidator], verbose_name='Вебсайт')
     type = models.ForeignKey('ticket.CompanyType', on_delete=models.PROTECT, verbose_name='Тип компании',
                              related_name='clients')
     address = models.CharField(max_length=255, blank=True, verbose_name='Адрес')
