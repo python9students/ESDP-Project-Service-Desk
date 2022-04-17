@@ -6,7 +6,12 @@ from ticket.models import (CompanyType,
                            Country,
                            City,
                            Client,
-                           ServiceObject)
+                           ServiceObject,
+                           TicketType,
+                           TicketStatus,
+                           TicketPriority,
+                           Employee,
+                           EmployeePosition)
 
 admin.site.register(CompanyType)
 admin.site.register(ServiceObjectType)
@@ -15,3 +20,8 @@ admin.site.register(Country)
 admin.site.register(City)
 admin.site.register(Client)
 admin.site.register(ServiceObject)
+admin.site.register(TicketPriority)
+admin.site.register(TicketStatus)
+admin.site.register(TicketType)
+admin.site.register(Employee)
+admin.site.register(EmployeePosition)
