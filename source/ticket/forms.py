@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import TextInput
 
 from ticket.models import ServiceObject, Client
 
@@ -14,6 +15,7 @@ class ServiceObjectForm(forms.ModelForm):
 
 
 class ClientForm(forms.ModelForm):
+    website = forms.URLField(widget=TextInput)
     class Meta:
         model = Client
         fields = '__all__'
