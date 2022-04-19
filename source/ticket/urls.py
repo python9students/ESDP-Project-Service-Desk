@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from ticket.views.clients import (ClientListView,
                                   ClientDetailView,
@@ -14,16 +14,24 @@ from ticket.views.service_object import (ServiceObjectListView,
 
 app_name = 'ticket'
 
+service_object_urlpatterns = [
+    path('', ServiceObjectListView.as_view(), name='service_object_list'),
+    path('create/', ServiceObjectCreateView.as_view(), name='service_object_create'),
+    path('update/<int:pk>/', ServiceObjectUpdateView.as_view(), name='service_object_update'),
+    path('<int:pk>/', ServiceObjectDetailView.as_view(), name='service_object_detail'),
+    path('delete/<int:pk>/', ServiceObjectDeleteView.as_view(), name='service_object_delete'),
+]
+
+client_urlpatterns = [
+    path('', ClientListView.as_view(), name='client_list'),
+    path('<int:pk>/', ClientDetailView.as_view(), name='client_detail'),
+    path('create/', ClientCreateView.as_view(), name='client_create'),
+    path('<int:pk>/update/', ClientUpdateView.as_view(), name='client_update'),
+    path('<int:pk>/delete/', ClientDeleteView.as_view(), name='client_delete'),
+]
+
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
-    path('service_objects/', ServiceObjectListView.as_view(), name='service_object_list'),
-    path('service_object/create/', ServiceObjectCreateView.as_view(), name='service_object_create'),
-    path('service_object/update/<int:pk>/', ServiceObjectUpdateView.as_view(), name='service_object_update'),
-    path('service_object/<int:pk>/', ServiceObjectDetailView.as_view(), name='service_object_detail'),
-    path('service_object/delete/<int:pk>/', ServiceObjectDeleteView.as_view(), name='service_object_delete'),
-    path('clients/', ClientListView.as_view(), name='client_list'),
-    path('client/<int:pk>/', ClientDetailView.as_view(), name='client_detail'),
-    path('client/create/', ClientCreateView.as_view(), name='client_create'),
-    path('client/<int:pk>/update/', ClientUpdateView.as_view(), name='client_update'),
-    path('client/<int:pk>/delete/', ClientDeleteView.as_view(), name='client_delete'),
+    path('service_object/', include(service_object_urlpatterns)),
+    path('client/', include(client_urlpatterns)),
 ]
