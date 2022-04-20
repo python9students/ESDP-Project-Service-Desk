@@ -15,7 +15,8 @@ from ticket.models import (CompanyType,
                            Work,
                            ProblemArea,
                            Department,
-                           ServiceLevel)
+                           ServiceLevel,
+                           Ticket)
 
 admin.site.register(CompanyType)
 admin.site.register(ServiceObjectType)
@@ -33,4 +34,4 @@ admin.site.register(Work)
 admin.site.register(ProblemArea)
 admin.site.register(Department)
 admin.site.register(ServiceLevel)
-
+admin.site.register(Ticket)
