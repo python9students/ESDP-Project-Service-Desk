@@ -12,7 +12,8 @@ from ticket.models import (CompanyType,
                            TicketPriority,
                            Employee,
                            EmployeePosition,
-                           Work)
+                           Work,
+                           ProblemArea)
 
 admin.site.register(CompanyType)
 admin.site.register(ServiceObjectType)
@@ -27,3 +28,4 @@ admin.site.register(TicketType)
 admin.site.register(Employee)
 admin.site.register(EmployeePosition)
 admin.site.register(Work)
+admin.site.register(ProblemArea)

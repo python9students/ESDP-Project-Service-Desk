@@ -228,3 +228,22 @@ class Work(MPTTModel):
         verbose_name = 'Работа'
         verbose_name_plural = 'Работы'
         db_table = 'work'
+
+
+class ProblemArea(MPTTModel):
+    """
+    Модель для создания проблемных областей используя древовидную структуру
+    """
+    name = models.CharField(max_length=50, unique=True)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+
+    class MPTTMeta:
+        order_insertion_by = ['name']
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Проблемная область'
+        verbose_name_plural = 'Проблемные области'
+        db_table = 'problem_area'
