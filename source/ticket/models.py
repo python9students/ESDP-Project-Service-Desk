@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 
-from ticket.views.validators import OptionalSchemeURLValidator
 
 User = get_user_model()
 
@@ -90,7 +89,7 @@ class Client(models.Model):
     """
     name = models.CharField(max_length=255, verbose_name='Название')
     short_name = models.CharField(max_length=50, verbose_name='Сокращенное название')
-    website = models.URLField(max_length=255, blank=True, validators=[OptionalSchemeURLValidator],
+    website = models.URLField(max_length=255, blank=True, validators=[],
                               verbose_name='Вебсайт')
     type = models.ForeignKey('ticket.CompanyType', on_delete=models.PROTECT, verbose_name='Тип компании',
                              related_name='clients')
