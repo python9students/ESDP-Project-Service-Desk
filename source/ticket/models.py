@@ -1,4 +1,5 @@
 from django.db import models
+from mptt.models import MPTTModel, TreeForeignKey
 
 from ticket.views.validators import OptionalSchemeURLValidator
 
@@ -86,7 +87,8 @@ class Client(models.Model):
     """
     name = models.CharField(max_length=255, verbose_name='Название')
     short_name = models.CharField(max_length=50, verbose_name='Сокращенное название')
-    website = models.URLField(max_length=255, blank=True, validators=[OptionalSchemeURLValidator], verbose_name='Вебсайт')
+    website = models.URLField(max_length=255, blank=True, validators=[OptionalSchemeURLValidator],
+                              verbose_name='Вебсайт')
     type = models.ForeignKey('ticket.CompanyType', on_delete=models.PROTECT, verbose_name='Тип компании',
                              related_name='clients')
     address = models.CharField(max_length=255, blank=True, verbose_name='Адрес')
@@ -207,3 +209,22 @@ class Employee(models.Model):
         verbose_name = 'Сотрудник'
         verbose_name_plural = 'Сотрудники'
         db_table = 'employee'
+
+
+class Work(MPTTModel):
+    """
+    Модель для создания работ используя древовидную структуру
+    """
+    name = models.CharField(max_length=50, unique=True)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+
+    class MPTTMeta:
+        order_insertion_by = ['name']
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Работа'
+        verbose_name_plural = 'Работы'
+        db_table = 'work'
