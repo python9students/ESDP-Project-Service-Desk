@@ -247,3 +247,33 @@ class ProblemArea(MPTTModel):
         verbose_name = 'Проблемная область'
         verbose_name_plural = 'Проблемные области'
         db_table = 'problem_area'
+
+
+class ServiceLevel(models.Model):
+    """
+    Модель для создания уровней обслуживания
+    """
+    name = models.CharField(max_length=50, verbose_name='Название')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Уровень обслуживания'
+        verbose_name_plural = 'Уровни обслуживания'
+        db_table = 'service_level'
+
+
+class Department(models.Model):
+    """
+    Модель для создания департаментов
+    """
+    name = models.CharField(max_length=50, verbose_name='Название')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Департамент'
+        verbose_name_plural = 'Департаменты'
+        db_table = 'department'
