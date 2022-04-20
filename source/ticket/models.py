@@ -196,24 +196,6 @@ class EmployeePosition(models.Model):
         db_table = 'employee_position'
 
 
-class Employee(models.Model):
-    """
-    Модель для создания сотрудников
-    """
-    name = models.CharField(max_length=50, verbose_name='Имя')
-    surname = models.CharField(max_length=50, verbose_name='Фамилия')
-    position = models.ForeignKey('ticket.EmployeePosition', on_delete=models.PROTECT, verbose_name='Должность',
-                                 related_name='employees')
-
-    def __str__(self):
-        return f'{self.name} {self.surname}'
-
-    class Meta:
-        verbose_name = 'Сотрудник'
-        verbose_name_plural = 'Сотрудники'
-        db_table = 'employee'
-
-
 class Work(MPTTModel):
     """
     Модель для создания работ используя древовидную структуру
