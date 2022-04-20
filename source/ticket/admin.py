@@ -1,4 +1,5 @@
 from django.contrib import admin
+from mptt.admin import MPTTModelAdmin
 
 from ticket.models import (CompanyType,
                            ServiceObjectType,
@@ -10,8 +11,12 @@ from ticket.models import (CompanyType,
                            TicketType,
                            TicketStatus,
                            TicketPriority,
-                           Employee,
-                           EmployeePosition)
+                           EmployeePosition,
+                           Work,
+                           ProblemArea,
+                           Department,
+                           ServiceLevel,
+                           Ticket)
 
 admin.site.register(CompanyType)
 admin.site.register(ServiceObjectType)
@@ -23,5 +28,9 @@ admin.site.register(ServiceObject)
 admin.site.register(TicketPriority)
 admin.site.register(TicketStatus)
 admin.site.register(TicketType)
-admin.site.register(Employee)
 admin.site.register(EmployeePosition)
+admin.site.register(Work, MPTTModelAdmin)
+admin.site.register(ProblemArea, MPTTModelAdmin)
+admin.site.register(Department)
+admin.site.register(ServiceLevel)
+admin.site.register(Ticket)
