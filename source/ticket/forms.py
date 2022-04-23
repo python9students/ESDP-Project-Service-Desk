@@ -2,11 +2,12 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.forms import TextInput
 from django.forms import widgets
+from django.core.exceptions import ValidationError
 
-from ticket.models import ServiceObject, Client, TicketPriority, TicketType, TicketStatus, ServiceLevel, Department, \
-    Work
+from ticket.models import ServiceObject, Client, Ticket
 
 User = get_user_model()
+
 
 class ServiceObjectForm(forms.ModelForm):
     class Meta:
@@ -26,23 +27,24 @@ class ClientForm(forms.ModelForm):
         fields = '__all__'
 
 
-class ChiefForm(forms.Form):
-    client = forms.MultipleChoiceField(queryset=Client.objects.all(), label="Клиент")
-    service_object = forms.MultipleChoiceField(queryset=ServiceObject.objects.all(), label="Объект обслуживания")
-    priority = forms.MultipleChoiceField(queryset=TicketPriority.objects.all(), label="Приоритет")
-    type = forms.MultipleChoiceField(queryset=TicketType.objects.all(), label="Тип заявки")
-    status = forms.MultipleChoiceField(queryset=TicketStatus.objects.all(), label="Статус заявки")
-    service_level = forms.MultipleChoiceField(queryset=ServiceLevel.objects.all(), label="Уровень обслуживания")
-    department = forms.MultipleChoiceField(queryset=Department.objects.all(), label="Департамент")
-    created_at = forms.DateTimeField(label="Дата создания заявки")
-    updated_at = forms.DateTimeField(label="Дата изменения заявки")
-    recieved_at = forms.DateTimeField(label="Дата получения заявки")
-    desired_to = forms.DateTimeField(label="Желаемая дата исполнения")
-    operator = forms.MultipleChoiceField(queryset=User.objects.all(), label="Оператор")
-    works = forms.MultipleChoiceField(queryset=Work.objects.all(), widget=widgets.CheckboxSelectMultiple)
-    problem_areas = forms.MultipleChoiceField(queryset=Work.objects.all(), widget=widgets.CheckboxSelectMultiple)
-    description = forms.CharField(max_length=1000, required=False, label="Описание",
-                                  widget=widgets.Textarea(attrs={"rows": 5, "cols": 50}))
-    executor = forms.MultipleChoiceField(queryset=User.objects.all(), label="Исполнитель")
-    driver = forms.MultipleChoiceField(queryset=User.objects.all(), label="Водитель")
-    cancel_reason = forms.CharField(max_length=225, required=True, label="Причина отмены заявки")
+class ChiefForm(forms.ModelForm):
+    description = forms.CharField(required=False, max_length=1000,
+                                  widget=widgets.Textarea())
+    cancel_reason = forms.CharField(required=False, max_length=255)
+
+    class Meta:
+        model = Ticket
+        fields = ("client", "service_object", "priority", "type",
+                  "status", "service_level", "department", "recieved_at",
+                  "desired_to", "operator", "works",
+                  "problem_areas", "description", "executor",
+                  "driver", "closed_at", "cancel_reason")
+        widgets = {
+            'recieved_at': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'),
+                                               attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'desired_to': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'),
+                                              attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'closed_at': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'),
+                                             attrs={'class': 'form-control', 'type': 'datetime-local'}),
+        }
+        exclude = ("work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at")

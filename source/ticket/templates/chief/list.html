@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Заявки{% endblock %}
+{% block content %}
+    <br>
+    <a href="{% url 'ticket:chief_ticket_create' %}" class="btn btn-primary mb-5">Создать Заявку</a>
+    {% for chief_ticket in chief_tickets %}
+        <div>
+            <ul class="list-group">
+                <li class="list-group-item">Заявка № {{ chief_ticket.id }}</li>
+                <li class="list-group-item"><a href="#" class="btn btn-primary">Детальный просмотр</a></li>
+            </ul>
+        </div>
+        <br>
+        <hr>
+    {% endfor %}
+{% endblock %}

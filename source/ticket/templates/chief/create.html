@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Создание заявки начальником отдела{% endblock %}
+{% block nav %} {% endblock %}
+{% block content %}
+    <br>
+    <h1>Создать заявку</h1>
+    <form action="#" method="post" >
+        {% include 'partial/form.html' with button_text="Добавить" %}
+    </form>
+{% endblock %}
