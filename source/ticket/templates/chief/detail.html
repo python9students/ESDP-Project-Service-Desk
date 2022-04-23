@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load mptt_tags %}
+{% block title %}Заявка для начальника отдела{% endblock %}
+{% block content %}
+    <br>
+    <div>
+        <ul class="list-group">
+            <li class="list-group-item"><h4>Заявка № {{ chief_ticket.pk }}</h4></li>
+            <li class="list-group-item">Объект обслуживания: {{ chief_ticket.service_object }}</li>
+            <li class="list-group-item">Приоритет: {{ chief_ticket.priority }}</li>
+            <li class="list-group-item">Тип заявки: {{ chief_ticket.type }}</li>
+            <li class="list-group-item">Статус заявки: {{ chief_ticket.status }}</li>
+            <li class="list-group-item">Уровень обслуживания: {{ chief_ticket.service_level }}</li>
+            <li class="list-group-item">Департамент: {{ chief_ticket.department }}</li>
+            <li class="list-group-item">Дата создания заявки: {{ chief_ticket.created_at }}</li>
+            <li class="list-group-item">Дата изменения заявки: {{ chief_ticket.updated_at }}</li>
+            <li class="list-group-item">Дата получения заявки: {{ chief_ticket.recieved_at }}</li>
+            <li class="list-group-item"> Работы:
+                <ul>
+                    {% recursetree chief_ticket.works.all %}
+                        <li>
+                            {{ node.name }}
+                            {% if not node.is_leaf_node %}
+                                <ul class="children">
+                                    {{ children }}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endrecursetree %}
+                </ul>
+            </li>
+            <li class="list-group-item"> Проблемная область:
+                <ul>
+                    {% recursetree chief_ticket.problem_areas.all %}
+                        <li>
+                            {{ node.name }}
+                            {% if not node.is_leaf_node %}
+                                <ul class="children">
+                                    {{ children }}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endrecursetree %}
+                </ul>
+            </li>
+            <li class="list-group-item">Описание: {{ chief_ticket.description|default:"Не указано" }}</li>
+            <li class="list-group-item">Исполнитель: {{ chief_ticket.executor }}</li>
+            <li class="list-group-item">Водитель: {{ chief_ticket.driver }}</li>
+            <li class="list-group-item">Причина отмены заявки: {{ chief_ticket.cancel_reason|default:"Не указано" }}</li>
+            <li class="list-group-item"><a href="#" class="btn btn-primary">Редактировать</a></li>
+        </ul>
+    </div>
+    <br>
+{% endblock %}
