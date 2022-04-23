@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Редактировать заявку{% endblock %}
+{% block nav %} {% endblock %}
+{% block content %}
+    <br>
+    <h1>Редактировать заявку</h1>
+        <form action="{% url "ticket:engineer_update" ticket.pk %}" method="post" >
+        {% include 'partial/form.html' with button_text="Сохранить" %}
+    </form>
+    <br>
+    <p><a href="{% url 'ticket:engineer_ticket_view' ticket.pk %}" class="btn btn-primary" style="float: left">Назад</a></p>
+{% endblock %}
