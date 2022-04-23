@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Инженер{% endblock %}
+{% block content %}
+    <br>
+    <div>
+        <ul class="list-group">
+            <li class="list-group-item">Клиент: {{ ticket.client }}</li>
+            <li class="list-group-item">Объект обслуживания: {{ ticket.service_object }}</li>
+            <li class="list-group-item">Приоритет: {{ ticket.priority }}</li>
+            <li class="list-group-item">Тип заявки: {{ ticket.type }}</li>
+            <li class="list-group-item">Статус заявки: {{ ticket.status }}</li>
+            <li class="list-group-item">Уровень обслуживания: {{ ticket.service_level }}</li>
+            <li class="list-group-item">Департамент: {{ ticket.department }}</li>
+            <li class="list-group-item">Дата создания заявки: {{ ticket.created_at }}</li>
+            <li class="list-group-item">Дата изменения заявки: {{ ticket.updated_at }}</li>
+            <li class="list-group-item">Дата получения заявки: {{ ticket.recieved_at }}</li>
+            <li class="list-group-item">Желаемая дата исполнения: {{ ticket.desired_to }}</li>
+            <li class="list-group-item">Оператор: {{ ticket.operator }}</li>
+            <li class="list-group-item">Описание: {{ ticket.description }}</li>
+            <li class="list-group-item">Исполнитель: {{ ticket.executor }}</li>
+            <li class="list-group-item">Водитель: {{ ticket.driver }}</li>
+            <li class="list-group-item">Дата закрытия заявки: {{ ticket.closed_at }}</li>
+            <li class="list-group-item">Дата начала работ: {{ ticket.work_started_at }}</li>
+            <li class="list-group-item">Дата окончания работ: {{ ticket.work_finished_at }}</li>
+            <li class="list-group-item">Дата начала поездки: {{ ticket.ride_started_at }}</li>
+            <li class="list-group-item">Дата окончания поездки: {{ ticket.ride_finished_at }}</li>
+            <li class="list-group-item">Причина отмены заявки: {{ ticket.cancel_reason }}</li>
+
+            {#            <li class="list-group-item"><a href="{% url 'engineer:service_object_update' service_object.pk %}"#}
+            {#                                           class="btn btn-primary">Редактировать</a></li>#}
+            {#            <li class="list-group-item"><a href="{% url 'engineer:service_object_delete' service_object.pk %}"#}
+            {#                                           class="btn btn-danger">Удалить</a></li>#}
+        </ul>
+    </div>
+    <br>
+{% endblock %}
