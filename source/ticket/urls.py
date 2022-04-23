@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from ticket.views.chief import ChiefTicketCreateView, ChiefTicketListView, ChiefTicketDetailView
+from ticket.views.chief import ChiefTicketCreateView, ChiefTicketListView, ChiefTicketDetailView, ChiefTicketUpdateView
 from ticket.views.clients import (ClientListView,
                                   ClientDetailView,
                                   ClientCreateView,
@@ -35,6 +35,7 @@ chief_urlpatterns = [
     path('', ChiefTicketListView.as_view(), name='chief_ticket_list'),
     path('create/', ChiefTicketCreateView.as_view(), name='chief_ticket_create'),
     path('<int:pk>/', ChiefTicketDetailView.as_view(), name='chief_ticket_detail'),
+    path('<int:pk>/update/', ChiefTicketUpdateView.as_view(), name='chief_ticket_update'),
 ]
 
 urlpatterns = [
