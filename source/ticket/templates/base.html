@@ -34,6 +34,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'ticket:chief_ticket_list' %}">Просмотр Заявок для начальника отдела</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ticket:engineer_list' %}">Просмотр заявок для инженера</a>
+                    </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item">
                             <p class="nav-link">Привет, {{ user.username }}!</p>

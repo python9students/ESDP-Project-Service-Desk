@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 from ticket.models import ServiceObject, Client, Ticket
 
 User = get_user_model()
+from ticket.models import ServiceObject, Client, Ticket
 
 
 class ServiceObjectForm(forms.ModelForm):
@@ -21,7 +22,6 @@ class ServiceObjectForm(forms.ModelForm):
 
 class ClientForm(forms.ModelForm):
     website = forms.URLField(widget=TextInput)
-
     class Meta:
         model = Client
         fields = '__all__'
@@ -48,3 +48,9 @@ class ChiefForm(forms.ModelForm):
                                              attrs={'class': 'form-control', 'type': 'datetime-local'}),
         }
         exclude = ("work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at")
+
+
+class EngineerForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = '__all__'

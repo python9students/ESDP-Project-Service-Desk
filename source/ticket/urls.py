@@ -12,6 +12,8 @@ from ticket.views.service_object import (ServiceObjectListView,
                                          ServiceObjectUpdateView,
                                          ServiceObjectDetailView,
                                          ServiceObjectDeleteView)
+from views.engineer import EngineerTicketCreateView, EngineerTicketDetailView, EngineerTicketUpdateView, \
+    EngineerTicketListView
 
 app_name = 'ticket'
 
@@ -38,9 +40,17 @@ chief_urlpatterns = [
     path('<int:pk>/update/', ChiefTicketUpdateView.as_view(), name='chief_ticket_update'),
 ]
 
+engineer_urlpatterns = [
+    path('<int:pk>/', EngineerTicketDetailView.as_view(), name='engineer_ticket_view'),
+    path('create/', EngineerTicketCreateView.as_view(), name='engineer_create'),
+    path('<int:pk>/update/', EngineerTicketUpdateView.as_view(), name='engineer_update'),
+    path('', EngineerTicketListView.as_view(), name="engineer_list")
+]
+
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('service_object/', include(service_object_urlpatterns)),
     path('client/', include(client_urlpatterns)),
     path('chief/', include(chief_urlpatterns)),
+    path('engineer/', include(engineer_urlpatterns))
 ]
