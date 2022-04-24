@@ -1,8 +1,14 @@
 from django.urls import reverse
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, ListView
 
 from forms import EngineerForm
 from ticket.models import Ticket
+
+
+class EngineerTicketListView(ListView):
+    model = Ticket
+    template_name = 'engineer/list.html'
+    context_object_name = 'tickets'
 
 
 class EngineerTicketDetailView(DetailView):
