@@ -16,8 +16,12 @@
             <li class="list-group-item">Дата получения заявки: {{ ticket.recieved_at }}</li>
             <li class="list-group-item">Желаемая дата исполнения: {{ ticket.desired_to }}</li>
             <li class="list-group-item">Оператор: {{ ticket.operator }}</li>
-            <li class="list-group-item">Работы: {{ ticket.works }}</li>
-            <li class="list-group-item">Проблемные области: {{ ticket.problem_areas }}</li>
+            {% for work in ticket.works.all %}
+            <li class="list-group-item">Работы: {{ work }}</li>
+            {% endfor %}
+            {% for problem_area in ticket.problem_areas.all  %}
+            <li class="list-group-item">Проблемные области: {{ problem_area }}</li>
+            {% endfor %}
             <li class="list-group-item">Описание: {{ ticket.description }}</li>
             <li class="list-group-item">Исполнитель: {{ ticket.executor }}</li>
             <li class="list-group-item">Водитель: {{ ticket.driver }}</li>
