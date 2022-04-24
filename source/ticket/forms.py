@@ -22,6 +22,7 @@ class ServiceObjectForm(forms.ModelForm):
 
 class ClientForm(forms.ModelForm):
     website = forms.URLField(widget=TextInput)
+
     class Meta:
         model = Client
         fields = '__all__'
@@ -60,3 +61,4 @@ class EngineerForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = '__all__'
+
