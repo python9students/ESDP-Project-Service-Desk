@@ -1,7 +1,7 @@
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, UpdateView, ListView
 
-from forms import EngineerForm
+from ticket.forms import EngineerForm
 from ticket.models import Ticket
 
 

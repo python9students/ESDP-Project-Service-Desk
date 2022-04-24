@@ -12,7 +12,7 @@ from ticket.views.service_object import (ServiceObjectListView,
                                          ServiceObjectUpdateView,
                                          ServiceObjectDetailView,
                                          ServiceObjectDeleteView)
-from views.engineer import EngineerTicketCreateView, EngineerTicketDetailView, EngineerTicketUpdateView, \
+from ticket.views.engineer import EngineerTicketCreateView, EngineerTicketDetailView, EngineerTicketUpdateView, \
     EngineerTicketListView
 
 app_name = 'ticket'
