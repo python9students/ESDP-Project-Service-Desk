@@ -287,7 +287,7 @@ class Ticket(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания заявки")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата изменения заявки")
     recieved_at = models.DateTimeField(null=True, default=None, verbose_name='Дата получения заявки')
-    desired_to = models.DateTimeField(null=True, blank=True, default=None, verbose_name='Желаемая дата исполнения')
+    desired_to = models.DateTimeField(null=True, default=None, verbose_name='Желаемая дата исполнения')
     operator = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Оператор',
                                  related_name='operator_tickets')
     works = models.ManyToManyField('ticket.Work', related_name='tickets')
@@ -296,7 +296,7 @@ class Ticket(models.Model):
     executor = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Исполнитель',
                                  related_name='executor_tickets', null=True, default=None)
     driver = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Водитель', related_name='driver_tickets',
-                               null=True, default=None, blank=True)
+                               null=True, default=None)
     closed_at = models.DateTimeField(null=True, default=None, verbose_name='Дата закрытия заявки')
     work_started_at = models.DateTimeField(null=True, default=None, verbose_name='Дата начала работ')
     work_finished_at = models.DateTimeField(null=True, default=None, verbose_name='Дата окончания работ')

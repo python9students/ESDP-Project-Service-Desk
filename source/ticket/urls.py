@@ -1,5 +1,6 @@
 from django.urls import path, include
 
+from ticket.views.chief import ChiefTicketCreateView, ChiefTicketListView, ChiefTicketDetailView, ChiefTicketUpdateView
 from ticket.views.clients import (ClientListView,
                                   ClientDetailView,
                                   ClientCreateView,
@@ -30,8 +31,16 @@ client_urlpatterns = [
     path('<int:pk>/delete/', ClientDeleteView.as_view(), name='client_delete'),
 ]
 
+chief_urlpatterns = [
+    path('', ChiefTicketListView.as_view(), name='chief_ticket_list'),
+    path('create/', ChiefTicketCreateView.as_view(), name='chief_ticket_create'),
+    path('<int:pk>/', ChiefTicketDetailView.as_view(), name='chief_ticket_detail'),
+    path('<int:pk>/update/', ChiefTicketUpdateView.as_view(), name='chief_ticket_update'),
+]
+
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('service_object/', include(service_object_urlpatterns)),
     path('client/', include(client_urlpatterns)),
+    path('chief/', include(chief_urlpatterns)),
 ]
