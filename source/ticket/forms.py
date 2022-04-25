@@ -7,7 +7,6 @@ from mptt.forms import TreeNodeMultipleChoiceField
 from ticket.models import ServiceObject, Client, Ticket, Work, ProblemArea
 
 User = get_user_model()
-from ticket.models import ServiceObject, Client, Ticket
 
 
 class ServiceObjectForm(forms.ModelForm):
@@ -58,26 +57,6 @@ class ChiefForm(forms.ModelForm):
 
 
 class EngineerForm(forms.ModelForm):
-    client = forms.CharField(disabled=True)
-    service_object = forms.CharField(disabled=True)
-    priority = forms.CharField(disabled=True)
-    type = forms.CharField(disabled=True)
-    status = forms.CharField(disabled=True)
-    service_level = forms.CharField(disabled=True)
-    department = forms.CharField(disabled=True)
-    created_at = forms.CharField(disabled=True)
-    updated_at = forms.CharField(disabled=True)
-    recieved_at = forms.CharField(disabled=True)
-    desired_to = forms.CharField(disabled=True)
-    operator = forms.CharField(disabled=True)
-    works = forms.CharField(disabled=True)
-    problem_areas = forms.CharField(disabled=True)
-    description = forms.CharField(disabled=True)
-    executor = forms.CharField(disabled=True)
-    driver = forms.CharField(disabled=True)
-    closed_at = forms.CharField(disabled=True)
-    cancel_reason = forms.CharField(disabled=True)
-
     class Meta:
         model = Ticket
         fields = '__all__'
@@ -92,3 +71,23 @@ class EngineerForm(forms.ModelForm):
             'ride_finished_at': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'),
                                                     attrs={'class': 'form-control', 'type': 'datetime-local'})
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['client'].disabled = True
+        self.fields['service_object'].disabled = True
+        self.fields['priority'].disabled = True
+        self.fields['type'].disabled = True
+        self.fields['status'].disabled = True
+        self.fields['service_level'].disabled = True
+        self.fields['department'].disabled = True
+        self.fields['recieved_at'].disabled = True
+        self.fields['desired_to'].disabled = True
+        self.fields['operator'].disabled = True
+        self.fields['works'].disabled = True
+        self.fields['problem_areas'].disabled = True
+        self.fields['description'].disabled = True
+        self.fields['executor'].disabled = True
+        self.fields['driver'].disabled = True
+        self.fields['closed_at'].disabled = True
+        self.fields['cancel_reason'].disabled = True
