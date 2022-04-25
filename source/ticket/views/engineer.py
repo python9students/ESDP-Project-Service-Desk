@@ -16,15 +16,6 @@ class EngineerTicketDetailView(DetailView):
     model = Ticket
 
 
-class EngineerTicketCreateView(CreateView):
-    model = Ticket
-    form_class = EngineerForm
-    template_name = "engineer/create.html"
-
-    def get_success_url(self):
-        return reverse("ticket:engineer_ticket_view", kwargs={"pk": self.object.pk})
-
-
 class EngineerTicketUpdateView(UpdateView):
     model = Ticket
     form_class = EngineerForm
