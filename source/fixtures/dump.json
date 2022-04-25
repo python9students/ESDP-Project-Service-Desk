@@ -1,6 +1,13 @@
 [
 {
   "model": "ticket.companytype",
+  "pk": 1,
+  "fields": {
+    "name": "Финансы"
+  }
+},
+{
+  "model": "ticket.companytype",
   "pk": 3,
   "fields": {
     "name": "Банк"
@@ -15,6 +22,20 @@
 },
 {
   "model": "ticket.serviceobjecttype",
+  "pk": 1,
+  "fields": {
+    "name": "ATM"
+  }
+},
+{
+  "model": "ticket.serviceobjecttype",
+  "pk": 2,
+  "fields": {
+    "name": "Terminal"
+  }
+},
+{
+  "model": "ticket.serviceobjecttype",
   "pk": 3,
   "fields": {
     "name": "Банкомат"
@@ -25,6 +46,20 @@
   "pk": 4,
   "fields": {
     "name": "Терминал"
+  }
+},
+{
+  "model": "ticket.serviceobjectmodel",
+  "pk": 1,
+  "fields": {
+    "name": "LG"
+  }
+},
+{
+  "model": "ticket.serviceobjectmodel",
+  "pk": 2,
+  "fields": {
+    "name": "Samsung"
   }
 },
 {
@@ -50,9 +85,24 @@
 },
 {
   "model": "ticket.country",
+  "pk": 1,
+  "fields": {
+    "name": "Кыргызстан"
+  }
+},
+{
+  "model": "ticket.country",
   "pk": 3,
   "fields": {
     "name": "Кыргызстан"
+  }
+},
+{
+  "model": "ticket.city",
+  "pk": 1,
+  "fields": {
+    "name": "Бишкек",
+    "country": 1
   }
 },
 {
@@ -85,6 +135,19 @@
   "fields": {
     "name": "Нарын",
     "country": 3
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 2,
+  "fields": {
+    "name": "KICB Bank",
+    "short_name": "KICB",
+    "website": "http://kicb.kg",
+    "type": 1,
+    "address": "Toktogula 90",
+    "country": 1,
+    "city": 1
   }
 },
 {
@@ -124,6 +187,116 @@
     "address": "",
     "country": 3,
     "city": 5
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 6,
+  "fields": {
+    "name": "Companion",
+    "short_name": "Companion",
+    "website": "http://www.agent.com",
+    "type": 1,
+    "address": "Umetaliev 11",
+    "country": 1,
+    "city": 1
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 7,
+  "fields": {
+    "name": "Bai Tushum",
+    "short_name": "BT",
+    "website": "http://baitushum.com",
+    "type": 1,
+    "address": "Almatinka 5",
+    "country": 1,
+    "city": 1
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 8,
+  "fields": {
+    "name": "Halykbank",
+    "short_name": "Halyk",
+    "website": "http://www.halyk.kg",
+    "type": 1,
+    "address": "Shabdan Baatyr 90",
+    "country": 1,
+    "city": 1
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 9,
+  "fields": {
+    "name": "Halykbank",
+    "short_name": "Halyk",
+    "website": "http://www.halyk.kg",
+    "type": 1,
+    "address": "6-Mikrorayon, 10 Dom, 55 kvar",
+    "country": 1,
+    "city": 1
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 10,
+  "fields": {
+    "name": "Bai Tushum 2",
+    "short_name": "Bai",
+    "website": "http://bai.kg",
+    "type": 1,
+    "address": "Elebaeva 90",
+    "country": 1,
+    "city": 1
+  }
+},
+{
+  "model": "ticket.serviceobject",
+  "pk": 2,
+  "fields": {
+    "serial_number": "345345345241",
+    "model": 2,
+    "client": 2,
+    "type": 2,
+    "is_installed": false,
+    "active_from": "2022-04-14T12:00:00Z",
+    "address": "Чуй 90",
+    "country": 1,
+    "city": 1
+  }
+},
+{
+  "model": "ticket.serviceobject",
+  "pk": 3,
+  "fields": {
+    "serial_number": "123412342134213",
+    "model": 1,
+    "client": 3,
+    "type": 1,
+    "is_installed": false,
+    "active_from": "2022-04-14T12:00:00Z",
+    "address": "Чуй 90",
+    "country": 1,
+    "city": 1
+  }
+},
+{
+  "model": "ticket.serviceobject",
+  "pk": 4,
+  "fields": {
+    "serial_number": "657568756756k",
+    "model": 1,
+    "client": 2,
+    "type": 1,
+    "is_installed": false,
+    "active_from": "2022-04-20T04:31:00Z",
+    "address": "311 ghjghg",
+    "country": 1,
+    "city": 1
   }
 },
 {
@@ -576,6 +749,39 @@
   "pk": 1,
   "fields": {
     "name": "Service Department"
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 1,
+  "fields": {
+    "client": 3,
+    "service_object": 3,
+    "priority": 2,
+    "type": 2,
+    "status": 2,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-04-25T05:02:19.209Z",
+    "updated_at": "2022-04-25T05:02:19.209Z",
+    "recieved_at": "2022-04-12T05:01:00Z",
+    "desired_to": "2022-04-28T05:01:00Z",
+    "operator": 6,
+    "description": "",
+    "executor": 2,
+    "driver": 4,
+    "closed_at": "2022-05-04T05:02:00Z",
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_started_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "works": [
+      8
+    ],
+    "problem_areas": [
+      8
+    ]
   }
 }
 ]
