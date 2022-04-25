@@ -58,8 +58,20 @@ class ChiefForm(forms.ModelForm):
 
 
 class OperatorForm(forms.ModelForm):
-    description = forms.CharField(required=False, max_length=1000, widget=widgets.Textarea())
-    cancel_reason = forms.CharField(required=False, max_length=255)
+    description = forms.CharField(required=False, max_length=1000,
+                                  widget=widgets.Textarea(), label='Описание')
+    cancel_reason = forms.CharField(required=False, max_length=255, label='Причина отмены заявки')
+    works = TreeNodeMultipleChoiceField(queryset=Work.objects.all(),
+                                        widget=widgets.SelectMultiple(attrs={'size': 20}),
+                                        label='Работы')
+    problem_areas = TreeNodeMultipleChoiceField(queryset=ProblemArea.objects.all(),
+                                                widget=widgets.SelectMultiple(attrs={'size': 20}),
+                                                label='Проблемные области')
+    desired_to = forms.DateTimeField(required=False, label='Желаемая дата исполнения',
+                                     widget=widgets.DateTimeInput(format=('%d/%m/%Y %H:%M'),
+                                                                  attrs={'class': 'form-control',
+                                                                         'type': 'datetime-local'}),
+                                     )
 
     class Meta:
         model = Ticket
@@ -71,8 +83,6 @@ class OperatorForm(forms.ModelForm):
         widgets = {
             'recieved_at': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'),
                                                attrs={'class': 'form-control', 'type': 'datetime-local'}),
-            'desired_to': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'),
-                                              attrs={'class': 'form-control', 'type': 'datetime-local'}),
             'closed_at': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'),
                                              attrs={'class': 'form-control', 'type': 'datetime-local'}),
         }
@@ -80,6 +90,13 @@ class OperatorForm(forms.ModelForm):
 
 
 class EngineerForm(forms.ModelForm):
+    works = TreeNodeMultipleChoiceField(queryset=Work.objects.all(),
+                                        widget=widgets.SelectMultiple(attrs={'size': 20}),
+                                        label='Работы')
+    problem_areas = TreeNodeMultipleChoiceField(queryset=ProblemArea.objects.all(),
+                                                widget=widgets.SelectMultiple(attrs={'size': 20}),
+                                                label='Проблемные области')
+
     class Meta:
         model = Ticket
         fields = '__all__'

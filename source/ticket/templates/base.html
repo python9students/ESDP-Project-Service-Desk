@@ -15,7 +15,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">ServiceDesk</a>
+            <a class="navbar-brand" href="{% url 'ticket:index' %}">ServiceDesk</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -25,17 +25,13 @@
                 <ul class="navbar-nav">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'ticket:service_object_list' %}">Просмотр Объектов
-                            обслуживания</a>
+                        <a class="nav-link" href="{% url 'ticket:service_object_list' %}">#1</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'ticket:client_list' %}">Просмотр Клиентов</a>
+                        <a class="nav-link" href="{% url 'ticket:client_list' %}">#2</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'ticket:chief_ticket_list' %}">Просмотр Заявок для начальника отдела</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'ticket:engineer_list' %}">Просмотр заявок для инженера</a>
+                        <a class="nav-link" href="{% url 'ticket:ticket_list' %}">Заявки</a>
                     </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item">
