@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.forms import TextInput
 from django.forms import widgets
 from mptt.forms import TreeNodeMultipleChoiceField
@@ -131,3 +132,17 @@ class EngineerForm(forms.ModelForm):
         self.fields['driver'].disabled = True
         self.fields['closed_at'].disabled = True
         self.fields['cancel_reason'].disabled = True
+
+    def clean(self):
+        cleaned_data = super().clean()
+        work_started_at = cleaned_data['work_started_at']
+        work_finished_at = cleaned_data['work_finished_at']
+        ride_started_at = cleaned_data['ride_started_at']
+        ride_finished_at = cleaned_data['ride_finished_at']
+        if work_finished_at < work_started_at:
+            raise ValidationError(f"Дата окончания работы не должны бать раньше начала")
+
+        if ride_finished_at < ride_started_at:
+            raise ValidationError(f"Дата окончания поездки не должны бать раньше начала")
+
+        return cleaned_data
