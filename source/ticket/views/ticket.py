@@ -49,6 +49,7 @@ class TicketUpdateView(UpdateView):
     def get_form(self, form_class=None):
         user = self.request.user
         group = self.request.user.groups.get(user=user)
+        print(group)
         operators = Group.objects.filter(name='operators')
         chiefs = Group.objects.filter(name='chiefs')
         engineers = Group.objects.filter(name='engineers')
