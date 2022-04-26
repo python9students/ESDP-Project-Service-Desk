@@ -46,6 +46,10 @@
             <li class="list-group-item">Описание: {{ chief_ticket.description|default:"Не указано" }}</li>
             <li class="list-group-item">Исполнитель: {{ chief_ticket.executor|default:"Не указано" }}</li>
             <li class="list-group-item">Водитель: {{ chief_ticket.driver|default:"Не указано" }}</li>
+            <li class="list-group-item">Дата начала работ: {{ chief_ticket.work_started_at|default:"Не указано" }}</li>
+            <li class="list-group-item">Дата окончания работ: {{ chief_ticket.work_finished_at|default:"Не указано" }}</li>
+            <li class="list-group-item">Дата начала поездки: {{ chief_ticket.ride_started_at|default:"Не указано" }}</li>
+            <li class="list-group-item">Дата окончания поездки: {{ chief_ticket.ride_finished_at|default:"Не указано" }}</li>
             <li class="list-group-item">Причина отмены заявки: {{ chief_ticket.cancel_reason|default:"Не указано" }}</li>
             <li class="list-group-item"><a href="{% url "ticket:ticket_update" chief_ticket.id %}" class="btn btn-primary">Редактировать</a></li>
         </ul>
