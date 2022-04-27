@@ -13,7 +13,8 @@ class ServiceObjectForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance:
-            self.initial['active_from'] = self.instance.active_from.strftime('%Y-%m-%dT%H:%M') if self.instance.active_from else None
+            self.initial['active_from'] = self.instance.active_from.strftime(
+                '%Y-%m-%dT%H:%M') if self.instance.active_from else None
 
     class Meta:
         model = ServiceObject
@@ -46,9 +47,12 @@ class ChiefForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance:
-            self.initial['recieved_at'] = self.instance.recieved_at.strftime('%Y-%m-%dT%H:%M') if self.instance.recieved_at else None
-            self.initial['desired_to'] = self.instance.desired_to.strftime('%Y-%m-%dT%H:%M') if self.instance.desired_to else None
-            self.initial['closed_at'] = self.instance.closed_at.strftime('%Y-%m-%dT%H:%M') if self.instance.closed_at else None
+            self.initial['recieved_at'] = self.instance.recieved_at.strftime(
+                '%Y-%m-%dT%H:%M') if self.instance.recieved_at else None
+            self.initial['desired_to'] = self.instance.desired_to.strftime(
+                '%Y-%m-%dT%H:%M') if self.instance.desired_to else None
+            self.initial['closed_at'] = self.instance.closed_at.strftime(
+                '%Y-%m-%dT%H:%M') if self.instance.closed_at else None
 
     class Meta:
         model = Ticket
@@ -86,14 +90,17 @@ class OperatorForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance:
-            self.initial['desired_to'] = self.instance.desired_to.strftime('%Y-%m-%dT%H:%M') if self.instance.desired_to else None
-            self.initial['recieved_at'] = self.instance.recieved_at.strftime('%Y-%m-%dT%H:%M') if self.instance.recieved_at else None
-            self.initial['closed_at'] = self.instance.closed_at.strftime('%Y-%m-%dT%H:%M') if self.instance.closed_at else None
+            self.initial['desired_to'] = self.instance.desired_to.strftime(
+                '%Y-%m-%dT%H:%M') if self.instance.desired_to else None
+            self.initial['recieved_at'] = self.instance.recieved_at.strftime(
+                '%Y-%m-%dT%H:%M') if self.instance.recieved_at else None
+            self.initial['closed_at'] = self.instance.closed_at.strftime(
+                '%Y-%m-%dT%H:%M') if self.instance.closed_at else None
 
     class Meta:
         model = Ticket
         fields = ("client", "service_object", "priority", "type",
-                  "status", "service_level", "department", "recieved_at",
+                  "service_level", "department", "recieved_at",
                   "desired_to", "operator", "works", "problem_areas",
                   "description", "executor", "cancel_reason",)
 
@@ -101,7 +108,7 @@ class OperatorForm(forms.ModelForm):
             'recieved_at': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'closed_at': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
-        exclude = ("driver", "executor", "work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at",)
+        exclude = ("driver", "executor", "work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at", "status")
 
 
 class EngineerForm(forms.ModelForm):
@@ -147,7 +154,11 @@ class EngineerForm(forms.ModelForm):
         self.fields['closed_at'].disabled = True
         self.fields['cancel_reason'].disabled = True
         if self.instance:
-            self.initial['work_started_at'] = self.instance.work_started_at.strftime('%Y-%m-%dT%H:%M') if self.instance.work_started_at else None
-            self.initial['work_finished_at'] = self.instance.work_finished_at.strftime('%Y-%m-%dT%H:%M') if self.instance.work_finished_at else None
-            self.initial['ride_started_at'] = self.instance.ride_started_at.strftime('%Y-%m-%dT%H:%M') if self.instance.ride_started_at else None
-            self.initial['ride_finished_at'] = self.instance.ride_finished_at.strftime('%Y-%m-%dT%H:%M') if self.instance.ride_finished_at else None
+            self.initial['work_started_at'] = self.instance.work_started_at.strftime(
+                '%Y-%m-%dT%H:%M') if self.instance.work_started_at else None
+            self.initial['work_finished_at'] = self.instance.work_finished_at.strftime(
+                '%Y-%m-%dT%H:%M') if self.instance.work_finished_at else None
+            self.initial['ride_started_at'] = self.instance.ride_started_at.strftime(
+                '%Y-%m-%dT%H:%M') if self.instance.ride_started_at else None
+            self.initial['ride_finished_at'] = self.instance.ride_finished_at.strftime(
+                '%Y-%m-%dT%H:%M') if self.instance.ride_finished_at else None
