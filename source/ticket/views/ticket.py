@@ -1,9 +1,8 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.auth.models import Permission, Group
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import Group
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
-
-from ticket.forms import ChiefForm, OperatorForm, EngineerForm
 from ticket.models import Ticket
+from ticket.forms import ChiefForm, OperatorForm, EngineerForm
 from django.urls import reverse
 
 
@@ -16,6 +15,12 @@ class TicketListView(ListView):
 class TicketCreateView(LoginRequiredMixin, CreateView):
     model = Ticket
     template_name = 'ticket/create.html'
+
+    def get_form_kwargs(self):
+        res = super(TicketCreateView, self).get_form_kwargs()
+        if self.form_class == OperatorForm:
+            res['initial']['operator'] = self.request.user
+        return res
 
     def get_form(self, form_class=None):
         user = self.request.user
