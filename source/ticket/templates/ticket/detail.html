@@ -47,7 +47,11 @@
             <li class="list-group-item">Исполнитель: {{ chief_ticket.executor|default:"Не указано" }}</li>
             <li class="list-group-item">Водитель: {{ chief_ticket.driver|default:"Не указано" }}</li>
             <li class="list-group-item">Причина отмены заявки: {{ chief_ticket.cancel_reason|default:"Не указано" }}</li>
-            <li class="list-group-item"><a href="{% url "ticket:ticket_update" chief_ticket.id %}" class="btn btn-primary">Редактировать</a></li>
+            <li class="list-group-item">Дата закрытия заявки: {{ chief_ticket.closed_at|default:"Не указано" }}</li>
+
+
+            <li class="list-group-item"><a href="{% url "ticket:ticket_update" chief_ticket.id %}"
+                                           class="btn btn-primary">Редактировать</a></li>
         </ul>
     </div>
     <br>

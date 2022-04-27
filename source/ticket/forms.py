@@ -60,7 +60,7 @@ class ChiefForm(forms.ModelForm):
                   "status", "service_level", "department", "recieved_at",
                   "desired_to", "operator", 'works',
                   "problem_areas", "description", "executor",
-                  "driver", "closed_at", "cancel_reason")
+                  "driver", "cancel_reason")
         widgets = {
             'recieved_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                                attrs={'type': 'datetime-local'}),
@@ -69,7 +69,7 @@ class ChiefForm(forms.ModelForm):
             'closed_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                              attrs={'type': 'datetime-local'}),
         }
-        exclude = ("work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at")
+        exclude = ("work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at", "closed_at")
 
 
 class OperatorForm(forms.ModelForm):
