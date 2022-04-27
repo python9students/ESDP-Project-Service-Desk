@@ -1,9 +1,8 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.auth.models import Permission, Group
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import Group
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
-
-from ticket.forms import ChiefForm, OperatorForm, EngineerForm
 from ticket.models import Ticket
+from ticket.forms import ChiefForm, OperatorForm, EngineerForm
 from django.urls import reverse
 
 
