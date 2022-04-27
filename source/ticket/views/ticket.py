@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.auth.models import Permission, Group
 from django.http import HttpResponseRedirect
 from django.utils import timezone
+from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 
 from ticket.forms import ChiefForm, OperatorForm, EngineerForm
@@ -72,7 +73,20 @@ class TicketUpdateView(UpdateView):
         return super().get_form()
 
     def form_valid(self, form):
+        user = self.request.user
+        group = self.request.user.groups.get(user=user)
+        operators = Group.objects.filter(name='operators')
+        chiefs = Group.objects.filter(name='chiefs')
+        engineers = Group.objects.filter(name='engineers')
         status = TicketStatus.objects.get(name="Завершенный")
+        ticket = get_object_or_404(Ticket, pk=self.kwargs.get('pk'))
+        change_status = form.save(commit=False)
+        if group in operators:
+            change_status.status_id = 3
+            change_status.save()
+        elif group in chiefs:
+            change_status.status_id = 2
+            change_status.save()
         if 'close_ticket' in self.request.POST:
             self.object = form.save(commit=False)
             self.object.status = status
@@ -82,6 +96,7 @@ class TicketUpdateView(UpdateView):
         else:
             self.object.save()
             return HttpResponseRedirect(self.get_success_url())
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse("ticket:ticket_detail", kwargs={"pk": self.object.pk})
