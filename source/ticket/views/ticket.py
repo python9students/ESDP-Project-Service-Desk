@@ -16,6 +16,12 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
     model = Ticket
     template_name = 'ticket/create.html'
 
+    def get_form_kwargs(self):
+        res = super(TicketCreateView, self).get_form_kwargs()
+        if self.form_class == OperatorForm:
+            res['initial']['operator'] = self.request.user
+        return res
+
     def get_form(self, form_class=None):
         user = self.request.user
         group = self.request.user.groups.get(user=user)
