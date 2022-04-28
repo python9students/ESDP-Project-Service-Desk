@@ -137,7 +137,7 @@ class EngineerForm(forms.ModelForm):
             self.initial['ride_started_at'] = self.instance.ride_started_at.strftime(
                 '%Y-%m-%dT%H:%M') if self.instance.ride_started_at else None
             self.initial['ride_finished_at'] = self.instance.ride_finished_at.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance
+                '%Y-%m-%dT%H:%M') if self.instance.ride_finished_at else None
 
     def clean(self):
         cleaned_data = super().clean()
