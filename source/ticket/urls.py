@@ -3,7 +3,8 @@ from django.urls import path, include
 from ticket.views.ticket import (TicketCreateView,
                                  TicketListView,
                                  TicketDetailView,
-                                 TicketUpdateView)
+                                 TicketUpdateView,
+                                 TicketCancelView)
 from ticket.views.clients import (ClientListView,
                                   ClientDetailView,
                                   ClientCreateView,
@@ -39,6 +40,7 @@ ticket_urlpatterns = [
     path('create/', TicketCreateView.as_view(), name='ticket_create'),
     path('<int:pk>/', TicketDetailView.as_view(), name='ticket_detail'),
     path('<int:pk>/update/', TicketUpdateView.as_view(), name='ticket_update'),
+    path('<int:pk>/cancel/', TicketCancelView.as_view(), name='ticket_cancel'),
 ]
 
 urlpatterns = [

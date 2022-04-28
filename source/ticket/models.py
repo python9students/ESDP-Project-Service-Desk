@@ -302,7 +302,7 @@ class Ticket(models.Model):
     work_finished_at = models.DateTimeField(null=True, default=None, verbose_name='Дата окончания работ')
     ride_started_at = models.DateTimeField(null=True, default=None, verbose_name='Дата начала поездки')
     ride_finished_at = models.DateTimeField(null=True, default=None, verbose_name='Дата окончания поездки')
-    cancel_reason = models.CharField(max_length=255, blank=True, verbose_name='Причина отмены заявки')
+    cancel_reason = models.CharField(max_length=255, verbose_name='Причина отмены заявки')
 
     def __str__(self):
         return f'ticket №{self.id}'

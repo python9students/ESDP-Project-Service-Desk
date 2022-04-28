@@ -1,13 +1,9 @@
 from django import forms
-from django.contrib.auth import get_user_model
 from django.forms import TextInput
 from django.forms import widgets
 from mptt.forms import TreeNodeMultipleChoiceField
 
 from ticket.models import ServiceObject, Client, Ticket, Work, ProblemArea
-
-User = get_user_model()
-from ticket.models import ServiceObject, Client, Ticket
 
 
 class ServiceObjectForm(forms.ModelForm):
@@ -31,7 +27,6 @@ class ClientForm(forms.ModelForm):
 class ChiefForm(forms.ModelForm):
     description = forms.CharField(required=False, max_length=1000,
                                   widget=widgets.Textarea(), label='Описание')
-    cancel_reason = forms.CharField(required=False, max_length=255, label='Причина отмены заявки')
     works = TreeNodeMultipleChoiceField(queryset=Work.objects.all(),
                                         widget=widgets.SelectMultiple(attrs={'size': 20}),
                                         label='Работы')
@@ -41,11 +36,6 @@ class ChiefForm(forms.ModelForm):
 
     class Meta:
         model = Ticket
-        fields = ("client", "service_object", "priority", "type",
-                  "status", "service_level", "department", "recieved_at",
-                  "desired_to", "operator", 'works',
-                  "problem_areas", "description", "executor",
-                  "driver", "closed_at", "cancel_reason")
         widgets = {
             'recieved_at': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'),
                                                attrs={'class': 'form-control', 'type': 'datetime-local'}),
@@ -54,13 +44,12 @@ class ChiefForm(forms.ModelForm):
             'closed_at': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'),
                                              attrs={'class': 'form-control', 'type': 'datetime-local'}),
         }
-        exclude = ("work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at")
+        exclude = ("work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at", "cancel_reason")
 
 
 class OperatorForm(forms.ModelForm):
     description = forms.CharField(required=False, max_length=1000,
                                   widget=widgets.Textarea(), label='Описание')
-    cancel_reason = forms.CharField(required=False, max_length=255, label='Причина отмены заявки')
     works = TreeNodeMultipleChoiceField(queryset=Work.objects.all(),
                                         widget=widgets.SelectMultiple(attrs={'size': 20}),
                                         label='Работы')
@@ -75,18 +64,14 @@ class OperatorForm(forms.ModelForm):
 
     class Meta:
         model = Ticket
-        fields = ("client", "service_object", "priority", "type",
-                  "status", "service_level", "department", "recieved_at",
-                  "desired_to", "operator", "works", "problem_areas",
-                  "description", "executor", "cancel_reason",)
-
         widgets = {
             'recieved_at': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'),
                                                attrs={'class': 'form-control', 'type': 'datetime-local'}),
             'closed_at': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'),
                                              attrs={'class': 'form-control', 'type': 'datetime-local'}),
         }
-        exclude = ("driver", "executor", "work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at",)
+        exclude = ("driver", "executor", "work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at",
+                   "cancel_reason")
 
 
 class EngineerForm(forms.ModelForm):
@@ -99,8 +84,7 @@ class EngineerForm(forms.ModelForm):
 
     class Meta:
         model = Ticket
-        fields = '__all__'
-
+        exclude = ("cancel_reason",)
         widgets = {
             'work_started_at': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'),
                                                    attrs={'class': 'form-control', 'type': 'datetime-local'}),
@@ -114,20 +98,13 @@ class EngineerForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['client'].disabled = True
-        self.fields['service_object'].disabled = True
-        self.fields['priority'].disabled = True
-        self.fields['type'].disabled = True
-        self.fields['status'].disabled = True
-        self.fields['service_level'].disabled = True
-        self.fields['department'].disabled = True
-        self.fields['recieved_at'].disabled = True
-        self.fields['desired_to'].disabled = True
-        self.fields['operator'].disabled = True
-        self.fields['works'].disabled = True
-        self.fields['problem_areas'].disabled = True
-        self.fields['description'].disabled = True
-        self.fields['executor'].disabled = True
-        self.fields['driver'].disabled = True
-        self.fields['closed_at'].disabled = True
-        self.fields['cancel_reason'].disabled = True
+        fields = ['client', 'service_object', 'priority', 'type', 'status', 'service_level', 'department', 'recieved_at',
+                  'desired_to', 'operator', 'works', 'problem_areas', 'description', 'executor', 'driver', 'closed_at']
+        for field in fields:
+            self.fields[field].disabled = True
+
+
+class TicketCancelForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ("cancel_reason",)
