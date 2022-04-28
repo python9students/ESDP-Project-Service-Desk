@@ -1,11 +1,14 @@
+from django import forms
 from django.contrib.auth import get_user_model
 from ticket.models import ServiceObject, Client, Ticket, Work, ProblemArea
+from django.core.exceptions import ValidationError
 from django.forms import TextInput
 from django.forms import widgets
 from mptt.forms import TreeNodeMultipleChoiceField
 from django import forms
 
 User = get_user_model()
+from ticket.models import ServiceObject, Client, Ticket
 
 
 class ServiceObjectForm(forms.ModelForm):
@@ -162,3 +165,17 @@ class EngineerForm(forms.ModelForm):
                 '%Y-%m-%dT%H:%M') if self.instance.ride_started_at else None
             self.initial['ride_finished_at'] = self.instance.ride_finished_at.strftime(
                 '%Y-%m-%dT%H:%M') if self.instance.ride_finished_at else None
+
+    def clean(self):
+        cleaned_data = super().clean()
+        work_started_at = cleaned_data['work_started_at']
+        work_finished_at = cleaned_data['work_finished_at']
+        ride_started_at = cleaned_data['ride_started_at']
+        ride_finished_at = cleaned_data['ride_finished_at']
+        if work_finished_at < work_started_at:
+            raise ValidationError(f"Дата окончания работы не должны бать раньше начала")
+
+        if ride_finished_at < ride_started_at:
+            raise ValidationError(f"Дата окончания поездки не должны бать раньше начала")
+
+        return cleaned_data
