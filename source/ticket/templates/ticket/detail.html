@@ -4,7 +4,7 @@
 {% block content %}
     <br>
     <div>
-        {% if not ticket_canceled %}
+        {% if not ticket_canceled and is_chief %}
             <a class="btn btn-danger" href="{% url 'ticket:ticket_cancel' ticket.pk%}">Отменить заявку</a><br><br>
         {% endif %}
         <ul class="list-group">

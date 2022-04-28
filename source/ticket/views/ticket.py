@@ -44,9 +44,16 @@ class TicketDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         ticket_canceled = False
+        is_chief = False
+        user = self.request.user
+        group = user.groups.get(user=user)
+        chiefs = Group.objects.filter(name='chiefs')
+        if group in chiefs:
+            is_chief = True
         if str(self.object.status) == 'Отмененный':
             ticket_canceled = True
         context['ticket_canceled'] = ticket_canceled
+        context['is_chief'] = is_chief
         print(ticket_canceled)
         return context
 
@@ -80,6 +87,11 @@ class TicketCancelView(UpdateView):
     form_class = TicketCancelForm
 
     def get(self, request, *args, **kwargs):
+        user = self.request.user
+        group = user.groups.get(user=user)
+        chiefs = Group.objects.filter(name='chiefs')
+        if group not in chiefs:
+            raise PermissionDenied
         if str(self.get_object().status) == 'Отмененный':
             raise PermissionDenied
         return super().get(request, *args, **kwargs)
