@@ -1,14 +1,11 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from ticket.models import ServiceObject, Client, Ticket, Work, ProblemArea
+from ticket.models import Work, ProblemArea, ServiceObject, Client, Ticket
 from django.core.exceptions import ValidationError
-from django.forms import TextInput
-from django.forms import widgets
+from django.forms import TextInput, widgets
 from mptt.forms import TreeNodeMultipleChoiceField
-from django import forms
 
 User = get_user_model()
-from ticket.models import ServiceObject, Client, Ticket
 
 
 class ServiceObjectForm(forms.ModelForm):
