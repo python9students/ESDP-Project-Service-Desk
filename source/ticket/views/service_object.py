@@ -1,8 +1,7 @@
-from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
-
-from ticket.forms import ServiceObjectForm
 from ticket.models import ServiceObject
+from ticket.forms import ServiceObjectForm
+from django.urls import reverse, reverse_lazy
 
 
 class ServiceObjectListView(ListView):

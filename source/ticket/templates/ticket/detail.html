@@ -49,9 +49,14 @@
             <li class="list-group-item">Описание: {{ ticket.description|default:"Не указано" }}</li>
             <li class="list-group-item">Исполнитель: {{ ticket.executor|default:"Не указано" }}</li>
             <li class="list-group-item">Водитель: {{ ticket.driver|default:"Не указано" }}</li>
+            <li class="list-group-item">Дата начала работ: {{ ticket.work_started_at|default:"Не указано" }}</li>
+            <li class="list-group-item">Дата окончания работ: {{ ticket.work_finished_at|default:"Не указано" }}</li>
+            <li class="list-group-item">Дата начала поездки: {{ ticket.ride_started_at|default:"Не указано" }}</li>
+            <li class="list-group-item">Дата окончания поездки: {{ ticket.ride_finished_at|default:"Не указано" }}</li>
             {% if ticket.cancel_reason %}
                 <li class="list-group-item">Причина отмены заявки: {{ ticket.cancel_reason|default:"Не указано" }}</li>
             {% endif %}
+            <li class="list-group-item">Дата закрытия заявки: {{ ticket.closed_at|default:"Не указано" }}</li>
             <li class="list-group-item"><a href="{% url "ticket:ticket_update" ticket.id %}" class="btn btn-primary">Редактировать</a></li>
         </ul>
     </div>

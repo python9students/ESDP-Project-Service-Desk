@@ -1,7 +1,7 @@
-from django.contrib.auth import get_user_model
 from django.core.validators import RegexValidator
-from django.db import models
+from django.contrib.auth import get_user_model
 from mptt.models import MPTTModel, TreeForeignKey
+from django.db import models
 
 
 User = get_user_model()
@@ -278,7 +278,7 @@ class Ticket(models.Model):
     type = models.ForeignKey('ticket.TicketType', on_delete=models.PROTECT, verbose_name='Тип заявки',
                              related_name='tickets', null=True, default=None)
     status = models.ForeignKey('ticket.TicketStatus', on_delete=models.PROTECT, verbose_name='Статус заявки',
-                               related_name='tickets', null=True, default=None)
+                               related_name='tickets', null=True, default=4)
     service_level = models.ForeignKey('ticket.ServiceLevel', on_delete=models.PROTECT,
                                       verbose_name='Уровень обслуживания', related_name='tickets',
                                       null=True, default=None)

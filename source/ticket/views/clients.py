@@ -1,10 +1,10 @@
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.db.models import ProtectedError
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
-from django.urls import reverse, reverse_lazy
-from ticket.forms import ClientForm
-from ticket.models import Client
 from django.shortcuts import get_object_or_404
+from ticket.models import Client
+from ticket.forms import ClientForm
+from django.urls import reverse, reverse_lazy
 
 
 class IndexView(TemplateView):
