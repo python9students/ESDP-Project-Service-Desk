@@ -3,13 +3,17 @@
 {% block content %}
     <br>
     {% if not user.username == 'engineer' %}
-    <a href="{% url 'ticket:ticket_create' %}" class="btn btn-primary mb-5">Создать Заявку</a>
+        <a href="{% url 'ticket:ticket_create' %}" class="btn btn-primary mb-5">Создать Заявку</a>
     {% endif %}
-    {% for ticket in tickets %}
+    {% for chief_ticket in chief_tickets %}
         <div>
             <ul class="list-group">
-                <li class="list-group-item">Заявка № {{ ticket.id }}</li>
-                <li class="list-group-item"><a href="{% url 'ticket:ticket_detail' ticket.pk %}" class="btn btn-primary">Детальный просмотр</a></li>
+                <li class="list-group-item">Заявка № {{ chief_ticket.id }}</li>
+                <li class="list-group-item">Клиент: {{ chief_ticket.client }}</li>
+                <li class="list-group-item">Объект обслуживания: {{ chief_ticket.service_object }}</li>
+                <li class="list-group-item">Статус: {{ chief_ticket.status }}</li>
+                <li class="list-group-item"><a href="{% url 'ticket:ticket_detail' chief_ticket.pk %}"
+                                               class="btn btn-primary">Детальный просмотр</a></li>
             </ul>
         </div>
         <br>
