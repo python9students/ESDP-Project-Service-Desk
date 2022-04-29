@@ -289,7 +289,7 @@ class Ticket(models.Model):
     recieved_at = models.DateTimeField(null=True, default=None, verbose_name='Дата получения заявки')
     desired_to = models.DateTimeField(null=True, default=None, verbose_name='Желаемая дата исполнения')
     operator = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Оператор',
-                                 related_name='operator_tickets')
+                                 related_name='operator_tickets', null=True)
     works = models.ManyToManyField('ticket.Work', related_name='tickets')
     problem_areas = models.ManyToManyField('ticket.ProblemArea', related_name='tickets')
     description = models.TextField(max_length=1000, blank=True, verbose_name='Описание')

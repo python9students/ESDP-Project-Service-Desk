@@ -99,7 +99,7 @@ class OperatorForm(forms.ModelForm):
             'recieved_at': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
         exclude = ("driver", "executor", "work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at",
-                   "cancel_reason", "status", "closed_at")
+                   "cancel_reason", "status", "closed_at", "operator")
 
 
 class EngineerForm(forms.ModelForm):
