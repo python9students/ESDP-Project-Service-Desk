@@ -97,10 +97,9 @@ class OperatorForm(forms.ModelForm):
         model = Ticket
         widgets = {
             'recieved_at': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
-            'closed_at': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
         exclude = ("driver", "executor", "work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at",
-                   "cancel_reason", "status")
+                   "cancel_reason", "status", "closed_at")
 
 
 class EngineerForm(forms.ModelForm):
