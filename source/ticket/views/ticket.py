@@ -55,15 +55,20 @@ class TicketDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         ticket_canceled = False
         is_chief = False
+        is_operator = False
         user = self.request.user
         group = user.groups.get(user=user)
         chiefs = Group.objects.filter(name='chiefs')
+        operators = Group.objects.filter(name='operators')
         if group in chiefs:
             is_chief = True
+        elif group in operators:
+            is_operator = True
         if str(self.object.status) == 'Отмененный':
             ticket_canceled = True
         context['ticket_canceled'] = ticket_canceled
         context['is_chief'] = is_chief
+        context['is_operator'] = is_operator
         print(ticket_canceled)
         return context
 
