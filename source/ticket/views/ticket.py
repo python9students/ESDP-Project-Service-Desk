@@ -102,6 +102,9 @@ class TicketUpdateView(UpdateView):
             change_status.status_id = 3
             change_status.save()
         elif group in chiefs:
+            change_status.status_id = 5
+            change_status.save()
+        elif group in engineers:
             change_status.status_id = 2
             change_status.save()
         if 'close_ticket' in self.request.POST:
