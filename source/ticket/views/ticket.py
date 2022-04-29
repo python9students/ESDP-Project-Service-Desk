@@ -9,13 +9,18 @@ from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from ticket.forms import ChiefForm, OperatorForm, EngineerForm, TicketCancelForm
 from ticket.models import Ticket, TicketStatus
 from django.urls import reverse
-from datetime import datetime
 
 
 class TicketListView(ListView):
     model = Ticket
     template_name = 'ticket/list.html'
     context_object_name = 'tickets'
+
+    def get_queryset(self):
+        tickets = Ticket.objects.all()
+        if self.request.user.has_perm('ticket.see_engineer_tickets') and not self.request.user.is_superuser:
+            return tickets.filter(status__in=[1, 2, 6])
+        return tickets
 
 
 class TicketCreateView(LoginRequiredMixin, CreateView):

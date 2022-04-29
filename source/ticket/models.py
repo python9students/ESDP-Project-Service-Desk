@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from mptt.models import MPTTModel, TreeForeignKey
 from django.db import models
 
-
 User = get_user_model()
 
 
@@ -90,7 +89,8 @@ class Client(models.Model):
     """
     name = models.CharField(max_length=255, verbose_name='Название')
     short_name = models.CharField(max_length=50, verbose_name='Сокращенное название')
-    website = models.URLField(max_length=255, blank=True, validators=[RegexValidator(r'[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)')],
+    website = models.URLField(max_length=255, blank=True, validators=[
+        RegexValidator(r'[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)')],
                               verbose_name='Вебсайт')
     type = models.ForeignKey('ticket.CompanyType', on_delete=models.PROTECT, verbose_name='Тип компании',
                              related_name='clients')
@@ -311,3 +311,5 @@ class Ticket(models.Model):
         verbose_name = 'Заявка'
         verbose_name_plural = 'Заявки'
         db_table = 'ticket'
+        permissions = [("see_engineer_tickets",
+                        "Может видеть только заявки со статусами Назначенный, На исполнении, Заверщенный"), ]
