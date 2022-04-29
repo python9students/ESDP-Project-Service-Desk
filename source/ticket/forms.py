@@ -140,9 +140,10 @@ class EngineerForm(forms.ModelForm):
         ride_started_at = cleaned_data['ride_started_at']
         ride_finished_at = cleaned_data['ride_finished_at']
         if work_finished_at < work_started_at:
-            raise ValidationError(f"Дата окончания работы не должны бать раньше начала")
+            self.add_error('work_started_at', ValidationError("Дата окончания работы не должны бать раньше начала"))
 
         if ride_finished_at < ride_started_at:
-            raise ValidationError(f"Дата окончания поездки не должны бать раньше начала")
+            self.add_error('ride_started_at',
+                           ValidationError("Дата окончания поездки не должны бать раньше начала"))
 
         return cleaned_data
