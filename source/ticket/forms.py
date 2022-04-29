@@ -42,6 +42,10 @@ class ChiefForm(forms.ModelForm):
     problem_areas = TreeNodeMultipleChoiceField(queryset=ProblemArea.objects.all(),
                                                 widget=widgets.SelectMultiple(attrs={'size': 20}),
                                                 label='Проблемные области')
+    desired_to = forms.DateTimeField(required=False, label='Желаемая дата исполнения',
+                                     widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
+                                                                  attrs={'type': 'datetime-local'}),
+                                     )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -58,8 +62,6 @@ class ChiefForm(forms.ModelForm):
         widgets = {
             'recieved_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                                attrs={'type': 'datetime-local'}),
-            'desired_to': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                              attrs={'type': 'datetime-local'}),
             'closed_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                              attrs={'type': 'datetime-local'}),
         }
