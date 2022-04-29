@@ -107,7 +107,7 @@ class TicketUpdateView(UpdateView):
             change_status.status_id = 3
             change_status.save()
         elif group in chiefs:
-            change_status.status_id = 5
+            change_status.status_id = 6
             change_status.save()
         elif group in engineers:
             change_status.status_id = 2
