@@ -109,24 +109,35 @@ class EngineerForm(forms.ModelForm):
     problem_areas = TreeNodeMultipleChoiceField(queryset=ProblemArea.objects.all(),
                                                 widget=widgets.SelectMultiple(attrs={'size': 20}),
                                                 label='Проблемные области')
+    work_started_at = forms.DateTimeField(required=False, label='Дата начала работ',
+                                          widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
+                                                                       attrs={'type': 'datetime-local'}),
+                                          )
+    work_finished_at = forms.DateTimeField(required=False, label='Дата окончания работ',
+                                           widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
+                                                                        attrs={'type': 'datetime-local'}),
+                                           )
+    ride_finished_at = forms.DateTimeField(required=False, label='Дата окончания поездки',
+                                           widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
+                                                                        attrs={'type': 'datetime-local'}),
+                                           )
+    closed_at = forms.DateTimeField(required=False, label='Дата закрытия заявки',
+                                    widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
+                                                                 attrs={'type': 'datetime-local'}),
+                                    )
 
     class Meta:
         model = Ticket
         exclude = ("cancel_reason",)
         widgets = {
-            'work_started_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                   attrs={'type': 'datetime-local'}),
-            'work_finished_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                    attrs={'type': 'datetime-local'}),
             'ride_started_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                                    attrs={'type': 'datetime-local'}),
-            'ride_finished_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                    attrs={'type': 'datetime-local'})
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        fields = ['client', 'service_object', 'priority', 'type', 'status', 'service_level', 'department', 'recieved_at',
+        fields = ['client', 'service_object', 'priority', 'type', 'status', 'service_level', 'department',
+                  'recieved_at',
                   'desired_to', 'operator', 'works', 'problem_areas', 'description', 'executor', 'driver', 'closed_at']
         for field in fields:
             self.fields[field].disabled = True
@@ -146,13 +157,37 @@ class EngineerForm(forms.ModelForm):
         work_finished_at = cleaned_data['work_finished_at']
         ride_started_at = cleaned_data['ride_started_at']
         ride_finished_at = cleaned_data['ride_finished_at']
-        if work_finished_at < work_started_at:
-            self.add_error('work_started_at', ValidationError("Дата окончания работы не должны бать раньше начала"))
 
-        if ride_finished_at < ride_started_at:
-            self.add_error('ride_started_at',
-                           ValidationError("Дата окончания поездки не должны бать раньше начала"))
-
+        if ride_finished_at and ride_started_at:
+            if ride_finished_at < ride_started_at:
+                self.add_error('ride_finished_at',
+                               ValidationError("Дата окончания поездки не может быть раньше начала поездки"))
+                self.fields['ride_finished_at'].widget.attrs.update({'style': 'border-color:red;'})
+        if ride_started_at and work_started_at:
+            if work_started_at < ride_started_at:
+                self.add_error('work_started_at',
+                               ValidationError("Дата начала работ не может быть раньше начала поездки"))
+                self.fields['work_started_at'].widget.attrs.update({'style': 'border-color:red;'})
+        if ride_started_at and work_finished_at:
+            if work_finished_at < ride_started_at:
+                self.add_error('work_finished_at',
+                               ValidationError("Дата окончания работ не может быть раньше начала поездки"))
+                self.fields['work_finished_at'].widget.attrs.update({'style': 'border-color:red;'})
+        if work_finished_at and work_started_at:
+            if work_finished_at < work_started_at:
+                self.add_error('work_finished_at',
+                               ValidationError("Дата окончания работ не может быть раньше начала работ"))
+                self.fields['work_finished_at'].widget.attrs.update({'style': 'border-color:red;'})
+        if ride_finished_at and work_finished_at:
+            if ride_finished_at < work_finished_at:
+                self.add_error('ride_finished_at',
+                               ValidationError("Дата окончания поездки не может быть раньше окончания работ"))
+                self.fields['ride_finished_at'].widget.attrs.update({'style': 'border-color:red;'})
+        if ride_finished_at and work_started_at:
+            if ride_finished_at < work_started_at:
+                self.add_error('ride_finished_at',
+                               ValidationError("Дата окончания поездки не может быть раньше начала работ"))
+                self.fields['ride_finished_at'].widget.attrs.update({'style': 'border-color:red;'})
         return cleaned_data
 
 
