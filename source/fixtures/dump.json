@@ -98,6 +98,55 @@
   }
 },
 {
+  "model": "ticket.region",
+  "pk": 1,
+  "fields": {
+    "name": "Чуйская"
+  }
+},
+{
+  "model": "ticket.region",
+  "pk": 2,
+  "fields": {
+    "name": "Иссык-Кульская"
+  }
+},
+{
+  "model": "ticket.region",
+  "pk": 3,
+  "fields": {
+    "name": "Баткенская"
+  }
+},
+{
+  "model": "ticket.region",
+  "pk": 4,
+  "fields": {
+    "name": "Ошская"
+  }
+},
+{
+  "model": "ticket.region",
+  "pk": 5,
+  "fields": {
+    "name": "Жалал-Абадская"
+  }
+},
+{
+  "model": "ticket.region",
+  "pk": 6,
+  "fields": {
+    "name": "Нарынская"
+  }
+},
+{
+  "model": "ticket.region",
+  "pk": 7,
+  "fields": {
+    "name": "Таласская"
+  }
+},
+{
   "model": "ticket.city",
   "pk": 1,
   "fields": {
@@ -147,6 +196,7 @@
     "type": 1,
     "address": "Toktogula 90",
     "country": 1,
+    "region": 2,
     "city": 1
   }
 },
@@ -160,6 +210,7 @@
     "type": 3,
     "address": "ул. Хорошая 13",
     "country": 3,
+    "region": 2,
     "city": 5
   }
 },
@@ -173,6 +224,7 @@
     "type": 3,
     "address": "",
     "country": 3,
+    "region": 2,
     "city": 5
   }
 },
@@ -186,6 +238,7 @@
     "type": 4,
     "address": "",
     "country": 3,
+    "region": 2,
     "city": 5
   }
 },
@@ -199,6 +252,7 @@
     "type": 1,
     "address": "Umetaliev 11",
     "country": 1,
+    "region": 2,
     "city": 1
   }
 },
@@ -212,6 +266,7 @@
     "type": 1,
     "address": "Almatinka 5",
     "country": 1,
+    "region": 2,
     "city": 1
   }
 },
@@ -225,6 +280,7 @@
     "type": 1,
     "address": "Shabdan Baatyr 90",
     "country": 1,
+    "region": 2,
     "city": 1
   }
 },
@@ -238,6 +294,7 @@
     "type": 1,
     "address": "6-Mikrorayon, 10 Dom, 55 kvar",
     "country": 1,
+    "region": 2,
     "city": 1
   }
 },
@@ -251,6 +308,7 @@
     "type": 1,
     "address": "Elebaeva 90",
     "country": 1,
+    "region": 2,
     "city": 1
   }
 },
@@ -266,6 +324,7 @@
     "active_from": "2022-04-14T12:00:00Z",
     "address": "Чуй 90",
     "country": 1,
+    "region": 1,
     "city": 1
   }
 },
@@ -281,6 +340,7 @@
     "active_from": "2022-04-14T12:00:00Z",
     "address": "Чуй 90",
     "country": 1,
+    "region": 1,
     "city": 1
   }
 },
@@ -296,6 +356,7 @@
     "active_from": "2022-04-20T04:31:00Z",
     "address": "311 ghjghg",
     "country": 1,
+    "region": 1,
     "city": 1
   }
 },
@@ -311,6 +372,7 @@
     "active_from": "2022-04-20T13:28:32Z",
     "address": "ул. Такая-то",
     "country": 3,
+    "region": 1,
     "city": 6
   }
 },
@@ -326,6 +388,7 @@
     "active_from": "2022-04-20T13:29:16Z",
     "address": "Красивая улица",
     "country": 3,
+    "region": 1,
     "city": 5
   }
 },
@@ -341,6 +404,7 @@
     "active_from": null,
     "address": "",
     "country": 3,
+    "region": 1,
     "city": 5
   }
 },
@@ -356,6 +420,7 @@
     "active_from": "2022-04-20T13:32:50Z",
     "address": "Некрасивая улица",
     "country": 3,
+    "region": 1,
     "city": 8
   }
 },
@@ -371,6 +436,7 @@
     "active_from": "2022-04-20T13:33:16Z",
     "address": "улица Незнайки",
     "country": 3,
+    "region": 1,
     "city": 7
   }
 },
@@ -386,6 +452,7 @@
     "active_from": "2022-04-20T13:33:48Z",
     "address": "улица Финансовая",
     "country": 3,
+    "region": 1,
     "city": 5
   }
 },
@@ -828,6 +895,74 @@
     ],
     "problem_areas": [
       9
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 3,
+  "fields": {
+    "client": 3,
+    "service_object": 4,
+    "priority": 3,
+    "type": 2,
+    "status": 1,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-04-27T16:01:31.230Z",
+    "updated_at": "2022-04-27T16:01:42.891Z",
+    "recieved_at": "2022-04-26T22:01:00Z",
+    "desired_to": "2022-04-26T22:01:00Z",
+    "operator": 4,
+    "description": "",
+    "executor": 2,
+    "driver": 1,
+    "closed_at": "2022-04-27T16:01:42.890Z",
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_started_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "works": [
+      5
+    ],
+    "problem_areas": [
+      3
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 4,
+  "fields": {
+    "client": 2,
+    "service_object": 2,
+    "priority": 1,
+    "type": 2,
+    "status": 4,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-04-29T09:57:14.603Z",
+    "updated_at": "2022-04-29T09:57:14.603Z",
+    "recieved_at": "2022-04-29T15:56:00Z",
+    "desired_to": "2022-04-30T15:56:00Z",
+    "operator": 4,
+    "description": "cddcds",
+    "executor": 1,
+    "driver": 2,
+    "closed_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_started_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "works": [
+      2,
+      4
+    ],
+    "problem_areas": [
+      6,
+      7
     ]
   }
 }

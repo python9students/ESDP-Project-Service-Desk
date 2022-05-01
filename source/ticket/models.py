@@ -66,6 +66,21 @@ class Country(models.Model):
         db_table = 'country'
 
 
+class Region(models.Model):
+    """
+    Модель для создания стран
+    """
+    name = models.CharField(max_length=100, verbose_name='Название')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Область'
+        verbose_name_plural = 'Области'
+        db_table = 'region'
+
+
 class City(models.Model):
     """
     Модель для создания городов
@@ -97,7 +112,9 @@ class Client(models.Model):
     address = models.CharField(max_length=255, blank=True, verbose_name='Адрес')
     country = models.ForeignKey('ticket.Country', on_delete=models.PROTECT, verbose_name='Страна',
                                 related_name='clients')
+    region = models.ForeignKey('ticket.Region', on_delete=models.PROTECT, verbose_name='Область', related_name='clients')
     city = models.ForeignKey('ticket.City', on_delete=models.PROTECT, verbose_name='Город', related_name='clients')
+
 
     def __str__(self):
         return f'{self.short_name}'
@@ -124,6 +141,7 @@ class ServiceObject(models.Model):
     address = models.CharField(max_length=255, blank=True, verbose_name='Адрес')
     country = models.ForeignKey('ticket.Country', on_delete=models.PROTECT, verbose_name='Страна',
                                 related_name='service_objects')
+    region = models.ForeignKey('ticket.Region', on_delete=models.PROTECT, verbose_name='Область', related_name='service_objects')
     city = models.ForeignKey('ticket.City', on_delete=models.PROTECT, verbose_name='Город',
                              related_name='service_objects')
 
@@ -314,6 +332,6 @@ class Ticket(models.Model):
         permissions = [("see_engineer_tickets",
                         "Может видеть только заявки со статусами Назначенный, На исполнении, Заверщенный"),
                        ("see_operator_tickets",
-                       "Может видеть только заявки со статусами Неопределенный, Подготовленный"),
+                        "Может видеть только заявки со статусами Неопределенный, Подготовленный"),
                        ("see_chief_tickets",
                         "Может видеть только заявки со статусами Подготовленный, Назначенный, Завершенный, Отмененный, На исполнении")]

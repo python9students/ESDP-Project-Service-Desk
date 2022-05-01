@@ -10,6 +10,7 @@
             <li class="list-group-item">Тип компании: {{ client.type }}</li>
             <li class="list-group-item">Адрес: {{ client.address }}</li>
             <li class="list-group-item">Страна: {{ client.country }}</li>
+            <li class="list-group-item">Область: {{ client.region }}</li>
             <li class="list-group-item">Город: {{ client.city }}</li>
             <li class="list-group-item"><a href="{% url "ticket:client_update" client.pk %}"
                                            class="btn btn-primary">Редактировать</a></li>
