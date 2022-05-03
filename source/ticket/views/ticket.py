@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 
 from ticket.forms import ChiefForm, OperatorForm, EngineerForm, TicketCancelForm
-from ticket.models import Ticket, TicketStatus
+from ticket.models import Ticket, TicketStatus, ServiceObject
 from django.urls import reverse
 
 
@@ -49,6 +49,12 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         elif group in engineers:
             self.form_class = EngineerForm
         return super().get_form()
+
+    def get_context_data(self, **kwargs):
+        if "form" not in kwargs:
+            kwargs["form"] = self.get_form()
+        kwargs['service_objects'] = list(ServiceObject.objects.all().values('id', 'serial_number', 'client_id'))
+        return super().get_context_data(**kwargs)
 
     def get_success_url(self):
         return reverse("ticket:ticket_detail", kwargs={"pk": self.object.pk})
@@ -130,6 +136,13 @@ class TicketUpdateView(UpdateView):
             self.object.save()
             return HttpResponseRedirect(self.get_success_url())
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        if "form" not in kwargs:
+            kwargs["form"] = self.get_form()
+            kwargs["form"].fields['service_object'].queryset = self.object.client.service_objects.all()
+        kwargs['service_objects'] = list(ServiceObject.objects.all().values('id', 'serial_number', 'client_id'))
+        return super().get_context_data(**kwargs)
 
     def get_success_url(self):
         return reverse("ticket:ticket_detail", kwargs={"pk": self.object.pk})
