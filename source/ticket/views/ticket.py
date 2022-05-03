@@ -81,10 +81,11 @@ class TicketDetailView(DetailView):
         return context
 
 
-class TicketUpdateView(UpdateView):
+class TicketUpdateView(PermissionRequiredMixin, UpdateView):
     model = Ticket
     template_name = 'ticket/update.html'
     context_object_name = 'ticket'
+    permission_required = 'ticket.change_ticket'
 
     def get_form(self, form_class=None):
         user = self.request.user
