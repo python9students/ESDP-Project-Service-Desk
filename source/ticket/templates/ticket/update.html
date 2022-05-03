@@ -14,3 +14,20 @@
     <br>
     <p><a href="{% url "ticket:ticket_detail" ticket.pk %}" class="btn btn-primary" style="float: left">Назад</a></p>
 {% endblock %}
+
+{% block scripts %}
+    <script>
+        let serviceObjects = {{ service_objects|safe }};
+        let clientEl = document.getElementById("id_client");
+        let serviceEl = document.getElementById("id_service_object");
+        clientEl.addEventListener("change", function (e) {
+            let inner = "";
+            for (let i = 0; i < serviceObjects.length; i++) {
+                if (serviceObjects[i]["client_id"] == clientEl.value) {
+                    inner += `<option value="${serviceObjects[i][" id"]}">${serviceObjects[i]["serial_number"]}</option>`;
+                }
+            }
+            serviceEl.innerHTML = inner;
+        });
+    </script>
+{% endblock %}
