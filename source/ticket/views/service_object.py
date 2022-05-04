@@ -1,6 +1,5 @@
-from django.views.generic import ListView, DetailView, DeleteView
+from django.views.generic import ListView, DetailView
 from ticket.models import ServiceObject
-from django.urls import reverse_lazy
 
 
 class ServiceObjectListView(ListView):
@@ -13,4 +12,3 @@ class ServiceObjectDetailView(DetailView):
     model = ServiceObject
     template_name = 'service_object/detail.html'
     context_object_name = 'service_object'
-
