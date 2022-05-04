@@ -2,7 +2,6 @@
 {% block title %}Объекты обслуживания{% endblock %}
 {% block content %}
     <br>
-    <a href="{% url 'ticket:service_object_create' %}" class="btn btn-primary mb-5">Создать Объект Обслуживания</a>
     {% for s in service_objects %}
         <div>
             <ul class="list-group">

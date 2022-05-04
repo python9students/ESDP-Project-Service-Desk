@@ -16,10 +16,6 @@
             <li class="list-group-item">Город: {{ service_object.city }}</li>
             <li class="list-group-item">Область: {{ service_object.region }}</li>
             <li class="list-group-item">Страна: {{ service_object.country }}</li>
-            <li class="list-group-item"><a href="{% url 'ticket:service_object_update' service_object.pk %}"
-                                           class="btn btn-primary">Редактировать</a></li>
-            <li class="list-group-item"><a href="{% url 'ticket:service_object_delete' service_object.pk %}"
-                                           class="btn btn-danger">Удалить</a></li>
         </ul>
     </div>
     <br>
