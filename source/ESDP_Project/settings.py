@@ -124,8 +124,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-LOGOUT_REDIRECT_URL = "ticket:index"
-LOGIN_REDIRECT_URL = "ticket:index"
+LOGOUT_REDIRECT_URL = "ticket:ticket_list"
+LOGIN_REDIRECT_URL = "ticket:ticket_list"
 
 LOGIN_URL = 'accounts:login'
 

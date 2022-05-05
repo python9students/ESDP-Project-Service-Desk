@@ -5,12 +5,6 @@ from ticket.views.ticket import (TicketCreateView,
                                  TicketDetailView,
                                  TicketUpdateView,
                                  TicketCancelView)
-from ticket.views.clients import (ClientListView,
-                                  ClientDetailView,
-                                  ClientCreateView,
-                                  ClientUpdateView,
-                                  ClientDeleteView,
-                                  IndexView)
 from ticket.views.service_object import (ServiceObjectListView,
                                          ServiceObjectDetailView)
 
@@ -21,16 +15,7 @@ service_object_urlpatterns = [
     path('<int:pk>/', ServiceObjectDetailView.as_view(), name='service_object_detail'),
 ]
 
-client_urlpatterns = [
-    path('', ClientListView.as_view(), name='client_list'),
-    path('<int:pk>/', ClientDetailView.as_view(), name='client_detail'),
-    path('create/', ClientCreateView.as_view(), name='client_create'),
-    path('<int:pk>/update/', ClientUpdateView.as_view(), name='client_update'),
-    path('<int:pk>/delete/', ClientDeleteView.as_view(), name='client_delete'),
-]
-
 ticket_urlpatterns = [
-    path('', TicketListView.as_view(), name='ticket_list'),
     path('create/', TicketCreateView.as_view(), name='ticket_create'),
     path('<int:pk>/', TicketDetailView.as_view(), name='ticket_detail'),
     path('<int:pk>/update/', TicketUpdateView.as_view(), name='ticket_update'),
@@ -38,8 +23,7 @@ ticket_urlpatterns = [
 ]
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='index'),
+    path('', TicketListView.as_view(), name='ticket_list'),
     path('service_object/', include(service_object_urlpatterns)),
-    path('client/', include(client_urlpatterns)),
     path('ticket/', include(ticket_urlpatterns)),
 ]
