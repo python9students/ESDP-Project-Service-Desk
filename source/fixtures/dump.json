@@ -988,5 +988,60 @@
       7
     ]
   }
+},
+{
+  "model": "ticket.contract",
+  "pk": 1,
+  "fields": {
+    "doc_number": "номер_1А1А",
+    "date": "2022-05-05",
+    "type": 1,
+    "department": 1,
+    "company_client": 2,
+    "valid_from": "2021-12-01",
+    "valid_until": "2022-10-07",
+    "current_document": "contracts/Schema_ServiceDesk.pdf",
+    "status": 1,
+    "time_to_fix_problem_SLA": "08:00:00",
+    "service_objects_SLA": [
+      2,
+      4
+    ]
+  }
+},
+{
+  "model": "ticket.contracttype",
+  "pk": 1,
+  "fields": {
+    "name": "Service agreement"
+  }
+},
+{
+  "model": "ticket.contractstatus",
+  "pk": 1,
+  "fields": {
+    "name": "Созданный"
+  }
+},
+{
+  "model": "ticket.contractstatus",
+  "pk": 2,
+  "fields": {
+    "name": "Подготовленный"
+  }
+},
+{
+  "model": "ticket.contractstatus",
+  "pk": 3,
+  "fields": {
+    "name": "На исполлнении"
+  }
+},
+{
+  "model": "ticket.contractstatus",
+  "pk": 4,
+  "fields": {
+    "name": "Закрытый"
+  }
 }
 ]
