@@ -313,6 +313,20 @@
   }
 },
 {
+  "model": "ticket.criteriontype",
+  "pk": 1,
+  "fields": {
+    "name": "Гарантийный"
+  }
+},
+{
+  "model": "ticket.criteriontype",
+  "pk": 2,
+  "fields": {
+    "name": "Пост-гарантийный"
+  }
+},
+{
   "model": "ticket.serviceobject",
   "pk": 2,
   "fields": {
@@ -325,7 +339,8 @@
     "address": "Чуй 90",
     "country": 1,
     "region": 1,
-    "city": 1
+    "city": 1,
+    "criterion": null
   }
 },
 {
@@ -341,7 +356,8 @@
     "address": "Чуй 90",
     "country": 1,
     "region": 1,
-    "city": 1
+    "city": 1,
+    "criterion": null
   }
 },
 {
@@ -357,7 +373,8 @@
     "address": "311 ghjghg",
     "country": 1,
     "region": 1,
-    "city": 1
+    "city": 1,
+    "criterion": null
   }
 },
 {
@@ -373,7 +390,8 @@
     "address": "ул. Такая-то",
     "country": 3,
     "region": 1,
-    "city": 6
+    "city": 6,
+    "criterion": null
   }
 },
 {
@@ -389,7 +407,8 @@
     "address": "Красивая улица",
     "country": 3,
     "region": 1,
-    "city": 5
+    "city": 5,
+    "criterion": null
   }
 },
 {
@@ -405,7 +424,8 @@
     "address": "",
     "country": 3,
     "region": 1,
-    "city": 5
+    "city": 5,
+    "criterion": null
   }
 },
 {
@@ -421,7 +441,8 @@
     "address": "Некрасивая улица",
     "country": 3,
     "region": 1,
-    "city": 8
+    "city": 8,
+    "criterion": null
   }
 },
 {
@@ -437,7 +458,8 @@
     "address": "улица Незнайки",
     "country": 3,
     "region": 1,
-    "city": 7
+    "city": 7,
+    "criterion": null
   }
 },
 {
@@ -453,7 +475,8 @@
     "address": "улица Финансовая",
     "country": 3,
     "region": 1,
-    "city": 5
+    "city": 5,
+    "criterion": null
   }
 },
 {
