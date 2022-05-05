@@ -18,7 +18,10 @@ from ticket.models import (CompanyType,
                            Department,
                            ServiceLevel,
                            Ticket,
-                           CriterionType)
+                           CriterionType,
+                           ContractStatus,
+                           ContractType,
+                           Contract)
 
 admin.site.register(CompanyType)
 admin.site.register(ServiceObjectType)
@@ -38,3 +41,6 @@ admin.site.register(Department)
 admin.site.register(ServiceLevel)
 admin.site.register(Ticket)
 admin.site.register(CriterionType)
+admin.site.register(ContractStatus)
+admin.site.register(ContractType)
+admin.site.register(Contract)

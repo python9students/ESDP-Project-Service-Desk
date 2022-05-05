@@ -354,3 +354,63 @@ class Ticket(models.Model):
                        ("see_chief_tickets",
                         "Может видеть только заявки со статусами Подготовленный, Назначенный, Завершенный, Отмененный, На исполнении"),
                        ("close_ticket", "Может закрывать заявки")]
+
+
+class Contract(models.Model):
+    """
+    Модель для создания договоров
+    """
+    doc_number = models.CharField(max_length=50, verbose_name='№ Документа')
+    date = models.DateField(auto_now_add=True, verbose_name='Дата')
+    type = models.ForeignKey('ticket.ContractType', on_delete=models.PROTECT, verbose_name='Тип договора',
+                             related_name='contracts')
+    department = models.ForeignKey('ticket.Department', on_delete=models.PROTECT, verbose_name='Департамент',
+                                   related_name='contracts')
+    company_client = models.ForeignKey('ticket.Client', on_delete=models.PROTECT, verbose_name='Компания-клиент',
+                                       related_name='contracts')
+    valid_from = models.DateField(verbose_name='Действует с')
+    valid_until = models.DateField(verbose_name='Действует до')
+    current_document = models.FileField(upload_to='contracts', verbose_name='Действующий документ')
+    status = models.ForeignKey('ticket.ContractStatus', on_delete=models.PROTECT, verbose_name='Статус',
+                               related_name='contracts')
+    service_objects_SLA = models.ManyToManyField('ticket.ServiceObject', related_name='contracts', blank=True,
+                                             default=None)
+    time_to_fix_problem_SLA = models.DurationField(verbose_name='Время на устранение проблемы', null=True, blank=True, default=None)
+
+    def __str__(self):
+        return f'{self.doc_number}'
+
+    class Meta:
+        verbose_name = 'Договор'
+        verbose_name_plural = 'Договора'
+        db_table = 'contract'
+
+
+class ContractType(models.Model):
+    """
+    Модель для создания типов Договора
+    """
+    name = models.CharField(max_length=50, verbose_name='Название')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Тип договора'
+        verbose_name_plural = 'Типы договоров'
+        db_table = 'contract_type'
+
+
+class ContractStatus(models.Model):
+    """
+    Модель для создания статусов Договора
+    """
+    name = models.CharField(max_length=50, verbose_name='Название')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Статус договора'
+        verbose_name_plural = 'Статусы договоров'
+        db_table = 'contract_status'
