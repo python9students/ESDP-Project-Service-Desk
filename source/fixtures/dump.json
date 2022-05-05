@@ -571,6 +571,13 @@
   }
 },
 {
+  "model": "ticket.ticketstatus",
+  "pk": 7,
+  "fields": {
+    "name": "Исполненный"
+  }
+},
+{
   "model": "ticket.work",
   "pk": 1,
   "fields": {
