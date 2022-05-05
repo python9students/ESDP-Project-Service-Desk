@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.utils import timezone
+
 from ticket.models import Work, ProblemArea, ServiceObject, Client, Ticket
 from django.core.exceptions import ValidationError
 from django.forms import TextInput, widgets
@@ -100,6 +102,15 @@ class OperatorForm(forms.ModelForm):
         }
         exclude = ("driver", "executor", "work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at",
                    "cancel_reason", "status", "closed_at", "operator")
+
+    def clean(self):
+        cleaned_data = super().clean()
+        recieved_at = cleaned_data['recieved_at']
+
+        if recieved_at and recieved_at > timezone.now():
+            self.add_error('recieved_at',
+                           ValidationError("Дата получения заявки не может быть позже чем время сейчас"))
+            self.fields['recieved_at'].widget.attrs.update({'style': 'border-color:red;'})
 
 
 class EngineerForm(forms.ModelForm):
