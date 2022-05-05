@@ -112,9 +112,9 @@ class Client(models.Model):
     address = models.CharField(max_length=255, blank=True, verbose_name='Адрес')
     country = models.ForeignKey('ticket.Country', on_delete=models.PROTECT, verbose_name='Страна',
                                 related_name='clients')
-    region = models.ForeignKey('ticket.Region', on_delete=models.PROTECT, verbose_name='Область', related_name='clients')
+    region = models.ForeignKey('ticket.Region', on_delete=models.PROTECT, verbose_name='Область',
+                               related_name='clients')
     city = models.ForeignKey('ticket.City', on_delete=models.PROTECT, verbose_name='Город', related_name='clients')
-
 
     def __str__(self):
         return f'{self.short_name}'
@@ -123,6 +123,21 @@ class Client(models.Model):
         verbose_name = 'Клиент'
         verbose_name_plural = 'Клиенты'
         db_table = 'client'
+
+
+class CriterionType(models.Model):
+    """
+    Модель для создания критерия
+    """
+    name = models.CharField(max_length=50, verbose_name='Название')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Критерий'
+        verbose_name_plural = 'Критерии'
+        db_table = 'criterion_type'
 
 
 class ServiceObject(models.Model):
@@ -141,9 +156,12 @@ class ServiceObject(models.Model):
     address = models.CharField(max_length=255, blank=True, verbose_name='Адрес')
     country = models.ForeignKey('ticket.Country', on_delete=models.PROTECT, verbose_name='Страна',
                                 related_name='service_objects')
-    region = models.ForeignKey('ticket.Region', on_delete=models.PROTECT, verbose_name='Область', related_name='service_objects')
+    region = models.ForeignKey('ticket.Region', on_delete=models.PROTECT, verbose_name='Область',
+                               related_name='service_objects')
     city = models.ForeignKey('ticket.City', on_delete=models.PROTECT, verbose_name='Город',
                              related_name='service_objects')
+    criterion = models.ForeignKey('ticket.CriterionType', on_delete=models.PROTECT, verbose_name='Критерий',
+                                  related_name='service_objects', null=True, default=None)
 
     def __str__(self):
         return f'{self.serial_number}'

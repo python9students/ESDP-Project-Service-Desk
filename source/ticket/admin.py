@@ -17,7 +17,8 @@ from ticket.models import (CompanyType,
                            ProblemArea,
                            Department,
                            ServiceLevel,
-                           Ticket)
+                           Ticket,
+                           CriterionType)
 
 admin.site.register(CompanyType)
 admin.site.register(ServiceObjectType)
@@ -36,3 +37,4 @@ admin.site.register(ProblemArea, MPTTModelAdmin)
 admin.site.register(Department)
 admin.site.register(ServiceLevel)
 admin.site.register(Ticket)
+admin.site.register(CriterionType)
