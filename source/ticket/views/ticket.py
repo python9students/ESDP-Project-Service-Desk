@@ -11,7 +11,7 @@ from ticket.models import Ticket, TicketStatus, ServiceObject
 from django.urls import reverse
 
 
-class TicketListView(ListView):
+class TicketListView(LoginRequiredMixin, ListView):
     model = Ticket
     template_name = 'ticket/list.html'
     context_object_name = 'tickets'
@@ -60,7 +60,7 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         return reverse("ticket:ticket_detail", kwargs={"pk": self.object.pk})
 
 
-class TicketDetailView(DetailView):
+class TicketDetailView(LoginRequiredMixin, DetailView):
     model = Ticket
     template_name = 'ticket/detail.html'
     context_object_name = 'ticket'
@@ -83,7 +83,6 @@ class TicketDetailView(DetailView):
         context['ticket_canceled'] = ticket_canceled
         context['is_chief'] = is_chief
         context['is_operator'] = is_operator
-        print(ticket_canceled)
         return context
 
 
