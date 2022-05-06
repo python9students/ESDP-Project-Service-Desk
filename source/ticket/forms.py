@@ -149,7 +149,7 @@ class EngineerForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         fields = ['client', 'service_object', 'priority', 'type', 'status', 'service_level', 'department',
                   'recieved_at',
-                  'desired_to', 'operator', 'works', 'problem_areas', 'description', 'executor', 'driver', 'closed_at']
+                  'desired_to', 'operator', 'problem_areas', 'description', 'executor', 'driver', 'closed_at']
         for field in fields:
             self.fields[field].disabled = True
         if self.instance:
