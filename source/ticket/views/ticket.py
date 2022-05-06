@@ -126,6 +126,10 @@ class TicketUpdateView(PermissionRequiredMixin, UpdateView):
         elif group in engineers:
             change_status.status_id = 2
             change_status.save()
+            if change_status.ride_started_at and change_status.work_started_at and \
+                    change_status.work_finished_at and change_status.ride_finished_at:
+                change_status.status_id = 7
+                change_status.save()
         if 'close_ticket' in self.request.POST:
             self.object = form.save(commit=False)
             self.object.status = status
