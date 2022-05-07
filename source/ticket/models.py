@@ -374,8 +374,9 @@ class Contract(models.Model):
     status = models.ForeignKey('ticket.ContractStatus', on_delete=models.PROTECT, verbose_name='Статус',
                                related_name='contracts')
     service_objects_SLA = models.ManyToManyField('ticket.ServiceObject', related_name='contracts', blank=True,
-                                             default=None)
-    time_to_fix_problem_SLA = models.DurationField(verbose_name='Время на устранение проблемы', null=True, blank=True, default=None)
+                                                 default=None)
+    time_to_fix_problem_SLA = models.DurationField(verbose_name='Время на устранение проблемы', null=True, blank=True,
+                                                   default=None)
 
     def __str__(self):
         return f'{self.doc_number}'

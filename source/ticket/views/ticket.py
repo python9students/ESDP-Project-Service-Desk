@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 
 from ticket.forms import ChiefForm, OperatorForm, EngineerForm, TicketCancelForm
-from ticket.models import Ticket, TicketStatus, ServiceObject
+from ticket.models import Ticket, TicketStatus, ServiceObject, Contract
 from django.urls import reverse
 
 
@@ -72,6 +72,7 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
         is_operator = False
         user = self.request.user
         group = user.groups.get(user=user)
+        time = Contract.objects.all()
         chiefs = Group.objects.filter(name='chiefs')
         operators = Group.objects.filter(name='operators')
         if group in chiefs:
@@ -83,6 +84,7 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
         context['ticket_canceled'] = ticket_canceled
         context['is_chief'] = is_chief
         context['is_operator'] = is_operator
+        context['contracts'] = time
         return context
 
 

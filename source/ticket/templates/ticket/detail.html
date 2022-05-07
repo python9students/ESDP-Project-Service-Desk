@@ -5,11 +5,11 @@
     <br>
     <div>
         {% if not ticket_canceled and is_chief %}
-            <a class="btn btn-danger" href="{% url 'ticket:ticket_cancel' ticket.pk%}">Отменить заявку</a><br><br>
+            <a class="btn btn-danger" href="{% url 'ticket:ticket_cancel' ticket.pk %}">Отменить заявку</a><br><br>
         {% endif %}
         <ul class="list-group">
             <li class="list-group-item"><h4>Заявка № {{ ticket.pk }}</h4></li>
-             <li class="list-group-item">Оператор заполнивший заявку: {{ ticket.operator }}</li>
+            <li class="list-group-item">Оператор заполнивший заявку: {{ ticket.operator }}</li>
             <li class="list-group-item">Объект обслуживания: {{ ticket.service_object }}</li>
             <li class="list-group-item">Приоритет: {{ ticket.priority }}</li>
             <li class="list-group-item">Тип заявки: {{ ticket.type }}</li>
@@ -50,17 +50,26 @@
             <li class="list-group-item">Описание: {{ ticket.description|default:"Не указано" }}</li>
             <li class="list-group-item">Исполнитель: {{ ticket.executor|default:"Не указано" }}</li>
             <li class="list-group-item">Водитель: {{ ticket.driver|default:"Не указано" }}</li>
+            {% if ticket.service_object and is_operator %}
+                {% for contract in contracts %}
+                    <li class="list-group-item">Время на устранение проблемы:
+                        {{ contract.time_to_fix_problem_SLA|default:"Не указано" }}</li>
+                {% endfor %}
+            {% endif %}
             {% if not is_operator %}
-            <li class="list-group-item">Дата начала работ: {{ ticket.work_started_at|default:"Не указано" }}</li>
-            <li class="list-group-item">Дата окончания работ: {{ ticket.work_finished_at|default:"Не указано" }}</li>
-            <li class="list-group-item">Дата начала поездки: {{ ticket.ride_started_at|default:"Не указано" }}</li>
-            <li class="list-group-item">Дата окончания поездки: {{ ticket.ride_finished_at|default:"Не указано" }}</li>
+                <li class="list-group-item">Дата начала работ: {{ ticket.work_started_at|default:"Не указано" }}</li>
+                <li class="list-group-item">Дата окончания работ:
+                    {{ ticket.work_finished_at|default:"Не указано" }}</li>
+                <li class="list-group-item">Дата начала поездки: {{ ticket.ride_started_at|default:"Не указано" }}</li>
+                <li class="list-group-item">Дата окончания поездки:
+                    {{ ticket.ride_finished_at|default:"Не указано" }}</li>
             {% endif %}
             {% if ticket.cancel_reason %}
                 <li class="list-group-item">Причина отмены заявки: {{ ticket.cancel_reason|default:"Не указано" }}</li>
             {% endif %}
             <li class="list-group-item">Дата закрытия заявки: {{ ticket.closed_at|default:"Не указано" }}</li>
-            <li class="list-group-item"><a href="{% url "ticket:ticket_update" ticket.id %}" class="btn btn-primary">Редактировать</a></li>
+            <li class="list-group-item"><a href="{% url "ticket:ticket_update" ticket.id %}" class="btn btn-primary">Редактировать</a>
+            </li>
         </ul>
     </div>
     <br>
