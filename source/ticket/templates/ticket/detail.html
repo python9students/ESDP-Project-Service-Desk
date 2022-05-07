@@ -19,6 +19,12 @@
             <li class="list-group-item">Дата создания заявки: {{ ticket.created_at }}</li>
             <li class="list-group-item">Дата изменения заявки: {{ ticket.updated_at }}</li>
             <li class="list-group-item">Дата получения заявки: {{ ticket.recieved_at }}</li>
+            {% if ticket.service_object and is_operator %}
+                {% for contract in contracts %}
+                    <li class="list-group-item">Время на устранение проблемы:
+                        {{ contract.time_to_fix_problem_SLA|default:"Не указано" }}</li>
+                {% endfor %}
+            {% endif %}
             <li class="list-group-item"> Работы:
                 <ul>
                     {% recursetree ticket.works.all %}
@@ -50,12 +56,7 @@
             <li class="list-group-item">Описание: {{ ticket.description|default:"Не указано" }}</li>
             <li class="list-group-item">Исполнитель: {{ ticket.executor|default:"Не указано" }}</li>
             <li class="list-group-item">Водитель: {{ ticket.driver|default:"Не указано" }}</li>
-            {% if ticket.service_object and is_operator %}
-                {% for contract in contracts %}
-                    <li class="list-group-item">Время на устранение проблемы:
-                        {{ contract.time_to_fix_problem_SLA|default:"Не указано" }}</li>
-                {% endfor %}
-            {% endif %}
+
             {% if not is_operator %}
                 <li class="list-group-item">Дата начала работ: {{ ticket.work_started_at|default:"Не указано" }}</li>
                 <li class="list-group-item">Дата окончания работ:
