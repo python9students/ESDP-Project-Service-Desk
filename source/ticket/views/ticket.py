@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
+from datetime import date, datetime, timedelta
 
 from ticket.forms import ChiefForm, OperatorForm, EngineerForm, TicketCancelForm
 from ticket.models import Ticket, TicketStatus, ServiceObject
@@ -74,6 +75,17 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
         group = user.groups.get(user=user)
         chiefs = Group.objects.filter(name='chiefs')
         operators = Group.objects.filter(name='operators')
+        service_objects = ServiceObject.objects.filter(pk=self.object.service_object_id)
+        expected_time_to_fix_problem = None
+        for service_object in service_objects:
+            for contract in service_object.contracts.all():
+                expected_time_to_fix_problem = self.object.recieved_at + contract.time_to_fix_problem_SLA
+        if expected_time_to_fix_problem is not None:
+            remaining_time_to_fix_problem = expected_time_to_fix_problem - datetime.now().replace(tzinfo=timezone.utc)
+            if remaining_time_to_fix_problem.days < 0:
+                context['remaining_time_to_fix_problem'] = None
+            else:
+                context['remaining_time_to_fix_problem'] = remaining_time_to_fix_problem
         if group in chiefs:
             is_chief = True
         elif group in operators:
@@ -83,6 +95,7 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
         context['ticket_canceled'] = ticket_canceled
         context['is_chief'] = is_chief
         context['is_operator'] = is_operator
+        context['expected_time_to_fix_problem'] = expected_time_to_fix_problem
         return context
 
 
