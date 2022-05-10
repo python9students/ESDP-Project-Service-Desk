@@ -64,6 +64,7 @@ class Country(models.Model):
         verbose_name = 'Страна'
         verbose_name_plural = 'Страны'
         db_table = 'country'
+        unique_together = ('name',)
 
 
 class Region(models.Model):
