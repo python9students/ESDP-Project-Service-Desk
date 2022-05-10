@@ -24,7 +24,7 @@ class TicketListView(LoginRequiredMixin, ListView):
         elif self.request.user.has_perm('ticket.see_operator_tickets') and not self.request.user.is_superuser:
             return tickets.filter(status__in=[3, 4])
         elif self.request.user.has_perm('ticket.see_chief_tickets') and not self.request.user.is_superuser:
-            return tickets.filter(status__in=[3, 6, 1, 5, 2, 4])
+            return tickets.filter(status__in=[3, 6, 1, 5, 2, 4, 7])
         return tickets
 
 
