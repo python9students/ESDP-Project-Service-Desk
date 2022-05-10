@@ -218,20 +218,6 @@ class TicketStatus(models.Model):
         db_table = 'ticket_status'
 
 
-class EmployeePosition(models.Model):
-    """
-    Модель для создания должностей
-    """
-    name = models.CharField(max_length=50, verbose_name='Название')
-
-    def __str__(self):
-        return f'{self.name}'
-
-    class Meta:
-        verbose_name = 'Должность'
-        verbose_name_plural = 'Должность'
-        db_table = 'employee_position'
-
 
 class Work(MPTTModel):
     """

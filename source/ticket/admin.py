@@ -12,7 +12,6 @@ from ticket.models import (CompanyType,
                            TicketType,
                            TicketStatus,
                            TicketPriority,
-                           EmployeePosition,
                            Work,
                            ProblemArea,
                            Department,
@@ -34,7 +33,6 @@ admin.site.register(ServiceObject)
 admin.site.register(TicketPriority)
 admin.site.register(TicketStatus)
 admin.site.register(TicketType)
-admin.site.register(EmployeePosition)
 admin.site.register(Work, MPTTModelAdmin)
 admin.site.register(ProblemArea, MPTTModelAdmin)
 admin.site.register(Department)
