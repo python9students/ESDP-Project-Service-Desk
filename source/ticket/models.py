@@ -328,7 +328,7 @@ class Ticket(models.Model):
     cancel_reason = models.CharField(max_length=255, verbose_name='Причина отмены заявки')
 
     def __str__(self):
-        return f'ticket №{self.id}'
+        return f'Заявка-{self.created_at.strftime("%Y%m%d-%H%M%S")}'
 
     class Meta:
         verbose_name = 'Заявка'
