@@ -16,9 +16,10 @@ class TicketListView(LoginRequiredMixin, ListView):
     model = Ticket
     template_name = 'ticket/list.html'
     context_object_name = 'tickets'
+    ordering = ['-created_at']
 
     def get_queryset(self):
-        tickets = Ticket.objects.all()
+        tickets = super().get_queryset()
         if self.request.user.has_perm('ticket.see_engineer_tickets') and not self.request.user.is_superuser:
             return tickets.filter(status__in=[1, 2, 6])
         elif self.request.user.has_perm('ticket.see_operator_tickets') and not self.request.user.is_superuser:
@@ -117,8 +118,6 @@ class TicketUpdateView(PermissionRequiredMixin, UpdateView):
             self.form_class = OperatorForm
         elif group in engineers:
             self.form_class = EngineerForm
-        else:
-            self.form_class = ChiefForm
         return super().get_form()
 
     def form_valid(self, form):
