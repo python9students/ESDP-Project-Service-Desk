@@ -1,1188 +1,1195 @@
 [
 {
-  "model": "ticket.companytype",
-  "pk": 1,
-  "fields": {
-    "name": "Финансы"
-  }
+    "model": "ticket.companytype",
+    "pk": 1,
+    "fields": {
+        "name": "Финансы"
+    }
 },
 {
-  "model": "ticket.companytype",
-  "pk": 3,
-  "fields": {
-    "name": "Банк"
-  }
+    "model": "ticket.companytype",
+    "pk": 3,
+    "fields": {
+        "name": "Банк"
+    }
 },
 {
-  "model": "ticket.companytype",
-  "pk": 4,
-  "fields": {
-    "name": "Микрокредитка"
-  }
+    "model": "ticket.companytype",
+    "pk": 4,
+    "fields": {
+        "name": "Микрокредитка"
+    }
 },
 {
-  "model": "ticket.serviceobjecttype",
-  "pk": 1,
-  "fields": {
-    "name": "ATM"
-  }
+    "model": "ticket.serviceobjecttype",
+    "pk": 1,
+    "fields": {
+        "name": "ATM"
+    }
 },
 {
-  "model": "ticket.serviceobjecttype",
-  "pk": 2,
-  "fields": {
-    "name": "Terminal"
-  }
+    "model": "ticket.serviceobjecttype",
+    "pk": 2,
+    "fields": {
+        "name": "Terminal"
+    }
 },
 {
-  "model": "ticket.serviceobjecttype",
-  "pk": 3,
-  "fields": {
-    "name": "Банкомат"
-  }
+    "model": "ticket.serviceobjecttype",
+    "pk": 3,
+    "fields": {
+        "name": "Банкомат"
+    }
 },
 {
-  "model": "ticket.serviceobjecttype",
-  "pk": 4,
-  "fields": {
-    "name": "Терминал"
-  }
+    "model": "ticket.serviceobjecttype",
+    "pk": 4,
+    "fields": {
+        "name": "Терминал"
+    }
 },
 {
-  "model": "ticket.serviceobjectmodel",
-  "pk": 1,
-  "fields": {
-    "name": "LG"
-  }
+    "model": "ticket.serviceobjectmodel",
+    "pk": 1,
+    "fields": {
+        "name": "LG"
+    }
 },
 {
-  "model": "ticket.serviceobjectmodel",
-  "pk": 2,
-  "fields": {
-    "name": "Samsung"
-  }
+    "model": "ticket.serviceobjectmodel",
+    "pk": 2,
+    "fields": {
+        "name": "Samsung"
+    }
 },
 {
-  "model": "ticket.serviceobjectmodel",
-  "pk": 3,
-  "fields": {
-    "name": "Модель №1"
-  }
+    "model": "ticket.serviceobjectmodel",
+    "pk": 3,
+    "fields": {
+        "name": "Модель №1"
+    }
 },
 {
-  "model": "ticket.serviceobjectmodel",
-  "pk": 4,
-  "fields": {
-    "name": "Модель №2"
-  }
+    "model": "ticket.serviceobjectmodel",
+    "pk": 4,
+    "fields": {
+        "name": "Модель №2"
+    }
 },
 {
-  "model": "ticket.serviceobjectmodel",
-  "pk": 5,
-  "fields": {
-    "name": "Модель №3"
-  }
+    "model": "ticket.serviceobjectmodel",
+    "pk": 5,
+    "fields": {
+        "name": "Модель №3"
+    }
 },
 {
-  "model": "ticket.country",
-  "pk": 1,
-  "fields": {
-    "name": "Казахстан"
-  }
+    "model": "ticket.country",
+    "pk": 1,
+    "fields": {
+        "name": "Казахстан"
+    }
 },
 {
-  "model": "ticket.country",
-  "pk": 3,
-  "fields": {
-    "name": "Кыргызстан"
-  }
+    "model": "ticket.country",
+    "pk": 3,
+    "fields": {
+        "name": "Кыргызстан"
+    }
 },
 {
-  "model": "ticket.region",
-  "pk": 1,
-  "fields": {
-    "name": "Чуйская"
-  }
-},
-{
-  "model": "ticket.region",
-  "pk": 2,
-  "fields": {
-    "name": "Иссык-Кульская"
-  }
-},
-{
-  "model": "ticket.region",
-  "pk": 3,
-  "fields": {
-    "name": "Баткенская"
-  }
-},
-{
-  "model": "ticket.region",
-  "pk": 4,
-  "fields": {
-    "name": "Ошская"
-  }
-},
-{
-  "model": "ticket.region",
-  "pk": 5,
-  "fields": {
-    "name": "Жалал-Абадская"
-  }
-},
-{
-  "model": "ticket.region",
-  "pk": 6,
-  "fields": {
-    "name": "Нарынская"
-  }
-},
-{
-  "model": "ticket.region",
-  "pk": 7,
-  "fields": {
-    "name": "Таласская"
-  }
-},
-{
-  "model": "ticket.city",
-  "pk": 1,
-  "fields": {
-    "name": "Бишкек",
-    "country": 1
-  }
-},
-{
-  "model": "ticket.city",
-  "pk": 5,
-  "fields": {
-    "name": "Бишкек",
-    "country": 3
-  }
-},
-{
-  "model": "ticket.city",
-  "pk": 6,
-  "fields": {
-    "name": "Ош",
-    "country": 3
-  }
-},
-{
-  "model": "ticket.city",
-  "pk": 7,
-  "fields": {
-    "name": "Талас",
-    "country": 3
-  }
-},
-{
-  "model": "ticket.city",
-  "pk": 8,
-  "fields": {
-    "name": "Нарын",
-    "country": 3
-  }
-},
-{
-  "model": "ticket.client",
-  "pk": 2,
-  "fields": {
-    "name": "KICB Bank",
-    "short_name": "KICB",
-    "website": "http://kicb.kg",
-    "type": 1,
-    "address": "Toktogula 90",
-    "country": 1,
-    "region": 2,
-    "city": 1
-  }
-},
-{
-  "model": "ticket.client",
-  "pk": 3,
-  "fields": {
-    "name": "Оптима Банк",
-    "short_name": "Оптима",
-    "website": "",
-    "type": 3,
-    "address": "ул. Хорошая 13",
-    "country": 3,
-    "region": 2,
-    "city": 5
-  }
-},
-{
-  "model": "ticket.client",
-  "pk": 4,
-  "fields": {
-    "name": "Демир Банк",
-    "short_name": "Демир",
-    "website": "http://demir.kg",
-    "type": 3,
-    "address": "",
-    "country": 3,
-    "region": 2,
-    "city": 5
-  }
-},
-{
-  "model": "ticket.client",
-  "pk": 5,
-  "fields": {
-    "name": "Финка МК",
-    "short_name": "Финка",
-    "website": "",
-    "type": 4,
-    "address": "",
-    "country": 3,
-    "region": 2,
-    "city": 5
-  }
-},
-{
-  "model": "ticket.client",
-  "pk": 6,
-  "fields": {
-    "name": "Companion",
-    "short_name": "Companion",
-    "website": "http://www.agent.com",
-    "type": 1,
-    "address": "Umetaliev 11",
-    "country": 1,
-    "region": 2,
-    "city": 1
-  }
-},
-{
-  "model": "ticket.client",
-  "pk": 7,
-  "fields": {
-    "name": "Bai Tushum",
-    "short_name": "BT",
-    "website": "http://baitushum.com",
-    "type": 1,
-    "address": "Almatinka 5",
-    "country": 1,
-    "region": 2,
-    "city": 1
-  }
-},
-{
-  "model": "ticket.client",
-  "pk": 8,
-  "fields": {
-    "name": "Halykbank",
-    "short_name": "Halyk",
-    "website": "http://www.halyk.kg",
-    "type": 1,
-    "address": "Shabdan Baatyr 90",
-    "country": 1,
-    "region": 2,
-    "city": 1
-  }
-},
-{
-  "model": "ticket.client",
-  "pk": 9,
-  "fields": {
-    "name": "Halykbank",
-    "short_name": "Halyk",
-    "website": "http://www.halyk.kg",
-    "type": 1,
-    "address": "6-Mikrorayon, 10 Dom, 55 kvar",
-    "country": 1,
-    "region": 2,
-    "city": 1
-  }
-},
-{
-  "model": "ticket.client",
-  "pk": 10,
-  "fields": {
-    "name": "Bai Tushum 2",
-    "short_name": "Bai",
-    "website": "http://bai.kg",
-    "type": 1,
-    "address": "Elebaeva 90",
-    "country": 1,
-    "region": 2,
-    "city": 1
-  }
-},
-{
-  "model": "ticket.criteriontype",
-  "pk": 1,
-  "fields": {
-    "name": "Гарантийный"
-  }
-},
-{
-  "model": "ticket.criteriontype",
-  "pk": 2,
-  "fields": {
-    "name": "Пост-гарантийный"
-  }
-},
-{
-  "model": "ticket.serviceobject",
-  "pk": 2,
-  "fields": {
-    "serial_number": "345345345241",
-    "model": 2,
-    "client": 2,
-    "type": 2,
-    "is_installed": false,
-    "active_from": "2022-04-14T12:00:00Z",
-    "address": "Чуй 90",
-    "country": 1,
-    "region": 1,
-    "city": 1,
-    "criterion": null
-  }
-},
-{
-  "model": "ticket.serviceobject",
-  "pk": 3,
-  "fields": {
-    "serial_number": "123412342134213",
-    "model": 1,
-    "client": 3,
-    "type": 1,
-    "is_installed": false,
-    "active_from": "2022-04-14T12:00:00Z",
-    "address": "Чуй 90",
-    "country": 1,
-    "region": 1,
-    "city": 1,
-    "criterion": null
-  }
-},
-{
-  "model": "ticket.serviceobject",
-  "pk": 4,
-  "fields": {
-    "serial_number": "657568756756k",
-    "model": 1,
-    "client": 2,
-    "type": 1,
-    "is_installed": false,
-    "active_from": "2022-04-20T04:31:00Z",
-    "address": "311 ghjghg",
-    "country": 1,
-    "region": 1,
-    "city": 1,
-    "criterion": null
-  }
-},
-{
-  "model": "ticket.serviceobject",
-  "pk": 5,
-  "fields": {
-    "serial_number": "11111111111111",
-    "model": 3,
-    "client": 3,
-    "type": 3,
-    "is_installed": true,
-    "active_from": "2022-04-20T13:28:32Z",
-    "address": "ул. Такая-то",
-    "country": 3,
-    "region": 1,
-    "city": 6,
-    "criterion": null
-  }
-},
-{
-  "model": "ticket.serviceobject",
-  "pk": 6,
-  "fields": {
-    "serial_number": "2222222222222",
-    "model": 4,
-    "client": 3,
-    "type": 3,
-    "is_installed": true,
-    "active_from": "2022-04-20T13:29:16Z",
-    "address": "Красивая улица",
-    "country": 3,
-    "region": 1,
-    "city": 5,
-    "criterion": null
-  }
-},
-{
-  "model": "ticket.serviceobject",
-  "pk": 7,
-  "fields": {
-    "serial_number": "33333333333333",
-    "model": 5,
-    "client": 3,
-    "type": 4,
-    "is_installed": false,
-    "active_from": null,
-    "address": "",
-    "country": 3,
-    "region": 1,
-    "city": 5,
-    "criterion": null
-  }
-},
-{
-  "model": "ticket.serviceobject",
-  "pk": 8,
-  "fields": {
-    "serial_number": "444444444444",
-    "model": 3,
-    "client": 4,
-    "type": 3,
-    "is_installed": true,
-    "active_from": "2022-04-20T13:32:50Z",
-    "address": "Некрасивая улица",
-    "country": 3,
-    "region": 1,
-    "city": 8,
-    "criterion": null
-  }
-},
-{
-  "model": "ticket.serviceobject",
-  "pk": 9,
-  "fields": {
-    "serial_number": "555555555555",
-    "model": 4,
-    "client": 4,
-    "type": 3,
-    "is_installed": true,
-    "active_from": "2022-04-20T13:33:16Z",
-    "address": "улица Незнайки",
-    "country": 3,
-    "region": 1,
-    "city": 7,
-    "criterion": null
-  }
-},
-{
-  "model": "ticket.serviceobject",
-  "pk": 10,
-  "fields": {
-    "serial_number": "6666666666",
-    "model": 5,
-    "client": 5,
-    "type": 4,
-    "is_installed": true,
-    "active_from": "2022-04-20T13:33:48Z",
-    "address": "улица Финансовая",
-    "country": 3,
-    "region": 1,
-    "city": 5,
-    "criterion": null
-  }
-},
-{
-  "model": "ticket.ticketpriority",
-  "pk": 1,
-  "fields": {
-    "name": "Низкий"
-  }
-},
-{
-  "model": "ticket.ticketpriority",
-  "pk": 2,
-  "fields": {
-    "name": "Средний"
-  }
-},
-{
-  "model": "ticket.ticketpriority",
-  "pk": 3,
-  "fields": {
-    "name": "Высокий"
-  }
-},
-{
-  "model": "ticket.ticketpriority",
-  "pk": 4,
-  "fields": {
-    "name": "Critical Level"
-  }
-},
-{
-  "model": "ticket.tickettype",
-  "pk": 1,
-  "fields": {
-    "name": "Профилактика"
-  }
-},
-{
-  "model": "ticket.tickettype",
-  "pk": 2,
-  "fields": {
-    "name": "Срочная инсталяция"
-  }
-},
-{
-  "model": "ticket.tickettype",
-  "pk": 3,
-  "fields": {
-    "name": "Прочие работы"
-  }
-},
-{
-  "model": "ticket.ticketstatus",
-  "pk": 1,
-  "fields": {
-    "name": "Завершенный"
-  }
-},
-{
-  "model": "ticket.ticketstatus",
-  "pk": 2,
-  "fields": {
-    "name": "На исполнении"
-  }
-},
-{
-  "model": "ticket.ticketstatus",
-  "pk": 3,
-  "fields": {
-    "name": "Подготовленный"
-  }
-},
-{
-  "model": "ticket.ticketstatus",
-  "pk": 4,
-  "fields": {
-    "name": "Неопределенный"
-  }
-},
-{
-  "model": "ticket.ticketstatus",
-  "pk": 5,
-  "fields": {
-    "name": "Отмененный"
-  }
-},
-{
-  "model": "ticket.ticketstatus",
-  "pk": 6,
-  "fields": {
-    "name": "Назначенный"
-  }
-},
-{
-  "model": "ticket.ticketstatus",
-  "pk": 7,
-  "fields": {
-    "name": "Исполненный"
-  }
-},
-{
-  "model": "ticket.work",
-  "pk": 1,
-  "fields": {
-    "name": "Работы",
-    "parent": null,
-    "lft": 1,
-    "rght": 12,
-    "tree_id": 2,
-    "level": 0
-  }
-},
-{
-  "model": "ticket.work",
-  "pk": 2,
-  "fields": {
-    "name": "Извлечение изъятых карт",
-    "parent": 1,
-    "lft": 6,
-    "rght": 7,
-    "tree_id": 2,
-    "level": 1
-  }
-},
-{
-  "model": "ticket.work",
-  "pk": 3,
-  "fields": {
-    "name": "Ремонт",
-    "parent": 1,
-    "lft": 10,
-    "rght": 11,
-    "tree_id": 2,
-    "level": 1
-  }
-},
-{
-  "model": "ticket.work",
-  "pk": 4,
-  "fields": {
-    "name": "Очистка/Смазка",
-    "parent": 1,
-    "lft": 8,
-    "rght": 9,
-    "tree_id": 2,
-    "level": 1
-  }
-},
-{
-  "model": "ticket.work",
-  "pk": 5,
-  "fields": {
-    "name": "Демонтаж",
-    "parent": 1,
-    "lft": 2,
-    "rght": 3,
-    "tree_id": 2,
-    "level": 1
-  }
-},
-{
-  "model": "ticket.work",
-  "pk": 6,
-  "fields": {
-    "name": "Доставка бумаги",
-    "parent": 1,
-    "lft": 4,
-    "rght": 5,
-    "tree_id": 2,
-    "level": 1
-  }
-},
-{
-  "model": "ticket.work",
-  "pk": 7,
-  "fields": {
-    "name": "Дефекты",
-    "parent": null,
-    "lft": 1,
-    "rght": 8,
-    "tree_id": 1,
-    "level": 0
-  }
-},
-{
-  "model": "ticket.work",
-  "pk": 8,
-  "fields": {
-    "name": "Неисправность",
-    "parent": 7,
-    "lft": 2,
-    "rght": 3,
-    "tree_id": 1,
-    "level": 1
-  }
-},
-{
-  "model": "ticket.work",
-  "pk": 9,
-  "fields": {
-    "name": "Повреждение(вандализм)",
-    "parent": 7,
-    "lft": 6,
-    "rght": 7,
-    "tree_id": 1,
-    "level": 1
-  }
-},
-{
-  "model": "ticket.work",
-  "pk": 10,
-  "fields": {
-    "name": "Ошибка подключения",
-    "parent": 7,
-    "lft": 4,
-    "rght": 5,
-    "tree_id": 1,
-    "level": 1
-  }
-},
-{
-  "model": "ticket.problemarea",
-  "pk": 1,
-  "fields": {
-    "name": "АТМ",
-    "parent": null,
-    "lft": 1,
-    "rght": 24,
-    "tree_id": 1,
-    "level": 0
-  }
-},
-{
-  "model": "ticket.problemarea",
-  "pk": 3,
-  "fields": {
-    "name": "NON-CASH",
-    "parent": 1,
-    "lft": 10,
-    "rght": 17,
-    "tree_id": 1,
-    "level": 1
-  }
-},
-{
-  "model": "ticket.problemarea",
-  "pk": 4,
-  "fields": {
-    "name": "SOFTWARE",
-    "parent": 1,
-    "lft": 18,
-    "rght": 23,
-    "tree_id": 1,
-    "level": 1
-  }
-},
-{
-  "model": "ticket.problemarea",
-  "pk": 5,
-  "fields": {
-    "name": "Card readers",
-    "parent": 3,
-    "lft": 11,
-    "rght": 12,
-    "tree_id": 1,
-    "level": 2
-  }
-},
-{
-  "model": "ticket.problemarea",
-  "pk": 6,
-  "fields": {
-    "name": "Displays",
-    "parent": 3,
-    "lft": 13,
-    "rght": 14,
-    "tree_id": 1,
-    "level": 2
-  }
-},
-{
-  "model": "ticket.problemarea",
-  "pk": 7,
-  "fields": {
-    "name": "Printers",
-    "parent": 3,
-    "lft": 15,
-    "rght": 16,
-    "tree_id": 1,
-    "level": 2
-  }
-},
-{
-  "model": "ticket.problemarea",
-  "pk": 8,
-  "fields": {
-    "name": "CASH",
-    "parent": 1,
-    "lft": 2,
-    "rght": 9,
-    "tree_id": 1,
-    "level": 1
-  }
-},
-{
-  "model": "ticket.problemarea",
-  "pk": 9,
-  "fields": {
-    "name": "Cash In Cassette",
-    "parent": 8,
-    "lft": 5,
-    "rght": 6,
-    "tree_id": 1,
-    "level": 2
-  }
-},
-{
-  "model": "ticket.problemarea",
-  "pk": 10,
-  "fields": {
-    "name": "V-Module",
-    "parent": 8,
-    "lft": 7,
-    "rght": 8,
-    "tree_id": 1,
-    "level": 2
-  }
-},
-{
-  "model": "ticket.problemarea",
-  "pk": 11,
-  "fields": {
-    "name": "BIM Frame",
-    "parent": 8,
-    "lft": 3,
-    "rght": 4,
-    "tree_id": 1,
-    "level": 2
-  }
-},
-{
-  "model": "ticket.problemarea",
-  "pk": 12,
-  "fields": {
-    "name": "Operating System",
-    "parent": 4,
-    "lft": 21,
-    "rght": 22,
-    "tree_id": 1,
-    "level": 2
-  }
-},
-{
-  "model": "ticket.problemarea",
-  "pk": 13,
-  "fields": {
-    "name": "Application SW",
-    "parent": 4,
-    "lft": 19,
-    "rght": 20,
-    "tree_id": 1,
-    "level": 2
-  }
-},
-{
-  "model": "ticket.servicelevel",
-  "pk": 1,
-  "fields": {
-    "name": "First level maintenance"
-  }
-},
-{
-  "model": "ticket.servicelevel",
-  "pk": 2,
-  "fields": {
-    "name": "Second level maintenance"
-  }
-},
-{
-  "model": "ticket.department",
-  "pk": 1,
-  "fields": {
-    "name": "Service Department"
-  }
-},
-{
-  "model": "ticket.ticket",
-  "pk": 1,
-  "fields": {
-    "client": 3,
-    "service_object": 3,
-    "priority": 2,
-    "type": 2,
-    "status": 5,
-    "service_level": 1,
-    "department": 1,
-    "created_at": "2022-04-25T05:02:19.209Z",
-    "updated_at": "2022-04-26T08:54:37.652Z",
-    "recieved_at": "2022-04-12T05:01:00Z",
-    "desired_to": "2022-04-28T05:01:00Z",
-    "operator": 6,
-    "description": "",
-    "executor": 2,
-    "driver": 4,
-    "closed_at": "2022-05-04T05:02:00Z",
-    "work_started_at": "2022-04-19T13:05:00Z",
-    "work_finished_at": "2022-04-09T13:05:00Z",
-    "ride_started_at": "2022-04-29T13:05:00Z",
-    "ride_finished_at": "2022-04-27T13:05:00Z",
-    "cancel_reason": "Just for test",
-    "works": [
-      8
-    ],
-    "problem_areas": [
-      8
-    ]
-  }
-},
-{
-  "model": "ticket.ticket",
-  "pk": 2,
-  "fields": {
-    "client": 8,
-    "service_object": 4,
-    "priority": 3,
-    "type": 1,
-    "status": 3,
-    "service_level": 1,
-    "department": 1,
-    "created_at": "2022-04-25T10:51:01.038Z",
-    "updated_at": "2022-04-25T10:51:01.038Z",
-    "recieved_at": "2022-04-20T10:48:00Z",
-    "desired_to": "2022-04-27T10:49:00Z",
-    "operator": 6,
-    "description": "dasdasdsadsad",
-    "executor": null,
-    "driver": null,
-    "closed_at": null,
-    "work_started_at": null,
-    "work_finished_at": null,
-    "ride_started_at": null,
-    "ride_finished_at": null,
-    "cancel_reason": "",
-    "works": [
-      10
-    ],
-    "problem_areas": [
-      9
-    ]
-  }
-},
-{
-  "model": "ticket.ticket",
-  "pk": 3,
-  "fields": {
-    "client": 3,
-    "service_object": 4,
-    "priority": 3,
-    "type": 2,
-    "status": 1,
-    "service_level": 1,
-    "department": 1,
-    "created_at": "2022-04-27T16:01:31.230Z",
-    "updated_at": "2022-04-27T16:01:42.891Z",
-    "recieved_at": "2022-04-26T22:01:00Z",
-    "desired_to": "2022-04-26T22:01:00Z",
-    "operator": 4,
-    "description": "",
-    "executor": 2,
-    "driver": 1,
-    "closed_at": "2022-04-27T16:01:42.890Z",
-    "work_started_at": null,
-    "work_finished_at": null,
-    "ride_started_at": null,
-    "ride_finished_at": null,
-    "cancel_reason": "",
-    "works": [
-      5
-    ],
-    "problem_areas": [
-      3
-    ]
-  }
-},
-{
-  "model": "ticket.ticket",
-  "pk": 4,
-  "fields": {
-    "client": 2,
-    "service_object": 2,
-    "priority": 1,
-    "type": 2,
-    "status": 4,
-    "service_level": 1,
-    "department": 1,
-    "created_at": "2022-04-29T09:57:14.603Z",
-    "updated_at": "2022-04-29T09:57:14.603Z",
-    "recieved_at": "2022-04-29T15:56:00Z",
-    "desired_to": "2022-04-30T15:56:00Z",
-    "operator": 4,
-    "description": "cddcds",
-    "executor": 1,
-    "driver": 2,
-    "closed_at": null,
-    "work_started_at": null,
-    "work_finished_at": null,
-    "ride_started_at": null,
-    "ride_finished_at": null,
-    "cancel_reason": "",
-    "works": [
-      2,
-      4
-    ],
-    "problem_areas": [
-      6,
-      7
-    ]
-  }
-},
-{
-  "model": "ticket.ticket",
-  "pk": 5,
-  "fields": {
-    "client": 2,
-    "service_object": 2,
-    "priority": 1,
-    "type": 1,
-    "status": 4,
-    "service_level": 1,
-    "department": 1,
-    "created_at": "2022-05-08T13:43:31.831Z",
-    "updated_at": "2022-05-08T13:43:31.851Z",
-    "recieved_at": "2022-05-08T13:43:00Z",
-    "desired_to": "2022-05-11T13:43:00Z",
-    "operator": 4,
-    "description": "Time test",
-    "executor": 4,
-    "driver": 4,
-    "closed_at": null,
-    "work_started_at": null,
-    "work_finished_at": null,
-    "ride_started_at": null,
-    "ride_finished_at": null,
-    "cancel_reason": "",
-    "works": [
-      6,
-      3
-    ],
-    "problem_areas": [
-      7,
-      13
-    ]
-  }
-},
-{
-  "model": "ticket.ticket",
-  "pk": 6,
-  "fields": {
-    "client": 4,
-    "service_object": 8,
-    "priority": 1,
-    "type": 1,
-    "status": 3,
-    "service_level": 1,
-    "department": 1,
-    "created_at": "2022-05-10T10:40:01.768Z",
-    "updated_at": "2022-05-10T12:17:23.897Z",
-    "recieved_at": "2022-05-09T04:39:00Z",
-    "desired_to": null,
-    "operator": 6,
-    "description": "",
-    "executor": null,
-    "driver": null,
-    "closed_at": null,
-    "work_started_at": null,
-    "work_finished_at": null,
-    "ride_started_at": null,
-    "ride_finished_at": null,
-    "cancel_reason": "",
-    "works": [
-      6
-    ],
-    "problem_areas": [
-      6
-    ]
-  }
-},
-{
-  "model": "ticket.ticket",
-  "pk": 7,
-  "fields": {
-    "client": 2,
-    "service_object": 4,
-    "priority": 3,
-    "type": 1,
-    "status": 7,
-    "service_level": 1,
-    "department": 1,
-    "created_at": "2022-05-10T10:42:06.750Z",
-    "updated_at": "2022-05-10T10:51:53.174Z",
-    "recieved_at": "2022-05-08T22:41:00Z",
-    "desired_to": "2022-05-11T10:49:00Z",
-    "operator": 6,
-    "description": "",
-    "executor": 5,
-    "driver": 5,
-    "closed_at": null,
-    "work_started_at": "2022-05-11T03:51:00Z",
-    "work_finished_at": "2022-05-11T05:51:00Z",
-    "ride_started_at": "2022-05-10T22:50:00Z",
-    "ride_finished_at": "2022-05-11T08:50:00Z",
-    "cancel_reason": "",
-    "works": [
-      10
-    ],
-    "problem_areas": [
-      11
-    ]
-  }
-},
-{
-  "model": "ticket.ticket",
-  "pk": 8,
-  "fields": {
-    "client": 2,
-    "service_object": 2,
-    "priority": 3,
-    "type": 1,
-    "status": 4,
-    "service_level": 1,
-    "department": 1,
-    "created_at": "2022-05-10T12:24:02.718Z",
-    "updated_at": "2022-05-10T12:24:02.727Z",
-    "recieved_at": "2022-05-10T12:23:00Z",
-    "desired_to": null,
-    "operator": 6,
-    "description": "",
-    "executor": null,
-    "driver": null,
-    "closed_at": null,
-    "work_started_at": null,
-    "work_finished_at": null,
-    "ride_started_at": null,
-    "ride_finished_at": null,
-    "cancel_reason": "",
-    "works": [
-      10
-    ],
-    "problem_areas": [
-      9
-    ]
-  }
-},
-{
-  "model": "ticket.contract",
-  "pk": 1,
-  "fields": {
-    "doc_number": "номер_1А1А",
-    "date": "2022-05-05",
-    "type": 1,
-    "department": 1,
-    "company_client": 2,
-    "valid_from": "2021-12-01",
-    "valid_until": "2022-10-07",
-    "current_document": "contracts/Schema_ServiceDesk.pdf",
-    "status": 1,
-    "time_to_fix_problem_SLA": "12:00:00",
-    "service_objects_SLA": [
-      2,
-      4
-    ]
-  }
-},
-{
-  "model": "ticket.contracttype",
-  "pk": 1,
-  "fields": {
-    "name": "Service agreement"
-  }
-},
-{
-  "model": "ticket.contractstatus",
-  "pk": 1,
-  "fields": {
-    "name": "Созданный"
-  }
-},
-{
-  "model": "ticket.contractstatus",
-  "pk": 2,
-  "fields": {
-    "name": "Подготовленный"
-  }
-},
-{
-  "model": "ticket.contractstatus",
-  "pk": 3,
-  "fields": {
-    "name": "На исполлнении"
-  }
-},
-{
-  "model": "ticket.contractstatus",
-  "pk": 4,
-  "fields": {
-    "name": "Закрытый"
-  }
+    "model": "ticket.region",
+    "pk": 1,
+    "fields": {
+        "name": "Чуйская",
+        "country": 3
+    }
+},
+{
+    "model": "ticket.region",
+    "pk": 2,
+    "fields": {
+        "name": "Иссык-Кульская",
+        "country": 3
+    }
+},
+{
+    "model": "ticket.region",
+    "pk": 3,
+    "fields": {
+        "name": "Баткенская",
+        "country": 3
+    }
+},
+{
+    "model": "ticket.region",
+    "pk": 4,
+    "fields": {
+        "name": "Ошская",
+        "country": 3
+    }
+},
+{
+    "model": "ticket.region",
+    "pk": 5,
+    "fields": {
+        "name": "Жалал-Абадская",
+        "country": 3
+    }
+},
+{
+    "model": "ticket.region",
+    "pk": 6,
+    "fields": {
+        "name": "Нарынская",
+        "country": 3
+    }
+},
+{
+    "model": "ticket.region",
+    "pk": 7,
+    "fields": {
+        "name": "Таласская",
+        "country": 3
+    }
+},
+{
+    "model": "ticket.city",
+    "pk": 1,
+    "fields": {
+        "name": "Бишкек",
+        "country": 1
+    }
+},
+{
+    "model": "ticket.city",
+    "pk": 5,
+    "fields": {
+        "name": "Бишкек",
+        "country": 3
+    }
+},
+{
+    "model": "ticket.city",
+    "pk": 6,
+    "fields": {
+        "name": "Ош",
+        "country": 3
+    }
+},
+{
+    "model": "ticket.city",
+    "pk": 7,
+    "fields": {
+        "name": "Талас",
+        "country": 3
+    }
+},
+{
+    "model": "ticket.city",
+    "pk": 8,
+    "fields": {
+        "name": "Нарын",
+        "country": 3
+    }
+},
+{
+    "model": "ticket.client",
+    "pk": 2,
+    "fields": {
+        "name": "KICB Bank",
+        "short_name": "KICB",
+        "website": "http://kicb.kg",
+        "type": 1,
+        "address": "Toktogula 90",
+        "country": 1,
+        "region": 2,
+        "city": 1
+    }
+},
+{
+    "model": "ticket.client",
+    "pk": 3,
+    "fields": {
+        "name": "Оптима Банк",
+        "short_name": "Оптима",
+        "website": "",
+        "type": 3,
+        "address": "ул. Хорошая 13",
+        "country": 3,
+        "region": 2,
+        "city": 5
+    }
+},
+{
+    "model": "ticket.client",
+    "pk": 4,
+    "fields": {
+        "name": "Демир Банк",
+        "short_name": "Демир",
+        "website": "http://demir.kg",
+        "type": 3,
+        "address": "",
+        "country": 3,
+        "region": 2,
+        "city": 5
+    }
+},
+{
+    "model": "ticket.client",
+    "pk": 5,
+    "fields": {
+        "name": "Финка МК",
+        "short_name": "Финка",
+        "website": "",
+        "type": 4,
+        "address": "",
+        "country": 3,
+        "region": 2,
+        "city": 5
+    }
+},
+{
+    "model": "ticket.client",
+    "pk": 6,
+    "fields": {
+        "name": "Companion",
+        "short_name": "Companion",
+        "website": "http://www.agent.com",
+        "type": 1,
+        "address": "Umetaliev 11",
+        "country": 1,
+        "region": 2,
+        "city": 1
+    }
+},
+{
+    "model": "ticket.client",
+    "pk": 7,
+    "fields": {
+        "name": "Bai Tushum",
+        "short_name": "BT",
+        "website": "http://baitushum.com",
+        "type": 1,
+        "address": "Almatinka 5",
+        "country": 1,
+        "region": 2,
+        "city": 1
+    }
+},
+{
+    "model": "ticket.client",
+    "pk": 8,
+    "fields": {
+        "name": "Halykbank",
+        "short_name": "Halyk",
+        "website": "http://www.halyk.kg",
+        "type": 1,
+        "address": "Shabdan Baatyr 90",
+        "country": 1,
+        "region": 2,
+        "city": 1
+    }
+},
+{
+    "model": "ticket.client",
+    "pk": 9,
+    "fields": {
+        "name": "Halykbank",
+        "short_name": "Halyk",
+        "website": "http://www.halyk.kg",
+        "type": 1,
+        "address": "6-Mikrorayon, 10 Dom, 55 kvar",
+        "country": 1,
+        "region": 2,
+        "city": 1
+    }
+},
+{
+    "model": "ticket.client",
+    "pk": 10,
+    "fields": {
+        "name": "Bai Tushum 2",
+        "short_name": "Bai",
+        "website": "http://bai.kg",
+        "type": 1,
+        "address": "Elebaeva 90",
+        "country": 1,
+        "region": 2,
+        "city": 1
+    }
+},
+{
+    "model": "ticket.criteriontype",
+    "pk": 1,
+    "fields": {
+        "name": "Гарантийный"
+    }
+},
+{
+    "model": "ticket.criteriontype",
+    "pk": 2,
+    "fields": {
+        "name": "Пост-гарантийный"
+    }
+},
+{
+    "model": "ticket.serviceobject",
+    "pk": 2,
+    "fields": {
+        "serial_number": "345345345241",
+        "model": 2,
+        "client": 2,
+        "type": 2,
+        "is_installed": false,
+        "active_from": "2022-04-14T12:00:00Z",
+        "address": "Чуй 90",
+        "country": 1,
+        "region": 1,
+        "city": 1,
+        "criterion": null
+    }
+},
+{
+    "model": "ticket.serviceobject",
+    "pk": 3,
+    "fields": {
+        "serial_number": "123412342134213",
+        "model": 1,
+        "client": 3,
+        "type": 1,
+        "is_installed": false,
+        "active_from": "2022-04-14T12:00:00Z",
+        "address": "Чуй 90",
+        "country": 1,
+        "region": 1,
+        "city": 1,
+        "criterion": null
+    }
+},
+{
+    "model": "ticket.serviceobject",
+    "pk": 4,
+    "fields": {
+        "serial_number": "657568756756k",
+        "model": 1,
+        "client": 2,
+        "type": 1,
+        "is_installed": false,
+        "active_from": "2022-04-20T04:31:00Z",
+        "address": "311 ghjghg",
+        "country": 1,
+        "region": 1,
+        "city": 1,
+        "criterion": null
+    }
+},
+{
+    "model": "ticket.serviceobject",
+    "pk": 5,
+    "fields": {
+        "serial_number": "11111111111111",
+        "model": 3,
+        "client": 3,
+        "type": 3,
+        "is_installed": true,
+        "active_from": "2022-04-20T13:28:32Z",
+        "address": "ул. Такая-то",
+        "country": 3,
+        "region": 1,
+        "city": 6,
+        "criterion": null
+    }
+},
+{
+    "model": "ticket.serviceobject",
+    "pk": 6,
+    "fields": {
+        "serial_number": "2222222222222",
+        "model": 4,
+        "client": 3,
+        "type": 3,
+        "is_installed": true,
+        "active_from": "2022-04-20T13:29:16Z",
+        "address": "Красивая улица",
+        "country": 3,
+        "region": 1,
+        "city": 5,
+        "criterion": null
+    }
+},
+{
+    "model": "ticket.serviceobject",
+    "pk": 7,
+    "fields": {
+        "serial_number": "33333333333333",
+        "model": 5,
+        "client": 3,
+        "type": 4,
+        "is_installed": false,
+        "active_from": null,
+        "address": "",
+        "country": 3,
+        "region": 1,
+        "city": 5,
+        "criterion": null
+    }
+},
+{
+    "model": "ticket.serviceobject",
+    "pk": 8,
+    "fields": {
+        "serial_number": "444444444444",
+        "model": 3,
+        "client": 4,
+        "type": 3,
+        "is_installed": true,
+        "active_from": "2022-04-20T13:32:50Z",
+        "address": "Некрасивая улица",
+        "country": 3,
+        "region": 1,
+        "city": 8,
+        "criterion": null
+    }
+},
+{
+    "model": "ticket.serviceobject",
+    "pk": 9,
+    "fields": {
+        "serial_number": "555555555555",
+        "model": 4,
+        "client": 4,
+        "type": 3,
+        "is_installed": true,
+        "active_from": "2022-04-20T13:33:16Z",
+        "address": "улица Незнайки",
+        "country": 3,
+        "region": 1,
+        "city": 7,
+        "criterion": null
+    }
+},
+{
+    "model": "ticket.serviceobject",
+    "pk": 10,
+    "fields": {
+        "serial_number": "6666666666",
+        "model": 5,
+        "client": 5,
+        "type": 4,
+        "is_installed": true,
+        "active_from": "2022-04-20T13:33:48Z",
+        "address": "улица Финансовая",
+        "country": 3,
+        "region": 1,
+        "city": 5,
+        "criterion": null
+    }
+},
+{
+    "model": "ticket.ticketpriority",
+    "pk": 1,
+    "fields": {
+        "name": "Низкий"
+    }
+},
+{
+    "model": "ticket.ticketpriority",
+    "pk": 2,
+    "fields": {
+        "name": "Средний"
+    }
+},
+{
+    "model": "ticket.ticketpriority",
+    "pk": 3,
+    "fields": {
+        "name": "Высокий"
+    }
+},
+{
+    "model": "ticket.ticketpriority",
+    "pk": 4,
+    "fields": {
+        "name": "Critical Level"
+    }
+},
+{
+    "model": "ticket.tickettype",
+    "pk": 1,
+    "fields": {
+        "name": "Профилактика"
+    }
+},
+{
+    "model": "ticket.tickettype",
+    "pk": 2,
+    "fields": {
+        "name": "Срочная инсталяция"
+    }
+},
+{
+    "model": "ticket.tickettype",
+    "pk": 3,
+    "fields": {
+        "name": "Прочие работы"
+    }
+},
+{
+    "model": "ticket.ticketstatus",
+    "pk": 1,
+    "fields": {
+        "name": "Завершенный"
+    }
+},
+{
+    "model": "ticket.ticketstatus",
+    "pk": 2,
+    "fields": {
+        "name": "На исполнении"
+    }
+},
+{
+    "model": "ticket.ticketstatus",
+    "pk": 3,
+    "fields": {
+        "name": "Подготовленный"
+    }
+},
+{
+    "model": "ticket.ticketstatus",
+    "pk": 4,
+    "fields": {
+        "name": "Неопределенный"
+    }
+},
+{
+    "model": "ticket.ticketstatus",
+    "pk": 5,
+    "fields": {
+        "name": "Отмененный"
+    }
+},
+{
+    "model": "ticket.ticketstatus",
+    "pk": 6,
+    "fields": {
+        "name": "Назначенный"
+    }
+},
+{
+    "model": "ticket.ticketstatus",
+    "pk": 7,
+    "fields": {
+        "name": "Исполненный"
+    }
+},
+{
+    "model": "ticket.work",
+    "pk": 1,
+    "fields": {
+        "name": "Работы",
+        "parent": null,
+        "lft": 1,
+        "rght": 12,
+        "tree_id": 2,
+        "level": 0
+    }
+},
+{
+    "model": "ticket.work",
+    "pk": 2,
+    "fields": {
+        "name": "Извлечение изъятых карт",
+        "parent": 1,
+        "lft": 6,
+        "rght": 7,
+        "tree_id": 2,
+        "level": 1
+    }
+},
+{
+    "model": "ticket.work",
+    "pk": 3,
+    "fields": {
+        "name": "Ремонт",
+        "parent": 1,
+        "lft": 10,
+        "rght": 11,
+        "tree_id": 2,
+        "level": 1
+    }
+},
+{
+    "model": "ticket.work",
+    "pk": 4,
+    "fields": {
+        "name": "Очистка/Смазка",
+        "parent": 1,
+        "lft": 8,
+        "rght": 9,
+        "tree_id": 2,
+        "level": 1
+    }
+},
+{
+    "model": "ticket.work",
+    "pk": 5,
+    "fields": {
+        "name": "Демонтаж",
+        "parent": 1,
+        "lft": 2,
+        "rght": 3,
+        "tree_id": 2,
+        "level": 1
+    }
+},
+{
+    "model": "ticket.work",
+    "pk": 6,
+    "fields": {
+        "name": "Доставка бумаги",
+        "parent": 1,
+        "lft": 4,
+        "rght": 5,
+        "tree_id": 2,
+        "level": 1
+    }
+},
+{
+    "model": "ticket.work",
+    "pk": 7,
+    "fields": {
+        "name": "Дефекты",
+        "parent": null,
+        "lft": 1,
+        "rght": 8,
+        "tree_id": 1,
+        "level": 0
+    }
+},
+{
+    "model": "ticket.work",
+    "pk": 8,
+    "fields": {
+        "name": "Неисправность",
+        "parent": 7,
+        "lft": 2,
+        "rght": 3,
+        "tree_id": 1,
+        "level": 1
+    }
+},
+{
+    "model": "ticket.work",
+    "pk": 9,
+    "fields": {
+        "name": "Повреждение(вандализм)",
+        "parent": 7,
+        "lft": 6,
+        "rght": 7,
+        "tree_id": 1,
+        "level": 1
+    }
+},
+{
+    "model": "ticket.work",
+    "pk": 10,
+    "fields": {
+        "name": "Ошибка подключения",
+        "parent": 7,
+        "lft": 4,
+        "rght": 5,
+        "tree_id": 1,
+        "level": 1
+    }
+},
+{
+    "model": "ticket.problemarea",
+    "pk": 1,
+    "fields": {
+        "name": "АТМ",
+        "parent": null,
+        "lft": 1,
+        "rght": 24,
+        "tree_id": 1,
+        "level": 0
+    }
+},
+{
+    "model": "ticket.problemarea",
+    "pk": 3,
+    "fields": {
+        "name": "NON-CASH",
+        "parent": 1,
+        "lft": 10,
+        "rght": 17,
+        "tree_id": 1,
+        "level": 1
+    }
+},
+{
+    "model": "ticket.problemarea",
+    "pk": 4,
+    "fields": {
+        "name": "SOFTWARE",
+        "parent": 1,
+        "lft": 18,
+        "rght": 23,
+        "tree_id": 1,
+        "level": 1
+    }
+},
+{
+    "model": "ticket.problemarea",
+    "pk": 5,
+    "fields": {
+        "name": "Card readers",
+        "parent": 3,
+        "lft": 11,
+        "rght": 12,
+        "tree_id": 1,
+        "level": 2
+    }
+},
+{
+    "model": "ticket.problemarea",
+    "pk": 6,
+    "fields": {
+        "name": "Displays",
+        "parent": 3,
+        "lft": 13,
+        "rght": 14,
+        "tree_id": 1,
+        "level": 2
+    }
+},
+{
+    "model": "ticket.problemarea",
+    "pk": 7,
+    "fields": {
+        "name": "Printers",
+        "parent": 3,
+        "lft": 15,
+        "rght": 16,
+        "tree_id": 1,
+        "level": 2
+    }
+},
+{
+    "model": "ticket.problemarea",
+    "pk": 8,
+    "fields": {
+        "name": "CASH",
+        "parent": 1,
+        "lft": 2,
+        "rght": 9,
+        "tree_id": 1,
+        "level": 1
+    }
+},
+{
+    "model": "ticket.problemarea",
+    "pk": 9,
+    "fields": {
+        "name": "Cash In Cassette",
+        "parent": 8,
+        "lft": 5,
+        "rght": 6,
+        "tree_id": 1,
+        "level": 2
+    }
+},
+{
+    "model": "ticket.problemarea",
+    "pk": 10,
+    "fields": {
+        "name": "V-Module",
+        "parent": 8,
+        "lft": 7,
+        "rght": 8,
+        "tree_id": 1,
+        "level": 2
+    }
+},
+{
+    "model": "ticket.problemarea",
+    "pk": 11,
+    "fields": {
+        "name": "BIM Frame",
+        "parent": 8,
+        "lft": 3,
+        "rght": 4,
+        "tree_id": 1,
+        "level": 2
+    }
+},
+{
+    "model": "ticket.problemarea",
+    "pk": 12,
+    "fields": {
+        "name": "Operating System",
+        "parent": 4,
+        "lft": 21,
+        "rght": 22,
+        "tree_id": 1,
+        "level": 2
+    }
+},
+{
+    "model": "ticket.problemarea",
+    "pk": 13,
+    "fields": {
+        "name": "Application SW",
+        "parent": 4,
+        "lft": 19,
+        "rght": 20,
+        "tree_id": 1,
+        "level": 2
+    }
+},
+{
+    "model": "ticket.servicelevel",
+    "pk": 1,
+    "fields": {
+        "name": "First level maintenance"
+    }
+},
+{
+    "model": "ticket.servicelevel",
+    "pk": 2,
+    "fields": {
+        "name": "Second level maintenance"
+    }
+},
+{
+    "model": "ticket.department",
+    "pk": 1,
+    "fields": {
+        "name": "Service Department"
+    }
+},
+{
+    "model": "ticket.ticket",
+    "pk": 1,
+    "fields": {
+        "client": 3,
+        "service_object": 3,
+        "priority": 2,
+        "type": 2,
+        "status": 5,
+        "service_level": 1,
+        "department": 1,
+        "created_at": "2022-04-25T05:02:19.209Z",
+        "updated_at": "2022-04-26T08:54:37.652Z",
+        "recieved_at": "2022-04-12T05:01:00Z",
+        "desired_to": "2022-04-28T05:01:00Z",
+        "operator": 6,
+        "description": "",
+        "executor": 2,
+        "driver": 4,
+        "closed_at": "2022-05-04T05:02:00Z",
+        "work_started_at": "2022-04-19T13:05:00Z",
+        "work_finished_at": "2022-04-09T13:05:00Z",
+        "ride_started_at": "2022-04-29T13:05:00Z",
+        "ride_finished_at": "2022-04-27T13:05:00Z",
+        "cancel_reason": "Just for test",
+        "works": [
+            8
+        ],
+        "problem_areas": [
+            8
+        ]
+    }
+},
+{
+    "model": "ticket.ticket",
+    "pk": 2,
+    "fields": {
+        "client": 8,
+        "service_object": 4,
+        "priority": 3,
+        "type": 1,
+        "status": 3,
+        "service_level": 1,
+        "department": 1,
+        "created_at": "2022-04-25T10:51:01.038Z",
+        "updated_at": "2022-04-25T10:51:01.038Z",
+        "recieved_at": "2022-04-20T10:48:00Z",
+        "desired_to": "2022-04-27T10:49:00Z",
+        "operator": 6,
+        "description": "dasdasdsadsad",
+        "executor": null,
+        "driver": null,
+        "closed_at": null,
+        "work_started_at": null,
+        "work_finished_at": null,
+        "ride_started_at": null,
+        "ride_finished_at": null,
+        "cancel_reason": "",
+        "works": [
+            10
+        ],
+        "problem_areas": [
+            9
+        ]
+    }
+},
+{
+    "model": "ticket.ticket",
+    "pk": 3,
+    "fields": {
+        "client": 3,
+        "service_object": 4,
+        "priority": 3,
+        "type": 2,
+        "status": 1,
+        "service_level": 1,
+        "department": 1,
+        "created_at": "2022-04-27T16:01:31.230Z",
+        "updated_at": "2022-04-27T16:01:42.891Z",
+        "recieved_at": "2022-04-26T22:01:00Z",
+        "desired_to": "2022-04-26T22:01:00Z",
+        "operator": 4,
+        "description": "",
+        "executor": 2,
+        "driver": 1,
+        "closed_at": "2022-04-27T16:01:42.890Z",
+        "work_started_at": null,
+        "work_finished_at": null,
+        "ride_started_at": null,
+        "ride_finished_at": null,
+        "cancel_reason": "",
+        "works": [
+            5
+        ],
+        "problem_areas": [
+            3
+        ]
+    }
+},
+{
+    "model": "ticket.ticket",
+    "pk": 4,
+    "fields": {
+        "client": 2,
+        "service_object": 2,
+        "priority": 1,
+        "type": 2,
+        "status": 2,
+        "service_level": 1,
+        "department": 1,
+        "created_at": "2022-04-29T09:57:14.603Z",
+        "updated_at": "2022-05-10T18:57:19.597Z",
+        "recieved_at": "2022-04-29T09:56:00Z",
+        "desired_to": null,
+        "operator": 4,
+        "description": "cddcds",
+        "executor": 1,
+        "driver": 5,
+        "closed_at": null,
+        "work_started_at": null,
+        "work_finished_at": null,
+        "ride_started_at": "2022-05-10T18:57:00Z",
+        "ride_finished_at": null,
+        "cancel_reason": "",
+        "works": [
+            2,
+            4
+        ],
+        "problem_areas": [
+            6,
+            7
+        ]
+    }
+},
+{
+    "model": "ticket.ticket",
+    "pk": 5,
+    "fields": {
+        "client": 2,
+        "service_object": 2,
+        "priority": 1,
+        "type": 1,
+        "status": 4,
+        "service_level": 1,
+        "department": 1,
+        "created_at": "2022-05-08T13:43:31.831Z",
+        "updated_at": "2022-05-08T13:43:31.851Z",
+        "recieved_at": "2022-05-08T13:43:00Z",
+        "desired_to": "2022-05-11T13:43:00Z",
+        "operator": 4,
+        "description": "Time test",
+        "executor": 4,
+        "driver": 4,
+        "closed_at": null,
+        "work_started_at": null,
+        "work_finished_at": null,
+        "ride_started_at": null,
+        "ride_finished_at": null,
+        "cancel_reason": "",
+        "works": [
+            6,
+            3
+        ],
+        "problem_areas": [
+            7,
+            13
+        ]
+    }
+},
+{
+    "model": "ticket.ticket",
+    "pk": 6,
+    "fields": {
+        "client": 4,
+        "service_object": 8,
+        "priority": 1,
+        "type": 1,
+        "status": 3,
+        "service_level": 1,
+        "department": 1,
+        "created_at": "2022-05-10T10:40:01.768Z",
+        "updated_at": "2022-05-10T12:17:23.897Z",
+        "recieved_at": "2022-05-09T04:39:00Z",
+        "desired_to": null,
+        "operator": 6,
+        "description": "",
+        "executor": null,
+        "driver": null,
+        "closed_at": null,
+        "work_started_at": null,
+        "work_finished_at": null,
+        "ride_started_at": null,
+        "ride_finished_at": null,
+        "cancel_reason": "",
+        "works": [
+            6
+        ],
+        "problem_areas": [
+            6
+        ]
+    }
+},
+{
+    "model": "ticket.ticket",
+    "pk": 7,
+    "fields": {
+        "client": 2,
+        "service_object": 4,
+        "priority": 3,
+        "type": 1,
+        "status": 7,
+        "service_level": 1,
+        "department": 1,
+        "created_at": "2022-05-10T10:42:06.750Z",
+        "updated_at": "2022-05-10T10:51:53.174Z",
+        "recieved_at": "2022-05-08T22:41:00Z",
+        "desired_to": "2022-05-11T10:49:00Z",
+        "operator": 6,
+        "description": "",
+        "executor": 5,
+        "driver": 5,
+        "closed_at": null,
+        "work_started_at": "2022-05-11T03:51:00Z",
+        "work_finished_at": "2022-05-11T05:51:00Z",
+        "ride_started_at": "2022-05-10T22:50:00Z",
+        "ride_finished_at": "2022-05-11T08:50:00Z",
+        "cancel_reason": "",
+        "works": [
+            10
+        ],
+        "problem_areas": [
+            11
+        ]
+    }
+},
+{
+    "model": "ticket.ticket",
+    "pk": 8,
+    "fields": {
+        "client": 2,
+        "service_object": 2,
+        "priority": 3,
+        "type": 1,
+        "status": 4,
+        "service_level": 1,
+        "department": 1,
+        "created_at": "2022-05-10T12:24:02.718Z",
+        "updated_at": "2022-05-10T12:24:02.727Z",
+        "recieved_at": "2022-05-10T12:23:00Z",
+        "desired_to": null,
+        "operator": 6,
+        "description": "",
+        "executor": null,
+        "driver": null,
+        "closed_at": null,
+        "work_started_at": null,
+        "work_finished_at": null,
+        "ride_started_at": null,
+        "ride_finished_at": null,
+        "cancel_reason": "",
+        "works": [
+            10
+        ],
+        "problem_areas": [
+            9
+        ]
+    }
+},
+{
+    "model": "ticket.contract",
+    "pk": 1,
+    "fields": {
+        "doc_number": "номер_1А1А",
+        "date": "2022-05-05",
+        "type": 1,
+        "department": 1,
+        "company_client": 2,
+        "valid_from": "2021-12-01",
+        "valid_until": "2022-10-07",
+        "current_document": "contracts/Schema_ServiceDesk.pdf",
+        "status": 1,
+        "time_to_fix_problem_SLA": "12:00:00",
+        "service_objects_SLA": [
+            2,
+            4
+        ]
+    }
+},
+{
+    "model": "ticket.contracttype",
+    "pk": 1,
+    "fields": {
+        "name": "Service agreement"
+    }
+},
+{
+    "model": "ticket.contractstatus",
+    "pk": 1,
+    "fields": {
+        "name": "Созданный"
+    }
+},
+{
+    "model": "ticket.contractstatus",
+    "pk": 2,
+    "fields": {
+        "name": "Подготовленный"
+    }
+},
+{
+    "model": "ticket.contractstatus",
+    "pk": 3,
+    "fields": {
+        "name": "На исполлнении"
+    }
+},
+{
+    "model": "ticket.contractstatus",
+    "pk": 4,
+    "fields": {
+        "name": "Закрытый"
+    }
 }
 ]

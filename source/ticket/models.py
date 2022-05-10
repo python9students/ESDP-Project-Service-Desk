@@ -72,6 +72,8 @@ class Region(models.Model):
     Модель для создания стран
     """
     name = models.CharField(max_length=100, verbose_name='Название')
+    country = models.ForeignKey('ticket.Country', on_delete=models.CASCADE, verbose_name='Страна',
+                                related_name='regions')
 
     def __str__(self):
         return f'{self.name}'
