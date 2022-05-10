@@ -5,18 +5,32 @@
     {% if not user.username == 'engineer' %}
         <a href="{% url 'ticket:ticket_create' %}" class="btn btn-primary mb-5">Создать Заявку</a>
     {% endif %}
-    {% for ticket in tickets %}
-        <div>
-            <ul class="list-group">
-                <li class="list-group-item">Заявка № {{ ticket.id }}</li>
-                <li class="list-group-item">Клиент: {{ ticket.client }}</li>
-                <li class="list-group-item">Объект обслуживания: {{ ticket.service_object }}</li>
-                <li class="list-group-item">Статус: {{ ticket.status }}</li>
-                <li class="list-group-item"><a href="{% url 'ticket:ticket_detail' ticket.pk %}"
-                                               class="btn btn-primary">Детальный просмотр</a></li>
-            </ul>
-        </div>
-        <br>
-        <hr>
-    {% endfor %}
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Заявка</th>
+            <th scope="col">Дата получения</th>
+            <th scope="col">Клиент</th>
+            <th scope="col">Объект</th>
+            <th scope="col">Статус</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for ticket in tickets %}
+            <tr>
+                <td class="{% if ticket.priority|capfirst == 'Высокий' %}
+                table-danger
+                {% else %}
+                table-warning
+                {% endif %}" ><a href="{% url 'ticket:ticket_detail' ticket.pk %}">Заявка № {{ ticket.id }}</a></td>
+                <td>{{ ticket.recieved_at }}</td>
+                <td>{{ ticket.client }}</td>
+                <td>{{ ticket.service_object }}</td>
+                <td>{{ ticket.status }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}
