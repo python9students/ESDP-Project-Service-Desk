@@ -6,6 +6,7 @@
         <a href="{% url 'ticket:ticket_create' %}" class="btn btn-primary mb-5">Создать Заявку</a>
     {% endif %}
 
+    {% if object_list %}
     <table class="table table-hover">
         <thead>
         <tr>
@@ -33,5 +34,8 @@
         {% endfor %}
         </tbody>
     </table>
+        {% else %}
+        <h2>Заявок пока нет...</h2>
+    {% endif %}
 
 {% endblock %}
