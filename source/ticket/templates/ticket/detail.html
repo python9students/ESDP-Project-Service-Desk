@@ -19,6 +19,9 @@
             <li class="list-group-item">Дата создания заявки: {{ ticket.created_at }}</li>
             <li class="list-group-item">Дата изменения заявки: {{ ticket.updated_at }}</li>
             <li class="list-group-item">Дата получения заявки: {{ ticket.recieved_at }}</li>
+            {% if ticket.desired_to %}
+                <li class="list-group-item">Желаемая дата исполнения: {{ ticket.desired_to }}</li>
+            {% endif %}
             <li class="list-group-item"> Работы:
                 <ul>
                     {% recursetree ticket.works.all %}
