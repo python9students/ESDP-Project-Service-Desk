@@ -41,4 +41,10 @@ admin.site.register(Ticket)
 admin.site.register(CriterionType)
 admin.site.register(ContractStatus)
 admin.site.register(ContractType)
-admin.site.register(Contract)
+
+
+@admin.register(Contract)
+class ContractAdmin(admin.ModelAdmin):
+    search_fields = ("doc_number",)
+    list_display = ("doc_number", "company_client", "valid_from", "valid_until", "status")
+
