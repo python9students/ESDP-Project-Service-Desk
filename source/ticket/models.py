@@ -64,6 +64,7 @@ class Country(models.Model):
         verbose_name = 'Страна'
         verbose_name_plural = 'Страны'
         db_table = 'country'
+        unique_together = ('name',)
 
 
 class Region(models.Model):
@@ -71,6 +72,8 @@ class Region(models.Model):
     Модель для создания стран
     """
     name = models.CharField(max_length=100, verbose_name='Название')
+    country = models.ForeignKey('ticket.Country', on_delete=models.CASCADE, verbose_name='Страна',
+                                related_name='regions')
 
     def __str__(self):
         return f'{self.name}'
@@ -217,20 +220,6 @@ class TicketStatus(models.Model):
         db_table = 'ticket_status'
 
 
-class EmployeePosition(models.Model):
-    """
-    Модель для создания должностей
-    """
-    name = models.CharField(max_length=50, verbose_name='Название')
-
-    def __str__(self):
-        return f'{self.name}'
-
-    class Meta:
-        verbose_name = 'Должность'
-        verbose_name_plural = 'Должность'
-        db_table = 'employee_position'
-
 
 class Work(MPTTModel):
     """
@@ -341,7 +330,7 @@ class Ticket(models.Model):
     cancel_reason = models.CharField(max_length=255, verbose_name='Причина отмены заявки')
 
     def __str__(self):
-        return f'ticket №{self.id}'
+        return f'Заявка-{self.created_at.strftime("%Y%m%d-%H%M%S")}'
 
     class Meta:
         verbose_name = 'Заявка'
@@ -352,7 +341,7 @@ class Ticket(models.Model):
                        ("see_operator_tickets",
                         "Может видеть только заявки со статусами Неопределенный, Подготовленный"),
                        ("see_chief_tickets",
-                        "Может видеть только заявки со статусами Подготовленный, Назначенный, Завершенный, Отмененный, На исполнении"),
+                        "Может видеть только заявки со статусами Подготовленный, Назначенный, Завершенный, Отмененный, На исполнении, Исполненный"),
                        ("close_ticket", "Может закрывать заявки")]
 
 
