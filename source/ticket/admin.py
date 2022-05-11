@@ -29,7 +29,6 @@ admin.site.register(Country)
 admin.site.register(Region)
 admin.site.register(City)
 admin.site.register(Client)
-admin.site.register(ServiceObject)
 admin.site.register(TicketPriority)
 admin.site.register(TicketStatus)
 admin.site.register(TicketType)
@@ -48,3 +47,8 @@ class ContractAdmin(admin.ModelAdmin):
     search_fields = ("doc_number",)
     list_display = ("doc_number", "company_client", "valid_from", "valid_until", "status")
 
+
+@admin.register(ServiceObject)
+class ServiceObjectAdmin(admin.ModelAdmin):
+    search_fields = ("serial_number",)
+    list_display = ("serial_number", "client", "type", "is_installed", "address")
