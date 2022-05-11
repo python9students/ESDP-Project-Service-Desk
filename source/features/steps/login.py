@@ -13,7 +13,7 @@ def enter_text(context, text, name):
 
 @when(u'Я отправляю форму')
 def submit_form(context):
-    context.browser.find_element_by_css_selector('button').click()
+    context.browser.find_element_by_xpath('//button[@type="submit"]').click()
 
 
 @then(u'Я должен быть на главной странице')
@@ -26,8 +26,8 @@ def should_be_at_login(context):
     assert context.browser.current_url == 'http://localhost:8000/accounts/login/'
 
 
-@then(u'Я должен видеть сообщение об ошибке с текстом "{text}"')
-def see_error_with_text(context, text):
-    error = context.browser.find_element_by_css_selector('.form-text.text-danger')
-
-    assert error.text == text
+# @then(u'Я должен видеть сообщение об ошибке с текстом "{text}"')
+# def see_error_with_text(context, text):
+#     error = context.browser.find_element_by_css_selector('.form-text.text-danger')
+#
+#     assert error.text == text
