@@ -60,6 +60,14 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse("ticket:ticket_detail", kwargs={"pk": self.object.pk})
 
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        group = user.groups.get(user=user)
+        engineers = Group.objects.filter(name='engineers')
+        if group in engineers:
+            raise PermissionDenied
+        return super().get(request, *args, **kwargs)
+
 
 class TicketDetailView(LoginRequiredMixin, DetailView):
     model = Ticket

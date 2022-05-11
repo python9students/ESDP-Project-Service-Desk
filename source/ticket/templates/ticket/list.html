@@ -2,7 +2,7 @@
 {% block title %}Заявки{% endblock %}
 {% block content %}
     <br>
-    {% if not user.username == 'engineer' %}
+    {% if not user.groups.all.0|slugify == 'engineers'%}
         <a href="{% url 'ticket:ticket_create' %}" class="btn btn-primary mb-5">Создать Заявку</a>
     {% endif %}
 
