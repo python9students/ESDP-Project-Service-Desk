@@ -23,7 +23,7 @@
         clientEl.addEventListener("change", function (e) {
             let inner = "";
             for (let i = 0; i < serviceObjects.length; i++) {
-                if (serviceObjects[i]["client_id"] == clientEl.value) {
+                if (serviceObjects[i]["client_id"] === clientEl.value) {
                     inner += `<option value="${serviceObjects[i]["id"]}">${serviceObjects[i]["serial_number"]}</option>`;
                 }
             }
