@@ -4,71 +4,77 @@
 {% block content %}
     <br>
     <div>
-        {% if not ticket_canceled and is_chief %}
-            <a class="btn btn-danger" href="{% url 'ticket:ticket_cancel' ticket.pk %}">Отменить заявку</a><br><br>
-        {% endif %}
+    <h4>Заявка № {{ ticket.pk }}</h4>
+    <div class="row justify-content-between">
+        <div class="col-6">
+            <ul class="list-group">
+                <li class="list-group-item">Оператор заполнивший заявку: {{ ticket.operator }}</li>
+                <li class="list-group-item">Объект обслуживания: {{ ticket.service_object }}</li>
+                <li class="list-group-item">Приоритет: {{ ticket.priority }}</li>
+                <li class="list-group-item">Тип заявки: {{ ticket.type }}</li>
+                <li class="list-group-item">Статус заявки: {{ ticket.status }}</li>
+                <li class="list-group-item">Уровень обслуживания: {{ ticket.service_level }}</li>
+                <li class="list-group-item">Департамент: {{ ticket.department }}</li>
+                <li class="list-group-item">Дата создания заявки: {{ ticket.created_at }}</li>
+                <li class="list-group-item">Дата изменения заявки: {{ ticket.updated_at }}</li>
+                <li class="list-group-item">Дата получения заявки: {{ ticket.recieved_at }}</li>
+                {% if ticket.desired_to %}
+                    <li class="list-group-item">Желаемая дата исполнения: {{ ticket.desired_to }}</li>
+                {% endif %}
+                <li class="list-group-item"> Работы:
+                    <ul>
+                        {% recursetree ticket.works.all %}
+                            <li>
+                                {{ node.name }}
+                                {% if not node.is_leaf_node %}
+                                    <ul class="children">
+                                        {{ children }}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endrecursetree %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-6">
+            <ul class="list-group">
+                <li class="list-group-item"> Проблемная область:
+                    <ul>
+                        {% recursetree ticket.problem_areas.all %}
+                            <li>
+                                {{ node.name }}
+                                {% if not node.is_leaf_node %}
+                                    <ul class="children">
+                                        {{ children }}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endrecursetree %}
+                    </ul>
+                </li>
+                <li class="list-group-item">Описание: {{ ticket.description|default:"Не указано" }}</li>
+                <li class="list-group-item">Исполнитель: {{ ticket.executor|default:"Не указано" }}</li>
+                <li class="list-group-item">Водитель: {{ ticket.driver|default:"Не указано" }}</li>
+                {% if not is_operator %}
+                    <li class="list-group-item">Дата начала работ: {{ ticket.work_started_at|default:"Не указано" }}</li>
+                    <li class="list-group-item">Дата окончания работ:
+                        {{ ticket.work_finished_at|default:"Не указано" }}</li>
+                    <li class="list-group-item">Дата начала поездки: {{ ticket.ride_started_at|default:"Не указано" }}</li>
+                    <li class="list-group-item">Дата окончания поездки:
+                        {{ ticket.ride_finished_at|default:"Не указано" }}</li>
+                {% endif %}
+                {% if ticket.cancel_reason %}
+                    <li class="list-group-item">Причина отмены заявки: {{ ticket.cancel_reason|default:"Не указано" }}</li>
+                {% endif %}
+                <li class="list-group-item">Дата закрытия заявки: {{ ticket.closed_at|default:"Не указано" }}</li>
+
+                <li class="list-group-item">Дата окончания работы:
+                    {{ expected_time_to_fix_problem|default:"Не указано" }}</li>
+            </ul>
+        </div>
+    </div>
         <ul class="list-group">
-            <li class="list-group-item"><h4>Заявка № {{ ticket.pk }}</h4></li>
-            <li class="list-group-item">Оператор заполнивший заявку: {{ ticket.operator }}</li>
-            <li class="list-group-item">Объект обслуживания: {{ ticket.service_object }}</li>
-            <li class="list-group-item">Приоритет: {{ ticket.priority }}</li>
-            <li class="list-group-item">Тип заявки: {{ ticket.type }}</li>
-            <li class="list-group-item">Статус заявки: {{ ticket.status }}</li>
-            <li class="list-group-item">Уровень обслуживания: {{ ticket.service_level }}</li>
-            <li class="list-group-item">Департамент: {{ ticket.department }}</li>
-            <li class="list-group-item">Дата создания заявки: {{ ticket.created_at }}</li>
-            <li class="list-group-item">Дата изменения заявки: {{ ticket.updated_at }}</li>
-            <li class="list-group-item">Дата получения заявки: {{ ticket.recieved_at }}</li>
-            {% if ticket.desired_to %}
-                <li class="list-group-item">Желаемая дата исполнения: {{ ticket.desired_to }}</li>
-            {% endif %}
-            <li class="list-group-item"> Работы:
-                <ul>
-                    {% recursetree ticket.works.all %}
-                        <li>
-                            {{ node.name }}
-                            {% if not node.is_leaf_node %}
-                                <ul class="children">
-                                    {{ children }}
-                                </ul>
-                            {% endif %}
-                        </li>
-                    {% endrecursetree %}
-                </ul>
-            </li>
-            <li class="list-group-item"> Проблемная область:
-                <ul>
-                    {% recursetree ticket.problem_areas.all %}
-                        <li>
-                            {{ node.name }}
-                            {% if not node.is_leaf_node %}
-                                <ul class="children">
-                                    {{ children }}
-                                </ul>
-                            {% endif %}
-                        </li>
-                    {% endrecursetree %}
-                </ul>
-            </li>
-            <li class="list-group-item">Описание: {{ ticket.description|default:"Не указано" }}</li>
-            <li class="list-group-item">Исполнитель: {{ ticket.executor|default:"Не указано" }}</li>
-            <li class="list-group-item">Водитель: {{ ticket.driver|default:"Не указано" }}</li>
-            {% if not is_operator %}
-                <li class="list-group-item">Дата начала работ: {{ ticket.work_started_at|default:"Не указано" }}</li>
-                <li class="list-group-item">Дата окончания работ:
-                    {{ ticket.work_finished_at|default:"Не указано" }}</li>
-                <li class="list-group-item">Дата начала поездки: {{ ticket.ride_started_at|default:"Не указано" }}</li>
-                <li class="list-group-item">Дата окончания поездки:
-                    {{ ticket.ride_finished_at|default:"Не указано" }}</li>
-            {% endif %}
-            {% if ticket.cancel_reason %}
-                <li class="list-group-item">Причина отмены заявки: {{ ticket.cancel_reason|default:"Не указано" }}</li>
-            {% endif %}
-            <li class="list-group-item">Дата закрытия заявки: {{ ticket.closed_at|default:"Не указано" }}</li>
-
-            <li class="list-group-item">Дата окончания работы:
-                {{ expected_time_to_fix_problem|default:"Не указано" }}</li>
-
         {% if remaining_time_to_fix_problem != None %}
             <li class="list-group-item">
                 <div class="progress w-25">
@@ -81,11 +87,14 @@
             <li class="list-group-item">Оставшееся время окончания работы:
                 {{ remaining_time_to_fix_problem|default:"Не указано" }}</li>
         {% endif %}
-
-            <li class="list-group-item"><a href="{% url "ticket:ticket_update" ticket.id %}" class="btn btn-primary">Редактировать</a>
-                {{ ticket.time_to_fix_problem }}
-            </li>
         </ul>
+    <div class="mt-2">
+        <a href="{% url "ticket:ticket_update" ticket.id %}" class="btn btn-primary">Редактировать</a>
+                {{ ticket.time_to_fix_problem }}
+        {% if not ticket_canceled and is_chief %}
+            <a class="btn btn-danger" href="{% url 'ticket:ticket_cancel' ticket.pk %}">Отменить заявку</a><br><br>
+        {% endif %}
+    </div>
     </div>
     <br>
     {{ ticket.time_to_fix_problem }}
