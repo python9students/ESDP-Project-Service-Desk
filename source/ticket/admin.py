@@ -1,6 +1,9 @@
+from django.utils.translation import gettext_lazy as _
 from django.contrib import admin
+from django.contrib.auth.forms import UserCreationForm
 from mptt.admin import MPTTModelAdmin
-
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from ticket.forms import User
 from ticket.models import (CompanyType,
                            ServiceObjectType,
                            ServiceObjectModel,
@@ -59,3 +62,22 @@ class TicketAdmin(admin.ModelAdmin):
     search_fields = ("client",)
     list_display = ("__str__", "client", "service_object", "status", "recieved_at")
 
+
+admin.site.unregister(User)
+
+
+class CustomUserCreationForm(UserCreationForm):
+
+    class Meta:
+        model = UserCreationForm.Meta.model
+        fields = '__all__'
+        field_classes = UserCreationForm.Meta.field_classes
+
+
+@admin.register(User)
+class UserAdmin(BaseUserAdmin):
+    add_form = CustomUserCreationForm
+    add_fieldsets = (
+        (None, {'fields': ('username', 'password1', 'password2')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
+    )
