@@ -43,7 +43,8 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         operators = Group.objects.filter(name='operators')
         chiefs = Group.objects.filter(name='chiefs')
         engineers = Group.objects.filter(name='engineers')
-        if group in chiefs:
+        admins = Group.objects.filter(name='admins')
+        if group in chiefs or admins:
             self.form_class = ChiefForm
         elif group in operators:
             self.form_class = OperatorForm
