@@ -220,7 +220,6 @@ class TicketStatus(models.Model):
         db_table = 'ticket_status'
 
 
-
 class Work(MPTTModel):
     """
     Модель для создания работ используя древовидную структуру
