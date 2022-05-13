@@ -44,16 +44,6 @@
                                    href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Вход</a>
                             </li>
                         {% endif %}
-                        {% if request.path == '/' %}
-                            <li>
-                            <a class="nav-link" href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Login</a>
-                            </li>
-                        {% else %}
-                             <li>
-                               <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
-                            </li>
-
-                        {% endif %}
                     </ul>
                 </div>
 
