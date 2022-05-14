@@ -70,39 +70,6 @@ class ChiefForm(forms.ModelForm):
         exclude = ("work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at", "cancel_reason",
                    "closed_at")
 
-
-class OperatorForm(forms.ModelForm):
-    description = forms.CharField(required=False, max_length=1000,
-                                  widget=widgets.Textarea(), label='Описание')
-    works = TreeNodeMultipleChoiceField(queryset=Work.objects.all(),
-                                        widget=widgets.SelectMultiple(attrs={'size': 20}),
-                                        label='Работы')
-    problem_areas = TreeNodeMultipleChoiceField(queryset=ProblemArea.objects.all(),
-                                                widget=widgets.SelectMultiple(attrs={'size': 20}),
-                                                label='Проблемные области')
-    desired_to = forms.DateTimeField(required=False, label='Желаемая дата исполнения',
-                                     widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                                  attrs={'type': 'datetime-local'}),
-                                     )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if self.instance:
-            self.initial['desired_to'] = self.instance.desired_to.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.desired_to else None
-            self.initial['recieved_at'] = self.instance.recieved_at.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.recieved_at else None
-            self.initial['closed_at'] = self.instance.closed_at.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.closed_at else None
-
-    class Meta:
-        model = Ticket
-        widgets = {
-            'recieved_at': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
-        }
-        exclude = ("driver", "executor", "work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at",
-                   "cancel_reason", "status", "closed_at", "operator")
-
     def clean(self):
         cleaned_data = super().clean()
         recieved_at = cleaned_data['recieved_at']

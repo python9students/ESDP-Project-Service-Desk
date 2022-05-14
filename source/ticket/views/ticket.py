@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from datetime import date, datetime, timedelta
 
-from ticket.forms import ChiefForm, OperatorForm, EngineerForm, TicketCancelForm
+from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm
 from ticket.models import Ticket, TicketStatus, ServiceObject
 from django.urls import reverse
 
@@ -41,14 +41,11 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
     def get_form(self, form_class=None):
         user = self.request.user
         group = self.request.user.groups.get(user=user)
-        operators = Group.objects.filter(name='operators')
         chiefs = Group.objects.filter(name='chiefs')
         engineers = Group.objects.filter(name='engineers')
         admins = Group.objects.filter(name='admins')
         if group in chiefs or admins:
             self.form_class = ChiefForm
-        elif group in operators:
-            self.form_class = OperatorForm
         elif group in engineers:
             self.form_class = EngineerForm
         return super().get_form()
@@ -84,7 +81,6 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
         user = self.request.user
         group = user.groups.get(user=user)
         chiefs = Group.objects.filter(name='chiefs')
-        operators = Group.objects.filter(name='operators')
         service_objects = ServiceObject.objects.filter(pk=self.object.service_object_id)
         expected_time_to_fix_problem = None
         for service_object in service_objects:
@@ -98,13 +94,10 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
                 context['remaining_time_to_fix_problem'] = remaining_time_to_fix_problem
         if group in chiefs:
             is_chief = True
-        elif group in operators:
-            is_operator = True
         if str(self.object.status) == 'Отмененный':
             ticket_canceled = True
         context['ticket_canceled'] = ticket_canceled
         context['is_chief'] = is_chief
-        context['is_operator'] = is_operator
         context['expected_time_to_fix_problem'] = expected_time_to_fix_problem
         return context
 
@@ -118,13 +111,10 @@ class TicketUpdateView(PermissionRequiredMixin, UpdateView):
     def get_form(self, form_class=None):
         user = self.request.user
         group = self.request.user.groups.get(user=user)
-        operators = Group.objects.filter(name='operators')
         chiefs = Group.objects.filter(name='chiefs')
         engineers = Group.objects.filter(name='engineers')
         if group in chiefs:
             self.form_class = ChiefForm
-        elif group in operators:
-            self.form_class = OperatorForm
         elif group in engineers:
             self.form_class = EngineerForm
         return super().get_form()
@@ -132,16 +122,11 @@ class TicketUpdateView(PermissionRequiredMixin, UpdateView):
     def form_valid(self, form):
         user = self.request.user
         group = self.request.user.groups.get(user=user)
-        operators = Group.objects.filter(name='operators')
         chiefs = Group.objects.filter(name='chiefs')
         engineers = Group.objects.filter(name='engineers')
         status = TicketStatus.objects.get(name="Завершенный")
-        ticket = get_object_or_404(Ticket, pk=self.kwargs.get('pk'))
         change_status = form.save(commit=False)
-        if group in operators:
-            change_status.status_id = 3
-            change_status.save()
-        elif group in chiefs:
+        if group in chiefs:
             change_status.status_id = 6
             change_status.save()
         elif group in engineers:
