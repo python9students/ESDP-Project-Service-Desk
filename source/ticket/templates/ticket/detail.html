@@ -2,7 +2,6 @@
 {% load mptt_tags %}
 {% block title %}Заявка{% endblock %}
 {% block content %}
-    <br>
         <div class="mt-2">
         <a href="{% url "ticket:ticket_update" ticket.id %}" class="btn btn-primary">Редактировать</a>
         {% if not ticket_canceled and is_chief %}
