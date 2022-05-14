@@ -166,6 +166,11 @@ class ServiceObject(models.Model):
                              related_name='service_objects')
     criterion = models.ForeignKey('ticket.CriterionType', on_delete=models.PROTECT, verbose_name='Критерий',
                                   related_name='service_objects', null=True, default=None)
+    guarantee_valid_from = models.DateField(verbose_name='Гаранития действует с')
+    guarantee_valid_until = models.DateField(verbose_name='Гарантия действует до')
+    time_to_fix_problem = models.DurationField(verbose_name='Время на устранение проблемы', null=True, blank=True,
+                                                   default=None)
+
 
     def __str__(self):
         return f'{self.serial_number}'
@@ -364,10 +369,6 @@ class Contract(models.Model):
     current_document = models.FileField(upload_to='contracts', verbose_name='Действующий документ')
     status = models.ForeignKey('ticket.ContractStatus', on_delete=models.PROTECT, verbose_name='Статус',
                                related_name='contracts')
-    service_objects_SLA = models.ManyToManyField('ticket.ServiceObject', related_name='contracts', blank=True,
-                                                 default=None)
-    time_to_fix_problem_SLA = models.DurationField(verbose_name='Время на устранение проблемы', null=True, blank=True,
-                                                   default=None)
 
     def __str__(self):
         return f'{self.doc_number}'
