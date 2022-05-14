@@ -122,7 +122,7 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
             'closed_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                              attrs={'type': 'datetime-local'}),
         }
-        exclude = ("cancel_reason", "closed_at", "operator", "status")
+        exclude = ("cancel_reason", "closed_at", "operator", "status", "close_commentary",)
 
 
 class EngineerForm(forms.ModelForm, TicketFormValidationMixin):
@@ -168,7 +168,7 @@ class EngineerForm(forms.ModelForm, TicketFormValidationMixin):
 
     class Meta:
         model = Ticket
-        exclude = ("cancel_reason", "executor", "driver")
+        exclude = ("cancel_reason", "executor", "driver", "close_commentary",)
         widgets = {
             'ride_started_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                                    attrs={'type': 'datetime-local'}),
@@ -179,3 +179,10 @@ class TicketCancelForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ("cancel_reason",)
+
+
+class TicketCloseForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ("close_commentary",)
+

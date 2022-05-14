@@ -1,13 +1,11 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.auth.models import Permission, Group
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseRedirect
 from django.utils import timezone
-from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
-from datetime import date, datetime, timedelta
+from datetime import datetime
 
-from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm
+from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
 from ticket.models import Ticket, TicketStatus, ServiceObject
 from django.urls import reverse
 
@@ -38,14 +36,12 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         return super(TicketCreateView, self).form_valid(form)
 
     def get_form(self, form_class=None):
-        user = self.request.user
-        group = self.request.user.groups.get(user=user)
-        chiefs = Group.objects.filter(name='chiefs')
-        engineers = Group.objects.filter(name='engineers')
-        admins = Group.objects.filter(name='admins')
-        if group in chiefs or admins:
+        admin_group = Group.objects.get(name='admins')
+        chief_group = Group.objects.get(name='chiefs')
+        engineer_group = Group.objects.get(name='engineers')
+        if chief_group in self.request.user.groups.all() or admin_group in self.request.user.groups.all():
             self.form_class = ChiefForm
-        elif group in engineers:
+        elif engineer_group in self.request.user.groups.all():
             self.form_class = EngineerForm
         return super().get_form()
 
@@ -75,6 +71,7 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         ticket_canceled = False
+        ticket_closed = False
         is_chief = False
         user = self.request.user
         group = user.groups.get(user=user)
@@ -94,26 +91,27 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
             is_chief = True
         if str(self.object.status) == 'Отмененный':
             ticket_canceled = True
+        if str(self.object.status) == 'Завершенный':
+            ticket_closed = True
         context['ticket_canceled'] = ticket_canceled
+        context['ticket_closed'] = ticket_closed
         context['is_chief'] = is_chief
         context['expected_time_to_fix_problem'] = expected_time_to_fix_problem
         return context
 
 
-class TicketUpdateView(PermissionRequiredMixin, UpdateView):
+class TicketUpdateView(LoginRequiredMixin, UpdateView):
     model = Ticket
     template_name = 'ticket/update.html'
     context_object_name = 'ticket'
-    permission_required = 'ticket.change_ticket'
 
     def get_form(self, form_class=None):
-        user = self.request.user
-        group = self.request.user.groups.get(user=user)
-        chiefs = Group.objects.filter(name='chiefs')
-        engineers = Group.objects.filter(name='engineers')
-        if group in chiefs:
+        admin_group = Group.objects.get(name='admins')
+        chief_group = Group.objects.get(name='chiefs')
+        engineer_group = Group.objects.get(name='engineers')
+        if chief_group in self.request.user.groups.all() or admin_group in self.request.user.groups.all():
             self.form_class = ChiefForm
-        elif group in engineers:
+        elif engineer_group in self.request.user.groups.all():
             self.form_class = EngineerForm
         return super().get_form()
 
@@ -127,12 +125,6 @@ class TicketUpdateView(PermissionRequiredMixin, UpdateView):
                 self.object.work_finished_at and self.object.ride_finished_at:
             self.object.status = TicketStatus.objects.get(name='Исполненный')
             self.object.save()
-        if 'close_ticket' in self.request.POST:
-            self.object = form.save(commit=False)
-            self.object.status = TicketStatus.objects.get(name="Завершенный")
-            self.object.closed_at = timezone.now()
-            self.object.save()
-            return HttpResponseRedirect(self.get_success_url())
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -142,9 +134,6 @@ class TicketUpdateView(PermissionRequiredMixin, UpdateView):
         kwargs['service_objects'] = list(ServiceObject.objects.all().values('id', 'serial_number', 'client_id'))
         return super().get_context_data(**kwargs)
 
-    def get_success_url(self):
-        return reverse("ticket:ticket_detail", kwargs={"pk": self.object.pk})
-
 
 class TicketCancelView(UpdateView):
     model = Ticket
@@ -152,10 +141,8 @@ class TicketCancelView(UpdateView):
     form_class = TicketCancelForm
 
     def get(self, request, *args, **kwargs):
-        user = self.request.user
-        group = user.groups.get(user=user)
-        chiefs = Group.objects.filter(name='chiefs')
-        if group not in chiefs:
+        chief_group = Group.objects.get(name='chiefs')
+        if chief_group not in self.request.user.groups.all():
             raise PermissionDenied
         if str(self.get_object().status) == 'Отмененный':
             raise PermissionDenied
@@ -166,5 +153,21 @@ class TicketCancelView(UpdateView):
         self.object.save()
         return super().form_valid(form)
 
-    def get_success_url(self):
-        return reverse("ticket:ticket_detail", kwargs={"pk": self.object.pk})
+
+class TicketCloseView(UpdateView):
+    model = Ticket
+    template_name = 'ticket/close.html'
+    form_class = TicketCloseForm
+
+    def get(self, request, *args, **kwargs):
+        chief_group = Group.objects.get(name='chiefs')
+        if chief_group not in self.request.user.groups.all():
+            raise PermissionDenied
+        if str(self.get_object().status) == 'Завершенный':
+            raise PermissionDenied
+        return super().get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        self.object.status = TicketStatus.objects.get(name='Завершенный')
+        self.object.save()
+        return super().form_valid(form)

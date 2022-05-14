@@ -1,5 +1,6 @@
 from django.core.validators import RegexValidator
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 from django.db import models
 
@@ -327,9 +328,13 @@ class Ticket(models.Model):
     work_finished_at = models.DateTimeField(null=True, default=None, verbose_name='Дата окончания работ')
     ride_finished_at = models.DateTimeField(null=True, default=None, verbose_name='Дата окончания поездки')
     cancel_reason = models.CharField(max_length=255, verbose_name='Причина отмены заявки')
+    close_commentary = models.CharField(max_length=255, blank=True, verbose_name='Комментарий к закрытию заявки')
 
     def __str__(self):
         return f'Заявка-{self.created_at.strftime("%Y%m%d-%H%M%S")}'
+
+    def get_absolute_url(self):
+        return reverse('ticket:ticket_detail', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = 'Заявка'

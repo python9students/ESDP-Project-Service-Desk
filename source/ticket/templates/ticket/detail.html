@@ -3,6 +3,16 @@
 {% block title %}Заявка{% endblock %}
 {% block content %}
     <br>
+        <div class="mt-2">
+        <a href="{% url "ticket:ticket_update" ticket.id %}" class="btn btn-primary">Редактировать</a>
+        {% if not ticket_canceled and is_chief %}
+            <a class="btn btn-danger" href="{% url 'ticket:ticket_cancel' ticket.pk %}">Отменить заявку</a>
+        {% endif %}
+        {% if not ticket_closed and is_chief %}
+            <a class="btn btn-warning" href="{% url 'ticket:ticket_close' ticket.pk %}">Закрыть заявку</a>
+        {% endif %}
+        <br><br>
+    </div>
     <div>
     <h4>Заявка-{{ ticket.created_at|date:"Ymd-His"}}</h4>
     <div class="row justify-content-between">
@@ -86,13 +96,6 @@
                 {{ remaining_time_to_fix_problem|default:"Не указано" }}</li>
         {% endif %}
         </ul>
-    <div class="mt-2">
-        <a href="{% url "ticket:ticket_update" ticket.id %}" class="btn btn-primary">Редактировать</a>
-                {{ ticket.time_to_fix_problem }}
-        {% if not ticket_canceled and is_chief %}
-            <a class="btn btn-danger" href="{% url 'ticket:ticket_cancel' ticket.pk %}">Отменить заявку</a><br><br>
-        {% endif %}
-    </div>
     </div>
     <br>
     {{ ticket.time_to_fix_problem }}

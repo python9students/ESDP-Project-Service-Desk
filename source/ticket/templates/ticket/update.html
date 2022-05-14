@@ -6,10 +6,6 @@
     <h1>Редактировать заявку</h1>
     <form action="{% url "ticket:ticket_update" ticket.pk %}" method="post">
         {% include 'partial/form.html' with button_text="Сохранить" %}
-        {% if perms.ticket.close_ticket %}
-            <input type="submit" class="btn btn-danger mt-3" name="close_ticket"
-                   value={{ button_text|default:"Закрыть заявку"}}>
-        {% endif %}
     </form>
     <br>
     <p><a href="{% url "ticket:ticket_detail" ticket.pk %}" class="btn btn-primary" style="float: left">Назад</a></p>
