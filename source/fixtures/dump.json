@@ -1,2 +1,1402 @@
 [
+{
+  "model": "ticket.companytype",
+  "pk": 1,
+  "fields": {
+    "name": "Финансы"
+  }
+},
+{
+  "model": "ticket.companytype",
+  "pk": 3,
+  "fields": {
+    "name": "Банк"
+  }
+},
+{
+  "model": "ticket.companytype",
+  "pk": 4,
+  "fields": {
+    "name": "Микрокредитка"
+  }
+},
+{
+  "model": "ticket.serviceobjecttype",
+  "pk": 1,
+  "fields": {
+    "name": "ATM"
+  }
+},
+{
+  "model": "ticket.serviceobjecttype",
+  "pk": 2,
+  "fields": {
+    "name": "Terminal"
+  }
+},
+{
+  "model": "ticket.serviceobjecttype",
+  "pk": 3,
+  "fields": {
+    "name": "Банкомат"
+  }
+},
+{
+  "model": "ticket.serviceobjecttype",
+  "pk": 4,
+  "fields": {
+    "name": "Терминал"
+  }
+},
+{
+  "model": "ticket.serviceobjectmodel",
+  "pk": 1,
+  "fields": {
+    "name": "LG"
+  }
+},
+{
+  "model": "ticket.serviceobjectmodel",
+  "pk": 2,
+  "fields": {
+    "name": "Samsung"
+  }
+},
+{
+  "model": "ticket.serviceobjectmodel",
+  "pk": 3,
+  "fields": {
+    "name": "Модель №1"
+  }
+},
+{
+  "model": "ticket.serviceobjectmodel",
+  "pk": 4,
+  "fields": {
+    "name": "Модель №2"
+  }
+},
+{
+  "model": "ticket.serviceobjectmodel",
+  "pk": 5,
+  "fields": {
+    "name": "Модель №3"
+  }
+},
+{
+  "model": "ticket.country",
+  "pk": 1,
+  "fields": {
+    "name": "Казахстан"
+  }
+},
+{
+  "model": "ticket.country",
+  "pk": 3,
+  "fields": {
+    "name": "Кыргызстан"
+  }
+},
+{
+  "model": "ticket.region",
+  "pk": 1,
+  "fields": {
+    "name": "Чуйская",
+    "country": 1
+  }
+},
+{
+  "model": "ticket.region",
+  "pk": 2,
+  "fields": {
+    "name": "Иссык-Кульская",
+    "country": 1
+  }
+},
+{
+  "model": "ticket.region",
+  "pk": 3,
+  "fields": {
+    "name": "Баткенская",
+    "country": 1
+  }
+},
+{
+  "model": "ticket.region",
+  "pk": 4,
+  "fields": {
+    "name": "Ошская",
+    "country": 1
+  }
+},
+{
+  "model": "ticket.region",
+  "pk": 5,
+  "fields": {
+    "name": "Жалал-Абадская",
+    "country": 1
+  }
+},
+{
+  "model": "ticket.region",
+  "pk": 6,
+  "fields": {
+    "name": "Нарынская",
+    "country": 1
+  }
+},
+{
+  "model": "ticket.region",
+  "pk": 7,
+  "fields": {
+    "name": "Таласская",
+    "country": 1
+  }
+},
+{
+  "model": "ticket.city",
+  "pk": 1,
+  "fields": {
+    "name": "Бишкек",
+    "country": 1
+  }
+},
+{
+  "model": "ticket.city",
+  "pk": 5,
+  "fields": {
+    "name": "Бишкек",
+    "country": 3
+  }
+},
+{
+  "model": "ticket.city",
+  "pk": 6,
+  "fields": {
+    "name": "Ош",
+    "country": 3
+  }
+},
+{
+  "model": "ticket.city",
+  "pk": 7,
+  "fields": {
+    "name": "Талас",
+    "country": 3
+  }
+},
+{
+  "model": "ticket.city",
+  "pk": 8,
+  "fields": {
+    "name": "Нарын",
+    "country": 3
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 2,
+  "fields": {
+    "name": "KICB Bank",
+    "short_name": "KICB",
+    "website": "http://kicb.kg",
+    "type": 1,
+    "address": "Toktogula 90",
+    "country": 1,
+    "region": 2,
+    "city": 1
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 3,
+  "fields": {
+    "name": "Оптима Банк",
+    "short_name": "Оптима",
+    "website": "",
+    "type": 3,
+    "address": "ул. Хорошая 13",
+    "country": 3,
+    "region": 2,
+    "city": 5
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 4,
+  "fields": {
+    "name": "Демир Банк",
+    "short_name": "Демир",
+    "website": "http://demir.kg",
+    "type": 3,
+    "address": "",
+    "country": 3,
+    "region": 2,
+    "city": 5
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 5,
+  "fields": {
+    "name": "Финка МК",
+    "short_name": "Финка",
+    "website": "",
+    "type": 4,
+    "address": "",
+    "country": 3,
+    "region": 2,
+    "city": 5
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 6,
+  "fields": {
+    "name": "Companion",
+    "short_name": "Companion",
+    "website": "http://www.agent.com",
+    "type": 1,
+    "address": "Umetaliev 11",
+    "country": 1,
+    "region": 2,
+    "city": 1
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 7,
+  "fields": {
+    "name": "Bai Tushum",
+    "short_name": "BT",
+    "website": "http://baitushum.com",
+    "type": 1,
+    "address": "Almatinka 5",
+    "country": 1,
+    "region": 2,
+    "city": 1
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 8,
+  "fields": {
+    "name": "Halykbank",
+    "short_name": "Halyk",
+    "website": "http://www.halyk.kg",
+    "type": 1,
+    "address": "Shabdan Baatyr 90",
+    "country": 1,
+    "region": 2,
+    "city": 1
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 9,
+  "fields": {
+    "name": "Halykbank",
+    "short_name": "Halyk",
+    "website": "http://www.halyk.kg",
+    "type": 1,
+    "address": "6-Mikrorayon, 10 Dom, 55 kvar",
+    "country": 1,
+    "region": 2,
+    "city": 1
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 10,
+  "fields": {
+    "name": "Bai Tushum 2",
+    "short_name": "Bai",
+    "website": "http://bai.kg",
+    "type": 1,
+    "address": "Elebaeva 90",
+    "country": 1,
+    "region": 2,
+    "city": 1
+  }
+},
+{
+  "model": "ticket.criteriontype",
+  "pk": 1,
+  "fields": {
+    "name": "Гарантийный"
+  }
+},
+{
+  "model": "ticket.criteriontype",
+  "pk": 2,
+  "fields": {
+    "name": "Пост-гарантийный"
+  }
+},
+{
+  "model": "ticket.serviceobject",
+  "pk": 2,
+  "fields": {
+    "serial_number": "345345345241",
+    "model": 2,
+    "client": 2,
+    "type": 2,
+    "is_installed": false,
+    "active_from": "2022-04-14T12:00:00Z",
+    "address": "Чуй 90",
+    "country": 1,
+    "region": 1,
+    "city": 1,
+    "criterion": null
+  }
+},
+{
+  "model": "ticket.serviceobject",
+  "pk": 3,
+  "fields": {
+    "serial_number": "123412342134213",
+    "model": 1,
+    "client": 3,
+    "type": 1,
+    "is_installed": false,
+    "active_from": "2022-04-14T12:00:00Z",
+    "address": "Чуй 90",
+    "country": 1,
+    "region": 1,
+    "city": 1,
+    "criterion": null
+  }
+},
+{
+  "model": "ticket.serviceobject",
+  "pk": 4,
+  "fields": {
+    "serial_number": "657568756756k",
+    "model": 1,
+    "client": 2,
+    "type": 1,
+    "is_installed": false,
+    "active_from": "2022-04-20T04:31:00Z",
+    "address": "311 ghjghg",
+    "country": 1,
+    "region": 1,
+    "city": 1,
+    "criterion": null
+  }
+},
+{
+  "model": "ticket.serviceobject",
+  "pk": 5,
+  "fields": {
+    "serial_number": "11111111111111",
+    "model": 3,
+    "client": 3,
+    "type": 3,
+    "is_installed": true,
+    "active_from": "2022-04-20T13:28:32Z",
+    "address": "ул. Такая-то",
+    "country": 3,
+    "region": 1,
+    "city": 6,
+    "criterion": null
+  }
+},
+{
+  "model": "ticket.serviceobject",
+  "pk": 6,
+  "fields": {
+    "serial_number": "2222222222222",
+    "model": 4,
+    "client": 3,
+    "type": 3,
+    "is_installed": true,
+    "active_from": "2022-04-20T13:29:16Z",
+    "address": "Красивая улица",
+    "country": 3,
+    "region": 1,
+    "city": 5,
+    "criterion": null
+  }
+},
+{
+  "model": "ticket.serviceobject",
+  "pk": 7,
+  "fields": {
+    "serial_number": "33333333333333",
+    "model": 5,
+    "client": 3,
+    "type": 4,
+    "is_installed": false,
+    "active_from": null,
+    "address": "",
+    "country": 3,
+    "region": 1,
+    "city": 5,
+    "criterion": null
+  }
+},
+{
+  "model": "ticket.serviceobject",
+  "pk": 8,
+  "fields": {
+    "serial_number": "444444444444",
+    "model": 3,
+    "client": 4,
+    "type": 3,
+    "is_installed": true,
+    "active_from": "2022-04-20T13:32:50Z",
+    "address": "Некрасивая улица",
+    "country": 3,
+    "region": 1,
+    "city": 8,
+    "criterion": null
+  }
+},
+{
+  "model": "ticket.serviceobject",
+  "pk": 9,
+  "fields": {
+    "serial_number": "555555555555",
+    "model": 4,
+    "client": 4,
+    "type": 3,
+    "is_installed": true,
+    "active_from": "2022-04-20T13:33:16Z",
+    "address": "улица Незнайки",
+    "country": 3,
+    "region": 1,
+    "city": 7,
+    "criterion": null
+  }
+},
+{
+  "model": "ticket.serviceobject",
+  "pk": 10,
+  "fields": {
+    "serial_number": "6666666666",
+    "model": 5,
+    "client": 5,
+    "type": 4,
+    "is_installed": true,
+    "active_from": "2022-04-20T13:33:48Z",
+    "address": "улица Финансовая",
+    "country": 3,
+    "region": 1,
+    "city": 5,
+    "criterion": null
+  }
+},
+{
+  "model": "ticket.ticketpriority",
+  "pk": 1,
+  "fields": {
+    "name": "Низкий"
+  }
+},
+{
+  "model": "ticket.ticketpriority",
+  "pk": 2,
+  "fields": {
+    "name": "Средний"
+  }
+},
+{
+  "model": "ticket.ticketpriority",
+  "pk": 3,
+  "fields": {
+    "name": "Высокий"
+  }
+},
+{
+  "model": "ticket.ticketpriority",
+  "pk": 4,
+  "fields": {
+    "name": "Critical Level"
+  }
+},
+{
+  "model": "ticket.tickettype",
+  "pk": 1,
+  "fields": {
+    "name": "Профилактика"
+  }
+},
+{
+  "model": "ticket.tickettype",
+  "pk": 2,
+  "fields": {
+    "name": "Срочная инсталяция"
+  }
+},
+{
+  "model": "ticket.tickettype",
+  "pk": 3,
+  "fields": {
+    "name": "Прочие работы"
+  }
+},
+{
+  "model": "ticket.ticketstatus",
+  "pk": 1,
+  "fields": {
+    "name": "Завершенный"
+  }
+},
+{
+  "model": "ticket.ticketstatus",
+  "pk": 2,
+  "fields": {
+    "name": "На исполнении"
+  }
+},
+{
+  "model": "ticket.ticketstatus",
+  "pk": 3,
+  "fields": {
+    "name": "Подготовленный"
+  }
+},
+{
+  "model": "ticket.ticketstatus",
+  "pk": 4,
+  "fields": {
+    "name": "Неопределенный"
+  }
+},
+{
+  "model": "ticket.ticketstatus",
+  "pk": 5,
+  "fields": {
+    "name": "Отмененный"
+  }
+},
+{
+  "model": "ticket.ticketstatus",
+  "pk": 6,
+  "fields": {
+    "name": "Назначенный"
+  }
+},
+{
+  "model": "ticket.ticketstatus",
+  "pk": 7,
+  "fields": {
+    "name": "Исполненный"
+  }
+},
+{
+  "model": "ticket.work",
+  "pk": 1,
+  "fields": {
+    "name": "Работы",
+    "parent": null,
+    "lft": 1,
+    "rght": 12,
+    "tree_id": 2,
+    "level": 0
+  }
+},
+{
+  "model": "ticket.work",
+  "pk": 2,
+  "fields": {
+    "name": "Извлечение изъятых карт",
+    "parent": 1,
+    "lft": 6,
+    "rght": 7,
+    "tree_id": 2,
+    "level": 1
+  }
+},
+{
+  "model": "ticket.work",
+  "pk": 3,
+  "fields": {
+    "name": "Ремонт",
+    "parent": 1,
+    "lft": 10,
+    "rght": 11,
+    "tree_id": 2,
+    "level": 1
+  }
+},
+{
+  "model": "ticket.work",
+  "pk": 4,
+  "fields": {
+    "name": "Очистка/Смазка",
+    "parent": 1,
+    "lft": 8,
+    "rght": 9,
+    "tree_id": 2,
+    "level": 1
+  }
+},
+{
+  "model": "ticket.work",
+  "pk": 5,
+  "fields": {
+    "name": "Демонтаж",
+    "parent": 1,
+    "lft": 2,
+    "rght": 3,
+    "tree_id": 2,
+    "level": 1
+  }
+},
+{
+  "model": "ticket.work",
+  "pk": 6,
+  "fields": {
+    "name": "Доставка бумаги",
+    "parent": 1,
+    "lft": 4,
+    "rght": 5,
+    "tree_id": 2,
+    "level": 1
+  }
+},
+{
+  "model": "ticket.work",
+  "pk": 7,
+  "fields": {
+    "name": "Дефекты",
+    "parent": null,
+    "lft": 1,
+    "rght": 8,
+    "tree_id": 1,
+    "level": 0
+  }
+},
+{
+  "model": "ticket.work",
+  "pk": 8,
+  "fields": {
+    "name": "Неисправность",
+    "parent": 7,
+    "lft": 2,
+    "rght": 3,
+    "tree_id": 1,
+    "level": 1
+  }
+},
+{
+  "model": "ticket.work",
+  "pk": 9,
+  "fields": {
+    "name": "Повреждение(вандализм)",
+    "parent": 7,
+    "lft": 6,
+    "rght": 7,
+    "tree_id": 1,
+    "level": 1
+  }
+},
+{
+  "model": "ticket.work",
+  "pk": 10,
+  "fields": {
+    "name": "Ошибка подключения",
+    "parent": 7,
+    "lft": 4,
+    "rght": 5,
+    "tree_id": 1,
+    "level": 1
+  }
+},
+{
+  "model": "ticket.problemarea",
+  "pk": 1,
+  "fields": {
+    "name": "АТМ",
+    "parent": null,
+    "lft": 1,
+    "rght": 24,
+    "tree_id": 1,
+    "level": 0
+  }
+},
+{
+  "model": "ticket.problemarea",
+  "pk": 3,
+  "fields": {
+    "name": "NON-CASH",
+    "parent": 1,
+    "lft": 10,
+    "rght": 17,
+    "tree_id": 1,
+    "level": 1
+  }
+},
+{
+  "model": "ticket.problemarea",
+  "pk": 4,
+  "fields": {
+    "name": "SOFTWARE",
+    "parent": 1,
+    "lft": 18,
+    "rght": 23,
+    "tree_id": 1,
+    "level": 1
+  }
+},
+{
+  "model": "ticket.problemarea",
+  "pk": 5,
+  "fields": {
+    "name": "Card readers",
+    "parent": 3,
+    "lft": 11,
+    "rght": 12,
+    "tree_id": 1,
+    "level": 2
+  }
+},
+{
+  "model": "ticket.problemarea",
+  "pk": 6,
+  "fields": {
+    "name": "Displays",
+    "parent": 3,
+    "lft": 13,
+    "rght": 14,
+    "tree_id": 1,
+    "level": 2
+  }
+},
+{
+  "model": "ticket.problemarea",
+  "pk": 7,
+  "fields": {
+    "name": "Printers",
+    "parent": 3,
+    "lft": 15,
+    "rght": 16,
+    "tree_id": 1,
+    "level": 2
+  }
+},
+{
+  "model": "ticket.problemarea",
+  "pk": 8,
+  "fields": {
+    "name": "CASH",
+    "parent": 1,
+    "lft": 2,
+    "rght": 9,
+    "tree_id": 1,
+    "level": 1
+  }
+},
+{
+  "model": "ticket.problemarea",
+  "pk": 9,
+  "fields": {
+    "name": "Cash In Cassette",
+    "parent": 8,
+    "lft": 5,
+    "rght": 6,
+    "tree_id": 1,
+    "level": 2
+  }
+},
+{
+  "model": "ticket.problemarea",
+  "pk": 10,
+  "fields": {
+    "name": "V-Module",
+    "parent": 8,
+    "lft": 7,
+    "rght": 8,
+    "tree_id": 1,
+    "level": 2
+  }
+},
+{
+  "model": "ticket.problemarea",
+  "pk": 11,
+  "fields": {
+    "name": "BIM Frame",
+    "parent": 8,
+    "lft": 3,
+    "rght": 4,
+    "tree_id": 1,
+    "level": 2
+  }
+},
+{
+  "model": "ticket.problemarea",
+  "pk": 12,
+  "fields": {
+    "name": "Operating System",
+    "parent": 4,
+    "lft": 21,
+    "rght": 22,
+    "tree_id": 1,
+    "level": 2
+  }
+},
+{
+  "model": "ticket.problemarea",
+  "pk": 13,
+  "fields": {
+    "name": "Application SW",
+    "parent": 4,
+    "lft": 19,
+    "rght": 20,
+    "tree_id": 1,
+    "level": 2
+  }
+},
+{
+  "model": "ticket.servicelevel",
+  "pk": 1,
+  "fields": {
+    "name": "First level maintenance"
+  }
+},
+{
+  "model": "ticket.servicelevel",
+  "pk": 2,
+  "fields": {
+    "name": "Second level maintenance"
+  }
+},
+{
+  "model": "ticket.department",
+  "pk": 1,
+  "fields": {
+    "name": "Service Department"
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 1,
+  "fields": {
+    "client": 3,
+    "service_object": 3,
+    "priority": 2,
+    "type": 2,
+    "status": 5,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-04-25T05:02:19.209Z",
+    "updated_at": "2022-05-14T09:13:39.417Z",
+    "recieved_at": "2022-04-11T23:01:00Z",
+    "desired_to": "2022-04-27T23:01:00Z",
+    "operator": 6,
+    "description": "",
+    "executor": 4,
+    "driver": 4,
+    "closed_at": "2022-05-04T05:02:00Z",
+    "ride_started_at": "2022-04-29T13:05:00Z",
+    "work_started_at": "2022-04-19T13:05:00Z",
+    "work_finished_at": "2022-04-09T13:05:00Z",
+    "ride_finished_at": "2022-04-27T13:05:00Z",
+    "cancel_reason": "Just for test",
+    "close_commentary": "",
+    "works": [
+      8
+    ],
+    "problem_areas": [
+      8
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 2,
+  "fields": {
+    "client": 3,
+    "service_object": 3,
+    "priority": 3,
+    "type": 1,
+    "status": 1,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-04-25T10:51:01.038Z",
+    "updated_at": "2022-05-14T10:49:27.905Z",
+    "recieved_at": "2022-04-20T04:48:00Z",
+    "desired_to": "2022-04-27T04:49:00Z",
+    "operator": 6,
+    "description": "dasdasdsadsad",
+    "executor": 4,
+    "driver": 4,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "works": [
+      10
+    ],
+    "problem_areas": [
+      9
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 3,
+  "fields": {
+    "client": 3,
+    "service_object": 3,
+    "priority": 3,
+    "type": 2,
+    "status": 1,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-04-27T16:01:31.230Z",
+    "updated_at": "2022-05-14T10:50:45.436Z",
+    "recieved_at": "2022-04-26T04:01:00Z",
+    "desired_to": "2022-04-26T04:01:00Z",
+    "operator": 4,
+    "description": "",
+    "executor": 5,
+    "driver": 5,
+    "closed_at": "2022-04-27T16:01:42Z",
+    "ride_started_at": "2022-05-12T02:24:00Z",
+    "work_started_at": "2022-05-12T09:24:00Z",
+    "work_finished_at": "2022-05-12T10:24:00Z",
+    "ride_finished_at": "2022-05-12T11:24:00Z",
+    "cancel_reason": "",
+    "close_commentary": "тест",
+    "works": [
+      5
+    ],
+    "problem_areas": [
+      3
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 5,
+  "fields": {
+    "client": 2,
+    "service_object": 2,
+    "priority": 1,
+    "type": 1,
+    "status": 1,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-08T13:43:31.831Z",
+    "updated_at": "2022-05-14T10:48:45.523Z",
+    "recieved_at": "2022-05-08T13:43:00Z",
+    "desired_to": "2022-05-11T13:43:00Z",
+    "operator": 4,
+    "description": "Time test",
+    "executor": 4,
+    "driver": 4,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "works": [
+      6,
+      3
+    ],
+    "problem_areas": [
+      7,
+      13
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 6,
+  "fields": {
+    "client": 4,
+    "service_object": 8,
+    "priority": 1,
+    "type": 1,
+    "status": 7,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-10T10:40:01.768Z",
+    "updated_at": "2022-05-13T14:21:32.115Z",
+    "recieved_at": "2022-05-08T22:39:00Z",
+    "desired_to": null,
+    "operator": 6,
+    "description": "",
+    "executor": 5,
+    "driver": 5,
+    "closed_at": null,
+    "ride_started_at": "2022-05-14T02:02:00Z",
+    "work_started_at": "2022-05-14T03:20:00Z",
+    "work_finished_at": "2022-05-14T07:20:00Z",
+    "ride_finished_at": "2022-05-14T08:19:00Z",
+    "cancel_reason": "",
+    "close_commentary": "",
+    "works": [
+      6
+    ],
+    "problem_areas": [
+      6
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 7,
+  "fields": {
+    "client": 2,
+    "service_object": 4,
+    "priority": 3,
+    "type": 1,
+    "status": 1,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-10T10:42:06.750Z",
+    "updated_at": "2022-05-11T08:46:25.175Z",
+    "recieved_at": "2022-05-08T16:41:00Z",
+    "desired_to": "2022-05-11T04:49:00Z",
+    "operator": 6,
+    "description": "",
+    "executor": 5,
+    "driver": 5,
+    "closed_at": "2022-05-11T08:46:25.175Z",
+    "ride_started_at": "2022-05-10T22:50:00Z",
+    "work_started_at": "2022-05-11T03:51:00Z",
+    "work_finished_at": "2022-05-11T05:51:00Z",
+    "ride_finished_at": "2022-05-11T08:50:00Z",
+    "cancel_reason": "",
+    "close_commentary": "",
+    "works": [
+      10
+    ],
+    "problem_areas": [
+      11
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 8,
+  "fields": {
+    "client": 2,
+    "service_object": 2,
+    "priority": 3,
+    "type": 1,
+    "status": 4,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-10T12:24:02.718Z",
+    "updated_at": "2022-05-12T08:48:34.989Z",
+    "recieved_at": "2022-05-10T12:23:00Z",
+    "desired_to": "2022-05-12T08:48:05Z",
+    "operator": 6,
+    "description": "",
+    "executor": 4,
+    "driver": 4,
+    "closed_at": "2022-05-12T08:48:16Z",
+    "ride_started_at": "2022-05-12T12:00:00Z",
+    "work_started_at": "2022-05-12T12:00:00Z",
+    "work_finished_at": "2022-05-12T12:00:00Z",
+    "ride_finished_at": "2022-05-12T12:00:00Z",
+    "cancel_reason": "12.12.22",
+    "close_commentary": "",
+    "works": [
+      10
+    ],
+    "problem_areas": [
+      9
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 9,
+  "fields": {
+    "client": 2,
+    "service_object": 2,
+    "priority": 1,
+    "type": 3,
+    "status": 1,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-13T13:39:20.416Z",
+    "updated_at": "2022-05-14T10:47:52.059Z",
+    "recieved_at": "2022-05-13T06:38:00Z",
+    "desired_to": "2022-05-14T07:38:00Z",
+    "operator": 1,
+    "description": "",
+    "executor": 5,
+    "driver": 5,
+    "closed_at": null,
+    "ride_started_at": "2022-05-14T22:01:00Z",
+    "work_started_at": "2022-05-15T04:02:00Z",
+    "work_finished_at": "2022-05-15T10:02:00Z",
+    "ride_finished_at": "2022-05-15T11:02:00Z",
+    "cancel_reason": "",
+    "close_commentary": "",
+    "works": [
+      8
+    ],
+    "problem_areas": [
+      11
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 10,
+  "fields": {
+    "client": 2,
+    "service_object": 4,
+    "priority": 3,
+    "type": 3,
+    "status": 1,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-13T14:12:50.082Z",
+    "updated_at": "2022-05-13T14:15:57.004Z",
+    "recieved_at": "2022-05-13T07:10:00Z",
+    "desired_to": null,
+    "operator": 6,
+    "description": "",
+    "executor": 5,
+    "driver": 5,
+    "closed_at": "2022-05-13T14:15:57.004Z",
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "works": [
+      10
+    ],
+    "problem_areas": [
+      9
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 11,
+  "fields": {
+    "client": 2,
+    "service_object": 2,
+    "priority": 1,
+    "type": 3,
+    "status": 6,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-14T08:16:58.108Z",
+    "updated_at": "2022-05-14T08:21:29.542Z",
+    "recieved_at": "2022-05-14T01:16:00Z",
+    "desired_to": null,
+    "operator": 6,
+    "description": "test",
+    "executor": null,
+    "driver": null,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "works": [
+      10,
+      5
+    ],
+    "problem_areas": [
+      11,
+      6
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 12,
+  "fields": {
+    "client": 2,
+    "service_object": 2,
+    "priority": 1,
+    "type": 1,
+    "status": 2,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-14T08:25:31.062Z",
+    "updated_at": "2022-05-14T09:04:53.229Z",
+    "recieved_at": "2022-05-13T19:22:00Z",
+    "desired_to": null,
+    "operator": 6,
+    "description": "",
+    "executor": 7,
+    "driver": 7,
+    "closed_at": null,
+    "ride_started_at": "2022-05-14T09:04:00Z",
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "works": [
+      3
+    ],
+    "problem_areas": [
+      7
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 13,
+  "fields": {
+    "client": 3,
+    "service_object": 3,
+    "priority": 1,
+    "type": 1,
+    "status": 1,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-14T08:26:47.276Z",
+    "updated_at": "2022-05-14T09:12:54.568Z",
+    "recieved_at": "2022-05-13T13:26:00Z",
+    "desired_to": null,
+    "operator": 4,
+    "description": "",
+    "executor": 7,
+    "driver": 7,
+    "closed_at": "2022-05-14T09:12:54.568Z",
+    "ride_started_at": "2022-05-12T21:38:00Z",
+    "work_started_at": "2022-05-13T22:05:00Z",
+    "work_finished_at": "2022-05-13T23:05:00Z",
+    "ride_finished_at": "2022-05-14T00:05:00Z",
+    "cancel_reason": "",
+    "close_commentary": "",
+    "works": [
+      6
+    ],
+    "problem_areas": [
+      6
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 14,
+  "fields": {
+    "client": 4,
+    "service_object": 8,
+    "priority": 1,
+    "type": 1,
+    "status": 3,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-14T09:45:36.249Z",
+    "updated_at": "2022-05-14T09:45:36.268Z",
+    "recieved_at": "2022-05-14T08:44:00Z",
+    "desired_to": "2022-05-15T09:44:00Z",
+    "operator": 6,
+    "description": "",
+    "executor": null,
+    "driver": null,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "works": [
+      2
+    ],
+    "problem_areas": [
+      13
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 15,
+  "fields": {
+    "client": 3,
+    "service_object": 6,
+    "priority": 2,
+    "type": 1,
+    "status": 6,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-14T10:03:15.048Z",
+    "updated_at": "2022-05-14T10:03:32.730Z",
+    "recieved_at": "2022-05-14T04:03:00Z",
+    "desired_to": null,
+    "operator": 6,
+    "description": "",
+    "executor": 7,
+    "driver": 7,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "works": [
+      4
+    ],
+    "problem_areas": [
+      13
+    ]
+  }
+},
+{
+  "model": "ticket.contract",
+  "pk": 1,
+  "fields": {
+    "doc_number": "номер_1А1А",
+    "date": "2022-05-05",
+    "type": 1,
+    "department": 1,
+    "company_client": 2,
+    "valid_from": "2021-12-01",
+    "valid_until": "2022-10-07",
+    "current_document": "contracts/Schema_ServiceDesk.pdf",
+    "status": 1
+  }
+},
+{
+  "model": "ticket.contracttype",
+  "pk": 1,
+  "fields": {
+    "name": "Service agreement"
+  }
+},
+{
+  "model": "ticket.contractstatus",
+  "pk": 1,
+  "fields": {
+    "name": "Созданный"
+  }
+},
+{
+  "model": "ticket.contractstatus",
+  "pk": 2,
+  "fields": {
+    "name": "Подготовленный"
+  }
+},
+{
+  "model": "ticket.contractstatus",
+  "pk": 3,
+  "fields": {
+    "name": "На исполлнении"
+  }
+},
+{
+  "model": "ticket.contractstatus",
+  "pk": 4,
+  "fields": {
+    "name": "Закрытый"
+  }
+}
 ]
