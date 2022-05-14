@@ -166,8 +166,8 @@ class ServiceObject(models.Model):
                              related_name='service_objects')
     criterion = models.ForeignKey('ticket.CriterionType', on_delete=models.PROTECT, verbose_name='Критерий',
                                   related_name='service_objects', null=True, default=None)
-    guarantee_valid_from = models.DateField(verbose_name='Гаранития действует с')
-    guarantee_valid_until = models.DateField(verbose_name='Гарантия действует до')
+    guarantee_valid_from = models.DateField(blank=True, null=True, verbose_name='Гаранития действует с')
+    guarantee_valid_until = models.DateField(blank=True, null=True, verbose_name='Гарантия действует до')
     time_to_fix_problem = models.DurationField(verbose_name='Время на устранение проблемы', null=True, blank=True,
                                                    default=None)
 
