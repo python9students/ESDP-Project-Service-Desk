@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Закрытие заявки{% endblock %}
 {% block nav %} {% endblock %}
+{% block search %}{% endblock %}
 {% block content %}
     <br>
     <h1>Вы уверены, что хотите закрыть Заявку-{{ ticket.created_at|date:"Ymd-His"}}?</h1>
