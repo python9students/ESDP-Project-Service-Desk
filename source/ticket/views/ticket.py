@@ -21,11 +21,11 @@ class TicketListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         tickets = super().get_queryset()
         if self.request.user.has_perm('ticket.see_engineer_tickets') and not self.request.user.is_superuser:
-            return tickets.filter(status__in=[1, 2, 6])
+            return tickets.filter(status__in=[1, 2, 6]).filter(executor=self.request.user)
         elif self.request.user.has_perm('ticket.see_operator_tickets') and not self.request.user.is_superuser:
             return tickets.filter(status__in=[3, 4])
         elif self.request.user.has_perm('ticket.see_chief_tickets') and not self.request.user.is_superuser:
-            return tickets.filter(status__in=[3, 6, 1, 5, 2, 4])
+            return tickets.filter(status__in=[3, 6, 1, 5, 2, 4, 7])
         return tickets
 
 
@@ -44,7 +44,8 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         operators = Group.objects.filter(name='operators')
         chiefs = Group.objects.filter(name='chiefs')
         engineers = Group.objects.filter(name='engineers')
-        if group in chiefs:
+        admins = Group.objects.filter(name='admins')
+        if group in chiefs or admins:
             self.form_class = ChiefForm
         elif group in operators:
             self.form_class = OperatorForm
@@ -60,6 +61,14 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse("ticket:ticket_detail", kwargs={"pk": self.object.pk})
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        group = user.groups.get(user=user)
+        engineers = Group.objects.filter(name='engineers')
+        if group in engineers:
+            raise PermissionDenied
+        return super().get(request, *args, **kwargs)
 
 
 class TicketDetailView(LoginRequiredMixin, DetailView):
@@ -146,9 +155,6 @@ class TicketUpdateView(PermissionRequiredMixin, UpdateView):
             self.object = form.save(commit=False)
             self.object.status = status
             self.object.closed_at = timezone.now()
-            self.object.save()
-            return HttpResponseRedirect(self.get_success_url())
-        else:
             self.object.save()
             return HttpResponseRedirect(self.get_success_url())
         return super().form_valid(form)

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     # Libs
     'mptt',
+    'behave_django',
 
     # Custom Applications
     'accounts',

@@ -136,6 +136,10 @@ class EngineerForm(forms.ModelForm):
                                     widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
                                                                  attrs={'type': 'datetime-local'}),
                                     )
+    desired_to = forms.DateTimeField(required=False, label='Желаемая дата исполнения',
+                                     widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
+                                                                  attrs={'type': 'datetime-local'}),
+                                     )
 
     class Meta:
         model = Ticket

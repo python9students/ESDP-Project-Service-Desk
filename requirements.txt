@@ -2,3 +2,6 @@ Django==4.0.3
 mysqlclient==2.1.0
 python-dotenv==0.20.0
 django-mptt==0.13.4
+selenium==4.1.5
+behave==1.2.6
+behave-django==1.4.0

@@ -2,10 +2,11 @@
 {% block title %}Заявки{% endblock %}
 {% block content %}
     <br>
-    {% if not user.username == 'engineer' %}
+    {% if not user.groups.all.0|slugify == 'engineers'%}
         <a href="{% url 'ticket:ticket_create' %}" class="btn btn-primary mb-5">Создать Заявку</a>
     {% endif %}
 
+    {% if object_list %}
     <table class="table table-hover">
         <thead>
         <tr>
@@ -23,7 +24,8 @@
                 table-danger
                 {% else %}
                 table-warning
-                {% endif %}" ><a href="{% url 'ticket:ticket_detail' ticket.pk %}">Заявка № {{ ticket.id }}</a></td>
+                {% endif %}" ><a href="{% url 'ticket:ticket_detail' ticket.pk %}">
+                    Заявка-{{ ticket.created_at|date:"Ymd-His"}}</a></td>
                 <td>{{ ticket.recieved_at }}</td>
                 <td>{{ ticket.client }}</td>
                 <td>{{ ticket.service_object }}</td>
@@ -32,5 +34,8 @@
         {% endfor %}
         </tbody>
     </table>
+        {% else %}
+        <h2>Заявок пока нет...</h2>
+    {% endif %}
 
 {% endblock %}
