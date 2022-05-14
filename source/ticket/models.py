@@ -322,9 +322,9 @@ class Ticket(models.Model):
     driver = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Водитель', related_name='driver_tickets',
                                null=True, default=None)
     closed_at = models.DateTimeField(null=True, default=None, verbose_name='Дата закрытия заявки')
+    ride_started_at = models.DateTimeField(null=True, default=None, verbose_name='Дата начала поездки')
     work_started_at = models.DateTimeField(null=True, default=None, verbose_name='Дата начала работ')
     work_finished_at = models.DateTimeField(null=True, default=None, verbose_name='Дата окончания работ')
-    ride_started_at = models.DateTimeField(null=True, default=None, verbose_name='Дата начала поездки')
     ride_finished_at = models.DateTimeField(null=True, default=None, verbose_name='Дата окончания поездки')
     cancel_reason = models.CharField(max_length=255, verbose_name='Причина отмены заявки')
 
@@ -336,11 +336,9 @@ class Ticket(models.Model):
         verbose_name_plural = 'Заявки'
         db_table = 'ticket'
         permissions = [("see_engineer_tickets",
-                        "Может видеть только заявки со статусами Назначенный, На исполнении, Заверщенный"),
-                       ("see_operator_tickets",
-                        "Может видеть только заявки со статусами Неопределенный, Подготовленный"),
+                        "Может видеть только заявки со статусами Назначенный, На исполнении, Исполненный"),
                        ("see_chief_tickets",
-                        "Может видеть только заявки со статусами Подготовленный, Назначенный, Завершенный, Отмененный, На исполнении, Исполненный"),
+                        "Может видеть заявки со всеми статусами"),
                        ("close_ticket", "Может закрывать заявки")]
 
 

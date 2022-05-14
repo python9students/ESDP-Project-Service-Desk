@@ -38,6 +38,8 @@ class ClientForm(forms.ModelForm):
 class ChiefForm(forms.ModelForm):
     description = forms.CharField(required=False, max_length=1000,
                                   widget=widgets.Textarea(), label='Описание')
+    executor = forms.ModelChoiceField(queryset=User.objects.all(), required=False, label='Исполнитель')
+    driver = forms.ModelChoiceField(queryset=User.objects.all(), required=False, label='Водитель')
     works = TreeNodeMultipleChoiceField(queryset=Work.objects.all(),
                                         widget=widgets.SelectMultiple(attrs={'size': 20}),
                                         label='Работы')
@@ -68,7 +70,7 @@ class ChiefForm(forms.ModelForm):
                                              attrs={'type': 'datetime-local'}),
         }
         exclude = ("work_started_at", "work_finished_at", "ride_started_at", "ride_finished_at", "cancel_reason",
-                   "closed_at")
+                   "closed_at", "operator", "status")
 
     def clean(self):
         cleaned_data = super().clean()
@@ -110,7 +112,7 @@ class EngineerForm(forms.ModelForm):
 
     class Meta:
         model = Ticket
-        exclude = ("cancel_reason",)
+        exclude = ("cancel_reason", "executor", "driver")
         widgets = {
             'ride_started_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                                    attrs={'type': 'datetime-local'}),
@@ -120,7 +122,7 @@ class EngineerForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         fields = ['client', 'service_object', 'priority', 'type', 'status', 'service_level', 'department',
                   'recieved_at',
-                  'desired_to', 'operator', 'problem_areas', 'description', 'executor', 'driver', 'closed_at']
+                  'desired_to', 'operator', 'description', 'closed_at']
         for field in fields:
             self.fields[field].disabled = True
         if self.instance:

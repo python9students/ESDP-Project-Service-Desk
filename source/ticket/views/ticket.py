@@ -21,11 +21,9 @@ class TicketListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         tickets = super().get_queryset()
         if self.request.user.has_perm('ticket.see_engineer_tickets') and not self.request.user.is_superuser:
-            return tickets.filter(status__in=[1, 2, 6]).filter(executor=self.request.user)
-        elif self.request.user.has_perm('ticket.see_operator_tickets') and not self.request.user.is_superuser:
-            return tickets.filter(status__in=[3, 4])
+            return tickets.filter(status__in=[2, 6, 7]).filter(executor=self.request.user)
         elif self.request.user.has_perm('ticket.see_chief_tickets') and not self.request.user.is_superuser:
-            return tickets.filter(status__in=[3, 6, 1, 5, 2, 4, 7])
+            return tickets.filter(status__in=[1, 2, 3, 4, 5, 6, 7])
         return tickets
 
 
@@ -36,6 +34,7 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         instance = form.save()
         instance.operator = self.request.user
+        instance.status = TicketStatus.objects.get(name='Подготовленный')
         return super(TicketCreateView, self).form_valid(form)
 
     def get_form(self, form_class=None):
@@ -77,7 +76,6 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         ticket_canceled = False
         is_chief = False
-        is_operator = False
         user = self.request.user
         group = user.groups.get(user=user)
         chiefs = Group.objects.filter(name='chiefs')
@@ -120,25 +118,18 @@ class TicketUpdateView(PermissionRequiredMixin, UpdateView):
         return super().get_form()
 
     def form_valid(self, form):
-        user = self.request.user
-        group = self.request.user.groups.get(user=user)
-        chiefs = Group.objects.filter(name='chiefs')
-        engineers = Group.objects.filter(name='engineers')
-        status = TicketStatus.objects.get(name="Завершенный")
-        change_status = form.save(commit=False)
-        if group in chiefs:
-            change_status.status_id = 6
-            change_status.save()
-        elif group in engineers:
-            change_status.status_id = 2
-            change_status.save()
-            if change_status.ride_started_at and change_status.work_started_at and \
-                    change_status.work_finished_at and change_status.ride_finished_at:
-                change_status.status_id = 7
-                change_status.save()
+        if self.object.executor and self.object.driver and not self.object.ride_started_at:
+            self.object.status = TicketStatus.objects.get(name='Назначенный')
+        elif self.object.ride_started_at:
+            self.object.status = TicketStatus.objects.get(name='На исполнении')
+            self.object.save()
+        if self.object.ride_started_at and self.object.work_started_at and \
+                self.object.work_finished_at and self.object.ride_finished_at:
+            self.object.status = TicketStatus.objects.get(name='Исполненный')
+            self.object.save()
         if 'close_ticket' in self.request.POST:
             self.object = form.save(commit=False)
-            self.object.status = status
+            self.object.status = TicketStatus.objects.get(name="Завершенный")
             self.object.closed_at = timezone.now()
             self.object.save()
             return HttpResponseRedirect(self.get_success_url())
