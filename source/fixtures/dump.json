@@ -347,7 +347,10 @@
     "country": 1,
     "region": 1,
     "city": 1,
-    "criterion": null
+    "criterion": null,
+    "guarantee_valid_from": null,
+    "guarantee_valid_until": null,
+    "time_to_fix_problem": null
   }
 },
 {
@@ -364,7 +367,10 @@
     "country": 1,
     "region": 1,
     "city": 1,
-    "criterion": null
+    "criterion": null,
+    "guarantee_valid_from": null,
+    "guarantee_valid_until": null,
+    "time_to_fix_problem": null
   }
 },
 {
@@ -381,7 +387,10 @@
     "country": 1,
     "region": 1,
     "city": 1,
-    "criterion": null
+    "criterion": null,
+    "guarantee_valid_from": null,
+    "guarantee_valid_until": null,
+    "time_to_fix_problem": null
   }
 },
 {
@@ -398,7 +407,10 @@
     "country": 3,
     "region": 1,
     "city": 6,
-    "criterion": null
+    "criterion": null,
+    "guarantee_valid_from": null,
+    "guarantee_valid_until": null,
+    "time_to_fix_problem": null
   }
 },
 {
@@ -415,7 +427,10 @@
     "country": 3,
     "region": 1,
     "city": 5,
-    "criterion": null
+    "criterion": null,
+    "guarantee_valid_from": null,
+    "guarantee_valid_until": null,
+    "time_to_fix_problem": null
   }
 },
 {
@@ -432,7 +447,10 @@
     "country": 3,
     "region": 1,
     "city": 5,
-    "criterion": null
+    "criterion": null,
+    "guarantee_valid_from": null,
+    "guarantee_valid_until": null,
+    "time_to_fix_problem": null
   }
 },
 {
@@ -449,7 +467,10 @@
     "country": 3,
     "region": 1,
     "city": 8,
-    "criterion": null
+    "criterion": 1,
+    "guarantee_valid_from": null,
+    "guarantee_valid_until": null,
+    "time_to_fix_problem": "10:00:00"
   }
 },
 {
@@ -466,7 +487,10 @@
     "country": 3,
     "region": 1,
     "city": 7,
-    "criterion": null
+    "criterion": 1,
+    "guarantee_valid_from": null,
+    "guarantee_valid_until": null,
+    "time_to_fix_problem": "10:00:00"
   }
 },
 {
@@ -483,7 +507,10 @@
     "country": 3,
     "region": 1,
     "city": 5,
-    "criterion": null
+    "criterion": null,
+    "guarantee_valid_from": null,
+    "guarantee_valid_until": null,
+    "time_to_fix_problem": null
   }
 },
 {
@@ -1346,6 +1373,149 @@
     ],
     "problem_areas": [
       13
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 16,
+  "fields": {
+    "client": 3,
+    "service_object": 6,
+    "priority": 1,
+    "type": 1,
+    "status": 3,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-15T07:01:14.314Z",
+    "updated_at": "2022-05-15T07:01:14.337Z",
+    "recieved_at": "2022-05-15T07:00:00Z",
+    "desired_to": null,
+    "operator": 4,
+    "description": "",
+    "executor": 4,
+    "driver": 4,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "works": [
+      7,
+      10
+    ],
+    "problem_areas": [
+      8,
+      9
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 17,
+  "fields": {
+    "client": 4,
+    "service_object": 8,
+    "priority": 1,
+    "type": 1,
+    "status": 3,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-15T07:08:13.185Z",
+    "updated_at": "2022-05-15T07:08:13.213Z",
+    "recieved_at": "2022-05-15T07:07:00Z",
+    "desired_to": null,
+    "operator": 4,
+    "description": "Now Testing",
+    "executor": null,
+    "driver": 1,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "works": [
+      7
+    ],
+    "problem_areas": [
+      1
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 18,
+  "fields": {
+    "client": 4,
+    "service_object": 8,
+    "priority": 1,
+    "type": 1,
+    "status": 3,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-15T17:09:17.675Z",
+    "updated_at": "2022-05-15T17:09:17.698Z",
+    "recieved_at": "2022-05-15T17:08:00Z",
+    "desired_to": null,
+    "operator": 4,
+    "description": "Now testing 2",
+    "executor": 1,
+    "driver": null,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "works": [
+      9,
+      6
+    ],
+    "problem_areas": [
+      11,
+      5
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 19,
+  "fields": {
+    "client": 4,
+    "service_object": 8,
+    "priority": 1,
+    "type": 2,
+    "status": 3,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-15T18:06:05.682Z",
+    "updated_at": "2022-05-15T18:06:05.752Z",
+    "recieved_at": "2022-05-15T18:05:00Z",
+    "desired_to": null,
+    "operator": 1,
+    "description": "Testing",
+    "executor": null,
+    "driver": 1,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "works": [
+      7,
+      9,
+      2
+    ],
+    "problem_areas": [
+      10,
+      7
     ]
   }
 },
