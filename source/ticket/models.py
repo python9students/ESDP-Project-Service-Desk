@@ -3,6 +3,10 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 from django.db import models
+from django.contrib.auth.models import User
+
+User._meta.get_field('first_name', ).blank = False
+User._meta.get_field('last_name', ).blank = False
 
 User = get_user_model()
 
