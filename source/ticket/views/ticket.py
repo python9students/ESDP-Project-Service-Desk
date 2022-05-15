@@ -76,17 +76,6 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
         user = self.request.user
         group = user.groups.get(user=user)
         chiefs = Group.objects.filter(name='chiefs')
-        service_objects = ServiceObject.objects.filter(pk=self.object.service_object_id)
-        # expected_time_to_fix_problem = None
-        # for service_object in service_objects:
-        #     for contract in service_object.contracts.all():
-        #         expected_time_to_fix_problem = self.object.recieved_at + contract.time_to_fix_problem_SLA
-        # if expected_time_to_fix_problem is not None:
-        #     remaining_time_to_fix_problem = expected_time_to_fix_problem - datetime.now().replace(tzinfo=timezone.utc)
-        #     if remaining_time_to_fix_problem.days < 0:
-        #         context['remaining_time_to_fix_problem'] = None
-        #     else:
-        #         context['remaining_time_to_fix_problem'] = remaining_time_to_fix_problem
         if group in chiefs:
             is_chief = True
         if str(self.object.status) == 'Отмененный':
