@@ -76,17 +76,15 @@
                     <li class="list-group-item">Причина отмены заявки: {{ ticket.cancel_reason|default:"Не указано" }}</li>
                 {% endif %}
                 <li class="list-group-item">Дата закрытия заявки: {{ ticket.closed_at|default:"Еще не закрыта" }}</li>
-
-                <li class="list-group-item">Дата окончания работы:
-                    {{ expected_time_to_fix_problem|default:"Не указано" }}</li>
+                <li class="list-group-item" id="expected_time"></li>
+                <li class="list-group-item" id="remaining_time"></li>
             </ul>
         </div>
     </div>
         <ul class="list-group">
-        {% if remaining_time_to_fix_problem != None %}
             <li class="list-group-item">
                 <div class="progress w-25">
-                    <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25"
+                    <div class="list-group" id="progress_bar" onload="ProgressBar(event)" data-id="{{ ticket.id }}" data-time-url="{% url "ticket:ticket_time_bar" ticket.pk %}" role="progressbar" style="width: 25%;" aria-valuenow="25"
                          aria-valuemin="0"
                          aria-valuemax="100">25%
                     </div>
@@ -94,9 +92,12 @@
             </li>
             <li class="list-group-item">Оставшееся время окончания работы:
                 {{ remaining_time_to_fix_problem|default:"Не указано" }}</li>
-        {% endif %}
+
+
+
+
+
         </ul>
     </div>
     <br>
-    {{ ticket.time_to_fix_problem }}
 {% endblock %}
