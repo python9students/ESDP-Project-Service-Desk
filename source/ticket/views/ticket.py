@@ -1,9 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
-from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
-from datetime import datetime
 
 from ticket.filters import TicketFilter
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
@@ -15,8 +13,8 @@ class TicketListView(LoginRequiredMixin, ListView):
     model = Ticket
     template_name = 'ticket/list.html'
     context_object_name = 'tickets'
-    ordering = ['-recieved_at']
-    paginate_by = 3
+    ordering = ['-received_at']
+    paginate_by = 2
     paginate_orphans = 0
 
     def get_queryset(self):
@@ -25,7 +23,7 @@ class TicketListView(LoginRequiredMixin, ListView):
             return tickets.filter(status__in=[2, 6, 7]).filter(executor=self.request.user)
         elif self.request.user.has_perm('ticket.see_chief_tickets') and not self.request.user.is_superuser:
             return tickets.filter(status__in=[1, 2, 3, 4, 5, 6, 7])
-        return TicketFilter(self.request.GET, queryset=tickets).qs
+        return tickets
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)

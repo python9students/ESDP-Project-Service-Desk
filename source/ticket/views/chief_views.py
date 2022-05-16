@@ -1,5 +1,4 @@
 from django.views.generic import ListView
-
 from ticket.models import Ticket
 
 
