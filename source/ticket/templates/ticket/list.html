@@ -20,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for ticket in filter.qs %}
+        {% for ticket in tickets|dictsort:"id" reversed %}
             <tr>
                 <td class="{% if ticket.priority|capfirst == 'Высокий' %}
                 table-danger
