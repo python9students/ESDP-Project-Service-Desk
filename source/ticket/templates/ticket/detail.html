@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load mptt_tags %}
 {% block title %}Заявка{% endblock %}
-{% block search %}{% endblock %}
 {% block content %}
     <div class="mt-2">
         <a href="{% url "ticket:ticket_update" ticket.id %}" class="btn btn-primary">Редактировать</a>
@@ -14,7 +13,7 @@
         <br><br>
     </div>
     <div>
-        <h4>Заявка-{{ ticket.created_at|date:"Ymd-His"}}</h4>
+        <h4>Заявка-{{ ticket.recieved_at|date:"Ymd-His"}}</h4>
         <div class="row justify-content-between">
             <div class="col-6">
                 <ul class="list-group">
@@ -64,20 +63,30 @@
                             {% endrecursetree %}
                         </ul>
                     </li>
-                    <li class="list-group-item">Описание: {{ ticket.description|default:"Не указано" }}</li>
-                    <li class="list-group-item">Исполнитель: {{ ticket.executor|default:"Не указано" }}</li>
-                    <li class="list-group-item">Водитель: {{ ticket.driver|default:"Не указано" }}</li>
+                    {% if ticket.description %}
+                    <li class="list-group-item">Описание: {{ ticket.description }}</li>
+                    {% endif %}
+                    <li class="list-group-item">Исполнитель: {{ ticket.executor|default:"Не указан" }}</li>
+                    <li class="list-group-item">Водитель: {{ ticket.driver|default:"Не указан" }}</li>
                     <li class="list-group-item">Дата начала работ:
-                        {{ ticket.work_started_at|default:"Не указано" }}</li>
+                        {{ ticket.work_started_at|default:"Не указана" }}</li>
                     <li class="list-group-item">Дата окончания работ:
-                        {{ ticket.work_finished_at|default:"Не указано" }}</li>
+                        {{ ticket.work_finished_at|default:"Не указана" }}</li>
                     <li class="list-group-item">Дата начала поездки:
-                        {{ ticket.ride_started_at|default:"Не указано" }}</li>
+                        {{ ticket.ride_started_at|default:"Не указана" }}</li>
                     <li class="list-group-item">Дата окончания поездки:
-                        {{ ticket.ride_finished_at|default:"Не указано" }}</li>
+                        {{ ticket.ride_finished_at|default:"Не указана" }}</li>
                     {% if ticket.cancel_reason %}
                         <li class="list-group-item">Причина отмены заявки:
-                            {{ ticket.cancel_reason|default:"Не указано" }}</li>
+                            {{ ticket.cancel_reason }}</li>
+                    {% endif %}
+                    {% if ticket.close_commentary %}
+                        <li class="list-group-item">Комментарий к закрытию заявки:
+                            {{ ticket.close_commentary }}</li>
+                    {% endif %}
+                    {% if ticket.work_done %}
+                        <li class="list-group-item">Проделанная работа по заявке:
+                            {{ ticket.work_done }}</li>
                     {% endif %}
                     <li class="list-group-item">Дата закрытия заявки:
                         {{ ticket.closed_at|default:"Еще не закрыта" }}</li>
@@ -95,9 +104,7 @@
                          aria-valuemin="0"
                          aria-valuemax="100">
                     </div>
-
                 </div>
-
             </li>
     </div>
     <br>
