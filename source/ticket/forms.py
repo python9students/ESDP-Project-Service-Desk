@@ -2,9 +2,9 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 
-from ticket.models import Work, ProblemArea, ServiceObject, Client, Ticket
+from ticket.models import Work, ProblemArea, Ticket
 from django.core.exceptions import ValidationError
-from django.forms import TextInput, widgets, BaseModelForm
+from django.forms import widgets, BaseModelForm
 from mptt.forms import TreeNodeMultipleChoiceField
 
 User = get_user_model()
@@ -168,7 +168,7 @@ class EngineerForm(forms.ModelForm, TicketFormValidationMixin):
 
     class Meta:
         model = Ticket
-        exclude = ("cancel_reason", "executor", "driver", "close_commentary",)
+        exclude = ("cancel_reason", "executor.last_name", "driver", "close_commentary",)
         widgets = {
             'ride_started_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                                    attrs={'type': 'datetime-local'}),
