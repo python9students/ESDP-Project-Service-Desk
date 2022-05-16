@@ -12,40 +12,6 @@ async function make_request(url, method = 'GET') {
 
 }
 
-window.addEventListener('load', ProgressBar)
-
-async function ProgressBar() {
-    let url = document.getElementById('progress_bar').dataset.timeUrl
-    console.log(url)
-    let data = await make_request(url)
-    console.log(data)
-    let readable_expected_finish_date = new Date(data.expected_time_to_finish_work);
-    let readable_recieved_at_date = new Date(data.ticket_received_at)
-    let expected_time = document.getElementById('expected_time')
-    expected_time.innerText = `Дата окончания работы: ${readable_expected_finish_date}`
-
-
-    let readable_date_time_now = new Date(data.date_time_now)
-    let remaining_time = readable_expected_finish_date - readable_date_time_now
-
-    let remain_time = document.getElementById("remaining_time")
-    remain_time.innerText = `Оставшееся время оканчания работы: ${msToTime(remaining_time)}`
-
-
-    let received_and_end_date = readable_expected_finish_date - readable_recieved_at_date
-    console.log(received_and_end_date)
-    let time_difference = readable_expected_finish_date - readable_date_time_now
-    console.log(time_difference)
-
-    let percentage = (time_difference / received_and_end_date) * 100
-    let percentage_to_add = 100 - percentage
-    let progress_bar = document.getElementById("progress_bar")
-    progress_bar.style = `width: ${percentage_to_add}%`
-
-}
-
-
-
 
 function msToTime(duration) {
     let milliseconds = parseInt((duration % 1000) / 100),
@@ -59,3 +25,40 @@ function msToTime(duration) {
 
     return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
 }
+
+
+window.addEventListener('load', ProgressBar)
+
+async function ProgressBar() {
+    let url = document.getElementById('progress_bar').dataset.timeUrl
+    console.log(url)
+    let data = await make_request(url)
+    console.log(data)
+    let converted_expected_finish_date = new Date(data.expected_time_to_finish_work);
+    let converted_received_at_date = new Date(data.ticket_received_at)
+    let converted_date_time_now = new Date(data.date_time_now)
+
+
+    let expected_time_tag = document.getElementById('expected_time')
+    expected_time_tag.innerText = `Дата окончания работы: ${converted_expected_finish_date}`
+
+
+    let remaining_time = converted_expected_finish_date - converted_date_time_now
+    let remaining_time_tag = document.getElementById("remaining_time")
+    remaining_time_tag.innerText = `Оставшееся время оканчания работы: ${msToTime(remaining_time)}`
+
+
+    let received_and_end_date = converted_expected_finish_date - converted_received_at_date
+
+
+    let percentage = (remaining_time / received_and_end_date) * 100
+    let remaining_percentage = 100 - percentage
+    let progress_bar_tag = document.getElementById("progress_bar")
+    progress_bar_tag.style = `width: ${remaining_percentage}%`
+
+
+}
+
+
+
+
