@@ -2,21 +2,21 @@
     {% csrf_token %}
 {% endif %}
 <div class="row justify-content-between">
-{% for field in form %}
-    {% if forloop.counter <= 9 %}
-        <div class="col-6">
-            <p><label class="form-control" for="{{ field.id_for_label }}">{{ field.label }} {{ field }}</label></p>
-        </div>
-    {% endif %}
-    {% if forloop.counter >= 10 %}
-        <div class="col-6">
-            <p><label class="form-control" for="{{ field.id_for_label }}">{{ field.label }} {{ field }}</label></p>
-        </div>
-    {% endif %}
+    <div class="col-6">
+        <label for="{{ form.client.id_for_label }}">{{ form.client.label }}</label>{{ form.client }}
+        <label for="{{ form.service_object.id_for_label }}">{{ form.service_object.label }}</label>{{ form.service_object }}
+        <label for="{{ form.priority.id_for_label }}">{{ form.priority.label }}</label>{{ form.priority }}
+        <label for="{{ form.type.id_for_label }}">{{ form.type.label }}</label>{{ form.type }}
+        <label for="{{ form.service_level.id_for_label }}">{{ form.service_level.label }}</label>{{ form.service_level }}
+        <label for="{{ form.department.id_for_label }}">{{ form.department.label }}</label>{{ form.department }}
+    </div>
+    <div class="col-6">
+        <label for="{{ form.recieved_at.id_for_label }}">{{ form.recieved_at.label }}</label>{{ form.recieved_at }}
+        <label for="{{ form.desired_to.id_for_label }}">{{ form.desired_to.label }}</label>{{ form.desired_to }}
+    </div>
     {% for error in field.errors %}
         <p class="text-danger">{{ error }}</p>
     {% endfor %}
-{% endfor %}
     </div>
 
 {% if not fields_only %}

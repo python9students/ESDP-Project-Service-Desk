@@ -77,9 +77,9 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
     problem_areas = TreeNodeMultipleChoiceField(queryset=ProblemArea.objects.all(),
                                                 widget=widgets.SelectMultiple(attrs={'size': 20}),
                                                 label='Проблемные области')
-    desired_to = forms.DateTimeField(required=False, label='Желаемая дата исполнения',
+    desired_to = forms.DateTimeField(required=False, label='Желаемая дата и время исполнения',
                                      widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                                  attrs={'type': 'datetime-local'}),
+                                                                  attrs={'type': 'datetime-local', 'class': 'form-control'}),
                                      )
     work_started_at = forms.DateTimeField(required=False, label='Дата начала работ',
                                           widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
@@ -119,8 +119,14 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
     class Meta:
         model = Ticket
         widgets = {
+            'client': forms.Select(attrs={'class': 'form-control'}),
+            'service_object': forms.Select(attrs={'class': 'form-control'}),
+            'priority': forms.Select(attrs={'class': 'form-control'}),
+            'type': forms.Select(attrs={'class': 'form-control'}),
+            'service_level': forms.Select(attrs={'class': 'form-control'}),
+            'department': forms.Select(attrs={'class': 'form-control'}),
             'recieved_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                               attrs={'type': 'datetime-local'}),
+                                               attrs={'type': 'datetime-local', 'class': 'form-control'}),
             'closed_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                              attrs={'type': 'datetime-local'}),
         }

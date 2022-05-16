@@ -320,8 +320,8 @@ class Ticket(models.Model):
                                    related_name='tickets', null=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания заявки")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата изменения заявки")
-    recieved_at = models.DateTimeField(null=True, default=None, verbose_name='Дата получения заявки')
-    desired_to = models.DateTimeField(null=True, default=None, verbose_name='Желаемая дата исполнения')
+    recieved_at = models.DateTimeField(null=True, default=None, verbose_name='Дата и время получения заявки')
+    desired_to = models.DateTimeField(null=True, default=None, verbose_name='Желаемая дата и время исполнения')
     operator = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Оператор',
                                  related_name='operator_tickets', null=True)
     works = models.ManyToManyField('ticket.Work', related_name='tickets')
