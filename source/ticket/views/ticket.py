@@ -16,6 +16,8 @@ class TicketListView(LoginRequiredMixin, ListView):
     template_name = 'ticket/list.html'
     context_object_name = 'tickets'
     ordering = ['-recieved_at']
+    paginate_by = 2
+    paginate_orphans = 0
 
     def get_queryset(self):
         tickets = super().get_queryset()
@@ -26,7 +28,7 @@ class TicketListView(LoginRequiredMixin, ListView):
         return tickets
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = super().get_context_data(object_list=object_list, **kwargs)
         context['filter'] = TicketFilter(self.request.GET, queryset=self.get_queryset())
         return context
 
