@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load mptt_tags %}
 {% block title %}Заявка{% endblock %}
-{% block search %}{% endblock %}
 {% block content %}
     <div class="mt-2">
         <a href="{% url "ticket:ticket_update" ticket.id %}" class="btn btn-primary">Редактировать</a>
@@ -14,7 +13,7 @@
         <br><br>
     </div>
     <div>
-        <h4>Заявка-{{ ticket.created_at|date:"Ymd-His"}}</h4>
+        <h4>Заявка-{{ ticket.recieved_at|date:"Ymd-His"}}</h4>
         <div class="row justify-content-between">
             <div class="col-6">
                 <ul class="list-group">

@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from datetime import datetime
 
+from ticket.filters import TicketFilter
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
 from ticket.models import Ticket, TicketStatus, ServiceObject
 from django.urls import reverse
@@ -14,7 +15,7 @@ class TicketListView(LoginRequiredMixin, ListView):
     model = Ticket
     template_name = 'ticket/list.html'
     context_object_name = 'tickets'
-    ordering = ['-created_at']
+    ordering = ['-recieved_at']
 
     def get_queryset(self):
         tickets = super().get_queryset()
@@ -23,6 +24,11 @@ class TicketListView(LoginRequiredMixin, ListView):
         elif self.request.user.has_perm('ticket.see_chief_tickets') and not self.request.user.is_superuser:
             return tickets.filter(status__in=[1, 2, 3, 4, 5, 6, 7])
         return tickets
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = TicketFilter(self.request.GET, queryset=self.get_queryset())
+        return context
 
 
 class TicketCreateView(LoginRequiredMixin, CreateView):

@@ -32,13 +32,6 @@
                             </li>
                         {% endif %}
                     </ul>
-                    {% block search %}
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="поиск заявки..."
-                                   aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Поиск</button>
-                        </form>
-                    {% endblock %}
                     <ul class="navbar-nav mb-2 mb-lg-0 mt-2">
                         {% if user.is_authenticated %}
                             <li class="nav-item">

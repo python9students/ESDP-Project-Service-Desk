@@ -340,7 +340,7 @@ class Ticket(models.Model):
     close_commentary = models.CharField(max_length=255, blank=True, verbose_name='Комментарий к закрытию заявки')
 
     def __str__(self):
-        return f'Заявка-{self.created_at.strftime("%Y%m%d-%H%M%S")}'
+        return f'Заявка-{self.recieved_at.strftime("%Y%m%d-%H%M%S")}'
 
     def get_absolute_url(self):
         return reverse('ticket:ticket_detail', kwargs={'pk': self.pk})
