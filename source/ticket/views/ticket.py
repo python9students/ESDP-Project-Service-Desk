@@ -16,7 +16,7 @@ class TicketListView(LoginRequiredMixin, ListView):
     template_name = 'ticket/list.html'
     context_object_name = 'tickets'
     ordering = ['-recieved_at']
-    paginate_by = 2
+    paginate_by = 10
     paginate_orphans = 0
 
     def get_queryset(self):
