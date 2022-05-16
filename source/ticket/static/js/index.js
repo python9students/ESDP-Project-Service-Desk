@@ -38,13 +38,13 @@ async function ProgressBar() {
     console.log(time_difference)
 
     let percentage = (time_difference / received_and_end_date) * 100
-    console.log(percentage)
-
-
+    let percentage_to_add = 100 - percentage
     let progress_bar = document.getElementById("progress_bar")
-    progress_bar.style = `width: ${percentage}%`
+    progress_bar.style = `width: ${percentage_to_add}%`
 
 }
+
+
 
 
 function msToTime(duration) {
