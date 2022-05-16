@@ -67,6 +67,8 @@ class TicketFormValidationMixin(BaseModelForm):
 class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
     description = forms.CharField(required=False, max_length=1000,
                                   widget=widgets.Textarea(attrs={'cols': 65, 'rows': 4}), label='Описание')
+    work_done = forms.CharField(required=False, max_length=1000,
+                                widget=widgets.Textarea(attrs={'cols': 65, 'rows': 4}), label='Проделанная работа')
     executor = forms.ModelChoiceField(queryset=User.objects.all(), required=False, label='Исполнитель')
     driver = forms.ModelChoiceField(queryset=User.objects.all(), required=False, label='Водитель')
     works = TreeNodeMultipleChoiceField(queryset=Work.objects.all(),
@@ -128,6 +130,8 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
 class EngineerForm(forms.ModelForm, TicketFormValidationMixin):
     description = forms.CharField(required=False, max_length=1000,
                                   widget=widgets.Textarea(attrs={'cols': 65, 'rows': 4}), label='Описание')
+    work_done = forms.CharField(required=False, max_length=1000,
+                                widget=widgets.Textarea(attrs={'cols': 65, 'rows': 4}), label='Проделанная работа')
     works = TreeNodeMultipleChoiceField(queryset=Work.objects.all(),
                                         widget=widgets.SelectMultiple(attrs={'size': 20}),
                                         label='Работы')
@@ -187,4 +191,3 @@ class TicketCloseForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ("close_commentary",)
-
