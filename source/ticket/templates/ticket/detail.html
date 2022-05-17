@@ -13,7 +13,7 @@
         <br><br>
     </div>
     <div>
-        <h4>Заявка-{{ ticket.recieved_at|date:"Ymd-His"}}</h4>
+        <h4>Заявка-{{ ticket.received_at|date:"Ymd-His"}}</h4>
         <div class="row justify-content-between">
             <div class="col-6">
                 <ul class="list-group">
@@ -27,7 +27,7 @@
                     <li class="list-group-item">Департамент: {{ ticket.department }}</li>
                     <li class="list-group-item">Дата создания заявки: {{ ticket.created_at }}</li>
                     <li class="list-group-item">Дата изменения заявки: {{ ticket.updated_at }}</li>
-                    <li class="list-group-item">Дата получения заявки: {{ ticket.recieved_at }}</li>
+                    <li class="list-group-item">Дата получения заявки: {{ ticket.received_at }}</li>
                     {% if ticket.desired_to %}
                         <li class="list-group-item">Желаемая дата исполнения: {{ ticket.desired_to }}</li>
                     {% endif %}

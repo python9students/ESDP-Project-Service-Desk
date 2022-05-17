@@ -320,7 +320,7 @@ class Ticket(models.Model):
                                    related_name='tickets', null=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания заявки")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата изменения заявки")
-    recieved_at = models.DateTimeField(null=True, default=None, verbose_name='Дата и время получения заявки')
+    received_at = models.DateTimeField(null=True, default=None, verbose_name='Дата и время получения заявки')
     desired_to = models.DateTimeField(null=True, default=None, verbose_name='Желаемая дата и время исполнения')
     operator = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Оператор',
                                  related_name='operator_tickets', null=True)
@@ -341,7 +341,7 @@ class Ticket(models.Model):
     work_done = models.TextField(max_length=1000, blank=True, verbose_name='Проделанная работа')
 
     def __str__(self):
-        return f'Заявка-{self.recieved_at.strftime("%Y%m%d-%H%M%S")}'
+        return f'Заявка-{self.received_at.strftime("%Y%m%d-%H%M%S")}'
 
     def get_absolute_url(self):
         return reverse('ticket:ticket_detail', kwargs={'pk': self.pk})

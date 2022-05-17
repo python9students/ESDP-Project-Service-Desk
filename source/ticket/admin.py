@@ -60,7 +60,7 @@ class ServiceObjectAdmin(admin.ModelAdmin):
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
     search_fields = ("client",)
-    list_display = ("__str__", "client", "service_object", "status", "recieved_at")
+    list_display = ("__str__", "client", "service_object", "status", "received_at")
 
 
 admin.site.unregister(User)

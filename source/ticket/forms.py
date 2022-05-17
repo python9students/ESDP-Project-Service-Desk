@@ -13,19 +13,19 @@ User = get_user_model()
 class TicketFormValidationMixin(BaseModelForm):
     def clean(self):
         cleaned_data = super().clean()
-        recieved_at = cleaned_data['recieved_at']
+        received_at = cleaned_data['received_at']
         desired_to = cleaned_data['desired_to']
         work_started_at = cleaned_data['work_started_at']
         work_finished_at = cleaned_data['work_finished_at']
         ride_started_at = cleaned_data['ride_started_at']
         ride_finished_at = cleaned_data['ride_finished_at']
 
-        if recieved_at and recieved_at > timezone.now():
-            self.add_error('recieved_at',
+        if received_at and received_at > timezone.now():
+            self.add_error('received_at',
                            ValidationError("Дата получения заявки не может быть позже чем время сейчас"))
-            self.fields['recieved_at'].widget.attrs.update({'style': 'border-color:red;'})
-        if recieved_at and desired_to:
-            if recieved_at > desired_to:
+            self.fields['received_at'].widget.attrs.update({'style': 'border-color:red;'})
+        if received_at and desired_to:
+            if received_at > desired_to:
                 self.add_error('desired_to',
                                ValidationError(
                                    "Желаемая дата исполнения не может быть позже чем дата получения заявки"))
@@ -101,8 +101,8 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance:
-            self.initial['recieved_at'] = self.instance.recieved_at.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.recieved_at else None
+            self.initial['received_at'] = self.instance.received_at.strftime(
+                '%Y-%m-%dT%H:%M') if self.instance.received_at else None
             self.initial['desired_to'] = self.instance.desired_to.strftime(
                 '%Y-%m-%dT%H:%M') if self.instance.desired_to else None
             self.initial['closed_at'] = self.instance.closed_at.strftime(
@@ -125,7 +125,7 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
             'type': forms.Select(attrs={'class': 'form-control'}),
             'service_level': forms.Select(attrs={'class': 'form-control'}),
             'department': forms.Select(attrs={'class': 'form-control'}),
-            'recieved_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
+            'received_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                                attrs={'type': 'datetime-local', 'class': 'form-control'}),
             'closed_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                              attrs={'type': 'datetime-local'}),
@@ -164,7 +164,7 @@ class EngineerForm(forms.ModelForm, TicketFormValidationMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         fields = ['client', 'service_object', 'priority', 'type', 'status', 'service_level', 'department',
-                  'recieved_at', 'desired_to', 'operator', 'description', 'closed_at']
+                  'received_at', 'desired_to', 'operator', 'description', 'closed_at']
         for field in fields:
             self.fields[field].disabled = True
 
