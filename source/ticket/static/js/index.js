@@ -39,13 +39,8 @@ async function ProgressBar() {
     let converted_date_time_now = new Date(data.date_time_now)
 
 
-    let expected_time_tag = document.getElementById('expected_time')
-    expected_time_tag.innerText = `Дата окончания работы: ${converted_expected_finish_date}`
-
 
     let remaining_time = converted_expected_finish_date - converted_date_time_now
-    let remaining_time_tag = document.getElementById("remaining_time")
-    remaining_time_tag.innerText = `Оставшееся время оканчания работы: ${msToTime(remaining_time)}`
 
 
     let received_and_end_date = converted_expected_finish_date - converted_received_at_date
@@ -55,8 +50,6 @@ async function ProgressBar() {
     let remaining_percentage = 100 - percentage
     let progress_bar_tag = document.getElementById("progress_bar")
     progress_bar_tag.style = `width: ${remaining_percentage}%`
-
-
 }
 
 

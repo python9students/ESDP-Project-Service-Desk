@@ -90,11 +90,14 @@
                     {% endif %}
                     <li class="list-group-item">Дата закрытия заявки:
                         {{ ticket.closed_at|default:"Еще не закрыта" }}</li>
-                    <li class="list-group-item" id="expected_time"></li>
-                    <li class="list-group-item" id="remaining_time"></li>
+                    <li class="list-group-item" id="expected_time">Оставшееся время оканчания работы: {{ time_difference }}</li>
+                    <li class="list-group-item" id="remaining_time">Дата окончания работы: {{ expected_time_to_finish }}</li>
                 </ul>
             </div>
         </div>
+
+
+        {% if time_difference %}
         <ul class="list-group">
             <li class="list-group-item">
                 <div class="progress w-25">
@@ -106,6 +109,8 @@
                     </div>
                 </div>
             </li>
+        </ul>
+        {% endif %}
     </div>
     <br>
 {% endblock %}

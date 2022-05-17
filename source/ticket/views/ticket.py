@@ -4,6 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from datetime import datetime
+from pytz import timezone
 
 from ticket.filters import TicketFilter
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
@@ -76,6 +77,9 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        UTC = timezone('Asia/Bishkek')
+        ticket = Ticket.objects.get(pk=self.kwargs.get('pk'))
+        service_object = ServiceObject.objects.get(serial_number=ticket.service_object)
         ticket_canceled = False
         ticket_closed = False
         is_chief = False
@@ -88,10 +92,15 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
             ticket_canceled = True
         if str(self.object.status) == 'Завершенный':
             ticket_closed = True
+        if service_object.time_to_fix_problem:
+            expected_time_to_finish = ticket.recieved_at + service_object.time_to_fix_problem
+            time_difference = expected_time_to_finish-datetime.now(UTC)
+            context['time_difference'] = time_difference
+            context['expected_time_to_finish'] = expected_time_to_finish
+
         context['ticket_canceled'] = ticket_canceled
         context['ticket_closed'] = ticket_closed
         context['is_chief'] = is_chief
-        # context['expected_time_to_fix_problem'] = expected_time_to_fix_problem
         return context
 
 

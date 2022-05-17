@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.core.validators import RegexValidator
 from django.contrib.auth import get_user_model
 from django.urls import reverse
@@ -9,7 +11,6 @@ User._meta.get_field('first_name', ).blank = False
 User._meta.get_field('last_name', ).blank = False
 
 User = get_user_model()
-
 
 class CompanyType(models.Model):
     """
@@ -169,12 +170,11 @@ class ServiceObject(models.Model):
     city = models.ForeignKey('ticket.City', on_delete=models.PROTECT, verbose_name='Город',
                              related_name='service_objects')
     criterion = models.ForeignKey('ticket.CriterionType', on_delete=models.PROTECT, verbose_name='Критерий',
-                                  related_name='service_objects', null=True, default=None)
+                                  related_name='service_objects', null=True, default="Гарантийный")
     guarantee_valid_from = models.DateField(blank=True, null=True, verbose_name='Гаранития действует с')
     guarantee_valid_until = models.DateField(blank=True, null=True, verbose_name='Гарантия действует до')
     time_to_fix_problem = models.DurationField(verbose_name='Время на устранение проблемы', null=True, blank=True,
                                                    default=None)
-
 
     def __str__(self):
         return f'{self.serial_number}'
@@ -183,6 +183,9 @@ class ServiceObject(models.Model):
         verbose_name = 'Объект обслуживания'
         verbose_name_plural = 'Объекты обслуживания'
         db_table = 'service_object'
+
+
+
 
 
 class TicketPriority(models.Model):
