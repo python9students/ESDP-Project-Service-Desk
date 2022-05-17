@@ -13,21 +13,9 @@ async function make_request(url, method = 'GET') {
 }
 
 
-function msToTime(duration) {
-    let milliseconds = parseInt((duration % 1000) / 100),
-        seconds = Math.floor((duration / 1000) % 60),
-        minutes = Math.floor((duration / (1000 * 60)) % 60),
-        hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-
-    hours = (hours < 10) ? "0" + hours : hours;
-    minutes = (minutes < 10) ? "0" + minutes : minutes;
-    seconds = (seconds < 10) ? "0" + seconds : seconds;
-
-    return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+if(document.getElementById('progress_bar')) {
+    window.addEventListener('load', ProgressBar)
 }
-
-
-window.addEventListener('load', ProgressBar)
 
 async function ProgressBar() {
     let url = document.getElementById('progress_bar').dataset.timeUrl
@@ -52,6 +40,19 @@ async function ProgressBar() {
     progress_bar_tag.style = `width: ${remaining_percentage}%`
 }
 
+
+function msToTime(duration) {
+    let milliseconds = parseInt((duration % 1000) / 100),
+        seconds = Math.floor((duration / 1000) % 60),
+        minutes = Math.floor((duration / (1000 * 60)) % 60),
+        hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+    return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+}
 
 
 

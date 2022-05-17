@@ -64,7 +64,7 @@
                         </ul>
                     </li>
                     {% if ticket.description %}
-                    <li class="list-group-item">Описание: {{ ticket.description }}</li>
+                        <li class="list-group-item">Описание: {{ ticket.description }}</li>
                     {% endif %}
                     <li class="list-group-item">Исполнитель: {{ ticket.executor|default:"Не указан" }}</li>
                     <li class="list-group-item">Водитель: {{ ticket.driver|default:"Не указан" }}</li>
@@ -90,27 +90,31 @@
                     {% endif %}
                     <li class="list-group-item">Дата закрытия заявки:
                         {{ ticket.closed_at|default:"Еще не закрыта" }}</li>
-                    <li class="list-group-item" id="expected_time">Оставшееся время оканчания работы: {{ time_difference }}</li>
-                    <li class="list-group-item" id="remaining_time">Дата окончания работы: {{ expected_time_to_finish }}</li>
+                    <li class="list-group-item" id="expected_time">Оставшееся время оканчания
+                        работы: {{ time_difference }}</li>
+                    <li class="list-group-item" id="remaining_time">Дата окончания
+                        работы: {{ expected_time_to_finish }}</li>
                 </ul>
+
+                {% if time_difference %}
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="progress w-25">
+                                <div class="progress-bar bg-success" id="progress_bar" data-id="{{ ticket.id }}"
+                                     data-time-url="{% url "ticket:ticket_time_bar" ticket.pk %}" role="progressbar"
+                                     style=""
+                                     aria-valuenow="25"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                {% endif %}
+
             </div>
         </div>
 
-
-        {% if time_difference %}
-        <ul class="list-group">
-            <li class="list-group-item">
-                <div class="progress w-25">
-                    <div class="progress-bar bg-success" id="progress_bar" data-id="{{ ticket.id }}"
-                         data-time-url="{% url "ticket:ticket_time_bar" ticket.pk %}" role="progressbar" style=""
-                         aria-valuenow="25"
-                         aria-valuemin="0"
-                         aria-valuemax="100">
-                    </div>
-                </div>
-            </li>
-        </ul>
-        {% endif %}
     </div>
     <br>
 {% endblock %}
