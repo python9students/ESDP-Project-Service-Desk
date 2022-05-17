@@ -3,12 +3,12 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 from django.db import models
-from django.contrib.auth.models import User
+
+
+User = get_user_model()
 
 User._meta.get_field('first_name', ).blank = False
 User._meta.get_field('last_name', ).blank = False
-
-User = get_user_model()
 
 
 class CompanyType(models.Model):
@@ -169,12 +169,11 @@ class ServiceObject(models.Model):
     city = models.ForeignKey('ticket.City', on_delete=models.PROTECT, verbose_name='Город',
                              related_name='service_objects')
     criterion = models.ForeignKey('ticket.CriterionType', on_delete=models.PROTECT, verbose_name='Критерий',
-                                  related_name='service_objects', null=True, default=None)
-    guarantee_valid_from = models.DateField(blank=True, null=True, verbose_name='Гаранития действует с')
+                                  related_name='service_objects', null=True, default="Гарантийный")
+    guarantee_valid_from = models.DateField(blank=True, null=True, verbose_name='Гарантия действует с')
     guarantee_valid_until = models.DateField(blank=True, null=True, verbose_name='Гарантия действует до')
     time_to_fix_problem = models.DurationField(verbose_name='Время на устранение проблемы', null=True, blank=True,
-                                                   default=None)
-
+                                               default=None)
 
     def __str__(self):
         return f'{self.serial_number}'
@@ -320,8 +319,8 @@ class Ticket(models.Model):
                                    related_name='tickets', null=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания заявки")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата изменения заявки")
-    received_at = models.DateTimeField(null=True, default=None, verbose_name='Дата и время получения заявки')
-    desired_to = models.DateTimeField(null=True, default=None, verbose_name='Желаемая дата и время исполнения')
+    received_at = models.DateTimeField(null=True, default=None, verbose_name='Дата получения заявки')
+    desired_to = models.DateTimeField(null=True, default=None, verbose_name='Желаемая дата исполнения')
     operator = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Оператор',
                                  related_name='operator_tickets', null=True)
     works = models.ManyToManyField('ticket.Work', related_name='tickets')
@@ -371,7 +370,6 @@ class Contract(models.Model):
                                        related_name='contracts')
     valid_from = models.DateField(verbose_name='Действует с')
     valid_until = models.DateField(verbose_name='Действует до')
-    current_document = models.FileField(upload_to='contracts', verbose_name='Действующий документ')
     status = models.ForeignKey('ticket.ContractStatus', on_delete=models.PROTECT, verbose_name='Статус',
                                related_name='contracts')
 
@@ -382,6 +380,21 @@ class Contract(models.Model):
         verbose_name = 'Договор'
         verbose_name_plural = 'Договора'
         db_table = 'contract'
+
+
+class ContractFiles(models.Model):
+    contract = models.ForeignKey(
+        "ticket.Contract", on_delete=models.CASCADE, related_name="contract_files"
+    )
+    current_document = models.FileField(upload_to='contracts', verbose_name='Действующий документ')
+
+    def __str__(self):
+        return f'{self.current_document}'
+
+    class Meta:
+        verbose_name = 'Действующий документ'
+        verbose_name_plural = 'Действующие документы'
+        db_table = 'contract_files'
 
 
 class ContractType(models.Model):

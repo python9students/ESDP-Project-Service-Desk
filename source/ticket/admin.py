@@ -1,9 +1,11 @@
-from django.utils.translation import gettext_lazy as _
-from django.contrib import admin
 from django.contrib.auth.forms import UserCreationForm
-from mptt.admin import MPTTModelAdmin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from ticket.forms import User
+from django.utils.translation import gettext_lazy as _
+from django.shortcuts import get_object_or_404
+from django.contrib import admin
+from ticket.forms import User, ContractAdminForm
+from mptt.admin import MPTTModelAdmin
+from datetime import datetime, date
 from ticket.models import (CompanyType,
                            ServiceObjectType,
                            ServiceObjectModel,
@@ -23,7 +25,7 @@ from ticket.models import (CompanyType,
                            CriterionType,
                            ContractStatus,
                            ContractType,
-                           Contract)
+                           Contract, ContractFiles)
 
 admin.site.register(CompanyType)
 admin.site.register(ServiceObjectType)
@@ -45,16 +47,37 @@ admin.site.register(ContractStatus)
 admin.site.register(ContractType)
 
 
+class ContractFilesInline(admin.StackedInline):
+    model = ContractFiles
+    extra = 0
+
+
 @admin.register(Contract)
 class ContractAdmin(admin.ModelAdmin):
+    form = ContractAdminForm
+    inlines = [ContractFilesInline]
     search_fields = ("doc_number",)
     list_display = ("doc_number", "company_client", "valid_from", "valid_until", "status")
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        form.save_files(form.instance)
 
 
 @admin.register(ServiceObject)
 class ServiceObjectAdmin(admin.ModelAdmin):
     search_fields = ("serial_number",)
     list_display = ("serial_number", "client", "type", "is_installed", "address")
+    
+    def change_view(self, request, object_id, form_url="", extra_context=None):
+        service_object = get_object_or_404(ServiceObject, id=object_id)
+        criterion = CriterionType.objects.get(name="Пост-гарантийный")
+        if service_object.guarantee_valid_until:
+            if service_object.guarantee_valid_until < date.today():
+                service_object.criterion = criterion
+                service_object.save()
+                return super(ServiceObjectAdmin, self).change_view(request, object_id, form_url, extra_context=extra_context)
+        return super(ServiceObjectAdmin, self).change_view(request, object_id, form_url, extra_context=extra_context)
 
 
 @admin.register(Ticket)

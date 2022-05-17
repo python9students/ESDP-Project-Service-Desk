@@ -19,4 +19,3 @@ class TicketTimeView(View):
              "date_time_now": datetime.now(),
              }
         )
-

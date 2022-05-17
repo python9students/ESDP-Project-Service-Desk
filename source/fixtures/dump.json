@@ -514,6 +514,26 @@
   }
 },
 {
+  "model": "ticket.serviceobject",
+  "pk": 11,
+  "fields": {
+    "serial_number": "41414141414",
+    "model": 2,
+    "client": 3,
+    "type": 1,
+    "is_installed": false,
+    "active_from": null,
+    "address": "",
+    "country": 3,
+    "region": 1,
+    "city": 1,
+    "criterion": 2,
+    "guarantee_valid_from": "2022-05-01",
+    "guarantee_valid_until": "2022-05-03",
+    "time_to_fix_problem": "10:00:00"
+  }
+},
+{
   "model": "ticket.ticketpriority",
   "pk": 1,
   "fields": {
@@ -922,6 +942,7 @@
     "ride_finished_at": "2022-04-27T13:05:00Z",
     "cancel_reason": "Just for test",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       8
     ],
@@ -956,6 +977,7 @@
     "ride_finished_at": null,
     "cancel_reason": "",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       10
     ],
@@ -990,6 +1012,7 @@
     "ride_finished_at": "2022-05-12T11:24:00Z",
     "cancel_reason": "",
     "close_commentary": "тест",
+    "work_done": "",
     "works": [
       5
     ],
@@ -1024,6 +1047,7 @@
     "ride_finished_at": null,
     "cancel_reason": "",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       6,
       3
@@ -1060,6 +1084,7 @@
     "ride_finished_at": "2022-05-14T08:19:00Z",
     "cancel_reason": "",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       6
     ],
@@ -1094,6 +1119,7 @@
     "ride_finished_at": "2022-05-11T08:50:00Z",
     "cancel_reason": "",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       10
     ],
@@ -1128,6 +1154,7 @@
     "ride_finished_at": "2022-05-12T12:00:00Z",
     "cancel_reason": "12.12.22",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       10
     ],
@@ -1162,6 +1189,7 @@
     "ride_finished_at": "2022-05-15T11:02:00Z",
     "cancel_reason": "",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       8
     ],
@@ -1196,6 +1224,7 @@
     "ride_finished_at": null,
     "cancel_reason": "",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       10
     ],
@@ -1230,6 +1259,7 @@
     "ride_finished_at": null,
     "cancel_reason": "",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       10,
       5
@@ -1266,6 +1296,7 @@
     "ride_finished_at": null,
     "cancel_reason": "",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       3
     ],
@@ -1300,6 +1331,7 @@
     "ride_finished_at": "2022-05-14T00:05:00Z",
     "cancel_reason": "",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       6
     ],
@@ -1334,6 +1366,7 @@
     "ride_finished_at": null,
     "cancel_reason": "",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       2
     ],
@@ -1368,6 +1401,7 @@
     "ride_finished_at": null,
     "cancel_reason": "",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       4
     ],
@@ -1402,6 +1436,7 @@
     "ride_finished_at": null,
     "cancel_reason": "",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       7,
       10
@@ -1438,6 +1473,7 @@
     "ride_finished_at": null,
     "cancel_reason": "",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       7
     ],
@@ -1472,6 +1508,7 @@
     "ride_finished_at": null,
     "cancel_reason": "",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       9,
       6
@@ -1508,6 +1545,7 @@
     "ride_finished_at": null,
     "cancel_reason": "",
     "close_commentary": "",
+    "work_done": "",
     "works": [
       7,
       9,
@@ -1516,6 +1554,41 @@
     "problem_areas": [
       10,
       7
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 20,
+  "fields": {
+    "client": 4,
+    "service_object": 8,
+    "priority": 1,
+    "type": 1,
+    "status": 3,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-17T08:59:05.928Z",
+    "updated_at": "2022-05-17T08:59:05.949Z",
+    "received_at": "2022-05-17T08:58:00Z",
+    "desired_to": null,
+    "operator": 1,
+    "description": "",
+    "executor": null,
+    "driver": null,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "work_done": "",
+    "works": [
+      10
+    ],
+    "problem_areas": [
+      10
     ]
   }
 },

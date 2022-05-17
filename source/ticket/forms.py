@@ -1,11 +1,11 @@
-from django import forms
-from django.contrib.auth import get_user_model
-from django.utils import timezone
-
-from ticket.models import Work, ProblemArea, ServiceObject, Client, Ticket
+from django.utils.translation import gettext as _
 from django.core.exceptions import ValidationError
-from django.forms import TextInput, widgets, BaseModelForm
+from django.contrib.auth import get_user_model
+from ticket.models import Work, ProblemArea, Ticket, ContractFiles, Contract
+from django.forms import widgets, BaseModelForm
+from django.utils import timezone
 from mptt.forms import TreeNodeMultipleChoiceField
+from django import forms
 
 User = get_user_model()
 
@@ -180,7 +180,7 @@ class EngineerForm(forms.ModelForm, TicketFormValidationMixin):
 
     class Meta:
         model = Ticket
-        exclude = ("cancel_reason", "executor", "driver", "close_commentary",)
+        exclude = ("cancel_reason", "executor.last_name", "driver", "close_commentary",)
         widgets = {
             'ride_started_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                                    attrs={'type': 'datetime-local'}),
@@ -197,3 +197,21 @@ class TicketCloseForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ("close_commentary",)
+
+
+# Форма для добавления нескольких файлов в контракт
+class ContractAdminForm(forms.ModelForm):
+    class Meta:
+        model = Contract
+        fields = "__all__"
+
+    current_document = forms.FileField(
+        widget=forms.ClearableFileInput(attrs={"multiple": True}),
+        label=_("Действующий документ"),
+        required=False,
+    )
+
+    def save_files(self, contract):
+        for upload in self.files.getlist("current_document"):
+            file = ContractFiles(contract=contract, current_document=upload)
+            file.save()

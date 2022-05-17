@@ -6,6 +6,7 @@ from ticket.views.ticket import (TicketCreateView,
                                  TicketUpdateView,
                                  TicketCancelView,
                                  TicketCloseView, )
+from ticket.views.chief_views import ChiefInfoDetailView
 from ticket.views.ticket_api import TicketTimeView
 
 app_name = 'ticket'
@@ -16,7 +17,8 @@ ticket_urlpatterns = [
     path('<int:pk>/update/', TicketUpdateView.as_view(), name='ticket_update'),
     path('<int:pk>/cancel/', TicketCancelView.as_view(), name='ticket_cancel'),
     path('<int:pk>/close/', TicketCloseView.as_view(), name='ticket_close'),
-    path('<int:pk>/ticket_time/', TicketTimeView.as_view(), name='ticket_time_bar'),
+    path('chief_info/', ChiefInfoDetailView.as_view(), name='chief_info'),
+    path('<int:pk>/ticket_time/', TicketTimeView.as_view(), name='ticket_time_bar')
 ]
 
 urlpatterns = [
