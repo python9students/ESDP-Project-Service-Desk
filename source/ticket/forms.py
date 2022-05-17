@@ -193,7 +193,7 @@ class TicketCloseForm(forms.ModelForm):
         fields = ("close_commentary",)
 
 
-# Форма для добавления нескольких файлов в контракт
+# Форма для добавления нескольких файлов в контракт!
 class ContractAdminForm(forms.ModelForm):
     class Meta:
         model = Contract
