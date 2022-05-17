@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата создания заявки')),
                 ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Дата изменения заявки')),
-                ('recieved_at', models.DateTimeField(default=None, null=True, verbose_name='Дата получения заявки')),
+                ('received_at', models.DateTimeField(default=None, null=True, verbose_name='Дата получения заявки')),
                 ('desired_to', models.DateTimeField(blank=True, default=None, null=True, verbose_name='Желаемая дата исполнения')),
                 ('description', models.TextField(blank=True, max_length=1000, verbose_name='Описание')),
                 ('closed_at', models.DateTimeField(default=None, null=True, verbose_name='Дата закрытия заявки')),

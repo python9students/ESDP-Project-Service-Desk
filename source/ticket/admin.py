@@ -1,12 +1,11 @@
-from datetime import datetime, date
-
-from django.shortcuts import get_object_or_404
-from django.utils.translation import gettext_lazy as _
-from django.contrib import admin
 from django.contrib.auth.forms import UserCreationForm
-from mptt.admin import MPTTModelAdmin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from ticket.forms import User
+from django.utils.translation import gettext_lazy as _
+from django.shortcuts import get_object_or_404
+from django.contrib import admin
+from ticket.forms import User, ContractAdminForm
+from mptt.admin import MPTTModelAdmin
+from datetime import datetime, date
 from ticket.models import (CompanyType,
                            ServiceObjectType,
                            ServiceObjectModel,
@@ -26,7 +25,7 @@ from ticket.models import (CompanyType,
                            CriterionType,
                            ContractStatus,
                            ContractType,
-                           Contract)
+                           Contract, ContractFiles)
 
 admin.site.register(CompanyType)
 admin.site.register(ServiceObjectType)
@@ -48,10 +47,21 @@ admin.site.register(ContractStatus)
 admin.site.register(ContractType)
 
 
+class ContractFilesInline(admin.StackedInline):
+    model = ContractFiles
+    extra = 0
+
+
 @admin.register(Contract)
 class ContractAdmin(admin.ModelAdmin):
+    form = ContractAdminForm
+    inlines = [ContractFilesInline]
     search_fields = ("doc_number",)
     list_display = ("doc_number", "company_client", "valid_from", "valid_until", "status")
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        form.save_files(form.instance)
 
 
 @admin.register(ServiceObject)
@@ -73,7 +83,7 @@ class ServiceObjectAdmin(admin.ModelAdmin):
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
     search_fields = ("client",)
-    list_display = ("__str__", "client", "service_object", "status", "recieved_at")
+    list_display = ("__str__", "client", "service_object", "status", "received_at")
 
 
 admin.site.unregister(User)
