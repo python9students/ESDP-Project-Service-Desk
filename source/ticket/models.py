@@ -5,11 +5,12 @@ from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 from django.db import models
 
-
 User = get_user_model()
 
 User._meta.get_field('first_name', ).blank = False
 User._meta.get_field('last_name', ).blank = False
+
+SPARE_PART_CHOICES = [('pc', 'шт'), ('unit', 'узел')]
 
 
 class CompanyType(models.Model):
@@ -183,9 +184,6 @@ class ServiceObject(models.Model):
         verbose_name = 'Объект обслуживания'
         verbose_name_plural = 'Объекты обслуживания'
         db_table = 'service_object'
-
-
-
 
 
 class TicketPriority(models.Model):
@@ -429,3 +427,41 @@ class ContractStatus(models.Model):
         verbose_name = 'Статус договора'
         verbose_name_plural = 'Статусы договоров'
         db_table = 'contract_status'
+
+
+class SparePart(models.Model):
+    """
+    Модель для добавления Запчастей
+    """
+    serial_number = models.CharField(max_length=100, unique=True, verbose_name='Серийный №')
+    name = models.CharField(max_length=100, verbose_name='Название')
+    product_code = models.CharField(max_length=100, verbose_name='Код продукта')
+    quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
+    measure_unit = models.CharField(choices=SPARE_PART_CHOICES, default='шт', verbose_name='Единица измерения')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата добавления запчасти")
+    condition = models.ForeignKey('ticket.Condition', on_delete=models.CASCADE, verbose_name='Состояние запчасти')
+    supplier_company = models.ForeignKey('ticket.SupplierCompany', on_delete=models.CASCADE,
+                                         verbose_name='Компания поставщик')
+    engineers = models.ManyToManyField(User, related_name='spare_part', through='SparePartUser',
+                                       through_fields=('spare_part', 'engineer'))
+
+    def __str__(self):
+        return f'Запчасть-{self.name}, {self.serial_number}'
+
+    class Meta:
+        verbose_name = 'Запчасть'
+        verbose_name_plural = 'Запчасти'
+        db_table = 'spare_part'
+
+
+class Condition(models.Model):
+    pass
+
+
+class SupplierCompany(models.Model):
+    pass
+
+
+class SparePartUser(models.Model):
+    engineer = 0
+    spare_part = 0
