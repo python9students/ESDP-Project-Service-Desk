@@ -1,3 +1,4 @@
+File tracking disabled
 [
 {
   "model": "ticket.companytype",
@@ -1639,6 +1640,43 @@
   "pk": 4,
   "fields": {
     "name": "Закрытый"
+  }
+},
+{
+  "model": "ticket.sparepart",
+  "pk": 1,
+  "fields": {
+    "serial_number": "9379992",
+    "name": "LCD-12e33e",
+    "product_code": "cod030908",
+    "quantity": 4,
+    "measure_unit": "pc",
+    "created_at": "2022-05-18T09:56:40.907Z",
+    "condition": 1,
+    "supplier_company": 1
+  }
+},
+{
+  "model": "ticket.condition",
+  "pk": 1,
+  "fields": {
+    "name": "Новая"
+  }
+},
+{
+  "model": "ticket.suppliercompany",
+  "pk": 1,
+  "fields": {
+    "name": "Samsung"
+  }
+},
+{
+  "model": "ticket.sparepartuser",
+  "pk": 1,
+  "fields": {
+    "engineer": 5,
+    "spare_part": 1,
+    "quantity": 2
   }
 }
 ]
