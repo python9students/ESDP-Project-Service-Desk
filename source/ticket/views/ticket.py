@@ -175,3 +175,12 @@ class TicketCloseView(UpdateView):
         self.object.status = TicketStatus.objects.get(name='Завершенный')
         self.object.save()
         return super().form_valid(form)
+
+
+class ChiefInfoDetailView(ListView):
+    model = Ticket
+    template_name = 'for_chief/chief_info_list_view.html'
+    context_object_name = 'tickets'
+
+    def get_queryset(self):
+        return super().get_queryset().order_by("driver", "executor").filter(status__name="Подготовленный")

@@ -4,36 +4,55 @@
     <br>
 
     {% if object_list %}
-
-        {% for ticket in tickets %}
-            <table class="table table-hover">
+        <table class="table table-hover">
             <thead>
             <tr>
-                <th scope="col">Фамилия и Имя: {{ ticket.executor.first_name }} {{ ticket.executor.last_name }}</th>
+                <th scope="col">Фамилия и имя водителя</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td class="{% if ticket.priority|capfirst == 'Высокий' %}
+            {% for ticket in tickets %}
+                <tr>
+                    <td>{{ ticket.driver.last_name }} {{ ticket.driver.first_name }}</td>
+                    <td class="{% if ticket.priority|capfirst == 'Высокий' %}
                     table-danger
                     {% else %}
                     table-warning
                     {% endif %}"><a href="{% url 'ticket:ticket_detail' ticket.pk %}">
-                    Заявка-{{ ticket.created_at|date:"Ymd-His"}}</a></td>
-                <td>{{ ticket.received_at }}</td>
-                <td>{{ ticket.client }}</td>
-                <td>{{ ticket.service_object }}</td>
-                <td>{{ ticket.status }}</td>
+                        Заявка-{{ ticket.created_at|date:"Ymd-His"}}</a></td>
+                    <td>{{ ticket.received_at }}</td>
+                    <td>{{ ticket.client }}</td>
+                    <td>{{ ticket.status }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+                <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Фамилия и имя исполнителя</th>
             </tr>
-        {% endfor %}
-    </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for ticket in tickets %}
+                <tr>
+                    <td>{{ ticket.executor.last_name }} {{ ticket.executor.first_name }}</td>
+                    <td class="{% if ticket.priority|capfirst == 'Высокий' %}
+                    table-danger
+                    {% else %}
+                    table-warning
+                    {% endif %}"><a href="{% url 'ticket:ticket_detail' ticket.pk %}">
+                        Заявка-{{ ticket.created_at|date:"Ymd-His"}}</a></td>
+                    <td>{{ ticket.received_at }}</td>
+                    <td>{{ ticket.client }}</td>
+                    <td>{{ ticket.status }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     {% else %}
         <h2>Заявок пока нет...</h2>
     {% endif %}
-    {% for ticket in tickets %}
-    <p>Driver: {{ ticket.driver.last_name }}</p>
-    {% endfor %}
 
-
-{% endblock%}
+{% endblock %}
