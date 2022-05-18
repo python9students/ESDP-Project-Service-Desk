@@ -28,7 +28,7 @@
             </tbody>
         </table>
 
-                <table class="table table-hover">
+        <table class="table table-hover">
             <thead>
             <tr>
                 <th scope="col">Фамилия и имя исполнителя</th>
@@ -37,7 +37,7 @@
             <tbody>
             {% for ticket in tickets %}
                 <tr>
-                    <td>{{ ticket.executor.last_name }} {{ ticket.executor.first_name }}</td>
+                        <td>{{ ticket.executor.last_name }} {{ ticket.executor.first_name }}</td>
                     <td class="{% if ticket.priority|capfirst == 'Высокий' %}
                     table-danger
                     {% else %}
@@ -54,5 +54,4 @@
     {% else %}
         <h2>Заявок пока нет...</h2>
     {% endif %}
-
 {% endblock %}

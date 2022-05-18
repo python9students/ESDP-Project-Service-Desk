@@ -183,4 +183,4 @@ class ChiefInfoDetailView(ListView):
     context_object_name = 'tickets'
 
     def get_queryset(self):
-        return super().get_queryset().order_by("driver", "executor").filter(status__name="Подготовленный")
+        return super().get_queryset().order_by("driver", "executor").filter(status__name="Назначенный")
