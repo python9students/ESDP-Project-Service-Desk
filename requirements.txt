@@ -7,3 +7,5 @@ behave==1.2.6
 behave-django==1.4.0
 django-filter==21.1
 pytz==2022.1
+businesstimedelta~=1.0.1
+BusinessHours~=1.2

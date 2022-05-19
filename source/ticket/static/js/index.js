@@ -56,3 +56,8 @@ function msToTime(duration) {
 
 
 
+console.log(document.getElementsByClassName('table'));
+console.log(document.getElementById('1'))
+console.log('Hello World')
+
+

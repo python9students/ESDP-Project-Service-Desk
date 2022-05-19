@@ -1,3 +1,4 @@
+import pytz
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
@@ -5,6 +6,7 @@ from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from datetime import datetime
 from pytz import timezone
+from BusinessHours import BusinessHours
 
 from ticket.filters import TicketFilter
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
@@ -96,7 +98,11 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
             ticket_closed = True
         if service_object.time_to_fix_problem:
             expected_time_to_finish = ticket.received_at.replace(microsecond=0) + service_object.time_to_fix_problem
-            time_difference = expected_time_to_finish-datetime.now(UTC).replace(microsecond=0)
+            # start_time = ticket.received_at.replace(microsecond=0)
+            # end_time = expected_time_to_finish.replace(microsecond=0)
+            # hours = BusinessHours(start_time, end_time, worktiming=[9, 18], weekends=[6, 7], holidayfile=None)
+            # print(hours.gethours())
+            time_difference = expected_time_to_finish.now(UTC).replace(microsecond=0)
             context['time_difference'] = time_difference
             context['expected_time_to_finish'] = expected_time_to_finish
 
