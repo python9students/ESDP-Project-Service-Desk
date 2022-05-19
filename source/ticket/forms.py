@@ -1,8 +1,8 @@
 from django.utils.translation import gettext as _
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
-from ticket.models import Work, ProblemArea, Ticket, ContractFiles, Contract
-from django.forms import widgets, BaseModelForm
+from ticket.models import Work, ProblemArea, Ticket, ContractFiles, Contract, SparePartUser
+from django.forms import widgets, BaseModelForm, modelformset_factory
 from django.utils import timezone
 from mptt.forms import TreeNodeMultipleChoiceField
 from django import forms
@@ -209,3 +209,13 @@ class ContractAdminForm(forms.ModelForm):
         for upload in self.files.getlist("current_document"):
             file = ContractFiles(contract=contract, current_document=upload)
             file.save()
+
+
+class SparePartAssignForm(forms.ModelForm):
+    class Meta:
+        model = SparePartUser
+        fields = "__all__"
+
+
+SparePartAssignFormSet = modelformset_factory(SparePartUser, fields='__all__', extra=6)
+

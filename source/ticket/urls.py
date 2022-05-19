@@ -1,5 +1,6 @@
 from django.urls import path, include
 
+from ticket.views.spare_part import SparePartAssignCreateView
 from ticket.views.ticket import (TicketCreateView,
                                  TicketListView,
                                  TicketDetailView,
@@ -21,7 +22,12 @@ ticket_urlpatterns = [
     path('<int:pk>/ticket_time/', TicketTimeView.as_view(), name='ticket_time_bar')
 ]
 
+spare_part_urlpatterns = [
+    path('create/', SparePartAssignCreateView.as_view(), name='spare_part_assign_create'),
+]
+
 urlpatterns = [
     path('', TicketListView.as_view(), name='ticket_list'),
     path('ticket/', include(ticket_urlpatterns)),
+    path('spare-part-assign/', include(spare_part_urlpatterns)),
 ]

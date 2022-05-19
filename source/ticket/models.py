@@ -479,8 +479,8 @@ class SupplierCompany(models.Model):
 
 
 class SparePartUser(models.Model):
-    engineer = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Работник')
     spare_part = models.ForeignKey('ticket.SparePart', on_delete=models.PROTECT, verbose_name='Запчасть')
+    engineer = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Назначить на')
     quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
 
     def __str__(self):
