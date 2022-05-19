@@ -32,7 +32,10 @@ class SparePartAssignCreateView(CreateView):
         instances = formset.save(commit=False)
         for instance in instances:
             spare_part = SparePart.objects.get(id=instance.spare_part_id)
-            if spare_part.quantity > 0 and spare_part.quantity >= instance.quantity:
+            if instance.quantity == 0:
+                messages.warning(self.request, f'Вы не можете назначить запчастей в количестве: 0')
+                return render(self.request, 'spare_part/assign_create.html', {'formset': formset})
+            elif spare_part.quantity > 0 and spare_part.quantity >= instance.quantity:
                 spare_part.quantity -= instance.quantity
                 spare_part.save()
                 instance.save()
