@@ -1,4 +1,3 @@
-import pytz
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
@@ -102,7 +101,7 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
             # end_time = expected_time_to_finish.replace(microsecond=0)
             # hours = BusinessHours(start_time, end_time, worktiming=[9, 18], weekends=[6, 7], holidayfile=None)
             # print(hours.gethours())
-            time_difference = expected_time_to_finish.now(UTC).replace(microsecond=0)
+            time_difference = expected_time_to_finish.replace(microsecond=0) - datetime.now().replace(microsecond=0)
             context['time_difference'] = time_difference
             context['expected_time_to_finish'] = expected_time_to_finish
 
