@@ -31,38 +31,48 @@
                     {% if ticket.desired_to %}
                         <li class="list-group-item">Желаемая дата исполнения: {{ ticket.desired_to }}</li>
                     {% endif %}
-                    <li class="list-group-item"> Работы:
-                        <ul>
-                            {% recursetree ticket.works.all %}
-                                <li>
-                                    {{ node.name }}
-                                    {% if not node.is_leaf_node %}
-                                        <ul class="children">
-                                            {{ children }}
-                                        </ul>
-                                    {% endif %}
-                                </li>
-                            {% endrecursetree %}
-                        </ul>
-                    </li>
+                    <nav id="nav">
+                    <ul class="ul-list">
+                        <li>
+                            <a href="#"><i class="bi bi-plus-circle pe-1"></i>Работы</a>
+                            <ul>
+                                {% recursetree ticket.works.all %}
+                                    <li>
+                                        {{ node.name }}
+                                        {% if not node.is_leaf_node %}
+                                            <ul class="children">
+                                                {{ children }}
+                                            </ul>
+                                        {% endif %}
+                                    </li>
+                                {% endrecursetree %}
+                            </ul>
+                        </li>
+                    </ul>
+                    </nav>
                 </ul>
             </div>
             <div class="col-6">
                 <ul class="list-group">
-                    <li class="list-group-item"> Проблемная область:
-                        <ul>
-                            {% recursetree ticket.problem_areas.all %}
-                                <li>
-                                    {{ node.name }}
-                                    {% if not node.is_leaf_node %}
-                                        <ul class="children">
-                                            {{ children }}
-                                        </ul>
-                                    {% endif %}
-                                </li>
-                            {% endrecursetree %}
-                        </ul>
-                    </li>
+                <nav id="nav">
+                    <ul class="ul-list">
+                        <li>
+                            <a href="#"><i class="bi bi-plus-circle pe-1"></i>Проблемная область</a>
+                            <ul>
+                                {% recursetree ticket.problem_areas.all %}
+                                    <li>
+                                        {{ node.name }}
+                                        {% if not node.is_leaf_node %}
+                                            <ul class="children">
+                                                {{ children }}
+                                            </ul>
+                                        {% endif %}
+                                    </li>
+                                {% endrecursetree %}
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
                     {% if ticket.description %}
                         <li class="list-group-item">Описание: {{ ticket.description }}</li>
                     {% endif %}
@@ -114,7 +124,6 @@
 
             </div>
         </div>
-
     </div>
     <br>
 {% endblock %}
