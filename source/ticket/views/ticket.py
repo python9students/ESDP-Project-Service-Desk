@@ -95,8 +95,8 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
         if str(self.object.status) == 'Завершенный':
             ticket_closed = True
         if service_object.time_to_fix_problem:
-            expected_time_to_finish = ticket.received_at + service_object.time_to_fix_problem
-            time_difference = expected_time_to_finish-datetime.now(UTC)
+            expected_time_to_finish = ticket.received_at.replace(microsecond=0) + service_object.time_to_fix_problem
+            time_difference = expected_time_to_finish-datetime.now(UTC).replace(microsecond=0)
             context['time_difference'] = time_difference
             context['expected_time_to_finish'] = expected_time_to_finish
 
