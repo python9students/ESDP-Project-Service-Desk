@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Назначение запчасти{% endblock %}
+{% block nav %} {% endblock %}
+{% block content %}
+    <br>
+    <form action="#" method="post">
+        {% csrf_token %}
+        <div class="row justify-content-between">
+            {{ formset.management_form }}
+            {% for form in formset %}
+                <div class="">
+                    <p><label class="form-control" for="{{ form.id_for_label }}">{{ form.label }} {{ form }}</label></p>
+                </div>
+            {% endfor %}
+        </div>
+        <input type="submit" class="btn btn-success mt-3" value="Сохранить">
+    </form>
+{% endblock %}

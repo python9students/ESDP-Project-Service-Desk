@@ -1593,6 +1593,80 @@
   }
 },
 {
+  "model": "ticket.ticket",
+  "pk": 21,
+  "fields": {
+    "client": 2,
+    "service_object": 2,
+    "priority": 3,
+    "type": 1,
+    "status": 3,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-19T05:00:18.844Z",
+    "updated_at": "2022-05-19T05:00:18.860Z",
+    "received_at": "2022-05-19T04:00:00Z",
+    "desired_to": null,
+    "operator": 1,
+    "description": "",
+    "executor": null,
+    "driver": null,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "work_done": "",
+    "works": [
+      8
+    ],
+    "problem_areas": [
+      11
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 22,
+  "fields": {
+    "client": 3,
+    "service_object": 5,
+    "priority": 3,
+    "type": 1,
+    "status": 7,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-19T05:22:07.010Z",
+    "updated_at": "2022-05-19T06:31:04.091Z",
+    "received_at": "2022-05-17T16:17:00Z",
+    "desired_to": null,
+    "operator": 1,
+    "description": "",
+    "executor": null,
+    "driver": null,
+    "closed_at": null,
+    "ride_started_at": "2022-05-18T23:28:00Z",
+    "work_started_at": "2022-05-19T00:29:00Z",
+    "work_finished_at": "2022-05-19T09:29:00Z",
+    "ride_finished_at": "2022-05-19T10:29:00Z",
+    "cancel_reason": "",
+    "close_commentary": "",
+    "work_done": "",
+    "works": [
+      10,
+      9,
+      6,
+      2,
+      4
+    ],
+    "problem_areas": [
+      6
+    ]
+  }
+},
+{
   "model": "ticket.contract",
   "pk": 1,
   "fields": {
@@ -1648,9 +1722,23 @@
     "serial_number": "9379992",
     "name": "LCD-12e33e",
     "product_code": "cod030908",
-    "quantity": 4,
+    "quantity": 3,
     "measure_unit": "pc",
     "created_at": "2022-05-18T09:56:40.907Z",
+    "condition": 1,
+    "supplier_company": 1
+  }
+},
+{
+  "model": "ticket.sparepart",
+  "pk": 2,
+  "fields": {
+    "serial_number": "sn123456789",
+    "name": "CardReader132",
+    "product_code": "178920",
+    "quantity": 0,
+    "measure_unit": "pc",
+    "created_at": "2022-05-19T07:33:30.708Z",
     "condition": 1,
     "supplier_company": 1
   }
@@ -1671,11 +1759,38 @@
 },
 {
   "model": "ticket.sparepartuser",
-  "pk": 1,
+  "pk": 18,
   "fields": {
+    "spare_part": 2,
     "engineer": 5,
+    "quantity": 4
+  }
+},
+{
+  "model": "ticket.sparepartuser",
+  "pk": 19,
+  "fields": {
+    "spare_part": 2,
+    "engineer": 5,
+    "quantity": 3
+  }
+},
+{
+  "model": "ticket.sparepartuser",
+  "pk": 20,
+  "fields": {
     "spare_part": 1,
-    "quantity": 2
+    "engineer": 5,
+    "quantity": 1
+  }
+},
+{
+  "model": "ticket.sparepartuser",
+  "pk": 21,
+  "fields": {
+    "spare_part": 1,
+    "engineer": 5,
+    "quantity": 1
   }
 }
 ]
