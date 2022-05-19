@@ -66,36 +66,50 @@ class TicketFormValidationMixin(BaseModelForm):
 
 class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
     description = forms.CharField(required=False, max_length=1000,
-                                  widget=widgets.Textarea(attrs={'cols': 65, 'rows': 4}), label='Описание')
+                                  widget=widgets.Textarea(attrs={'class': 'form-control', 'cols': 65, 'rows': 4}),
+                                  label='Описание')
     work_done = forms.CharField(required=False, max_length=1000,
                                 widget=widgets.Textarea(attrs={'cols': 65, 'rows': 4}), label='Проделанная работа')
-    executor = forms.ModelChoiceField(queryset=User.objects.all(), required=False, label='Исполнитель')
-    driver = forms.ModelChoiceField(queryset=User.objects.all(), required=False, label='Водитель')
+    executor = forms.ModelChoiceField(queryset=User.objects.all(), required=False, label='Исполнитель',
+                                      widget=forms.Select(attrs={'class': 'form-select form-select-sm'}))
+    driver = forms.ModelChoiceField(queryset=User.objects.all(), required=False, label='Водитель',
+                                    widget=forms.Select(attrs={'class': 'form-select form-select-sm'}))
     works = TreeNodeMultipleChoiceField(queryset=Work.objects.all(),
-                                        widget=widgets.SelectMultiple(attrs={'size': 20}),
+                                        widget=widgets.SelectMultiple(attrs={'size': 6.5, 'class': 'form-select'}),
                                         label='Работы')
     problem_areas = TreeNodeMultipleChoiceField(queryset=ProblemArea.objects.all(),
-                                                widget=widgets.SelectMultiple(attrs={'size': 20}),
+                                                widget=widgets.SelectMultiple(
+                                                    attrs={'size': 6.5, 'class': 'form-select'}),
                                                 label='Проблемные области')
     desired_to = forms.DateTimeField(required=False, label='Желаемая дата и время исполнения',
-                                     widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                                  attrs={'type': 'datetime-local', 'class': 'form-control'}),
+                                     widget=widgets.DateTimeInput(
+                                         format='%d/%m/%Y %H:%M',
+                                         attrs={'type': 'datetime-local',
+                                                'class': 'form-control form-control-sm'}),
                                      )
     work_started_at = forms.DateTimeField(required=False, label='Дата начала работ',
-                                          widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                                       attrs={'type': 'datetime-local'}),
+                                          widget=widgets.DateTimeInput(
+                                              format='%d/%m/%Y %H:%M',
+                                              attrs={'type': 'datetime-local',
+                                                     'class': 'form-control form-control-sm'}),
                                           )
     work_finished_at = forms.DateTimeField(required=False, label='Дата окончания работ',
-                                           widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                                        attrs={'type': 'datetime-local'}),
+                                           widget=widgets.DateTimeInput(
+                                               format='%d/%m/%Y %H:%M',
+                                               attrs={'type': 'datetime-local',
+                                                      'class': 'form-control form-control-sm'}),
                                            )
     ride_finished_at = forms.DateTimeField(required=False, label='Дата окончания поездки',
-                                           widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                                        attrs={'type': 'datetime-local'}),
+                                           widget=widgets.DateTimeInput(
+                                               format='%d/%m/%Y %H:%M',
+                                               attrs={'type': 'datetime-local',
+                                                      'class': 'form-control form-control-sm'}),
                                            )
     ride_started_at = forms.DateTimeField(required=False, label='Дата начала поездки',
-                                          widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                                       attrs={'type': 'datetime-local'}),
+                                          widget=widgets.DateTimeInput(
+                                              format='%d/%m/%Y %H:%M',
+                                              attrs={'type': 'datetime-local',
+                                                     'class': 'form-control form-control-sm'}),
                                           )
 
     def __init__(self, *args, **kwargs):
@@ -119,16 +133,15 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
     class Meta:
         model = Ticket
         widgets = {
-            'client': forms.Select(attrs={'class': 'form-control'}),
-            'service_object': forms.Select(attrs={'class': 'form-control'}),
-            'priority': forms.Select(attrs={'class': 'form-control'}),
-            'type': forms.Select(attrs={'class': 'form-control'}),
-            'service_level': forms.Select(attrs={'class': 'form-control'}),
-            'department': forms.Select(attrs={'class': 'form-control'}),
+            'client': forms.Select(attrs={'class': 'form-select form-select-sm'}),
+            'service_object': forms.Select(attrs={'class': 'form-select form-select-sm'}),
+            'priority': forms.Select(attrs={'class': 'form-select form-select-sm'}),
+            'type': forms.Select(attrs={'class': 'form-select form-select-sm'}),
+            'service_level': forms.Select(attrs={'class': 'form-select form-select-sm'}),
+            'department': forms.Select(attrs={'class': 'form-select form-select-sm'}),
             'received_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                               attrs={'type': 'datetime-local', 'class': 'form-control'}),
-            'closed_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                             attrs={'type': 'datetime-local'}),
+                                               attrs={'type': 'datetime-local',
+                                                      'class': 'form-control form-control-sm'}),
         }
         exclude = ("cancel_reason", "closed_at", "operator", "status", "close_commentary",)
 

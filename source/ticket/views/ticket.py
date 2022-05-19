@@ -16,7 +16,7 @@ class TicketListView(LoginRequiredMixin, ListView):
     model = Ticket
     template_name = 'ticket/list.html'
     context_object_name = 'tickets'
-    paginate_by = 2
+    paginate_by = 10
     paginate_orphans = 0
     ordering = ['-received_at']
 

@@ -4,7 +4,7 @@
 {% block content %}
     <br>
     <h1>Создать заявку</h1>
-    <form action="#" method="post">
+    <form action="#" method="post" class="needs-validation">
         {% include 'partial/form.html' with button_text="Добавить" %}
     </form>
     <br>
@@ -16,7 +16,7 @@
         let clientEl = document.getElementById("id_client");
         let serviceEl = document.getElementById("id_service_object");
         clientEl.addEventListener("change", function (e) {
-            let inner = "";
+            let inner = '<option value="" selected="">---------</option>';
             for (let i = 0; i < serviceObjects.length; i++) {
                 if (serviceObjects[i]["client_id"] == clientEl.value) {
                     inner += `<option value="${serviceObjects[i]["id"]}">${serviceObjects[i]["serial_number"]}</option>`;
