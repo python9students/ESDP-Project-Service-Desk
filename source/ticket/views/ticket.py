@@ -16,6 +16,8 @@ class TicketListView(LoginRequiredMixin, ListView):
     model = Ticket
     template_name = 'ticket/list.html'
     context_object_name = 'tickets'
+    paginate_by = 2
+    paginate_orphans = 0
     ordering = ['-received_at']
 
     def get_queryset(self):
@@ -24,10 +26,10 @@ class TicketListView(LoginRequiredMixin, ListView):
             return tickets.filter(status__in=[2, 6, 7]).filter(executor=self.request.user)
         elif self.request.user.has_perm('ticket.see_chief_tickets') and not self.request.user.is_superuser:
             return tickets.filter(status__in=[1, 2, 3, 4, 5, 6, 7])
-        return tickets
+        return TicketFilter(self.request.GET, queryset=tickets).qs
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = super().get_context_data(object_list=object_list, **kwargs)
         context['filter'] = TicketFilter(self.request.GET, queryset=self.get_queryset())
         return context
 
@@ -175,3 +177,12 @@ class TicketCloseView(UpdateView):
         self.object.status = TicketStatus.objects.get(name='Завершенный')
         self.object.save()
         return super().form_valid(form)
+
+
+class ChiefInfoDetailView(ListView):
+    model = Ticket
+    template_name = 'for_chief/chief_info_list_view.html'
+    context_object_name = 'tickets'
+
+    def get_queryset(self):
+        return super().get_queryset().order_by("driver", "executor").filter(status__name="Назначенный")

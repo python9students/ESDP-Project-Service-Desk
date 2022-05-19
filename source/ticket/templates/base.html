@@ -30,14 +30,15 @@
                                 <a class="nav-link active" aria-current="page" href="{% url 'ticket:ticket_create' %}">Создать
                                     заявку</a>
                             </li>
-                        {% endif %}
-                    </ul>
-                    <ul class="navbar-nav mb-2 mb-lg-0 mt-2">
-                        {% if user.is_authenticated %}
                             <li class="nav-item">
                                 <a class="nav-link active" href="{% url 'ticket:chief_info' %}">Инфо для
                                     начальника</a>
                             </li>
+                        {% endif %}
+                    </ul>
+                    <ul class="navbar-nav mb-2 mb-lg-0 mt-2">
+                        {% if user.is_authenticated %}
+
                             <li class="nav-item">
                                 <p class="nav-link active">Привет, {{ user.first_name }}!</p>
                             </li>

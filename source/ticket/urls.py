@@ -5,8 +5,8 @@ from ticket.views.ticket import (TicketCreateView,
                                  TicketDetailView,
                                  TicketUpdateView,
                                  TicketCancelView,
-                                 TicketCloseView, )
-from ticket.views.chief_views import ChiefInfoDetailView
+                                 TicketCloseView,
+                                 ChiefInfoDetailView, )
 from ticket.views.ticket_api import TicketTimeView
 
 app_name = 'ticket'

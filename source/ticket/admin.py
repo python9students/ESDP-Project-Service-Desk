@@ -25,7 +25,9 @@ from ticket.models import (CompanyType,
                            CriterionType,
                            ContractStatus,
                            ContractType,
-                           Contract, ContractFiles)
+                           Contract, ContractFiles,
+                           SparePart, Condition,
+                           SupplierCompany, SparePartUser, )
 
 admin.site.register(CompanyType)
 admin.site.register(ServiceObjectType)
@@ -45,6 +47,11 @@ admin.site.register(ServiceLevel)
 admin.site.register(CriterionType)
 admin.site.register(ContractStatus)
 admin.site.register(ContractType)
+
+admin.site.register(SparePart)
+admin.site.register(Condition)
+admin.site.register(SupplierCompany)
+admin.site.register(SparePartUser)
 
 
 class ContractFilesInline(admin.StackedInline):
@@ -68,7 +75,7 @@ class ContractAdmin(admin.ModelAdmin):
 class ServiceObjectAdmin(admin.ModelAdmin):
     search_fields = ("serial_number",)
     list_display = ("serial_number", "client", "type", "is_installed", "address")
-    
+
     def change_view(self, request, object_id, form_url="", extra_context=None):
         service_object = get_object_or_404(ServiceObject, id=object_id)
         criterion = CriterionType.objects.get(name="Пост-гарантийный")
@@ -76,7 +83,8 @@ class ServiceObjectAdmin(admin.ModelAdmin):
             if service_object.guarantee_valid_until < date.today():
                 service_object.criterion = criterion
                 service_object.save()
-                return super(ServiceObjectAdmin, self).change_view(request, object_id, form_url, extra_context=extra_context)
+                return super(ServiceObjectAdmin, self).change_view(request, object_id, form_url,
+                                                                   extra_context=extra_context)
         return super(ServiceObjectAdmin, self).change_view(request, object_id, form_url, extra_context=extra_context)
 
 
@@ -90,7 +98,6 @@ admin.site.unregister(User)
 
 
 class CustomUserCreationForm(UserCreationForm):
-
     class Meta:
         model = UserCreationForm.Meta.model
         fields = '__all__'
@@ -103,5 +110,5 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {'fields': ('username', 'password1', 'password2')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
-        (_('Permissions'), {'fields': ('groups', ), }),
+        (_('Permissions'), {'fields': ('groups',), }),
     )

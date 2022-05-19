@@ -4,11 +4,12 @@ from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 from django.db import models
 
-
 User = get_user_model()
 
 User._meta.get_field('first_name', ).blank = False
 User._meta.get_field('last_name', ).blank = False
+
+SPARE_PART_CHOICES = [('pc', 'шт'), ('unit', 'узел')]
 
 
 class CompanyType(models.Model):
@@ -425,3 +426,67 @@ class ContractStatus(models.Model):
         verbose_name = 'Статус договора'
         verbose_name_plural = 'Статусы договоров'
         db_table = 'contract_status'
+
+
+class SparePart(models.Model):
+    """
+    Модель для добавления Запчастей
+    """
+    serial_number = models.CharField(max_length=100, unique=True, verbose_name='Серийный №')
+    name = models.CharField(max_length=100, verbose_name='Название')
+    product_code = models.CharField(max_length=100, verbose_name='Код продукта')
+    quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
+    measure_unit = models.CharField(max_length=20, choices=SPARE_PART_CHOICES, default='шт', verbose_name='Единица измерения')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата добавления запчасти")
+    condition = models.ForeignKey('ticket.Condition', on_delete=models.CASCADE, verbose_name='Состояние запчасти')
+    supplier_company = models.ForeignKey('ticket.SupplierCompany', on_delete=models.CASCADE,
+                                         verbose_name='Компания поставщик')
+    engineers = models.ManyToManyField(User, related_name='spare_part', through='SparePartUser',
+                                       through_fields=('spare_part', 'engineer'))
+
+    def __str__(self):
+        return f'Запчасть-{self.name}, {self.serial_number}'
+
+    class Meta:
+        verbose_name = 'Запчасть'
+        verbose_name_plural = 'Запчасти'
+        db_table = 'spare_part'
+
+
+class Condition(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Состояние')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Состояние запчасти'
+        verbose_name_plural = 'Состояние запчастей'
+        db_table = 'spare_part_condition'
+
+
+class SupplierCompany(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Компания поставщик')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Компания поставщик'
+        verbose_name_plural = 'Компании поставщики'
+        db_table = 'spare_part_supplier_company'
+
+
+class SparePartUser(models.Model):
+    engineer = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Работник')
+    spare_part = models.ForeignKey('ticket.SparePart', on_delete=models.PROTECT, verbose_name='Запчасть')
+    quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
+
+    def __str__(self):
+        return f'{self.engineer} - {self.spare_part.name} - {self.quantity}'
+
+    class Meta:
+        verbose_name = 'Передача запчасти инженеру'
+        verbose_name_plural = 'Передача запчастей инженеру'
+        db_table = 'Spare_part_user'
+
