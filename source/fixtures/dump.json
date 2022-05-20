@@ -1681,6 +1681,22 @@
   }
 },
 {
+  "model": "ticket.contractfiles",
+  "pk": 1,
+  "fields": {
+    "contract": 1,
+    "current_document": "contracts/DOC-1-103-UM-20150923-2_SLA_iQ_User_Manual_RU.doc"
+  }
+},
+{
+  "model": "ticket.contractfiles",
+  "pk": 2,
+  "fields": {
+    "contract": 1,
+    "current_document": "contracts/Schema_ServiceDesk_d7zdODz.pdf"
+  }
+},
+{
   "model": "ticket.contracttype",
   "pk": 1,
   "fields": {
@@ -1722,7 +1738,7 @@
     "serial_number": "9379992",
     "name": "LCD-12e33e",
     "product_code": "cod030908",
-    "quantity": 3,
+    "quantity": 2,
     "measure_unit": "pc",
     "created_at": "2022-05-18T09:56:40.907Z",
     "condition": 1,
@@ -1736,11 +1752,39 @@
     "serial_number": "sn123456789",
     "name": "CardReader132",
     "product_code": "178920",
-    "quantity": 0,
+    "quantity": 5,
     "measure_unit": "pc",
     "created_at": "2022-05-19T07:33:30.708Z",
     "condition": 1,
     "supplier_company": 1
+  }
+},
+{
+  "model": "ticket.sparepart",
+  "pk": 3,
+  "fields": {
+    "serial_number": "12345sd9876",
+    "name": "CartridgeA720",
+    "product_code": "23412",
+    "quantity": 10,
+    "measure_unit": "pc",
+    "created_at": "2022-05-20T09:30:06.532Z",
+    "condition": 1,
+    "supplier_company": 1
+  }
+},
+{
+  "model": "ticket.sparepart",
+  "pk": 4,
+  "fields": {
+    "serial_number": "12345sd98213",
+    "name": "SparePartB666",
+    "product_code": "6456456",
+    "quantity": 3,
+    "measure_unit": "unit",
+    "created_at": "2022-05-20T09:31:32.160Z",
+    "condition": 2,
+    "supplier_company": 2
   }
 },
 {
@@ -1751,10 +1795,24 @@
   }
 },
 {
+  "model": "ticket.condition",
+  "pk": 2,
+  "fields": {
+    "name": "б/у"
+  }
+},
+{
   "model": "ticket.suppliercompany",
   "pk": 1,
   "fields": {
     "name": "Samsung"
+  }
+},
+{
+  "model": "ticket.suppliercompany",
+  "pk": 2,
+  "fields": {
+    "name": "Huawei"
   }
 },
 {
@@ -1763,34 +1821,20 @@
   "fields": {
     "spare_part": 2,
     "engineer": 5,
-    "quantity": 4
+    "quantity": 4,
+    "created_at": "2022-05-20T08:27:06.574Z",
+    "assigned_by": 4
   }
 },
 {
   "model": "ticket.sparepartuser",
-  "pk": 19,
-  "fields": {
-    "spare_part": 2,
-    "engineer": 5,
-    "quantity": 3
-  }
-},
-{
-  "model": "ticket.sparepartuser",
-  "pk": 20,
+  "pk": 22,
   "fields": {
     "spare_part": 1,
-    "engineer": 5,
-    "quantity": 1
-  }
-},
-{
-  "model": "ticket.sparepartuser",
-  "pk": 21,
-  "fields": {
-    "spare_part": 1,
-    "engineer": 5,
-    "quantity": 1
+    "engineer": 7,
+    "quantity": 1,
+    "created_at": "2022-05-20T08:33:16.677Z",
+    "assigned_by": 1
   }
 }
 ]
