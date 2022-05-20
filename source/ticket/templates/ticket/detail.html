@@ -77,8 +77,10 @@
                     {% if ticket.description %}
                         <li class="list-group-item">Описание: {{ ticket.description }}</li>
                     {% endif %}
-                    <li class="list-group-item">Исполнитель: {{ ticket.executor|default:"Не указан" }}</li>
-                    <li class="list-group-item">Водитель: {{ ticket.driver|default:"Не указан" }}</li>
+                    <li class="list-group-item">Исполнитель: {{ ticket.executor.last_name|default:"Не указан" }}
+                    {{ ticket.executor.first_name }}</li>
+                    <li class="list-group-item">Водитель: {{ ticket.driver.last_name|default:"Не указан" }}
+                     {{ ticket.driver.first_name }}</li>
                     <li class="list-group-item">Дата начала работ:
                         {{ ticket.work_started_at|default:"Не указана" }}</li>
                     <li class="list-group-item">Дата окончания работ:
