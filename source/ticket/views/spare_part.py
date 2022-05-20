@@ -52,3 +52,9 @@ class SparePartUserListView(LoginRequiredMixin, ListView):
     model = SparePartUser
     template_name = 'spare_part/list.html'
     context_object_name = 'active_spare_parts'
+
+    def get_queryset(self):
+        active_spare_parts = super().get_queryset()
+        if self.request.user.has_perm('ticket.see_engineer_tickets') and not self.request.user.is_superuser:
+            return active_spare_parts.filter(engineer=self.request.user)
+        return active_spare_parts
