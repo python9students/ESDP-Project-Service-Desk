@@ -36,6 +36,7 @@ class SparePartAssignCreateView(CreateView):
                 messages.warning(self.request, f'Вы не можете назначить запчастей в количестве: 0')
                 return render(self.request, 'spare_part/assign_create.html', {'formset': formset})
             elif spare_part.quantity > 0 and spare_part.quantity >= instance.quantity:
+                instance.assigned_by = self.request.user
                 spare_part.quantity -= instance.quantity
                 spare_part.save()
                 instance.save()
@@ -45,4 +46,3 @@ class SparePartAssignCreateView(CreateView):
                                              f' а вы пытаетесь назначить : {instance.quantity}')
                 return render(self.request, 'spare_part/assign_create.html', {'formset': formset})
         return super().form_valid(formset)
-

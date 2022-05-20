@@ -442,7 +442,7 @@ class SparePart(models.Model):
     condition = models.ForeignKey('ticket.Condition', on_delete=models.CASCADE, verbose_name='Состояние запчасти')
     supplier_company = models.ForeignKey('ticket.SupplierCompany', on_delete=models.CASCADE,
                                          verbose_name='Компания поставщик')
-    engineers = models.ManyToManyField(User, related_name='spare_part', through='SparePartUser',
+    engineers = models.ManyToManyField(User, related_name='spare_parts', through='SparePartUser',
                                        through_fields=('spare_part', 'engineer'))
 
     def __str__(self):
@@ -482,6 +482,9 @@ class SparePartUser(models.Model):
     spare_part = models.ForeignKey('ticket.SparePart', on_delete=models.PROTECT, verbose_name='Запчасть')
     engineer = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Назначить на')
     quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата назначения запчасти")
+    assigned_by = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Назначен кем',
+                                    related_name='assigned_spare_parts')
 
     def __str__(self):
         return f'{self.engineer} - {self.spare_part.name} - {self.quantity}'
