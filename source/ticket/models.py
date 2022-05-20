@@ -446,7 +446,7 @@ class SparePart(models.Model):
                                        through_fields=('spare_part', 'engineer'))
 
     def __str__(self):
-        return f'Запчасть-{self.name}, {self.serial_number}'
+        return f'{self.name}, {self.serial_number}'
 
     class Meta:
         verbose_name = 'Запчасть'

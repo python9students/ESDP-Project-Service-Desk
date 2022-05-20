@@ -6,28 +6,10 @@ from django.contrib import admin
 from ticket.forms import User, ContractAdminForm
 from mptt.admin import MPTTModelAdmin
 from datetime import datetime, date
-from ticket.models import (CompanyType,
-                           ServiceObjectType,
-                           ServiceObjectModel,
-                           Country,
-                           Region,
-                           City,
-                           Client,
-                           ServiceObject,
-                           TicketType,
-                           TicketStatus,
-                           TicketPriority,
-                           Work,
-                           ProblemArea,
-                           Department,
-                           ServiceLevel,
-                           Ticket,
-                           CriterionType,
-                           ContractStatus,
-                           ContractType,
-                           Contract, ContractFiles,
-                           SparePart, Condition,
-                           SupplierCompany, SparePartUser, )
+from ticket.models import (CompanyType, ServiceObjectType, ServiceObjectModel, Country, Region, City, Client,
+                           ServiceObject, TicketType, TicketStatus, TicketPriority, Work, ProblemArea, Department,
+                           ServiceLevel, Ticket, CriterionType, ContractStatus, ContractType, Contract, ContractFiles,
+                           SparePart, Condition, SupplierCompany, SparePartUser, )
 
 admin.site.register(CompanyType)
 admin.site.register(ServiceObjectType)
@@ -43,12 +25,9 @@ admin.site.register(Work, MPTTModelAdmin)
 admin.site.register(ProblemArea, MPTTModelAdmin)
 admin.site.register(Department)
 admin.site.register(ServiceLevel)
-
 admin.site.register(CriterionType)
 admin.site.register(ContractStatus)
 admin.site.register(ContractType)
-
-admin.site.register(SparePart)
 admin.site.register(Condition)
 admin.site.register(SupplierCompany)
 admin.site.register(SparePartUser)
@@ -57,6 +36,12 @@ admin.site.register(SparePartUser)
 class ContractFilesInline(admin.StackedInline):
     model = ContractFiles
     extra = 0
+
+
+@admin.register(SparePart)
+class SparePartAdmin(admin.ModelAdmin):
+    search_fields = ("name",)
+    list_display = ("name", "serial_number", "product_code", "quantity", "measure_unit", "condition")
 
 
 @admin.register(Contract)

@@ -219,3 +219,10 @@ class SparePartAssignForm(forms.ModelForm):
 
 SparePartAssignFormSet = modelformset_factory(SparePartUser, fields=['spare_part', 'engineer', 'quantity'], extra=6)
 
+
+class SparePartUserListForm(forms.ModelForm):
+    class Meta:
+        model = SparePartUser
+        fields = "__all__"
+
+
