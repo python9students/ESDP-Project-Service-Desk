@@ -1,6 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from datetime import datetime
@@ -10,6 +12,8 @@ from ticket.filters import TicketFilter
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
 from ticket.models import Ticket, TicketStatus, ServiceObject
 from django.urls import reverse
+
+User = get_user_model()
 
 
 class TicketListView(LoginRequiredMixin, ListView):
@@ -94,7 +98,7 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
             ticket_closed = True
         if service_object.time_to_fix_problem:
             expected_time_to_finish = ticket.received_at + service_object.time_to_fix_problem
-            time_difference = expected_time_to_finish-datetime.now(UTC)
+            time_difference = expected_time_to_finish - datetime.now(UTC)
             context['time_difference'] = time_difference
             context['expected_time_to_finish'] = expected_time_to_finish
 
@@ -183,4 +187,9 @@ class ChiefInfoDetailView(ListView):
     context_object_name = 'tickets'
 
     def get_queryset(self):
-        return super().get_queryset().order_by("driver", "executor").filter(status__name="Назначенный")
+        queryset = Ticket.objects.all()
+        username = User.objects.all()
+        if username is not None:
+            queryset = queryset.filter(driver__in=username, executor__in=username).filter(
+                status__name='На исполнении' or 'Назначенный')
+        return queryset

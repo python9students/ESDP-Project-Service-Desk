@@ -1,57 +1,125 @@
 {% extends 'base.html' %}
-{% block title %}Заявки{% endblock %}
+{% load static %}
+{% load mptt_tags %}
+{% block title %}Заявка{% endblock %}
 {% block content %}
+    <div>
+        <h3>Водители:</h3>
+        {% for ticket in tickets %}
+            <div class="row jus-content-between">
+                <div class="col-12">
+                    <ul class="list-group">
+                        <nav id="nav">
+                            <ul class="ul-list">
+                                <li>
+                                        <a href="#"><i
+                                                class="bi bi-plus-circle pe-5 ps-3"></i>{{ ticket.driver.first_name }} {{ ticket.driver.last_name }}
+                                            - колличество заявок: {{ tickets.count }}
+                                        </a>
+                                    <ul>
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">Заявка</th>
+                                                <th scope="col">Дата получения</th>
+                                                <th scope="col">Клиент</th>
+                                                <th scope="col">Объект</th>
+                                                <th scope="col">Статус</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for ticket in tickets|dictsort:"id" reversed %}
+                                                <tr>
+                                                    <td class="{% if ticket.priority|capfirst == 'Высокий' %}
+                table-danger
+                {% else %}
+                table-warning
+                {% endif %}"><a href="{% url 'ticket:ticket_detail' ticket.pk %}">
+                                                        Заявка-{{ ticket.received_at|date:"Ymd-His"}}</a></td>
+                                                    <td>{{ ticket.received_at }}</td>
+                                                    <td>{{ ticket.client }}</td>
+                                                    <td>{{ ticket.service_object }}</td>
+                                                    <td>{{ ticket.status }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        <li>
+                                            {{ node.name }}
+                                            {% if not node.is_leaf_node %}
+                                                <ul class="children">
+                                                    {{ children }}
+                                                </ul>
+                                                </li>
+                                                </ul>
+                                                </li>
+                                                </ul>
+                                            {% endif %}
+                        </nav>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <br><br>
+    <div>
+        <h3>Исполнители:</h3>
+        {% for ticket in tickets %}
+            <div class="row jus-content-between">
+                <div class="col-12">
+                    <ul class="list-group">
+                        <nav id="nav">
+                            <ul class="ul-list">
+                                <li>
+                                        <a href="#"><i
+                                                class="bi bi-plus-circle pe-5 ps-3"></i>{{ ticket.executor.first_name }} {{ ticket.executor.last_name }}
+                                            - колличество заявок: {{ tickets.count }}
+                                        </a>
+                                        <ul>
+                                            <table class="table table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Заявка</th>
+                                                    <th scope="col">Дата получения</th>
+                                                    <th scope="col">Клиент</th>
+                                                    <th scope="col">Объект</th>
+                                                    <th scope="col">Статус</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for ticket in tickets|dictsort:"id" reversed %}
+                                                    <tr>
+                                                        <td class="{% if ticket.priority|capfirst == 'Высокий' %}
+                table-danger
+                {% else %}
+                table-warning
+                {% endif %}"><a href="{% url 'ticket:ticket_detail' ticket.pk %}">
+                                                            Заявка-{{ ticket.received_at|date:"Ymd-His"}}</a></td>
+                                                        <td>{{ ticket.received_at }}</td>
+                                                        <td>{{ ticket.client }}</td>
+                                                        <td>{{ ticket.service_object }}</td>
+                                                        <td>{{ ticket.status }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                            <li>
+                                                {{ node.name }}
+                                                {% if not node.is_leaf_node %}
+                                                    <ul class="children">
+                                                        {{ children }}
+                                                    </ul>
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                        </li>
+                            </ul>
+                        </nav>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
     <br>
-
-    {% if object_list %}
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th scope="col">Фамилия и имя водителя</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for ticket in tickets %}
-                <tr>
-                    <td>{{ ticket.driver.last_name }} {{ ticket.driver.first_name }}</td>
-                    <td class="{% if ticket.priority|capfirst == 'Высокий' %}
-                    table-danger
-                    {% else %}
-                    table-warning
-                    {% endif %}"><a href="{% url 'ticket:ticket_detail' ticket.pk %}">
-                        Заявка-{{ ticket.created_at|date:"Ymd-His"}}</a></td>
-                    <td>{{ ticket.received_at }}</td>
-                    <td>{{ ticket.client }}</td>
-                    <td>{{ ticket.status }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th scope="col">Фамилия и имя исполнителя</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for ticket in tickets %}
-                <tr>
-                        <td>{{ ticket.executor.last_name }} {{ ticket.executor.first_name }}</td>
-                    <td class="{% if ticket.priority|capfirst == 'Высокий' %}
-                    table-danger
-                    {% else %}
-                    table-warning
-                    {% endif %}"><a href="{% url 'ticket:ticket_detail' ticket.pk %}">
-                        Заявка-{{ ticket.created_at|date:"Ymd-His"}}</a></td>
-                    <td>{{ ticket.received_at }}</td>
-                    <td>{{ ticket.client }}</td>
-                    <td>{{ ticket.status }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <h2>Заявок пока нет...</h2>
-    {% endif %}
+    <script type="text/javascript" src="{% static 'js/works_and_problems.js' %}"></script>
 {% endblock %}
