@@ -14,7 +14,7 @@ class SparePartAssignCreateView(LoginRequiredMixin, CreateView):
     form_class = SparePartAssignForm
 
     def get_success_url(self):
-        return reverse("ticket:chief_info")
+        return reverse("ticket:spare_part_active_list")
 
     def get_context_data(self, **kwargs):
         context = super(SparePartAssignCreateView, self).get_context_data(**kwargs)
@@ -54,7 +54,7 @@ class SparePartUserListView(LoginRequiredMixin, ListView):
     context_object_name = 'active_spare_parts'
 
     def get_queryset(self):
-        active_spare_parts = super().get_queryset()
+        active_spare_parts = super().get_queryset().order_by('-created_at')
         if self.request.user.has_perm('ticket.see_engineer_tickets') and not self.request.user.is_superuser:
             return active_spare_parts.filter(engineer=self.request.user)
         return active_spare_parts
