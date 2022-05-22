@@ -186,10 +186,14 @@ class ChiefInfoDetailView(ListView):
     template_name = 'for_chief/chief_info_list_view.html'
     context_object_name = 'tickets'
 
+    # def get_queryset(self):
+    #     queryset = Ticket.objects.all()
+    #     username = User.objects.all()
+    #     if username is not None:
+    #         queryset = queryset.filter(driver__in=username, executor__in=username).filter(
+    #             status__name='На исполнении' or 'Назначенный')
+    #     return queryset
     def get_queryset(self):
-        queryset = Ticket.objects.all()
         username = User.objects.all()
-        if username is not None:
-            queryset = queryset.filter(driver__in=username, executor__in=username).filter(
-                status__name='На исполнении' or 'Назначенный')
+        queryset = Ticket.objects.filter(driver__in=username, executor__in=username)
         return queryset
