@@ -10,6 +10,9 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
           integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static "css/works_and_problems.css" %}">
     <title>{% block title %}Products View{% endblock %}</title>
 </head>
 <body>
@@ -25,10 +28,20 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{% url 'ticket:spare_part_active_list' %}">
+                                    Запчасти в ходу
+                                </a>
+                            </li>
                         {% if not user.groups.all.0|slugify == 'engineers' %}
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="{% url 'ticket:ticket_create' %}">Создать
                                     заявку</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{% url 'ticket:spare_part_assign_create' %}">
+                                    Назначить запчасти
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" href="{% url 'ticket:chief_info' %}">Инфо для
@@ -59,39 +72,19 @@
     {% endif %}
 </header>
 
-<div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-        {% if user.is_authenticated %}
-            <li class="nav-item">
-                <p class="nav-link">Привет, {{ user.username }}!</p>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"
-                   href="{% url 'accounts:logout' %}">Выход</a>
-            </li>
-
-        {% else %}
-            <li class="nav-item">
-                <a class="nav-link"
-                   href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Вход</a>
-            </li>
-        {% endif %}
-    </ul>
-</div>
-
 <div class="container">
+{% include "partial/messages.html" %}
     {% block content %}
-
     {% endblock %}
 </div>
 
 {% block scripts %}
 {% endblock %}
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+
 </body>
 </html>
-
-<script type="text/javascript" src="{% static 'js/index.js' %}">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"></script>
