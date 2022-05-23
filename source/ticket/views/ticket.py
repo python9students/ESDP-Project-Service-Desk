@@ -21,7 +21,7 @@ class TicketListView(LoginRequiredMixin, ListView):
     model = Ticket
     template_name = 'ticket/list.html'
     context_object_name = 'tickets'
-    paginate_by = 2
+    paginate_by = 10
     paginate_orphans = 0
     ordering = ['-received_at']
 
@@ -29,8 +29,6 @@ class TicketListView(LoginRequiredMixin, ListView):
         tickets = super().get_queryset()
         if self.request.user.has_perm('ticket.see_engineer_tickets') and not self.request.user.is_superuser:
             return tickets.filter(status__in=[2, 6, 7]).filter(executor=self.request.user)
-        elif self.request.user.has_perm('ticket.see_chief_tickets') and not self.request.user.is_superuser:
-            return tickets.filter(status__in=[1, 2, 3, 4, 5, 6, 7])
         return TicketFilter(self.request.GET, queryset=tickets).qs
 
     def get_context_data(self, *, object_list=None, **kwargs):

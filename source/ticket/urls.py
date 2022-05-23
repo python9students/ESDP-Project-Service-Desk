@@ -1,12 +1,14 @@
 from django.urls import path, include
 
+from ticket.views.spare_part import (SparePartAssignCreateView,
+                                     SparePartUserListView,)
 from ticket.views.ticket import (TicketCreateView,
                                  TicketListView,
                                  TicketDetailView,
                                  TicketUpdateView,
                                  TicketCancelView,
                                  TicketCloseView,
-                                 ChiefInfoDetailView, )
+                                 ChiefInfoDetailView,)
 from ticket.views.ticket_api import TicketTimeView
 
 app_name = 'ticket'
@@ -21,7 +23,13 @@ ticket_urlpatterns = [
     path('<int:pk>/ticket_time/', TicketTimeView.as_view(), name='ticket_time_bar')
 ]
 
+spare_part_urlpatterns = [
+    path('assign-create/', SparePartAssignCreateView.as_view(), name='spare_part_assign_create'),
+    path('active-list/', SparePartUserListView.as_view(), name='spare_part_active_list'),
+]
+
 urlpatterns = [
     path('', TicketListView.as_view(), name='ticket_list'),
     path('ticket/', include(ticket_urlpatterns)),
+    path('spare-part/', include(spare_part_urlpatterns)),
 ]
