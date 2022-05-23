@@ -1,15 +1,16 @@
+from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import get_object_or_404
 from django.contrib import admin
-from ticket.forms import User, ContractAdminForm
+from ticket.forms import ContractAdminForm
 from mptt.admin import MPTTModelAdmin
 from datetime import datetime, date
 from ticket.models import (CompanyType, ServiceObjectType, ServiceObjectModel, Country, Region, City, Client,
                            ServiceObject, TicketType, TicketStatus, TicketPriority, Work, ProblemArea, Department,
                            ServiceLevel, Ticket, CriterionType, ContractStatus, ContractType, Contract, ContractFiles,
-                           SparePart, Condition, SupplierCompany, SparePartUser, )
+                           SparePart, Condition, SupplierCompany, SparePartUser, User, )
 
 admin.site.register(CompanyType)
 admin.site.register(ServiceObjectType)
@@ -83,6 +84,12 @@ admin.site.unregister(User)
 
 
 class CustomUserCreationForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['groups'].required = True
+
     class Meta:
         model = UserCreationForm.Meta.model
         fields = '__all__'

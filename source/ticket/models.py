@@ -7,9 +7,6 @@ from django.db import models
 
 User = get_user_model()
 
-User._meta.get_field('first_name', ).blank = False
-User._meta.get_field('last_name', ).blank = False
-
 SPARE_PART_CHOICES = [('pc', 'шт'), ('unit', 'узел')]
 
 
