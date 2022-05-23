@@ -10,8 +10,6 @@ from django.utils.timezone import utc
 class Migration(migrations.Migration):
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('auth', '0013_alter_user_first_name_alter_user_last_name'),
         ('ticket', '0036_alter_sparepartuser_engineer'),
     ]
 
