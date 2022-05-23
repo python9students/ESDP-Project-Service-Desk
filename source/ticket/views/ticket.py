@@ -1,16 +1,20 @@
+import businesstimedelta
+import pytz
+from dateutil.tz import tz
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
-from datetime import datetime
+import datetime
 from pytz import timezone
-from BusinessHours import BusinessHours
-
 from ticket.filters import TicketFilter
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
 from ticket.models import Ticket, TicketStatus, ServiceObject
 from django.urls import reverse
+
+from ticket.views.ticket_custom_datetime_functions import find_working_day_after, convert_hour_to_sec, \
+    add_weekday_seconds
 
 
 class TicketListView(LoginRequiredMixin, ListView):
@@ -81,6 +85,7 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         UTC = timezone('Asia/Bishkek')
+        received_date = tz.tzlocal()
         ticket = Ticket.objects.get(pk=self.kwargs.get('pk'))
         service_object = ServiceObject.objects.get(serial_number=ticket.service_object)
         ticket_canceled = False
@@ -96,15 +101,62 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
         if str(self.object.status) == 'Завершенный':
             ticket_closed = True
         if service_object.time_to_fix_problem:
+            '''Устанавливаю правило рабочего дня чтобы получить разницу между начальным и финальнымы днями'''
+            workday = businesstimedelta.WorkDayRule(
+                start_time=datetime.time(9),
+                end_time=datetime.time(18),
+                working_days=[0, 1, 2, 3, 4],)
+            businesshrs = businesstimedelta.Rules([workday])
+
+            '''Получаю из базы данных время и конвертирую его в локальное время'''
+            dbdatetime = ticket.received_at.replace(tzinfo=pytz.utc)
+            received_date = dbdatetime.astimezone(received_date)
+            print(received_date)
+
+            '''Получаю время у service_object за которое надо закончить работу и конвертирую его в секунды'''
+            str_time_to_fix = str(service_object.time_to_fix_problem)
+            seconds = convert_hour_to_sec(str_time_to_fix)
+            '''Узнаю дату окончания исключая выходные'''
+            ending_date = add_weekday_seconds(received_date, seconds)
+
+            print(ending_date)
+
+            '''Узнаю сколько рабочих часов между двумья датами исключая выходные'''
+            # hours = businesshrs.difference(datetime.datetime.now(UTC).replace(microsecond=0), ending_date)
+            hours = businesshrs.difference(received_date, ending_date)
+            print(hours)
+
+
+
+
+
+
+
+
             expected_time_to_finish = ticket.received_at.replace(microsecond=0) + service_object.time_to_fix_problem
-            # start_time = ticket.received_at.replace(microsecond=0)
-            # end_time = expected_time_to_finish.replace(microsecond=0)
-            # hours = BusinessHours(start_time, end_time, worktiming=[9, 18], weekends=[6, 7], holidayfile=None)
-            # print(hours.gethours())
-            time_difference = expected_time_to_finish.replace(microsecond=0) - datetime.now().replace(microsecond=0)
+            time_difference = expected_time_to_finish.replace(microsecond=0) - datetime.datetime.now(UTC).replace(
+                microsecond=0)
+
+
+
+
+            # start_day = ticket.received_at.replace(microsecond=0)
+            # days_to_add = datetime.datetime.now()
+
+
+
+            # expected_time_to_finish_trial = find_working_day_after(start_day, days_to_add)
+            # print(expected_time_to_finish_trial)
+
+
+
+
+            # hours = businesshrs.difference(datetime.datetime.now(UTC).replace(microsecond=0), expected_time_to_finish)
+            # print(hours)
+
+
             context['time_difference'] = time_difference
             context['expected_time_to_finish'] = expected_time_to_finish
-
         context['ticket_canceled'] = ticket_canceled
         context['ticket_closed'] = ticket_closed
         context['is_chief'] = is_chief
