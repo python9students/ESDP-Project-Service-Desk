@@ -26,8 +26,7 @@ def should_be_at_login(context):
     assert context.browser.current_url == 'http://localhost:8000/accounts/login/'
 
 
-# @then(u'Я должен видеть сообщение об ошибке с текстом "{text}"')
-# def see_error_with_text(context, text):
-#     error = context.browser.find_element_by_css_selector('.form-text.text-danger')
-#
-#     assert error.text == text
+@then(u'Я должен видеть сообщение об ошибке с текстом "{text}"')
+def see_error_with_text(context, text):
+    error = context.browser.find_element_by_xpath('/html/body/div/form/div[1]/strong')
+    assert error.text == text

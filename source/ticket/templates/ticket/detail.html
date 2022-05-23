@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load mptt_tags %}
 {% block title %}Заявка{% endblock %}
 {% block content %}
@@ -31,43 +32,55 @@
                     {% if ticket.desired_to %}
                         <li class="list-group-item">Желаемая дата исполнения: {{ ticket.desired_to }}</li>
                     {% endif %}
-                    <li class="list-group-item"> Работы:
-                        <ul>
-                            {% recursetree ticket.works.all %}
-                                <li>
-                                    {{ node.name }}
-                                    {% if not node.is_leaf_node %}
-                                        <ul class="children">
-                                            {{ children }}
-                                        </ul>
-                                    {% endif %}
-                                </li>
-                            {% endrecursetree %}
-                        </ul>
-                    </li>
+                    <nav id="nav">
+                    <ul class="ul-list">
+                        <li>
+                            <a href="#"><i class="bi bi-plus-circle pe-1"></i>Работы</a>
+                            <ul>
+                                {% recursetree ticket.works.all %}
+                                    <li>
+                                        {{ node.name }}
+                                        {% if not node.is_leaf_node %}
+                                            <ul class="children">
+                                                {{ children }}
+                                            </ul>
+                                        {% endif %}
+                                    </li>
+                                {% endrecursetree %}
+                            </ul>
+                        </li>
+                    </ul>
+                    </nav>
                 </ul>
             </div>
             <div class="col-6">
                 <ul class="list-group">
-                    <li class="list-group-item"> Проблемная область:
-                        <ul>
-                            {% recursetree ticket.problem_areas.all %}
-                                <li>
-                                    {{ node.name }}
-                                    {% if not node.is_leaf_node %}
-                                        <ul class="children">
-                                            {{ children }}
-                                        </ul>
-                                    {% endif %}
-                                </li>
-                            {% endrecursetree %}
-                        </ul>
-                    </li>
+                <nav id="nav">
+                    <ul class="ul-list">
+                        <li>
+                            <a href="#"><i class="bi bi-plus-circle pe-1"></i>Проблемная область</a>
+                            <ul>
+                                {% recursetree ticket.problem_areas.all %}
+                                    <li>
+                                        {{ node.name }}
+                                        {% if not node.is_leaf_node %}
+                                            <ul class="children">
+                                                {{ children }}
+                                            </ul>
+                                        {% endif %}
+                                    </li>
+                                {% endrecursetree %}
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
                     {% if ticket.description %}
                         <li class="list-group-item">Описание: {{ ticket.description }}</li>
                     {% endif %}
-                    <li class="list-group-item">Исполнитель: {{ ticket.executor|default:"Не указан" }}</li>
-                    <li class="list-group-item">Водитель: {{ ticket.driver|default:"Не указан" }}</li>
+                    <li class="list-group-item">Исполнитель: {{ ticket.executor.last_name|default:"Не указан" }}
+                    {{ ticket.executor.first_name }}</li>
+                    <li class="list-group-item">Водитель: {{ ticket.driver.last_name|default:"Не указан" }}
+                     {{ ticket.driver.first_name }}</li>
                     <li class="list-group-item">Дата начала работ:
                         {{ ticket.work_started_at|default:"Не указана" }}</li>
                     <li class="list-group-item">Дата окончания работ:
@@ -114,7 +127,7 @@
 
             </div>
         </div>
-
     </div>
     <br>
+<script type="text/javascript" src="{% static 'js/works_and_problems.js' %}"></script>
 {% endblock %}

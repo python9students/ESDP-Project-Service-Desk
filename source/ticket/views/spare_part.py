@@ -1,14 +1,14 @@
 from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 
 from ticket.forms import SparePartAssignForm, SparePartAssignFormSet
 from ticket.models import SparePartUser, SparePart
 
 
-class SparePartAssignCreateView(CreateView):
+class SparePartAssignCreateView(LoginRequiredMixin, CreateView):
     model = SparePartUser
     template_name = 'spare_part/assign_create.html'
     form_class = SparePartAssignForm
@@ -36,6 +36,7 @@ class SparePartAssignCreateView(CreateView):
                 messages.warning(self.request, f'Вы не можете назначить запчастей в количестве: 0')
                 return render(self.request, 'spare_part/assign_create.html', {'formset': formset})
             elif spare_part.quantity > 0 and spare_part.quantity >= instance.quantity:
+                instance.assigned_by = self.request.user
                 spare_part.quantity -= instance.quantity
                 spare_part.save()
                 instance.save()
@@ -46,3 +47,14 @@ class SparePartAssignCreateView(CreateView):
                 return render(self.request, 'spare_part/assign_create.html', {'formset': formset})
         return super().form_valid(formset)
 
+
+class SparePartUserListView(LoginRequiredMixin, ListView):
+    model = SparePartUser
+    template_name = 'spare_part/list.html'
+    context_object_name = 'active_spare_parts'
+
+    def get_queryset(self):
+        active_spare_parts = super().get_queryset()
+        if self.request.user.has_perm('ticket.see_engineer_tickets') and not self.request.user.is_superuser:
+            return active_spare_parts.filter(engineer=self.request.user)
+        return active_spare_parts

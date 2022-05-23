@@ -115,6 +115,8 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
                 '%Y-%m-%dT%H:%M') if self.instance.ride_started_at else None
             self.initial['ride_finished_at'] = self.instance.ride_finished_at.strftime(
                 '%Y-%m-%dT%H:%M') if self.instance.ride_finished_at else None
+        self.fields['executor'].label_from_instance = lambda obj: "%s" % obj.get_full_name()
+        self.fields['driver'].label_from_instance = lambda obj: "%s" % obj.get_full_name()
 
     class Meta:
         model = Ticket
@@ -212,10 +214,21 @@ class ContractAdminForm(forms.ModelForm):
 
 
 class SparePartAssignForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['engineer'].label_from_instance = lambda obj: "%s" % obj.get_full_name()
+
+    class Meta:
+        model = SparePartUser
+        exclude = ['created_at', 'assigned_by']
+
+
+SparePartAssignFormSet = modelformset_factory(SparePartUser, form=SparePartAssignForm,
+                                              fields=['spare_part', 'engineer', 'quantity'], extra=6)
+
+
+class SparePartUserListForm(forms.ModelForm):
     class Meta:
         model = SparePartUser
         fields = "__all__"
-
-
-SparePartAssignFormSet = modelformset_factory(SparePartUser, fields='__all__', extra=6)
-
