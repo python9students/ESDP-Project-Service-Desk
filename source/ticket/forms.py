@@ -215,17 +215,13 @@ class ContractAdminForm(forms.ModelForm):
 
 class SparePartAssignForm(forms.ModelForm):
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['engineer'].label_from_instance = lambda obj: "%s" % obj.get_full_name()
-
     class Meta:
         model = SparePartUser
-        exclude = ['created_at', 'assigned_by']
+        exclude = ['created_at', 'assigned_by', 'engineer']
 
 
 SparePartAssignFormSet = modelformset_factory(SparePartUser, form=SparePartAssignForm,
-                                              fields=['spare_part', 'engineer', 'quantity'], extra=6)
+                                              fields=['spare_part', 'quantity'], extra=6)
 
 
 class SparePartUserListForm(forms.ModelForm):
