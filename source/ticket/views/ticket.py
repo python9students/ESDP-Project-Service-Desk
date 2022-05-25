@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
@@ -184,15 +185,17 @@ class TicketCloseView(UpdateView):
 class ChiefInfoDetailView(ListView):
     model = Ticket
     template_name = 'for_chief/chief_info_list_view.html'
-    context_object_name = 'tickets'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         username = User.objects.all()
-        driver_tickets = Ticket.objects.order_by('driver').filter(driver__in=username).filter(
-            status__name='На исполнении' and 'Назначенный')
-        executor_tickets = Ticket.objects.order_by('executor').filter(executor__in=username).filter(
-            status__name='На исполнении' and 'Назначенный').order_by('executor')
+        driver_tickets = Ticket.objects.filter(driver__in=username).filter(
+            Q(status__name='На исполнении') | Q(status__name='Назначенный'))
+        executor_tickets = Ticket.objects.filter(executor__in=username).filter(
+            Q(status__name='На исполнении') | Q(status__name='Назначенный'))
+
         context['driver_tickets'] = driver_tickets
         context['executor_tickets'] = executor_tickets
         return context
+
+

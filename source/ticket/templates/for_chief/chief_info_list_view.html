@@ -29,7 +29,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {% for ticket in driver_tickets|dictsort:"id" reversed %}
+                                        {% for ticket in driver_tickets %}
                                             <tr>
                                                 <td class="{% if ticket.priority|capfirst == 'Высокий' %}
                 table-danger
@@ -88,7 +88,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {% for ticket in executor_tickets|dictsort:"id" reversed %}
+                                            {% for ticket in executor_tickets %}
                                                 <tr>
                                                     <td class="{% if ticket.priority|capfirst == 'Высокий' %}
                 table-danger
