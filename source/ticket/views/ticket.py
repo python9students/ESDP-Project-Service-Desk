@@ -101,21 +101,18 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
             ticket_canceled = True
         if str(self.object.status) == 'Завершенный':
             ticket_closed = True
-        if service_object.expected_finish_date:
+        if ticket.expected_finish_date:
             '''Устанавливаю правило рабочего дня чтобы получить разницу между начальным и финальнымы днями'''
             workday = businesstimedelta.WorkDayRule(
                 start_time=datetime.time(9),
                 end_time=datetime.time(18),
-                working_days=[0, 1, 2, 3, 4],)
+                working_days=[0, 1, 2, 3, 4],
+                tz=pytz.timezone('Asia/Bishkek'))
             businesshrs = businesstimedelta.Rules([workday])
-            date_recevied = ticket.received_at.replace(tzinfo=pytz.utc)
-            print(date_recevied)
-            expected_time_to_finish = service_object.expected_finish_date.replace(tzinfo=pytz.utc)
-            time_difference = businesshrs.difference(date_recevied, expected_time_to_finish)
-            print(time_difference)
+            expected_time_to_finish = ticket.expected_finish_date
+            time_difference = businesshrs.difference(datetime.datetime.now(), expected_time_to_finish)
             context['time_difference'] = time_difference.hours
             context['expected_time_to_finish'] = expected_time_to_finish
-
         context['ticket_canceled'] = ticket_canceled
         context['ticket_closed'] = ticket_closed
         context['is_chief'] = is_chief

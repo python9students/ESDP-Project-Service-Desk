@@ -336,6 +336,7 @@ class Ticket(models.Model):
     cancel_reason = models.CharField(max_length=255, verbose_name='Причина отмены заявки')
     close_commentary = models.CharField(max_length=255, blank=True, verbose_name='Комментарий к закрытию заявки')
     work_done = models.TextField(max_length=1000, blank=True, verbose_name='Проделанная работа')
+    expected_finish_date = models.DateTimeField(null=True, default=None, verbose_name='Ожидаемая дата завершения')
 
     def __str__(self):
         return f'Заявка-{self.received_at.strftime("%Y%m%d-%H%M%S")}'

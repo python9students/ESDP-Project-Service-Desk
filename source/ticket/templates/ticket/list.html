@@ -4,40 +4,51 @@
     <br>
 
     <form class="form-control" method="get">
-    {{ filter.form }}
-    <button class="btn btn-success btn-sm" type="submit">поиск</button>
+        {{ filter.form }}
+        <button class="btn btn-success btn-sm" type="submit">поиск</button>
     </form>
 
     {% if object_list %}
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th scope="col">Заявка</th>
-            <th scope="col">Дата получения</th>
-            <th scope="col">Клиент</th>
-            <th scope="col">Объект</th>
-            <th scope="col">Статус</th>
-        </tr>
-        </thead>
-        <tbody>
-         {% for ticket in tickets|dictsort:"id" reversed %}
+        <table class="table table-hover">
+            <thead>
             <tr>
-                <td class="{% if ticket.priority|capfirst == 'Высокий' %}
+                <th scope="col">Заявка</th>
+                <th scope="col">Дата получения</th>
+                <th scope="col">Клиент</th>
+                <th scope="col">Объект</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Прогресс</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for ticket in tickets|dictsort:"id" reversed %}
+                <tr>
+                    <td class="{% if ticket.priority|capfirst == 'Высокий' %}
                 table-danger
                 {% else %}
                 table-warning
-                {% endif %}" ><a href="{% url 'ticket:ticket_detail' ticket.pk %}">
-                    Заявка-{{ ticket.received_at|date:"Ymd-His"}}</a></td>
-                <td>{{ ticket.received_at }}</td>
-                <td>{{ ticket.client }}</td>
-                <td>{{ ticket.service_object }}</td>
-                <td>{{ ticket.status }}</td>
-                <td class="progress_list">Progress</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-        {% else %}
+                {% endif %}">
+                        <a href="{% url 'ticket:ticket_detail' ticket.pk %}">Заявка-{{ ticket.received_at|date:"Ymd-His"}}</a></td>
+                    <td>{{ ticket.received_at }}</td>
+                    <td>{{ ticket.client }}</td>
+                    <td>{{ ticket.service_object }}</td>
+                    <td>{{ ticket.status }}</td>
+                    <td>
+                        <div class="progress w-25">
+                            <div class="progress-bar progress_list" data-id="{{ ticket.id }}"
+                                 data-time-url="{% url "ticket:ticket_time_bar" ticket.pk %}" role="progressbar"
+                                 style=""
+                                 aria-valuenow="25"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100">{{ time_difference }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
         <h2>Заявок пока нет...</h2>
     {% endif %}
     {% if is_paginated %}

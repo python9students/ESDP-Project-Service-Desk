@@ -125,6 +125,8 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
                                                attrs={'type': 'datetime-local'}),
             'closed_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                              attrs={'type': 'datetime-local'}),
+            'expected_finish_date': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
+                                             attrs={'type': 'datetime-local'}),
         }
         exclude = ("cancel_reason", "closed_at", "operator", "status", "close_commentary",)
 
