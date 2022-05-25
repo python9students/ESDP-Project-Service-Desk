@@ -1,15 +1,9 @@
 from django.urls import path, include
-
-from ticket.views.spare_part import (SparePartAssignCreateView,
-                                     SparePartUserListView,)
-from ticket.views.ticket import (TicketCreateView,
-                                 TicketListView,
-                                 TicketDetailView,
-                                 TicketUpdateView,
-                                 TicketCancelView,
-                                 TicketCloseView,
-                                 ChiefInfoDetailView,)
-from ticket.views.ticket_api import TicketTimeView
+from ticket.views import (TicketCreateView, TicketListView,
+                          TicketDetailView, TicketUpdateView,
+                          TicketCancelView, TicketCloseView,
+                          ChiefInfoDetailView, SparePartUserListView,
+                          SparePartAssignCreateView, TicketTimeView)
 
 app_name = 'ticket'
 
