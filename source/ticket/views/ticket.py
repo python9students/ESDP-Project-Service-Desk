@@ -98,62 +98,19 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
             ticket_canceled = True
         if str(self.object.status) == 'Завершенный':
             ticket_closed = True
-        if service_object.time_to_fix_problem:
+        if service_object.expected_finish_date:
             '''Устанавливаю правило рабочего дня чтобы получить разницу между начальным и финальнымы днями'''
             workday = businesstimedelta.WorkDayRule(
                 start_time=datetime.time(9),
                 end_time=datetime.time(18),
                 working_days=[0, 1, 2, 3, 4],)
             businesshrs = businesstimedelta.Rules([workday])
-
-            '''Получаю из базы данных время и конвертирую его в локальное время'''
-            dbdatetime = ticket.received_at.replace(tzinfo=pytz.utc)
-            received_date = dbdatetime.astimezone(received_date)
-            print(received_date)
-
-            '''Получаю время у service_object за которое надо закончить работу и конвертирую его в секунды'''
-            str_time_to_fix = str(service_object.time_to_fix_problem)
-            seconds = convert_hour_to_sec(str_time_to_fix)
-            '''Узнаю дату окончания исключая выходные'''
-            ending_date = add_weekday_seconds(received_date, seconds)
-
-            print(ending_date)
-
-            '''Узнаю сколько рабочих часов между двумья датами исключая выходные'''
-            # hours = businesshrs.difference(datetime.datetime.now(UTC).replace(microsecond=0), ending_date)
-            hours = businesshrs.difference(received_date, ending_date)
-            print(hours)
-
-
-
-
-
-
-
-
-            expected_time_to_finish = ticket.received_at.replace(microsecond=0) + service_object.time_to_fix_problem
-            time_difference = expected_time_to_finish.replace(microsecond=0) - datetime.datetime.now(UTC).replace(
-                microsecond=0)
-
-
-
-
-            # start_day = ticket.received_at.replace(microsecond=0)
-            # days_to_add = datetime.datetime.now()
-
-
-
-            # expected_time_to_finish_trial = find_working_day_after(start_day, days_to_add)
-            # print(expected_time_to_finish_trial)
-
-
-
-
-            # hours = businesshrs.difference(datetime.datetime.now(UTC).replace(microsecond=0), expected_time_to_finish)
-            # print(hours)
-
-
-            context['time_difference'] = time_difference
+            date_recevied = ticket.received_at.replace(tzinfo=pytz.utc)
+            print(date_recevied)
+            expected_time_to_finish = service_object.expected_finish_date.replace(tzinfo=pytz.utc)
+            time_difference = businesshrs.difference(date_recevied, expected_time_to_finish)
+            print(time_difference)
+            context['time_difference'] = time_difference.hours
             context['expected_time_to_finish'] = expected_time_to_finish
         context['ticket_canceled'] = ticket_canceled
         context['ticket_closed'] = ticket_closed

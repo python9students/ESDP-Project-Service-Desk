@@ -174,6 +174,7 @@ class ServiceObject(models.Model):
     time_to_fix_problem = models.DurationField(verbose_name='Время на устранение проблемы', null=True, blank=True,
                                                default=None)
 
+
     def __str__(self):
         return f'{self.serial_number}'
 
