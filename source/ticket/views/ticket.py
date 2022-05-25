@@ -193,9 +193,6 @@ class ChiefInfoDetailView(ListView):
             Q(status__name='На исполнении') | Q(status__name='Назначенный'))
         executor_tickets = Ticket.objects.filter(executor__in=username).filter(
             Q(status__name='На исполнении') | Q(status__name='Назначенный'))
-
         context['driver_tickets'] = driver_tickets
         context['executor_tickets'] = executor_tickets
         return context
-
-
