@@ -943,6 +943,7 @@
     "cancel_reason": "Just for test",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       8
     ],
@@ -978,6 +979,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       10
     ],
@@ -1013,6 +1015,7 @@
     "cancel_reason": "",
     "close_commentary": "тест",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       5
     ],
@@ -1048,6 +1051,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       6,
       3
@@ -1085,6 +1089,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       6
     ],
@@ -1120,6 +1125,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       10
     ],
@@ -1155,6 +1161,7 @@
     "cancel_reason": "12.12.22",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       10
     ],
@@ -1190,6 +1197,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       8
     ],
@@ -1225,6 +1233,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       10
     ],
@@ -1260,6 +1269,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       10,
       5
@@ -1297,6 +1307,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       3
     ],
@@ -1332,6 +1343,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       6
     ],
@@ -1367,6 +1379,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       2
     ],
@@ -1402,6 +1415,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       4
     ],
@@ -1437,6 +1451,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       7,
       10
@@ -1474,6 +1489,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       7
     ],
@@ -1509,6 +1525,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       9,
       6
@@ -1546,6 +1563,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       7,
       9,
@@ -1584,6 +1602,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       10
     ],
@@ -1619,6 +1638,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       8
     ],
@@ -1654,6 +1674,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       10,
       9,
@@ -1693,6 +1714,7 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "морпрпормром",
+    "expected_finish_date": null,
     "works": [
       8
     ],
@@ -1729,8 +1751,191 @@
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
+    "expected_finish_date": null,
     "works": [
       4
+    ],
+    "problem_areas": [
+      6
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 25,
+  "fields": {
+    "client": 3,
+    "service_object": 3,
+    "priority": 1,
+    "type": 1,
+    "status": 3,
+    "service_level": 2,
+    "department": 1,
+    "created_at": "2022-05-25T11:05:27.744Z",
+    "updated_at": "2022-05-25T11:05:27.770Z",
+    "received_at": "2022-05-25T11:01:00Z",
+    "desired_to": null,
+    "operator": 4,
+    "description": "",
+    "executor": null,
+    "driver": null,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "work_done": "",
+    "expected_finish_date": "2022-05-30T11:05:00Z",
+    "works": [
+      7
+    ],
+    "problem_areas": [
+      11,
+      3
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 26,
+  "fields": {
+    "client": 2,
+    "service_object": 2,
+    "priority": 1,
+    "type": 1,
+    "status": 3,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-25T13:54:53.175Z",
+    "updated_at": "2022-05-25T13:54:53.195Z",
+    "received_at": "2022-05-23T13:54:00Z",
+    "desired_to": null,
+    "operator": 4,
+    "description": "",
+    "executor": 1,
+    "driver": null,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "work_done": "",
+    "expected_finish_date": "2022-05-24T13:54:00Z",
+    "works": [
+      1
+    ],
+    "problem_areas": [
+      6
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 27,
+  "fields": {
+    "client": 2,
+    "service_object": 2,
+    "priority": 2,
+    "type": 2,
+    "status": 3,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-25T13:56:42.437Z",
+    "updated_at": "2022-05-25T13:56:42.461Z",
+    "received_at": "2022-05-24T13:56:00Z",
+    "desired_to": null,
+    "operator": 4,
+    "description": "",
+    "executor": null,
+    "driver": null,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "work_done": "",
+    "expected_finish_date": "2022-05-31T10:56:00Z",
+    "works": [
+      9,
+      1
+    ],
+    "problem_areas": [
+      5
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 28,
+  "fields": {
+    "client": 3,
+    "service_object": 11,
+    "priority": 1,
+    "type": 2,
+    "status": 3,
+    "service_level": 2,
+    "department": 1,
+    "created_at": "2022-05-25T15:19:01.407Z",
+    "updated_at": "2022-05-25T15:19:01.424Z",
+    "received_at": "2022-05-23T02:00:00Z",
+    "desired_to": null,
+    "operator": 4,
+    "description": "Zadnim chislom",
+    "executor": null,
+    "driver": null,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "work_done": "",
+    "expected_finish_date": "2022-05-24T12:00:00Z",
+    "works": [
+      5
+    ],
+    "problem_areas": [
+      4
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 29,
+  "fields": {
+    "client": 3,
+    "service_object": 11,
+    "priority": 1,
+    "type": 2,
+    "status": 3,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-25T15:43:27.182Z",
+    "updated_at": "2022-05-25T15:43:27.204Z",
+    "received_at": "2022-05-25T02:00:00Z",
+    "desired_to": null,
+    "operator": 4,
+    "description": "",
+    "executor": 1,
+    "driver": null,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": "2022-05-26T12:00:00Z",
+    "cancel_reason": "",
+    "close_commentary": "",
+    "work_done": "",
+    "expected_finish_date": "2022-05-26T12:00:00Z",
+    "works": [
+      5
     ],
     "problem_areas": [
       6
@@ -1898,6 +2103,48 @@
     "ticket": null,
     "service_object": null,
     "status": "assigned"
+  }
+},
+{
+  "model": "ticket.sparepartuser",
+  "pk": 19,
+  "fields": {
+    "spare_part": 2,
+    "engineer": 5,
+    "quantity": 3,
+    "created_at": "2022-05-20T08:27:06.574Z",
+    "assigned_by": 4,
+    "ticket": null,
+    "service_object": null,
+    "status": "Назначенный"
+  }
+},
+{
+  "model": "ticket.sparepartuser",
+  "pk": 20,
+  "fields": {
+    "spare_part": 1,
+    "engineer": 5,
+    "quantity": 1,
+    "created_at": "2022-05-20T08:27:06.574Z",
+    "assigned_by": 4,
+    "ticket": null,
+    "service_object": null,
+    "status": "Назначенный"
+  }
+},
+{
+  "model": "ticket.sparepartuser",
+  "pk": 21,
+  "fields": {
+    "spare_part": 1,
+    "engineer": 5,
+    "quantity": 1,
+    "created_at": "2022-05-20T08:27:06.574Z",
+    "assigned_by": 4,
+    "ticket": null,
+    "service_object": null,
+    "status": "Назначенный"
   }
 },
 {
