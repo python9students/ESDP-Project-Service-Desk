@@ -3,7 +3,8 @@
 {% block nav %} {% endblock %}
 {% block content %}
     <br>
-    <form action="#" method="post">
+    <h3>Назначить запчасти к Заявка-{{ ticket.received_at|date:"Ymd-His"}} и Инженера {{ ticket.executor.get_full_name}}</h3>
+    <form method="post">
         {% csrf_token %}
         <div class="row justify-content-between">
             {{ formset.management_form }}
