@@ -6,7 +6,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 import datetime

@@ -80,6 +80,9 @@
                     {% endif %}
                     <li class="list-group-item">Исполнитель: {{ ticket.executor.last_name|default:"Не указан" }}
                     {{ ticket.executor.first_name }}</li>
+                {% for ti in ticket.sparepartuser_set.all  %}
+                <li class="list-group-item">Запчасть: {{ ti.spare_part }} - Колличество: {{ ti.quantity }}</li>
+                {% endfor %}
                     <li class="list-group-item">Водитель: {{ ticket.driver.last_name|default:"Не указан" }}
                      {{ ticket.driver.first_name }}</li>
                     <li class="list-group-item">Дата начала работ:
