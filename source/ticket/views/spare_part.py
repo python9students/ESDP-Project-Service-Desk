@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import CreateView, ListView
 
@@ -14,7 +14,7 @@ class SparePartAssignCreateView(LoginRequiredMixin, CreateView):
     form_class = SparePartAssignForm
 
     def get_success_url(self):
-        return reverse("ticket:spare_part_active_list")
+        return reverse("ticket:ticket_detail", kwargs={"pk": self.kwargs.get("pk")})
 
     def get_context_data(self, **kwargs):
         ticket = get_object_or_404(Ticket, pk=self.kwargs.get("pk"))
@@ -35,7 +35,7 @@ class SparePartAssignCreateView(LoginRequiredMixin, CreateView):
         if not ticket.executor:
             messages.info(self.request, f'У этой заявки еще не назначен инженер, назначьте инженера и '
                                         f'возвращайтесь назначать запчасти')
-            return render(self.request, 'spare_part/assign_create.html', {'formset': formset})
+            return redirect('ticket:ticket_detail', pk=self.kwargs.get("pk"))
         instances = formset.save(commit=False)
         for instance in instances:
             spare_part = SparePart.objects.get(id=instance.spare_part_id)
@@ -50,10 +50,13 @@ class SparePartAssignCreateView(LoginRequiredMixin, CreateView):
                 spare_part.save()
                 instance.save()
                 messages.success(self.request, f'Запчасти успешно назначены!')
+                return redirect('ticket:ticket_detail', pk=self.kwargs.get("pk"))
             else:
-                messages.error(self.request, f'Количество запчасти {spare_part.name} на складе : {spare_part.quantity},'
-                                             f' а вы пытаетесь назначить : {instance.quantity}')
+                messages.error(self.request,
+                               f'Количество запчасти {spare_part.name} на складе : {spare_part.quantity},'
+                               f' а вы пытаетесь назначить : {instance.quantity}')
                 return render(self.request, 'spare_part/assign_create.html', {'formset': formset})
+        messages.info(self.request, f'Запчасти назначены не были...')
         return super().form_valid(formset)
 
 
