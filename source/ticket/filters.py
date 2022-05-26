@@ -1,8 +1,8 @@
 import django_filters
 from django.forms import DateInput
-from django_filters import DateFilter
+from django_filters import DateFilter, ModelChoiceFilter
 
-from ticket.models import Ticket
+from ticket.models import Ticket, SparePartUser, User
 
 
 class TicketFilter(django_filters.FilterSet):
@@ -24,3 +24,17 @@ class TicketFilter(django_filters.FilterSet):
     def sort_by_order(self, queryset, name, value):
         expression = 'received_at' if value == 'ascending' else '-received_at'
         return queryset.order_by(expression)
+
+
+class SparePartUserFilter(django_filters.FilterSet):
+    engineer = ModelChoiceFilter(queryset=User.objects.all(), label='Назначена кому')
+
+    class Meta:
+        model = SparePartUser
+        fields = ['assigned_by', 'engineer', 'status']
+
+    def __init__(self, *args, **kwargs):
+        super(SparePartUserFilter, self).__init__(*args, **kwargs)
+        self.filters['assigned_by'].field.label_from_instance = lambda obj: obj.get_full_name
+        self.filters['engineer'].field.label_from_instance = lambda obj: obj.get_full_name
+

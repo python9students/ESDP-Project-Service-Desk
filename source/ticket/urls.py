@@ -18,12 +18,8 @@ ticket_urlpatterns = [
     path('<int:pk>/add-spare-part/', SparePartAssignCreateView.as_view(), name='spare_part_assign_create'),
 ]
 
-spare_part_urlpatterns = [
-    path('active-list/', SparePartUserListView.as_view(), name='spare_part_active_list'),
-]
-
 urlpatterns = [
     path('', TicketListView.as_view(), name='ticket_list'),
     path('ticket/', include(ticket_urlpatterns)),
-    path('spare-part/', include(spare_part_urlpatterns)),
+    path('spare-parts/', SparePartUserListView.as_view(), name='spare_parts_list'),
 ]

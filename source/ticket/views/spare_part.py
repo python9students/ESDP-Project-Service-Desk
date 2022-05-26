@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import CreateView, ListView
 
+from ticket.filters import SparePartUserFilter
 from ticket.forms import SparePartAssignForm, SparePartAssignFormSet
 from ticket.models import SparePartUser, SparePart, Ticket
 
@@ -63,10 +64,15 @@ class SparePartAssignCreateView(LoginRequiredMixin, CreateView):
 class SparePartUserListView(LoginRequiredMixin, ListView):
     model = SparePartUser
     template_name = 'spare_part/list.html'
-    context_object_name = 'active_spare_parts'
+    context_object_name = 'spare_parts'
 
     def get_queryset(self):
-        active_spare_parts = super().get_queryset().order_by('-created_at')
+        spare_parts = super().get_queryset().order_by('-created_at')
         if self.request.user.has_perm('ticket.see_engineer_tickets') and not self.request.user.is_superuser:
-            return active_spare_parts.filter(engineer=self.request.user)
-        return active_spare_parts
+            return spare_parts.filter(engineer=self.request.user)
+        return spare_parts
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['filter'] = SparePartUserFilter(self.request.GET, queryset=self.get_queryset())
+        return context

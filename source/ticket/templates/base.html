@@ -29,8 +29,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="{% url 'ticket:spare_part_active_list' %}">
-                                    Запчасти в ходу
+                                <a class="nav-link active" aria-current="page" href="{% url 'ticket:spare_parts_list' %}">
+                                    Запчасти
                                 </a>
                             </li>
                         {% if not user.groups.all.0|slugify == 'engineers' %}
