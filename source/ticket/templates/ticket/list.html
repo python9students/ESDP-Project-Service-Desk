@@ -34,7 +34,7 @@
                     <td>{{ ticket.service_object }}</td>
                     <td>{{ ticket.status }}</td>
                     <td>
-                        <div class="progress w-25">
+                        <div class="progress">
                             <div class="progress-bar progress_list" data-id="{{ ticket.id }}"
                                  data-time-url="{% url "ticket:ticket_time_bar" ticket.pk %}" role="progressbar"
                                  style=""
