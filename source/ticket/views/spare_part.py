@@ -87,6 +87,8 @@ class SparePartReturnToWarehouse(View):
             spare_part.quantity = 0
             spare_part.status = 'Возвращенный'
             spare_part.save()
+        elif spare_part.quantity == 0:
+            messages.warning(self.request, f'Невозможно вернуть на склад, так как эта запчасть уже возвращена!')
         else:
             spare_part.quantity -= 1
             spare_part.save()
