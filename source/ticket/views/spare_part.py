@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from django.views import View
 from django.views.generic import CreateView, ListView
 
 from ticket.filters import SparePartUserFilter
@@ -76,3 +77,18 @@ class SparePartUserListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(object_list=object_list, **kwargs)
         context['filter'] = SparePartUserFilter(self.request.GET, queryset=self.get_queryset())
         return context
+
+
+class SparePartReturnToWarehouse(View):
+    def get(self, request, *args, **kwargs):
+        spare_part = SparePartUser.objects.get(pk=kwargs.get('pk'))
+        spare_part_warehouse = SparePart.objects.get(pk=spare_part.spare_part.pk)
+        if spare_part.quantity == 1:
+            spare_part.quantity = 0
+            spare_part.save()
+        else:
+            spare_part.quantity -= 1
+            spare_part.save()
+        spare_part_warehouse.quantity += 1
+        spare_part_warehouse.save()
+        return redirect('ticket:spare_parts_list')

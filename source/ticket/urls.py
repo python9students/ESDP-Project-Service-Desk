@@ -4,6 +4,7 @@ from ticket.views import (TicketCreateView, TicketListView,
                           TicketCancelView, TicketCloseView,
                           ChiefInfoDetailView, SparePartUserListView,
                           SparePartAssignCreateView, TicketTimeView)
+from ticket.views.spare_part import SparePartReturnToWarehouse
 
 app_name = 'ticket'
 
@@ -16,6 +17,7 @@ ticket_urlpatterns = [
     path('chief_info/', ChiefInfoDetailView.as_view(), name='chief_info'),
     path('<int:pk>/ticket_time/', TicketTimeView.as_view(), name='ticket_time_bar'),
     path('<int:pk>/add-spare-part/', SparePartAssignCreateView.as_view(), name='spare_part_assign_create'),
+    path('<int:pk>/return-spare-part/', SparePartReturnToWarehouse.as_view(), name='spare_part_return_warehouse'),
 ]
 
 urlpatterns = [
