@@ -33,10 +33,6 @@
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                         <button type="button" class="btn btn-warning">Установить</button>
-{#                            <form action="{% url 'ticket:spare_part_return_warehouse' spare_part.pk %}" method="post">#}
-{#                              {% csrf_token %}#}
-{#                              <input type="submit" class="btn btn-success" value="Возвратить">#}
-{#                            </form>#}
                         <a href="{% url "ticket:spare_part_return_warehouse" spare_part.pk %}" class="btn btn-success">Возвратить</a>
                     </div>
                 </td>
