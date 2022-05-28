@@ -85,6 +85,7 @@ class SparePartReturnToWarehouse(View):
         spare_part_warehouse = SparePart.objects.get(pk=spare_part.spare_part.pk)
         if spare_part.quantity == 1:
             spare_part.quantity = 0
+            spare_part.status = 'Возвращенный'
             spare_part.save()
         else:
             spare_part.quantity -= 1
