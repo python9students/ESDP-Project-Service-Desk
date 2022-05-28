@@ -18,6 +18,7 @@
             <th scope="col">Назначена кому</th>
             <th scope="col">В количестве</th>
             <th scope="col">Статус</th>
+            <th scope="col">Действие</th>
         </tr>
         </thead>
         <tbody>
@@ -29,6 +30,12 @@
                 <td>{{ spare_part.engineer.last_name }} {{ spare_part.engineer.first_name }}</td>
                 <td>{{ spare_part.quantity }}</td>
                 <td>{{ spare_part.get_status_display }}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="btn btn-warning">Установить</button>
+                        <button type="button" class="btn btn-success">Возвратить</button>
+                    </div>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
