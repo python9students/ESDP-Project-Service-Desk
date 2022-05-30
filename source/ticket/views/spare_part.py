@@ -3,10 +3,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import View
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView
 
 from ticket.filters import SparePartUserFilter
-from ticket.forms import SparePartAssignForm, SparePartAssignFormSet
+from ticket.forms import SparePartAssignForm, SparePartAssignFormSet, SparePartInstall
 from ticket.models import SparePartUser, SparePart, Ticket
 
 
@@ -95,3 +95,18 @@ class SparePartReturnToWarehouse(View):
         spare_part_warehouse.quantity += 1
         spare_part_warehouse.save()
         return redirect('ticket:spare_parts_list')
+
+
+class SparePartInstallation(UpdateView):
+    model = SparePartUser
+    template_name = 'spare_part/update.html'
+    context_object_name = 'spare_part'
+    form_class = SparePartInstall
+
+    def get_success_url(self):
+        return reverse("ticket:spare_parts_list")
+
+    def form_valid(self, form):
+        if self.object.service_object:
+            self.object.status = 'Установленный'
+        return super().form_valid(form)

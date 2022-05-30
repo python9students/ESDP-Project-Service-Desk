@@ -32,7 +32,8 @@
                 <td>{{ spare_part.get_status_display }}</td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        <button type="button" class="btn btn-warning">Установить</button>
+                        <a href="{% url "ticket:spare_part_update" spare_part.pk %}" class="btn btn-warning">Установить</a>
+{#                        <a class="btn btn-warning" data-bs-target="#exampleModal" data-bs-toggle="modal">Установить</a>#}
                         <a href="{% url "ticket:spare_part_return_warehouse" spare_part.pk %}" class="btn btn-success">Возвратить</a>
                     </div>
                 </td>
@@ -43,4 +44,19 @@
         {% else %}
         <h2>Активных запчастей пока нет...</h2>
     {% endif %}
+{#    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+{#        <div class="modal-dialog">#}
+{#            <div class="modal-content">#}
+{#                  <div class="modal-header">#}
+{#                      <h5 class="modal-title" id="exampleModalLabel">Добавление объекта</h5>#}
+{#                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
+{#                  </div>#}
+{#                  <div class="modal-body">#}
+{#                      <form action="" method="post">#}
+{#                          {% include 'partial/form.html' with button_text='Устновить' %}#}
+{#                      </form>#}
+{#                  </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 {% endblock %}

@@ -126,7 +126,7 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
             'closed_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                              attrs={'type': 'datetime-local'}),
             'expected_finish_date': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                             attrs={'type': 'datetime-local'}),
+                                                        attrs={'type': 'datetime-local'}),
         }
         exclude = ("cancel_reason", "closed_at", "operator", "status", "close_commentary",)
 
@@ -216,7 +216,6 @@ class ContractAdminForm(forms.ModelForm):
 
 
 class SparePartAssignForm(forms.ModelForm):
-
     class Meta:
         model = SparePartUser
         exclude = ['created_at', 'assigned_by', 'engineer']
@@ -230,3 +229,10 @@ class SparePartUserListForm(forms.ModelForm):
     class Meta:
         model = SparePartUser
         fields = "__all__"
+
+
+class SparePartInstall(forms.ModelForm):
+    class Meta:
+        model = SparePartUser
+        fields = ['service_object']
+        exclude = ['spare_part', 'engineer', 'quantity', 'created_at', 'assigned_by', 'ticket', 'status']
