@@ -76,7 +76,7 @@
                     </ul>
                 </nav>
                     {% if ticket.description %}
-                        <li class="list-group-item">Описание: {{ ticket.description }}</li>
+                        <li class="list-group-item">Описание: <pre>{{ ticket.description }}</pre></li>
                     {% endif %}
                     <li class="list-group-item">Исполнитель: {{ ticket.executor.last_name|default:"Не указан" }}
                     {{ ticket.executor.first_name }}</li>
@@ -103,7 +103,7 @@
                     {% endif %}
                     {% if ticket.work_done %}
                         <li class="list-group-item">Проделанная работа по заявке:
-                            {{ ticket.work_done }}</li>
+                            <pre>{{ ticket.work_done }}</pre></li>
                     {% endif %}
                     <li class="list-group-item">Дата закрытия заявки:
                         {{ ticket.closed_at|default:"Еще не закрыта" }}</li>
