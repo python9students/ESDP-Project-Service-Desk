@@ -69,7 +69,8 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
                                   widget=widgets.Textarea(attrs={'class': 'form-control', 'cols': 65, 'rows': 4}),
                                   label='Описание')
     work_done = forms.CharField(required=False, max_length=1000,
-                                widget=widgets.Textarea(attrs={'cols': 59, 'rows': 4}), label='Проделанная работа')
+                                widget=widgets.Textarea(attrs={'class': 'form-control', 'cols': 65, 'rows': 4}),
+                                label='Проделанная работа')
     executor = forms.ModelChoiceField(queryset=User.objects.all(), required=False, label='Исполнитель',
                                       widget=forms.Select(attrs={'class': 'form-select form-select-sm'}))
     driver = forms.ModelChoiceField(queryset=User.objects.all(), required=False, label='Водитель',
@@ -111,6 +112,12 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
                                               attrs={'type': 'datetime-local',
                                                      'class': 'form-control form-control-sm'}),
                                           )
+    expected_finish_date = forms.DateTimeField(required=False, label='Ожидаемая дата завершения',
+                                               widget=widgets.DateTimeInput(
+                                                   format='%d/%m/%Y %H:%M',
+                                                   attrs={'type': 'datetime-local',
+                                                          'class': 'form-control form-control-sm'}),
+                                               )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -129,6 +136,8 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
                 '%Y-%m-%dT%H:%M') if self.instance.ride_started_at else None
             self.initial['ride_finished_at'] = self.instance.ride_finished_at.strftime(
                 '%Y-%m-%dT%H:%M') if self.instance.ride_finished_at else None
+            self.initial['expected_finish_date'] = self.instance.expected_finish_date.strftime(
+                '%Y-%m-%dT%H:%M') if self.instance.expected_finish_date else None
         self.fields['executor'].label_from_instance = lambda obj: "%s" % obj.get_full_name()
         self.fields['driver'].label_from_instance = lambda obj: "%s" % obj.get_full_name()
 
