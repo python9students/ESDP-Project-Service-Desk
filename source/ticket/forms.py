@@ -1,7 +1,8 @@
 from django.utils.translation import gettext as _
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
-from ticket.models import Work, ProblemArea, Ticket, ContractFiles, Contract, SparePartUser
+from ticket.models import Work, ProblemArea, Ticket, ContractFiles, Contract, SparePartUser, Client, ServiceObject, \
+    TicketPriority, TicketType, ServiceLevel, Department
 from django.forms import widgets, BaseModelForm, modelformset_factory
 from django.utils import timezone
 from mptt.forms import TreeNodeMultipleChoiceField
@@ -65,6 +66,24 @@ class TicketFormValidationMixin(BaseModelForm):
 
 
 class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
+    client = forms.ModelChoiceField(queryset=Client.objects.all(), label='Клиент',
+                                    widget=widgets.Select(attrs={'class': 'form-select form-select-sm'}))
+    service_object = forms.ModelChoiceField(queryset=ServiceObject.objects.all(), label='Объект обслуживания',
+                                            widget=widgets.Select(attrs={'class': 'form-select form-select-sm'}))
+    priority = forms.ModelChoiceField(queryset=TicketPriority.objects.all(), label='Приоритет',
+                                      widget=widgets.Select(attrs={'class': 'form-select form-select-sm'}))
+    type = forms.ModelChoiceField(queryset=TicketType.objects.all(), label='Тип заявки',
+                                  widget=widgets.Select(attrs={'class': 'form-select form-select-sm'}))
+    service_level = forms.ModelChoiceField(queryset=ServiceLevel.objects.all(), label='Уровень обслуживания',
+                                           widget=widgets.Select(attrs={'class': 'form-select form-select-sm'}))
+    department = forms.ModelChoiceField(queryset=Department.objects.all(), label='Департамент',
+                                        widget=widgets.Select(attrs={'class': 'form-select form-select-sm'}))
+    received_at = forms.DateTimeField(label='Дата получения заявки',
+                                      widget=widgets.DateTimeInput(
+                                          format='%d/%m/%Y %H:%M',
+                                          attrs={'type': 'datetime-local',
+                                                 'class': 'form-control form-control-sm'}),
+                                      )
     description = forms.CharField(required=False, max_length=1000,
                                   widget=widgets.Textarea(attrs={'class': 'form-control', 'cols': 65, 'rows': 4}),
                                   label='Описание')
@@ -143,51 +162,10 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
 
     class Meta:
         model = Ticket
-        widgets = {
-            'client': forms.Select(attrs={'class': 'form-select form-select-sm'}),
-            'service_object': forms.Select(attrs={'class': 'form-select form-select-sm'}),
-            'priority': forms.Select(attrs={'class': 'form-select form-select-sm'}),
-            'type': forms.Select(attrs={'class': 'form-select form-select-sm'}),
-            'service_level': forms.Select(attrs={'class': 'form-select form-select-sm'}),
-            'department': forms.Select(attrs={'class': 'form-select form-select-sm'}),
-            'received_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                               attrs={'type': 'datetime-local',
-                                                      'class': 'form-control form-control-sm'}),
-            'closed_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                             attrs={'type': 'datetime-local'}),
-            'expected_finish_date': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                        attrs={'type': 'datetime-local'}),
-        }
         exclude = ("cancel_reason", "closed_at", "operator", "status", "close_commentary",)
 
 
-class EngineerForm(forms.ModelForm, TicketFormValidationMixin):
-    description = forms.CharField(required=False, max_length=1000,
-                                  widget=widgets.Textarea(attrs={'cols': 59, 'rows': 4}), label='Описание')
-    work_done = forms.CharField(required=False, max_length=1000,
-                                widget=widgets.Textarea(attrs={'cols': 59, 'rows': 4}), label='Проделанная работа')
-    works = TreeNodeMultipleChoiceField(queryset=Work.objects.all(),
-                                        widget=widgets.SelectMultiple(attrs={'size': 20}),
-                                        label='Работы')
-    problem_areas = TreeNodeMultipleChoiceField(queryset=ProblemArea.objects.all(),
-                                                widget=widgets.SelectMultiple(attrs={'size': 20}),
-                                                label='Проблемные области')
-    work_started_at = forms.DateTimeField(required=False, label='Дата начала работ',
-                                          widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                                       attrs={'type': 'datetime-local'}),
-                                          )
-    work_finished_at = forms.DateTimeField(required=False, label='Дата окончания работ',
-                                           widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                                        attrs={'type': 'datetime-local'}),
-                                           )
-    ride_finished_at = forms.DateTimeField(required=False, label='Дата окончания поездки',
-                                           widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                                        attrs={'type': 'datetime-local'}),
-                                           )
-    desired_to = forms.DateTimeField(required=False, label='Желаемая дата исполнения',
-                                     widget=widgets.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                                  attrs={'type': 'datetime-local'}),
-                                     )
+class EngineerForm(ChiefForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -196,23 +174,9 @@ class EngineerForm(forms.ModelForm, TicketFormValidationMixin):
         for field in fields:
             self.fields[field].disabled = True
 
-        if self.instance:
-            self.initial['work_started_at'] = self.instance.work_started_at.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.work_started_at else None
-            self.initial['work_finished_at'] = self.instance.work_finished_at.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.work_finished_at else None
-            self.initial['ride_started_at'] = self.instance.ride_started_at.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.ride_started_at else None
-            self.initial['ride_finished_at'] = self.instance.ride_finished_at.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.ride_finished_at else None
-
     class Meta:
         model = Ticket
         exclude = ("cancel_reason", "executor.last_name", "driver", "close_commentary", "closed_at")
-        widgets = {
-            'ride_started_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
-                                                   attrs={'type': 'datetime-local'}),
-        }
 
 
 class TicketCancelForm(forms.ModelForm):
