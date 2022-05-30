@@ -69,7 +69,7 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
                                   widget=widgets.Textarea(attrs={'class': 'form-control', 'cols': 65, 'rows': 4}),
                                   label='Описание')
     work_done = forms.CharField(required=False, max_length=1000,
-                                widget=widgets.Textarea(attrs={'cols': 65, 'rows': 4}), label='Проделанная работа')
+                                widget=widgets.Textarea(attrs={'cols': 59, 'rows': 4}), label='Проделанная работа')
     executor = forms.ModelChoiceField(queryset=User.objects.all(), required=False, label='Исполнитель',
                                       widget=forms.Select(attrs={'class': 'form-select form-select-sm'}))
     driver = forms.ModelChoiceField(queryset=User.objects.all(), required=False, label='Водитель',
@@ -144,15 +144,19 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
             'received_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                                attrs={'type': 'datetime-local',
                                                       'class': 'form-control form-control-sm'}),
+            'closed_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
+                                             attrs={'type': 'datetime-local'}),
+            'expected_finish_date': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
+                                                        attrs={'type': 'datetime-local'}),
         }
         exclude = ("cancel_reason", "closed_at", "operator", "status", "close_commentary",)
 
 
 class EngineerForm(forms.ModelForm, TicketFormValidationMixin):
     description = forms.CharField(required=False, max_length=1000,
-                                  widget=widgets.Textarea(attrs={'cols': 65, 'rows': 4}), label='Описание')
+                                  widget=widgets.Textarea(attrs={'cols': 59, 'rows': 4}), label='Описание')
     work_done = forms.CharField(required=False, max_length=1000,
-                                widget=widgets.Textarea(attrs={'cols': 65, 'rows': 4}), label='Проделанная работа')
+                                widget=widgets.Textarea(attrs={'cols': 59, 'rows': 4}), label='Проделанная работа')
     works = TreeNodeMultipleChoiceField(queryset=Work.objects.all(),
                                         widget=widgets.SelectMultiple(attrs={'size': 20}),
                                         label='Работы')
@@ -179,7 +183,7 @@ class EngineerForm(forms.ModelForm, TicketFormValidationMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         fields = ['client', 'service_object', 'priority', 'type', 'status', 'service_level', 'department',
-                  'received_at', 'desired_to', 'operator', 'description', 'closed_at']
+                  'received_at', 'desired_to', 'operator', 'description']
         for field in fields:
             self.fields[field].disabled = True
 
@@ -195,7 +199,7 @@ class EngineerForm(forms.ModelForm, TicketFormValidationMixin):
 
     class Meta:
         model = Ticket
-        exclude = ("cancel_reason", "executor.last_name", "driver", "close_commentary",)
+        exclude = ("cancel_reason", "executor.last_name", "driver", "close_commentary", "closed_at")
         widgets = {
             'ride_started_at': forms.DateTimeInput(format='%d/%m/%Y %H:%M',
                                                    attrs={'type': 'datetime-local'}),
@@ -233,21 +237,23 @@ class ContractAdminForm(forms.ModelForm):
 
 
 class SparePartAssignForm(forms.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['engineer'].label_from_instance = lambda obj: "%s" % obj.get_full_name()
-
     class Meta:
         model = SparePartUser
-        exclude = ['created_at', 'assigned_by']
+        exclude = ['created_at', 'assigned_by', 'engineer']
 
 
 SparePartAssignFormSet = modelformset_factory(SparePartUser, form=SparePartAssignForm,
-                                              fields=['spare_part', 'engineer', 'quantity'], extra=6)
+                                              fields=['spare_part', 'quantity'], extra=6)
 
 
 class SparePartUserListForm(forms.ModelForm):
     class Meta:
         model = SparePartUser
         fields = "__all__"
+
+
+class SparePartInstall(forms.ModelForm):
+    class Meta:
+        model = SparePartUser
+        fields = ['service_object']
+        exclude = ['spare_part', 'engineer', 'quantity', 'created_at', 'assigned_by', 'ticket', 'status']

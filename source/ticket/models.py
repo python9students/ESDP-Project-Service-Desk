@@ -6,8 +6,6 @@ from django.db import models
 
 User = get_user_model()
 
-SPARE_PART_CHOICES = [('pc', 'шт'), ('unit', 'узел')]
-
 
 class CompanyType(models.Model):
     """
@@ -173,6 +171,7 @@ class ServiceObject(models.Model):
     time_to_fix_problem = models.DurationField(verbose_name='Время на устранение проблемы', null=True, blank=True,
                                                default=None)
 
+
     def __str__(self):
         return f'{self.serial_number}'
 
@@ -336,6 +335,7 @@ class Ticket(models.Model):
     cancel_reason = models.CharField(max_length=255, verbose_name='Причина отмены заявки')
     close_commentary = models.CharField(max_length=255, blank=True, verbose_name='Комментарий к закрытию заявки')
     work_done = models.TextField(max_length=1000, blank=True, verbose_name='Проделанная работа')
+    expected_finish_date = models.DateTimeField(null=True, default=None, verbose_name='Ожидаемая дата завершения')
 
     def __str__(self):
         return f'Заявка-{self.received_at.strftime("%Y%m%d-%H%M%S")}'
@@ -429,6 +429,8 @@ class SparePart(models.Model):
     """
     Модель для добавления Запчастей
     """
+    SPARE_PART_CHOICES = [('pc', 'шт'), ('unit', 'узел')]
+
     serial_number = models.CharField(max_length=100, unique=True, verbose_name='Серийный №')
     name = models.CharField(max_length=100, verbose_name='Название')
     product_code = models.CharField(max_length=100, verbose_name='Код продукта')
@@ -475,12 +477,19 @@ class SupplierCompany(models.Model):
 
 
 class SparePartUser(models.Model):
+    SPARE_PART_STATUS_CHOICES = [('assigned', 'Назначенный'), ('set', 'Установленный'), ('returned', 'Возвращенный')]
+
     spare_part = models.ForeignKey('ticket.SparePart', on_delete=models.PROTECT, verbose_name='Запчасть')
     engineer = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Назначить на')
     quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата назначения запчасти")
     assigned_by = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Назначен кем',
                                     related_name='assigned_spare_parts')
+    ticket = models.ForeignKey('ticket.Ticket', null=True, on_delete=models.PROTECT, verbose_name='Заявка')
+    service_object = models.ForeignKey('ticket.ServiceObject', null=True, on_delete=models.PROTECT,
+                                       verbose_name='Сервисный объект')
+    status = models.CharField(max_length=20, choices=SPARE_PART_STATUS_CHOICES, default='assigned',
+                              verbose_name='Статус')
 
     def __str__(self):
         return f'{self.engineer} - {self.spare_part.name} - {self.quantity}'

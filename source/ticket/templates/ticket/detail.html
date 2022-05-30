@@ -5,6 +5,7 @@
 {% block content %}
     <div class="mt-2">
         <a href="{% url "ticket:ticket_update" ticket.id %}" class="btn btn-primary">Редактировать</a>
+        <a href="{% url "ticket:spare_part_assign_create" ticket.id %}" class="btn btn-info">Назначить запчасти</a>
         {% if not ticket_canceled and is_chief %}
             <a class="btn btn-danger" href="{% url 'ticket:ticket_cancel' ticket.pk %}">Отменить заявку</a>
         {% endif %}
@@ -79,6 +80,9 @@
                     {% endif %}
                     <li class="list-group-item">Исполнитель: {{ ticket.executor.last_name|default:"Не указан" }}
                     {{ ticket.executor.first_name }}</li>
+                {% for ti in ticket.sparepartuser_set.all  %}
+                <li class="list-group-item">Запчасть: {{ ti.spare_part }} - Колличество: {{ ti.quantity }}</li>
+                {% endfor %}
                     <li class="list-group-item">Водитель: {{ ticket.driver.last_name|default:"Не указан" }}
                      {{ ticket.driver.first_name }}</li>
                     <li class="list-group-item">Дата начала работ:
@@ -103,8 +107,8 @@
                     {% endif %}
                     <li class="list-group-item">Дата закрытия заявки:
                         {{ ticket.closed_at|default:"Еще не закрыта" }}</li>
-                    <li class="list-group-item" id="expected_time">Оставшееся время оканчания
-                        работы: {{ time_difference }}</li>
+                    <li class="list-group-item" id="expected_time">Оставшееся время окончания
+                        работы: {{ time_difference }} рабочих часов</li>
                     <li class="list-group-item" id="remaining_time">Дата окончания
                         работы: {{ expected_time_to_finish }}</li>
                 </ul>
@@ -113,12 +117,12 @@
                     <ul class="list-group">
                         <li class="list-group-item">
                             <div class="progress w-25">
-                                <div class="progress-bar bg-success" id="progress_bar" data-id="{{ ticket.id }}"
+                                <div class="progress-bar" id="progress_bar" data-id="{{ ticket.id }}"
                                      data-time-url="{% url "ticket:ticket_time_bar" ticket.pk %}" role="progressbar"
                                      style=""
                                      aria-valuenow="25"
                                      aria-valuemin="0"
-                                     aria-valuemax="100">
+                                     aria-valuemax="100">{{ time_difference }}
                                 </div>
                             </div>
                         </li>
@@ -127,6 +131,7 @@
 
             </div>
         </div>
+
     </div>
     <br>
 <script type="text/javascript" src="{% static 'js/works_and_problems.js' %}"></script>

@@ -3,10 +3,10 @@
 {% block content %}
     <br>
 
-{#    <form class="form-control" method="get">#}
-{#    {{ filter.form }}#}
-{#    <button class="btn btn-success btn-sm" type="submit">поиск</button>#}
-{#    </form>#}
+    <form class="form-control" method="get">
+    {{ filter.form }}
+    <button class="btn btn-success btn-sm" type="submit">поиск</button>
+    </form>
 
     {% if object_list %}
     <table class="table table-hover">
@@ -17,16 +17,26 @@
             <th scope="col">Назначена кем</th>
             <th scope="col">Назначена кому</th>
             <th scope="col">В количестве</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Действие</th>
         </tr>
         </thead>
         <tbody>
-         {% for active_part in active_spare_parts %}
+         {% for spare_part in filter.qs %}
             <tr>
-                <td >{{ active_part.spare_part }}</td>
-                <td>{{ active_part.created_at }}</td>
-                <td>{{ active_part.assigned_by.last_name }} {{ active_part.assigned_by.first_name }}</td>
-                <td>{{ active_part.engineer.last_name }} {{ active_part.engineer.first_name }}</td>
-                <td>{{ active_part.quantity }}</td>
+                <td >{{ spare_part.spare_part }}</td>
+                <td>{{ spare_part.created_at }}</td>
+                <td>{{ spare_part.assigned_by.last_name }} {{ spare_part.assigned_by.first_name }}</td>
+                <td>{{ spare_part.engineer.last_name }} {{ spare_part.engineer.first_name }}</td>
+                <td>{{ spare_part.quantity }}</td>
+                <td>{{ spare_part.get_status_display }}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <a href="{% url "ticket:spare_part_update" spare_part.pk %}" class="btn btn-warning">Установить</a>
+{#                        <a class="btn btn-warning" data-bs-target="#exampleModal" data-bs-toggle="modal">Установить</a>#}
+                        <a href="{% url "ticket:spare_part_return_warehouse" spare_part.pk %}" class="btn btn-success">Возвратить</a>
+                    </div>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
@@ -34,4 +44,19 @@
         {% else %}
         <h2>Активных запчастей пока нет...</h2>
     {% endif %}
+{#    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+{#        <div class="modal-dialog">#}
+{#            <div class="modal-content">#}
+{#                  <div class="modal-header">#}
+{#                      <h5 class="modal-title" id="exampleModalLabel">Добавление объекта</h5>#}
+{#                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
+{#                  </div>#}
+{#                  <div class="modal-body">#}
+{#                      <form action="" method="post">#}
+{#                          {% include 'partial/form.html' with button_text='Устновить' %}#}
+{#                      </form>#}
+{#                  </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 {% endblock %}
