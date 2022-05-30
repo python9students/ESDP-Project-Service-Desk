@@ -1914,31 +1914,139 @@
     "service_object": 11,
     "priority": 1,
     "type": 2,
-    "status": 3,
+    "status": 6,
     "service_level": 1,
     "department": 1,
     "created_at": "2022-05-25T15:43:27.182Z",
-    "updated_at": "2022-05-25T15:43:27.204Z",
-    "received_at": "2022-05-25T02:00:00Z",
+    "updated_at": "2022-05-30T08:48:25.962Z",
+    "received_at": "2022-05-24T20:00:00Z",
     "desired_to": null,
     "operator": 4,
     "description": "",
     "executor": 1,
-    "driver": null,
+    "driver": 1,
     "closed_at": null,
     "ride_started_at": null,
     "work_started_at": null,
     "work_finished_at": null,
-    "ride_finished_at": "2022-05-26T12:00:00Z",
+    "ride_finished_at": "2022-05-26T06:00:00Z",
     "cancel_reason": "",
     "close_commentary": "",
     "work_done": "",
-    "expected_finish_date": "2022-05-26T12:00:00Z",
+    "expected_finish_date": "2022-05-31T08:48:00Z",
     "works": [
       5
     ],
     "problem_areas": [
       6
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 30,
+  "fields": {
+    "client": 3,
+    "service_object": 7,
+    "priority": 3,
+    "type": 1,
+    "status": 6,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-30T08:50:11.656Z",
+    "updated_at": "2022-05-30T09:10:20.953Z",
+    "received_at": "2022-05-30T02:49:00Z",
+    "desired_to": null,
+    "operator": 4,
+    "description": "",
+    "executor": 5,
+    "driver": 5,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "work_done": "",
+    "expected_finish_date": "2022-06-01T09:10:00Z",
+    "works": [
+      4
+    ],
+    "problem_areas": [
+      5
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 31,
+  "fields": {
+    "client": 2,
+    "service_object": 2,
+    "priority": 3,
+    "type": 1,
+    "status": 2,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-05-30T12:11:45.724Z",
+    "updated_at": "2022-05-30T14:45:34.323Z",
+    "received_at": "2022-05-29T06:10:00Z",
+    "desired_to": null,
+    "operator": 4,
+    "description": "задача для теста.\r\nпосмотрим что выйдет\r\nпишу на разных строках текст должен сохранить свои переносы",
+    "executor": 7,
+    "driver": 7,
+    "closed_at": null,
+    "ride_started_at": "2022-05-28T02:43:00Z",
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "work_done": "",
+    "expected_finish_date": "2022-05-27T18:33:00Z",
+    "works": [
+      8
+    ],
+    "problem_areas": [
+      9
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 32,
+  "fields": {
+    "client": 2,
+    "service_object": 2,
+    "priority": 1,
+    "type": 1,
+    "status": 3,
+    "service_level": 2,
+    "department": 1,
+    "created_at": "2022-05-30T14:42:51.844Z",
+    "updated_at": "2022-05-30T14:42:51.866Z",
+    "received_at": "2022-05-30T14:42:00Z",
+    "desired_to": null,
+    "operator": 4,
+    "description": "",
+    "executor": null,
+    "driver": null,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "work_done": "",
+    "expected_finish_date": null,
+    "works": [
+      10
+    ],
+    "problem_areas": [
+      9
     ]
   }
 },
@@ -2028,7 +2136,7 @@
     "serial_number": "sn123456789",
     "name": "CardReader132",
     "product_code": "178920",
-    "quantity": 4,
+    "quantity": 9,
     "measure_unit": "pc",
     "created_at": "2022-05-19T07:33:30.708Z",
     "condition": 1,
@@ -2089,20 +2197,6 @@
   "pk": 2,
   "fields": {
     "name": "Huawei"
-  }
-},
-{
-  "model": "ticket.sparepartuser",
-  "pk": 18,
-  "fields": {
-    "spare_part": 2,
-    "engineer": 5,
-    "quantity": 4,
-    "created_at": "2022-05-20T08:27:06.574Z",
-    "assigned_by": 4,
-    "ticket": null,
-    "service_object": null,
-    "status": "assigned"
   }
 },
 {

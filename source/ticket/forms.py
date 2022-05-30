@@ -170,13 +170,13 @@ class EngineerForm(ChiefForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         fields = ['client', 'service_object', 'priority', 'type', 'status', 'service_level', 'department',
-                  'received_at', 'desired_to', 'operator', 'description']
+                  'received_at', 'desired_to', 'operator', 'description', 'executor', 'driver', 'expected_finish_date']
         for field in fields:
             self.fields[field].disabled = True
 
     class Meta:
         model = Ticket
-        exclude = ("cancel_reason", "executor.last_name", "driver", "close_commentary", "closed_at")
+        exclude = ("cancel_reason", "close_commentary", "closed_at")
 
 
 class TicketCancelForm(forms.ModelForm):
