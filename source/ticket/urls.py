@@ -4,7 +4,7 @@ from ticket.views import (TicketCreateView, TicketListView,
                           TicketCancelView, TicketCloseView,
                           ChiefInfoDetailView, SparePartUserListView,
                           SparePartAssignCreateView, TicketTimeView)
-from ticket.views.spare_part import SparePartReturnToWarehouse, SparePartInstallation
+from ticket.views.spare_part import SparePartReturnToWarehouse, SparePartInstallation, SparePartUpdateView
 
 app_name = 'ticket'
 
@@ -25,4 +25,5 @@ urlpatterns = [
     path('', TicketListView.as_view(), name='ticket_list'),
     path('ticket/', include(ticket_urlpatterns)),
     path('spare-parts/', SparePartUserListView.as_view(), name='spare_parts_list'),
+    path('spare-part/<int:pk>/update/', SparePartUpdateView.as_view(), name='spare_part_update_view'),
 ]
