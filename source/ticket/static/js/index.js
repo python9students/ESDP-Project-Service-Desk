@@ -35,8 +35,9 @@ async function ProgressBar() {
     let remaining_percentage = 100 - percentage
     let progress_bar_tag = document.getElementById("progress_bar")
     progress_bar_tag.style = `width: ${remaining_percentage}%`
-    if (remaining_percentage > 80) {
+    if (remaining_percentage > 100) {
         progress_bar_tag.style.background = 'red';
+        progress_bar_tag.textContent = "-" + progress_bar_tag.textContent;
     }else{
         progress_bar_tag.style.background = 'green'
     }
@@ -57,12 +58,12 @@ function msToTime(duration) {
 }
 
 
-if (document.getElementsByClassName('progress-bar')) {
+if (document.getElementsByClassName('progress-bar progress_list')) {
     window.addEventListener('load', ProgressBarList)
 }
 
 async function ProgressBarList() {
-    let progress_list = document.getElementsByClassName('progress-bar')
+    let progress_list = document.getElementsByClassName('progress-bar progress_list')
     for (i = 0; i < progress_list.length; i++) {
         let url = progress_list[i].dataset.timeUrl
         let data = await make_request(url)
@@ -82,7 +83,8 @@ async function ProgressBarList() {
         progress_list[i].style = `width: ${remaining_percentage}%`
 
         if(remaining_percentage > 80){
-        progress_list[i].style.background = "red"
+        progress_list[i].style.background = "red";
+        progress_list[i].textContent = "-" + progress_list[i].textContent;
         }else {
             progress_list[i].style.background = "green"
         }
