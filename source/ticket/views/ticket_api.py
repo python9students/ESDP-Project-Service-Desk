@@ -1,10 +1,8 @@
-from datetime import datetime, timezone
-import json
+from datetime import datetime
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
 from django.views import View
 
-from ticket.models import ServiceObject, Ticket
+from ticket.models import Ticket
 
 
 class TicketTimeView(View):

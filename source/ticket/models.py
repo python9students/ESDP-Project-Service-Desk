@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 from django.db import models
+import datetime, businesstimedelta, pytz
 
 User = get_user_model()
 
@@ -341,6 +342,21 @@ class Ticket(models.Model):
 
     def get_absolute_url(self):
         return reverse('ticket:ticket_detail', kwargs={'pk': self.pk})
+
+    @property
+    def buisnesstimedelta_function(self):
+        if self.expected_finish_date:
+            workday = businesstimedelta.WorkDayRule(
+                start_time=datetime.time(9),
+                end_time=datetime.time(18),
+                working_days=[0, 1, 2, 3, 4],
+                tz=pytz.timezone('Asia/Bishkek'))
+            businesshrs = businesstimedelta.Rules([workday])
+            time_difference = businesshrs.difference(datetime.datetime.now(), self.expected_finish_date)
+            return time_difference.hours
+        else:
+            return ""
+
 
     class Meta:
         verbose_name = 'Заявка'

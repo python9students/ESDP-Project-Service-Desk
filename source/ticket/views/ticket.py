@@ -1,20 +1,15 @@
-import businesstimedelta
-import pytz
-from dateutil.tz import tz
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
-from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
-import datetime
-from pytz import timezone
-
 from ticket.filters import TicketFilter
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
 from ticket.models import Ticket, TicketStatus, ServiceObject
 from django.urls import reverse
+
+from ticket.views.ticket_custom_datetime_functions import buisnesstimedelta_function
 
 User = get_user_model()
 
@@ -84,10 +79,7 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        UTC = timezone('Asia/Bishkek')
-        received_date = tz.tzlocal()
         ticket = Ticket.objects.get(pk=self.kwargs.get('pk'))
-        service_object = ServiceObject.objects.get(serial_number=ticket.service_object)
         ticket_canceled = False
         ticket_closed = False
         is_chief = False
@@ -102,14 +94,16 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
             ticket_closed = True
         if ticket.expected_finish_date:
             '''Устанавливаю правило рабочего дня чтобы получить разницу между начальным и финальнымы днями'''
-            workday = businesstimedelta.WorkDayRule(
-                start_time=datetime.time(9),
-                end_time=datetime.time(18),
-                working_days=[0, 1, 2, 3, 4],
-                tz=pytz.timezone('Asia/Bishkek'))
-            businesshrs = businesstimedelta.Rules([workday])
+            time_difference = buisnesstimedelta_function(ticket)
+            # workday = businesstimedelta.WorkDayRule(
+            #     start_time=datetime.time(9),
+            #     end_time=datetime.time(18),
+            #     working_days=[0, 1, 2, 3, 4],
+            #     tz=pytz.timezone('Asia/Bishkek'))
+            # businesshrs = businesstimedelta.Rules([workday])
+            # expected_time_to_finish = ticket.expected_finish_date
+            # time_difference = businesshrs.difference(datetime.datetime.now(), expected_time_to_finish)
             expected_time_to_finish = ticket.expected_finish_date
-            time_difference = businesshrs.difference(datetime.datetime.now(), expected_time_to_finish)
             context['time_difference'] = time_difference.hours
             context['expected_time_to_finish'] = expected_time_to_finish
         context['ticket_canceled'] = ticket_canceled
