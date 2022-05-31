@@ -20,6 +20,7 @@ class TicketFormValidationMixin(BaseModelForm):
         work_finished_at = cleaned_data['work_finished_at']
         ride_started_at = cleaned_data['ride_started_at']
         ride_finished_at = cleaned_data['ride_finished_at']
+        expected_finish_date = cleaned_data['expected_finish_date']
 
         if received_at and received_at > timezone.now():
             self.add_error('received_at',
@@ -67,6 +68,12 @@ class TicketFormValidationMixin(BaseModelForm):
                 self.add_error('ride_started_at',
                                ValidationError("Дата начала поездки не может быть раньше даты получения заявки"))
                 self.fields['ride_started_at'].widget.attrs.update({'style': 'border-color:red;'})
+        if expected_finish_date and received_at:
+            if expected_finish_date < received_at:
+                self.add_error('expected_finish_date',
+                               ValidationError(
+                                   "Ожидаемая дата завершения не может быть раньше даты получения заявки"))
+                self.fields['expected_finish_date'].widget.attrs.update({'style': 'border-color:red;'})
         return cleaned_data
 
 
