@@ -62,6 +62,11 @@ class TicketFormValidationMixin(BaseModelForm):
                 self.add_error('ride_finished_at',
                                ValidationError("Дата окончания поездки не может быть раньше начала работ"))
                 self.fields['ride_finished_at'].widget.attrs.update({'style': 'border-color:red;'})
+        if ride_started_at and received_at:
+            if ride_started_at < received_at:
+                self.add_error('ride_started_at',
+                               ValidationError("Дата начала поездки не может быть раньше даты получения заявки"))
+                self.fields['ride_started_at'].widget.attrs.update({'style': 'border-color:red;'})
         return cleaned_data
 
 
