@@ -1,9 +1,10 @@
+{% load mptt_tags %}
 {% if not fields_only %}
     {% csrf_token %}
 {% endif %}
 <div class="row justify-content-between">
-        <p class="text-success bg-dark">Оператор:</p>
-        <div class="col-md-6">
+    <p class="text-success bg-dark">Оператор:</p>
+    <div class="col-md-6">
         <label for="{{ form.client.id_for_label }}">{{ form.client.label }}</label>{{ form.client }}
         <label for="{{ form.service_object.id_for_label }}">{{ form.service_object.label }}</label>{{ form.service_object }}
         <label for="{{ form.priority.id_for_label }}">{{ form.priority.label }}</label>{{ form.priority }}
@@ -12,20 +13,73 @@
         <label for="{{ form.department.id_for_label }}">{{ form.department.label }}</label>{{ form.department }}
         <label for="{{ form.received_at.id_for_label }}">{{ form.received_at.label }}</label>{{ form.received_at }}
         {% for error in form.received_at.errors %}
-        <p class="text-danger">{{ error }}</p>
+            <p class="text-danger">{{ error }}</p>
         {% endfor %}
         <label for="{{ form.desired_to.id_for_label }}">{{ form.desired_to.label }}</label>{{ form.desired_to }}
         {% for error in form.desired_to.errors %}
-        <p class="text-danger">{{ error }}</p>
+            <p class="text-danger">{{ error }}</p>
         {% endfor %}
-        </div>
-        <div class="col-md-6">
-        <label for="{{ form.works.id_for_label }}">{{ form.works.label }}</label>{{ form.works }}
-        <label for="{{ form.problem_areas.id_for_label }}">{{ form.problem_areas.label }}</label>{{ form.problem_areas }}
-        <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>{{ form.description }}
-        </div>
     </div>
-    <br>
+    <div class="col-md-6">
+        <label for="{{ form.works.id_for_label }}">{{ form.works.label }}</label>
+        <div class="form-select" style="max-height: 15rem; overflow-y: auto">
+            {% recursetree works %}
+                <li style="list-style: none">
+                    {% if node.is_leaf_node %}
+                        <label for="works-{{ node.id }}">
+                            <input type="checkbox" name="works" value="{{ node.id }}" id="works-{{ node.id }}"
+                                   {% if node in form.initial.works %}checked{% endif %}>
+                            {{ node.name }}</label>
+                    {% else %}
+                        <a role="button" data-bs-toggle="collapse" data-parent="#accordion"
+                           href="#collapse-work-{{ node.id }}"
+                           aria-expanded="true" aria-controls="collapsed" style="text-decoration: none; color: #000000">
+                            {{ node.name }}</a>
+                    {% endif %}
+                    {% if not node.is_leaf_node %}
+                        <ul class="children">
+                            <div id="collapse-work-{{ node.id }}" class="collapse" role="tabpanel"
+                                 aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    {{ children }}
+                                </div>
+                            </div>
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endrecursetree %}
+        </div>
+        <label for="{{ form.problem_areas.id_for_label }}">{{ form.problem_areas.label }}</label>
+        <div class="form-select" style="max-height: 15rem; overflow-y: auto">
+            {% recursetree problem_areas %}
+                <li style="list-style: none">
+                    {% if node.is_leaf_node %}
+                        <label for="problem-{{ node.id }}">
+                            <input type="checkbox" name="problem_areas" value="{{ node.id }}" id="problem-{{ node.id }}"
+                                   {% if node in form.initial.problem_areas %}checked{% endif %}>
+                            {{ node.name }}</label>
+                    {% else %}
+                        <a role="button" data-bs-toggle="collapse" data-parent="#accordion"
+                           href="#collapse-problem-{{ node.id }}"
+                           aria-expanded="true" aria-controls="collapsed" style="text-decoration: none; color: #000000">
+                            {{ node.name }}</a>
+                    {% endif %}
+                    {% if not node.is_leaf_node %}
+                        <ul class="children">
+                            <div id="collapse-problem-{{ node.id }}" class="collapse" role="tabpanel"
+                                 aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    {{ children }}  </div>
+                            </div>
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endrecursetree %}
+        </div>
+        <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>{{ form.description }}
+    </div>
+</div>
+<br>
 <div class="row justify-content-between">
     <div class="col-md-6">
         <p class="text-danger bg-dark">Начальник:</p>
@@ -33,31 +87,31 @@
         <label for="{{ form.driver.id_for_label }}">{{ form.driver.label }}</label>{{ form.driver }}
         <label for="{{ form.expected_finish_date.id_for_label }}">{{ form.expected_finish_date.label }}</label>{{ form.expected_finish_date }}
         {% for error in form.expected_finish_date.errors %}
-        <p class="text-danger">{{ error }}</p>
+            <p class="text-danger">{{ error }}</p>
         {% endfor %}
     </div>
     <div class="col-md-6">
         <p class="text-warning bg-dark">Инженер:</p>
-         <label for="{{ form.ride_started_at.id_for_label }}">{{ form.ride_started_at.label }}</label>{{ form.ride_started_at }}
+        <label for="{{ form.ride_started_at.id_for_label }}">{{ form.ride_started_at.label }}</label>{{ form.ride_started_at }}
         {% for error in form.ride_started_at.errors %}
-        <p class="text-danger">{{ error }}</p>
+            <p class="text-danger">{{ error }}</p>
         {% endfor %}
         <label for="{{ form.work_started_at.id_for_label }}">{{ form.work_started_at.label }}</label>{{ form.work_started_at }}
         {% for error in form.work_started_at.errors %}
-        <p class="text-danger">{{ error }}</p>
+            <p class="text-danger">{{ error }}</p>
         {% endfor %}
         <label for="{{ form.work_finished_at.id_for_label }}">{{ form.work_finished_at.label }}</label>{{ form.work_finished_at }}
         {% for error in form.work_finished_at.errors %}
-        <p class="text-danger">{{ error }}</p>
+            <p class="text-danger">{{ error }}</p>
         {% endfor %}
         <label for="{{ form.ride_finished_at.id_for_label }}">{{ form.ride_finished_at.label }}</label>{{ form.ride_finished_at }}
         {% for error in form.ride_finished_at.errors %}
-        <p class="text-danger">{{ error }}</p>
+            <p class="text-danger">{{ error }}</p>
         {% endfor %}
-         <label for="{{ form.work_done.id_for_label }}">{{ form.work_done.label }}</label>{{ form.work_done }}
+        <label for="{{ form.work_done.id_for_label }}">{{ form.work_done.label }}</label>{{ form.work_done }}
     </div>
 </div>
 
 {% if not fields_only %}
-    <input type="submit" class="btn btn-success mt-3" value={{ button_text|default:"Сохранить" }} >
+    <input type="submit" class="btn btn-success mt-3" value={{ button_text|default:"Сохранить" }}>
 {% endif %}
