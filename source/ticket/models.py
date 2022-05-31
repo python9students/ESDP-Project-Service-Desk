@@ -477,8 +477,7 @@ class SupplierCompany(models.Model):
 
 
 class SparePartUser(models.Model):
-    DEFAULT_CATEGORY = "Назначенный"
-    SPARE_PART_STATUS_CHOICES = [(DEFAULT_CATEGORY, 'Назначенный'), ('set', 'Установленный'),
+    SPARE_PART_STATUS_CHOICES = [('assigned', 'Назначенный'), ('set', 'Установленный'),
                                  ('returned', 'Возвращенный')]
 
     spare_part = models.ForeignKey('ticket.SparePart', on_delete=models.PROTECT, verbose_name='Запчасть')
@@ -490,7 +489,7 @@ class SparePartUser(models.Model):
     ticket = models.ForeignKey('ticket.Ticket', null=True, on_delete=models.PROTECT, verbose_name='Заявка')
     service_object = models.ForeignKey('ticket.ServiceObject', null=True, on_delete=models.PROTECT,
                                        verbose_name='Сервисный объект')
-    status = models.CharField(max_length=20, choices=SPARE_PART_STATUS_CHOICES, default=DEFAULT_CATEGORY,
+    status = models.CharField(max_length=20, choices=SPARE_PART_STATUS_CHOICES, default='assigned',
                               verbose_name='Статус')
 
     def __str__(self):
