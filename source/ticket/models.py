@@ -499,3 +499,5 @@ class SparePartUser(models.Model):
         verbose_name = 'Передача запчасти инженеру'
         verbose_name_plural = 'Передача запчастей инженеру'
         db_table = 'Spare_part_user'
+        permissions = [("see_engineer_spare_parts",
+                        "Может видеть только запчасти со статусами Назначенный, Установленный")]

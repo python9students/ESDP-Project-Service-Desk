@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import View
@@ -69,8 +70,11 @@ class SparePartUserListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         spare_parts = super().get_queryset().order_by('-created_at')
-        if self.request.user.has_perm('ticket.see_engineer_tickets') and not self.request.user.is_superuser:
-            return spare_parts.filter(engineer=self.request.user)
+        query = Q(status="assigned") | Q(status="set")
+        if self.request.user.has_perm('ticket.see_engineer_tickets') and \
+                self.request.user.has_perm('ticket.see_engineer_spare_parts')\
+                and not self.request.user.is_superuser:
+            return spare_parts.filter(engineer=self.request.user).filter(query)
         return spare_parts
 
     def get_context_data(self, *, object_list=None, **kwargs):
