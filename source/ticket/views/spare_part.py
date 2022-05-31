@@ -85,7 +85,7 @@ class SparePartReturnToWarehouse(View):
         spare_part_warehouse = SparePart.objects.get(pk=spare_part.spare_part.pk)
         if spare_part.quantity == 1:
             spare_part.quantity = 0
-            spare_part.status = 'Возвращенный'
+            spare_part.status = 'returned'
             spare_part.save()
         elif spare_part.quantity == 0:
             messages.warning(self.request, f'Невозможно вернуть на склад, так как эта запчасть уже возвращена!')
@@ -108,5 +108,5 @@ class SparePartInstallation(UpdateView):
 
     def form_valid(self, form):
         if self.object.service_object:
-            self.object.status = 'Установленный'
+            self.object.status = 'set'
         return super().form_valid(form)
