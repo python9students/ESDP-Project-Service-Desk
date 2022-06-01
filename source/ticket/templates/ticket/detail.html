@@ -5,8 +5,6 @@
 {% block content %}
     <div class="mt-2">
         <a href="{% url "ticket:ticket_update" ticket.id %}" class="btn btn-primary">Редактировать</a>
-        {{ ticket.id }}
-        <a href="{% url "ticket:spare_part_update_view" ticket.id %}" class="btn btn-primary">Отредактировать назначенные запчасти</a>
         <a href="{% url "ticket:spare_part_assign_create" ticket.id %}" class="btn btn-info">Назначить запчасти</a>
         {% if not ticket_canceled and is_chief %}
             <a class="btn btn-danger" href="{% url 'ticket:ticket_cancel' ticket.pk %}">Отменить заявку</a>

@@ -22,7 +22,7 @@ class SparePartAssignCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         ticket = get_object_or_404(Ticket, pk=self.kwargs.get("pk"))
         context = super(SparePartAssignCreateView, self).get_context_data(**kwargs)
-        context['formset'] = SparePartAssignFormSet(queryset=SparePartUser.objects.none())
+        context['formset'] = SparePartAssignFormSet(queryset=SparePartUser.objects.filter(ticket_id=ticket.id, engineer_id=ticket.executor))
         context['ticket'] = ticket
         return context
 
@@ -114,56 +114,3 @@ class SparePartInstallation(UpdateView):
         if self.object.service_object:
             self.object.status = 'set'
         return super().form_valid(form)
-
-
-class SparePartUpdateView(LoginRequiredMixin, UpdateView):
-    model = SparePartUser
-    template_name = 'ticket/ticket_spare_part_update.html'
-    form_class = SparePartAssignForm
-
-    def get_success_url(self):
-        return reverse("ticket:ticket_detail", kwargs={"pk": self.kwargs.get("pk")})
-
-    def get_context_data(self, **kwargs):
-        ticket = get_object_or_404(Ticket, pk=self.kwargs.get("pk"))
-        context = super(SparePartUpdateView, self).get_context_data(**kwargs)
-        print(SparePartUser.objects.filter(engineer_id=ticket.executor))
-        context['formset'] = SparePartAssignFormSet(queryset=SparePartUser.objects.filter(ticket_id=ticket.id, engineer_id=ticket.executor))
-        context['ticket'] = ticket
-        return context
-
-    def post(self, request, *args, **kwargs):
-        formset = SparePartAssignFormSet(request.POST)
-        if formset.is_valid():
-            return self.form_valid(formset)
-        else:
-            return render(request, 'spare_part/assign_create.html', {'formset': formset})
-
-    def form_valid(self, formset):
-        ticket = get_object_or_404(Ticket, pk=self.kwargs.get("pk"))
-        if not ticket.executor:
-            messages.info(self.request, f'У этой заявки еще не назначен инженер, назначьте инженера и '
-                                        f'возвращайтесь назначать запчасти')
-            return redirect('ticket:ticket_detail', pk=self.kwargs.get("pk"))
-        instances = formset.save(commit=False)
-        for instance in instances:
-            spare_part = SparePart.objects.get(id=instance.spare_part_id)
-            if instance.quantity == 0:
-                messages.warning(self.request, f'Вы не можете назначить запчастей в количестве: 0')
-                return render(self.request, 'spare_part/assign_create.html', {'formset': formset})
-            elif spare_part.quantity > 0 and spare_part.quantity >= instance.quantity:
-                instance.assigned_by = self.request.user
-                instance.ticket = ticket
-                instance.engineer = ticket.executor
-                spare_part.quantity -= instance.quantity
-                spare_part.save()
-                instance.save()
-                messages.success(self.request, f'Запчасти успешно назначены!')
-                return redirect('ticket:ticket_detail', pk=self.kwargs.get("pk"))
-            else:
-                messages.error(self.request,
-                               f'Количество запчасти {spare_part.name} на складе : {spare_part.quantity},'
-                               f' а вы пытаетесь назначить : {instance.quantity}')
-                return render(self.request, 'spare_part/assign_create.html', {'formset': formset})
-        messages.info(self.request, f'Запчасти назначены не были...')
-        return super().form_valid(formset)
