@@ -3,123 +3,27 @@
 {% load mptt_tags %}
 {% block title %}Заявка{% endblock %}
 {% block content %}
-    <div>
-        <h3>Водители:</h3>
-        <div class="row jus-content-between">
-            <div class="col-12">
-                <ul class="list-group">
-                    <nav id="nav">
-                        <ul class="ul-list">
-                            <li>
-                                {% for ticket in driver_tickets %}
-                                    <a href="#"><i
-                                            class="bi bi-plus-circle pe-5 ps-3"></i>{{ ticket.driver.first_name }} {{ ticket.driver.last_name }}
-                                        - колличество заявок: {{ driver_tickets.count }}
-                                    </a>
-                                {% endfor %}
-                                <ul>
-                                    <table class="table table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Заявка</th>
-                                            <th scope="col">Дата получения</th>
-                                            <th scope="col">Клиент</th>
-                                            <th scope="col">Объект</th>
-                                            <th scope="col">Статус</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for ticket in driver_tickets %}
-                                            <tr>
-                                                <td class="{% if ticket.priority|capfirst == 'Высокий' %}
-                table-danger
-                {% else %}
-                table-warning
-                {% endif %}"><a href="{% url 'ticket:ticket_detail' ticket.pk %}">
-                                                    Заявка-{{ ticket.received_at|date:"Ymd-His"}}</a></td>
-                                                <td>{{ ticket.received_at }}</td>
-                                                <td>{{ ticket.client }}</td>
-                                                <td>{{ ticket.service_object }}</td>
-                                                <td>{{ ticket.status }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                    <li>
-                                        {{ node.name }}
-                                        {% if not node.is_leaf_node %}
-                                            <ul class="children">
-                                                {{ children }}
-                                            </ul>
-                                            </li>
-                                            </ul>
-                                            </li>
-                                            </ul>
-                                        {% endif %}
-                    </nav>
-                </ul><br>
+    <h2>Водители:</h2>
+    {% for dr_ticket in driver_tickets %}
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    {{ dr_ticket.driver.last_name }} {{ dr_ticket.driver.first_name }}
+                </button>
+
+            </h2>
+
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                 data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate
+                    the <code>.accordion-flush</code> class. This is the first item's accordion body.
+                </div>
             </div>
         </div>
     </div>
+    {% endfor %}
     <br><br>
-    <div>
-        <h3>Исполнители:</h3>
-            <div class="row jus-content-between">
-                <div class="col-12">
-                    <ul class="list-group">
-                        <nav id="nav">
-                            <ul class="ul-list">
-                                <li>
-                                {% for ticket in executor_tickets %}
-                                    <a href="#"><i
-                                            class="bi bi-plus-circle pe-5 ps-3"></i>{{ ticket.executor.first_name }} {{ ticket.executor.last_name }}
-                                        - колличество заявок: {{ executor_tickets.count }}
-                                    </a>
-                                {% endfor %}
-                                    <ul>
-                                        <table class="table table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th scope="col">Заявка</th>
-                                                <th scope="col">Дата получения</th>
-                                                <th scope="col">Клиент</th>
-                                                <th scope="col">Объект</th>
-                                                <th scope="col">Статус</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% for ticket in executor_tickets %}
-                                                <tr>
-                                                    <td class="{% if ticket.priority|capfirst == 'Высокий' %}
-                table-danger
-                {% else %}
-                table-warning
-                {% endif %}"><a href="{% url 'ticket:ticket_detail' ticket.pk %}">
-                                                        Заявка-{{ ticket.received_at|date:"Ymd-His"}}</a></td>
-                                                    <td>{{ ticket.received_at }}</td>
-                                                    <td>{{ ticket.client }}</td>
-                                                    <td>{{ ticket.service_object }}</td>
-                                                    <td>{{ ticket.status }}</td>
-                                                </tr>
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
-                                        <li>
-                                            {{ node.name }}
-                                            {% if not node.is_leaf_node %}
-                                                <ul class="children">
-                                                    {{ children }}
-                                                </ul>
-                                            {% endif %}
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </ul>
-                </div>
-            </div>
-    </div>
-    <br>
-    <script type="text/javascript" src="{% static 'js/works_and_problems.js' %}"></script>
+
 {% endblock %}
