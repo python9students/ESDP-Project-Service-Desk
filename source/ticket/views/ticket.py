@@ -2,12 +2,19 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
-from django.db.models import Q
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
+from django.contrib.auth import get_user_model
+from django.db.models import Q
 from ticket.filters import TicketFilter
+from ticket.models import Ticket, TicketStatus, ServiceObject, Work, ProblemArea
+from django.utils import timezone
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
-from ticket.models import Ticket, TicketStatus, ServiceObject
 from django.urls import reverse
+from dateutil.tz import tz
+from pytz import timezone
+import businesstimedelta
+import datetime
+import pytz
 
 from ticket.views.ticket_custom_datetime_functions import buisnesstimedelta_function
 
@@ -58,6 +65,9 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         if "form" not in kwargs:
             kwargs["form"] = self.get_form()
         kwargs['service_objects'] = list(ServiceObject.objects.all().values('id', 'serial_number', 'client_id'))
+        kwargs['works'] = Work.objects.all()
+        kwargs['problem_areas'] = ProblemArea.objects.all()
+
         return super().get_context_data(**kwargs)
 
     def get_success_url(self):
@@ -144,6 +154,8 @@ class TicketUpdateView(LoginRequiredMixin, UpdateView):
             kwargs["form"] = self.get_form()
             kwargs["form"].fields['service_object'].queryset = self.object.client.service_objects.all()
         kwargs['service_objects'] = list(ServiceObject.objects.all().values('id', 'serial_number', 'client_id'))
+        kwargs['works'] = Work.objects.all()
+        kwargs['problem_areas'] = ProblemArea.objects.all()
         return super().get_context_data(**kwargs)
 
 

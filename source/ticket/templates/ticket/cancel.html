@@ -5,7 +5,7 @@
     <br>
     <h1>Укажите причину отмены!</h1>
     <form action="{% url "ticket:ticket_cancel" ticket.pk %}" method="post">
-        {% include 'partial/form.html' with button_text="Сохранить" %}
+        {% include 'partial/auto_form.html' with button_text="Сохранить" %}
     </form>
     <br>
     <p><a href="{% url "ticket:ticket_detail" ticket.pk %}" class="btn btn-primary" style="float: left">Не отменять
