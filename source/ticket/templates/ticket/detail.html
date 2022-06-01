@@ -109,9 +109,7 @@
                     {% endif %}
                     <li class="list-group-item">Дата закрытия заявки:
                         {{ ticket.closed_at|default:"Еще не закрыта" }}</li>
-                    <li class="list-group-item" id="expected_time">Оставшееся время окончания
-                        работы: {{ time_difference }} рабочих часов</li>
-                    <li class="list-group-item" id="remaining_time">Дата окончания
+                    <li class="list-group-item" id="remaining_time">Ожидаемая дата окончания
                         работы: {{ expected_time_to_finish }}</li>
                 </ul>
 
@@ -124,7 +122,7 @@
                                      style=""
                                      aria-valuenow="25"
                                      aria-valuemin="0"
-                                     aria-valuemax="100">{{ time_difference }}
+                                     aria-valuemax="100">{{ time_difference }} раб.час
                                 </div>
                             </div>
                         </li>

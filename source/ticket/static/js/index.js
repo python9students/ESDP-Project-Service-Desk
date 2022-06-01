@@ -82,14 +82,16 @@ async function ProgressBarList() {
         let remaining_percentage = 100 - percentage
         progress_list[i].style = `width: ${remaining_percentage}%`
 
-        if(remaining_percentage > 80){
+        if(remaining_percentage > 90){
         progress_list[i].style.background = "red";
-        progress_list[i].textContent = "-" + progress_list[i].textContent;
-        }else {
-            progress_list[i].style.background = "green"
+        progress_list[i].textContent = "-" + progress_list[i].textContent + "раб.час";
+        }else if(remaining_percentage > 0.1){
+                progress_list[i].style.background = "green"
+                progress_list[i].textContent = progress_list[i].textContent + "раб.час"
+            }
+
         }
 
-    }
 }
 
 
