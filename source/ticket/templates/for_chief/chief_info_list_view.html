@@ -3,27 +3,43 @@
 {% load mptt_tags %}
 {% block title %}Заявка{% endblock %}
 {% block content %}
-    <h2>Водители:</h2>
-    {% for dr_ticket in driver_tickets %}
-    <div class="accordion accordion-flush" id="accordionFlushExample">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                    {{ dr_ticket.driver.last_name }} {{ dr_ticket.driver.first_name }}
-                </button>
+    {#    <h2>Водители:</h2>#}
+    {#    {% for username in usernames %}#}
+    {#    <div class="accordion accordion-flush" id="accordionFlushExample">#}
+    {#        <div class="accordion-item">#}
+    {#            <h2 class="accordion-header" id="flush-headingOne">#}
+    {#                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"#}
+    {#                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">#}
+    {#                    {{ username.first_name }} {{ username.last_name }} Количество:#}
+    {#                </button>#}
+    {##}
+    {#            </h2>#}
+    {#        {% for ticket in tickets %}#}
+    {#            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"#}
+    {#                 data-bs-parent="#accordionFlushExample">#}
+    {#                <div class="accordion-body"> {% if ticket.driver.last_name in username.last_name %}Hello{% else %} {% endif %}#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            {% endfor %}#}
+    {#        </div>#}
+    {#    </div>#}
+    {#    {% endfor %}#}
+    {#    <br><br>#}
 
-            </h2>
 
-            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-                 data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate
-                    the <code>.accordion-flush</code> class. This is the first item's accordion body.
-                </div>
-            </div>
-        </div>
-    </div>
+<h1>Водители</h1>
+    {% for username in usernames %}
+        {{ username.first_name }} {{ username.last_name }} <br>
+        {% for ticket in tickets %}
+            {% if ticket.driver.last_name in username.last_name %}{{ ticket.status }} <br>{% endif %}
+        {% endfor %}
     {% endfor %}
-    <br><br>
 
+    <h1>Исполнители</h1>
+    {% for username in usernames %}
+        {{ username.first_name }} {{ username.last_name }} <br>
+        {% for ticket in tickets %}
+            {% if ticket.executor.last_name in username.last_name %}{{ ticket.status }} <br>{% endif %}
+        {% endfor %}
+    {% endfor %}
 {% endblock %}
