@@ -29,7 +29,7 @@ pip install -r requirements.txt
 
 Загрузите фикстурные статьи командой
 ```bash
-./manage.py loaddata fixtures/auth_dump.json
+./manage.py loaddata fixtures/auth.json
 ./manage.py loaddata fixtures/dump.json
 ```
 
