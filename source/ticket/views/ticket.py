@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
@@ -7,14 +6,9 @@ from django.contrib.auth import get_user_model
 from django.db.models import Q
 from ticket.filters import TicketFilter
 from ticket.models import Ticket, TicketStatus, ServiceObject, Work, ProblemArea
-from django.utils import timezone
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
 from django.urls import reverse
-from dateutil.tz import tz
-from pytz import timezone
-import businesstimedelta
-import datetime
-import pytz
+
 
 from ticket.views.ticket_custom_datetime_functions import buisnesstimedelta_function
 
@@ -105,14 +99,6 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
         if ticket.expected_finish_date:
             '''Устанавливаю правило рабочего дня чтобы получить разницу между начальным и финальнымы днями'''
             time_difference = buisnesstimedelta_function(ticket)
-            # workday = businesstimedelta.WorkDayRule(
-            #     start_time=datetime.time(9),
-            #     end_time=datetime.time(18),
-            #     working_days=[0, 1, 2, 3, 4],
-            #     tz=pytz.timezone('Asia/Bishkek'))
-            # businesshrs = businesstimedelta.Rules([workday])
-            # expected_time_to_finish = ticket.expected_finish_date
-            # time_difference = businesshrs.difference(datetime.datetime.now(), expected_time_to_finish)
             expected_time_to_finish = ticket.expected_finish_date
             context['time_difference'] = time_difference.hours
             context['expected_time_to_finish'] = expected_time_to_finish
