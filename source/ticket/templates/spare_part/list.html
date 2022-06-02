@@ -22,7 +22,7 @@
         </tr>
         </thead>
         <tbody>
-         {% for spare_part in filter.qs %}
+         {% for spare_part in spare_parts|dictsort:"id" reversed %}
             <tr>
                 <td >{{ spare_part.spare_part }}</td>
                 <td>{{ spare_part.created_at }}</td>
@@ -43,5 +43,7 @@
         {% else %}
         <h2>Активных запчастей пока нет...</h2>
     {% endif %}
-
+    {% if is_paginated %}
+        {% include 'partial/pagination_spare_part.html' %}
+    {% endif %}
 {% endblock %}
