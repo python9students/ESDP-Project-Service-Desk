@@ -10,9 +10,7 @@ from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 import datetime
 from pytz import timezone
-from rest_framework.views import APIView
 
-from serializers import TicketsSerializer
 from ticket.filters import TicketFilter
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
 from ticket.models import Ticket, TicketStatus, ServiceObject
@@ -199,7 +197,7 @@ class ChiefInfoDetailView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        tickets_driver = Ticket.objects.values('driver')
+        tickets_driver = Ticket.objects.values('driver', 'executor')
         usernames = User.objects.filter(id__in=tickets_driver).values('id', 'last_name', 'first_name')
         tickets = Ticket.objects.filter((Q(status__name="На исполнении") | Q(status__name='Назначенный')))
         print(tickets_driver)
