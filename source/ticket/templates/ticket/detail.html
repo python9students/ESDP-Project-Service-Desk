@@ -15,114 +15,16 @@
         {% endif %}
     </div>
 
-    {#                    <li class="list-group-item">Тип заявки: {{ ticket.type }}</li>#}
-    {#                    <nav id="nav">#}
-    {#                    <ul class="ul-list">#}
-    {#                        <li>#}
-    {#                            <a href="#"><i class="bi bi-plus-circle pe-1"></i>Работы</a>#}
-    {#                            <ul>#}
-    {#                                {% recursetree ticket.works.all %}#}
-    {#                                    <li>#}
-    {#                                        {{ node.name }}#}
-    {#                                        {% if not node.is_leaf_node %}#}
-    {#                                            <ul class="children">#}
-    {#                                                {{ children }}#}
-    {#                                            </ul>#}
-    {#                                        {% endif %}#}
-    {#                                    </li>#}
-    {#                                {% endrecursetree %}#}
-    {#                            </ul>#}
-    {#                        </li>#}
-    {#                    </ul>#}
-    {#                    </nav>#}
-    {#                </ul>#}
-    {#            </div>#}
-    {#            <div class="col-6">#}
-    {#                <ul class="list-group">#}
-    {#                <nav id="nav">#}
-    {#                    <ul class="ul-list">#}
-    {#                        <li>#}
-    {#                            <a href="#"><i class="bi bi-plus-circle pe-1"></i>Проблемная область</a>#}
-    {#                            <ul>#}
-    {#                                {% recursetree ticket.problem_areas.all %}#}
-    {#                                    <li>#}
-    {#                                        {{ node.name }}#}
-    {#                                        {% if not node.is_leaf_node %}#}
-    {#                                            <ul class="children">#}
-    {#                                                {{ children }}#}
-    {#                                            </ul>#}
-    {#                                        {% endif %}#}
-    {#                                    </li>#}
-    {#                                {% endrecursetree %}#}
-    {#                            </ul>#}
-    {#                        </li>#}
-    {#                    </ul>#}
-    {#                </nav>#}
-    {#                    {% if ticket.description %}#}
-    {#                        <li class="list-group-item">Описание: <pre>{{ ticket.description }}</pre></li>#}
-    {#                    {% endif %}#}
-    {#                    <li class="list-group-item">Исполнитель: {{ ticket.executor.last_name|default:"Не указан" }}#}
-    {#                    {{ ticket.executor.first_name }}</li>#}
-    {#                {% for ti in ticket.sparepartuser_set.all  %}#}
-    {#                <li class="list-group-item">Запчасть: {{ ti.spare_part }} - Колличество: {{ ti.quantity }}</li>#}
-    {#                {% endfor %}#}
-    {#                    <li class="list-group-item">Водитель: {{ ticket.driver.last_name|default:"Не указан" }}#}
-    {#                     {{ ticket.driver.first_name }}</li>#}
-    {#                    <li class="list-group-item">Дата начала работ:#}
-    {#                        {{ ticket.work_started_at|default:"Не указана" }}</li>#}
-    {#                    <li class="list-group-item">Дата окончания работ:#}
-    {#                        {{ ticket.work_finished_at|default:"Не указана" }}</li>#}
-    {#                    <li class="list-group-item">Дата начала поездки:#}
-    {#                        {{ ticket.ride_started_at|default:"Не указана" }}</li>#}
-    {#                    <li class="list-group-item">Дата окончания поездки:#}
-    {#                        {{ ticket.ride_finished_at|default:"Не указана" }}</li>#}
-    {#                    {% if ticket.cancel_reason %}#}
-    {#                        <li class="list-group-item">Причина отмены заявки:#}
-    {#                            {{ ticket.cancel_reason }}</li>#}
-    {#                    {% endif %}#}
-    {#                    {% if ticket.close_commentary %}#}
-    {#                        <li class="list-group-item">Комментарий к закрытию заявки:#}
-    {#                            {{ ticket.close_commentary }}</li>#}
-    {#                    {% endif %}#}
-    {#                    {% if ticket.work_done %}#}
-    {#                        <li class="list-group-item">Проделанная работа по заявке:#}
-    {#                            <pre>{{ ticket.work_done }}</pre></li>#}
-    {#                    {% endif %}#}
-    {#                    <li class="list-group-item">Дата закрытия заявки:#}
-    {#                        {{ ticket.closed_at|default:"Еще не закрыта" }}</li>#}
-    {#                    <li class="list-group-item" id="remaining_time">Ожидаемая дата окончания#}
-    {#                        работы: {{ expected_time_to_finish }}</li>#}
-    {#                </ul>#}
-    {##}
-    {#                {% if time_difference %}#}
-    {#                    <ul class="list-group">#}
-    {#                        <li class="list-group-item">#}
-    {#                            <div class="progress w-25">#}
-    {#                                <div class="progress-bar" id="progress_bar" data-id="{{ ticket.id }}"#}
-    {#                                     data-time-url="{% url "ticket:ticket_time_bar" ticket.pk %}" role="progressbar"#}
-    {#                                     style=""#}
-    {#                                     aria-valuenow="25"#}
-    {#                                     aria-valuemin="0"#}
-    {#                                     aria-valuemax="100">{{ time_difference }} раб.час#}
-    {#                                </div>#}
-    {#                            </div>#}
-    {#                        </li>#}
-    {#                    </ul>#}
-    {#                {% endif %}#}
-    {##}
-    {#            </div>#}
-    {#        </div>#}
-    {##}
-    {#    </div>#}
-
     <div class="py-2" id="icon-grid">
         <div class="alert alert-light fs-4 mb-0 text-dark" role="alert">
-            Заявка-{{ ticket.received_at|date:"Ymd-His" }}
+            Заявка-{{ ticket.received_at|date:"Ymd-His" }} <span class="text-muted">*{{ ticket.type }}*</span>
             <p class="text-muted" style="font-size: 12px">создана: {{ ticket.created_at }} &
                 автор: {{ ticket.operator.get_full_name }}</p>
         </div>
+
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-2">
-            <div class="col d-flex align-items-start">
+
+            <div class="col d-flex align-items-start mt-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
                      class="bi bi-pc text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
                     <path d="M5 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H5Zm.5 14a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1Zm2 0a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1ZM5 1.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5ZM5.5 3h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1Z"/>
@@ -130,11 +32,75 @@
                 <div>
                     <h5 class="fw-bold mb-0">Объект обслуживания</h5>
                     <p style="white-space: pre-line">{{ ticket.service_object }}
-                        Адрес: {{ ticket.service_object.address|default:"Не указан" }}</p>
+                        ({{ ticket.service_object.client.short_name }})
+                        {{ ticket.service_object.address|default:"Не указан" }}</p>
                 </div>
             </div>
 
-            <div class="col d-flex align-items-start">
+            <div class="col d-flex align-items-start mt-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
+                     class="bi bi-pc-display text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
+                    <path d="M8 1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V1Zm1 13.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0Zm2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0ZM9.5 1a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5ZM9 3.5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5ZM1.5 2A1.5 1.5 0 0 0 0 3.5v7A1.5 1.5 0 0 0 1.5 12H6v2h-.5a.5.5 0 0 0 0 1H7v-4H1.5a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5H7V2H1.5Z"/>
+                </svg>
+                <div>
+                    <h5 class="fw-bold mb-0">Работы и дефекты</h5>
+                    <ul>
+                        {% recursetree ticket.works.all %}
+                            <li>
+                                {{ node.name }}
+                                {% if not node.is_leaf_node %}
+                                    <ul class="children">
+                                        {{ children }}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endrecursetree %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col d-flex align-items-start mt-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
+                     class="bi bi-hdd-network text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
+                    <path d="M4.5 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zM3 4.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
+                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8.5v3a1.5 1.5 0 0 1 1.5 1.5h5.5a.5.5 0 0 1 0 1H10A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5H.5a.5.5 0 0 1 0-1H6A1.5 1.5 0 0 1 7.5 10V7H2a2 2 0 0 1-2-2V4zm1 0v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1zm6 7.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5z"/>
+                </svg>
+                <div>
+                    <h5 class="fw-bold mb-0">Проблемные области</h5>
+                    <ul>
+                        {% recursetree ticket.problem_areas.all %}
+                            <li>
+                                {{ node.name }}
+                                {% if not node.is_leaf_node %}
+                                    <ul class="children">
+                                        {{ children }}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endrecursetree %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col d-flex align-items-start mt-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
+                     class="bi bi-tools text-muted flex-shrink-0 me-3"
+                     viewBox="0 0 16 16">
+                    <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0Zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708ZM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11Z"/>
+                </svg>
+                <div>
+                    <h5 class="fw-bold mb-0">Запчасти</h5>
+                    <ul>
+                        {% for sp in ticket.sparepartuser_set.all %}
+                            <li>
+                                {{ sp.spare_part }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col d-flex align-items-start mt-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
                      class="bi bi-graph-up-arrow text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
@@ -151,7 +117,7 @@
                 </div>
             </div>
 
-            <div class="col d-flex align-items-start">
+            <div class="col d-flex align-items-start mt-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
                      class="bi bi-list-stars text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
@@ -164,10 +130,7 @@
                 </div>
             </div>
 
-            <div class="col d-flex align-items-start">
-                <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-                    <use xlink:href="#home"></use>
-                </svg>
+            <div class="col d-flex align-items-start mt-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
                      class="bi bi-lightning-charge text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
                     <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z"/>
@@ -194,71 +157,172 @@
                 </div>
             </div>
 
-            <div class="col d-flex align-items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
-                     class="bi bi-calendar3 text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
-                    <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
-                    <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-                </svg>
-                <div>
-                    <h5 class="fw-bold mb-0">Дата получения заявки</h5>
-                    <p>{{ ticket.received_at }}</p>
-                </div>
-            </div>
-
-            {% if ticket.desired_to %}
-                <div class="col d-flex align-items-start">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
-                         class="bi bi-calendar3 text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
-                        <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
-                        <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-                    </svg>
-                    <div>
-                        <h5 class="fw-bold mb-0">Желаемая дата исполнения</h5>
-                        <p>{{ ticket.desired_to }}</p>
-                    </div>
-                </div>
-            {% endif %}
-
-            <div class="col d-flex align-items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
-                     class="bi bi-hash text-muted flex-shrink-0 me-3"
-                     viewBox="0 0 16 16">
-                    <path d="M8.39 12.648a1.32 1.32 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1.06 1.06 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.512.512 0 0 0-.523-.516.539.539 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532 0 .312.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531 0 .313.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242l-.515 2.492zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z"/>
-                </svg>
-                <div>
-                    <h5 class="fw-bold mb-0">Тип заявки</h5>
-                    <p>{{ ticket.type }}</p>
-                </div>
-            </div>
-
-            <div class="col d-flex align-items-start">
+            <div class="col d-flex align-items-start mt-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
                      class="bi bi-person-square text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                     <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"/>
                 </svg>
                 <div>
-                    <h5 class="fw-bold mb-0">Назначенный инженер</h5>
-                    <p>{{ ticket.executor.get_full_name|default:"Не назначен" }}</p>
-                </div>
-            </div>
-
-            <div class="col d-flex align-items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
-                     class="bi bi-person-square text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
-                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"/>
-                </svg>
-                <div>
-                    <h5 class="fw-bold mb-0">Назначенный водитель</h5>
-                    <p>{{ ticket.driver.get_full_name|default:"Не назначен" }}</p>
+                    <h5 class="fw-bold mb-0">Исполнители</h5>
+                    <p style="white-space: pre-line">Инженер: {{ ticket.executor.get_full_name|default:"Не назначен" }}
+                        Водитель: {{ ticket.driver.get_full_name|default:"Не назначен" }}
+                    </p>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <script type="text/javascript" src="{% static 'js/works_and_problems.js' %}"></script>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 py-2 row-cols-lg-4">
+        <div class="col mt-3">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-calendar3 me-2 mt-1" viewBox="0 0 16 16">
+                        <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                        <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                    </svg>
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Дата получения заявки</div>
+                        {{ ticket.received_at }}
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-calendar3 me-2 mt-1" viewBox="0 0 16 16">
+                        <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                        <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                    </svg>
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Дата закрытия заявки</div>
+                        {{ ticket.closed_at|default:'пока не закрыта' }}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col mt-3">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-calendar3 me-2 mt-1" viewBox="0 0 16 16">
+                        <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                        <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                    </svg>
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Желаемая дата исполнения</div>
+                        {{ ticket.desired_to|default:'не указана' }}
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-calendar3 me-2 mt-1" viewBox="0 0 16 16">
+                        <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                        <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                    </svg>
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Закончить до</div>
+                        {{ ticket.expected_finish_date|default:'не указана' }}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col mt-3">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-calendar3 me-2 mt-1" viewBox="0 0 16 16">
+                        <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                        <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                    </svg>
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Дата начала поездки</div>
+                        {{ ticket.ride_started_at|default:'не указана' }}
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-calendar3 me-2 mt-1" viewBox="0 0 16 16">
+                        <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                        <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                    </svg>
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Дата окончания поездки</div>
+                        {{ ticket.ride_finished_at|default:'не указана' }}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col mt-3">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-calendar3 me-2 mt-1" viewBox="0 0 16 16">
+                        <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                        <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                    </svg>
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Дата начала работ</div>
+                        {{ ticket.work_started_at|default:'не указана' }}
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-calendar3 me-2 mt-1" viewBox="0 0 16 16">
+                        <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                        <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                    </svg>
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Дата окончания работ</div>
+                        {{ ticket.work_finished_at|default:'не указана' }}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+     {% if time_difference %}
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="progress w-100">
+                    <div class="progress-bar" id="progress_bar" data-id="{{ ticket.id }}"
+                         data-time-url="{% url "ticket:ticket_time_bar" ticket.pk %}" role="progressbar"
+                         style=""
+                         aria-valuenow="25"
+                         aria-valuemin="0"
+                         aria-valuemax="100">{{ time_difference }} раб.час
+                    </div>
+                </div>
+            </li>
+        </ul>
+    {% endif %}
+
+    <div class="row row-cols-1 row-cols-sm-2 g-4 py-2" style="margin-left: 1px; margin-right: 1px">
+        {% if ticket.description %}
+            <div class="col alert alert-primary" role="alert">
+                <h5 class="alert-heading">Описание заявки</h5>
+                <pre>{{ ticket.description }}</pre>
+            </div>
+        {% endif %}
+        {% if ticket.work_done %}
+            <div class="col alert alert-success" role="alert">
+                <h5 class="alert-heading">Проделанные работы</h5>
+                <pre>{{ ticket.work_done }}</pre>
+            </div>
+        {% endif %}
+        {% if ticket.cancel_reason %}
+            <div class="col alert alert-danger" role="alert">
+                <h5 class="alert-heading">Причина отмены заявки</h5>
+                <pre>{{ ticket.cancel_reason }}</pre>
+            </div>
+        {% endif %}
+        {% if ticket.close_commentary %}
+            <div class="col alert alert-dark" role="alert">
+                <h5 class="alert-heading">Комментарий к закрытой заявке</h5>
+                <pre>{{ ticket.close_commentary }}</pre>
+            </div>
+        {% endif %}
+    </div>
+
 {% endblock %}
 

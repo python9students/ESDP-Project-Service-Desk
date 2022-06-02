@@ -41,11 +41,11 @@
                         {% elif ticket.status.name == 'Исполненный'%}
                         <span class="badge rounded-pill bg-success">{{ ticket.status }}</span>
                         {% elif ticket.status.name == 'Неопределенный'%}
-                        <span class="badge rounded-pill bg-danger">{{ ticket.status }}</span>
+                        <span class="badge rounded-pill bg-secondary">{{ ticket.status }}</span>
                         {% elif ticket.status.name == 'Завершенный'%}
                         <span class="badge rounded-pill bg-dark">{{ ticket.status }}</span>
                         {% elif ticket.status.name == 'Отмененный'%}
-                        <span class="badge rounded-pill bg-secondary">{{ ticket.status }}</span>
+                        <span class="badge rounded-pill bg-danger">{{ ticket.status }}</span>
                     {% else %}
                         {{ ticket.status }}
                     {% endif %}
