@@ -189,7 +189,7 @@ class ChiefInfoDetailView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        tickets_driver = Ticket.objects.values('driver', 'executor')
+        tickets_driver = Ticket.objects.values('driver')
         usernames = User.objects.filter(id__in=tickets_driver).values('id', 'last_name', 'first_name')
         tickets = Ticket.objects.filter((Q(status__name="На исполнении") | Q(status__name='Назначенный')))
         print(tickets_driver)
