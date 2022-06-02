@@ -10,7 +10,7 @@
             <a class="btn btn-danger" href="{% url 'ticket:ticket_cancel' ticket.pk %}">Отменить заявку</a>
         {% endif %}
         {% if not ticket_closed and is_chief %}
-            <a class="btn btn-warning" href="{% url 'ticket:ticket_close' ticket.pk %}">Закрыть заявку</a>
+            <a class="btn btn-dark" href="{% url 'ticket:ticket_close' ticket.pk %}">Закрыть заявку</a>
         {% endif %}
         <br><br>
     </div>

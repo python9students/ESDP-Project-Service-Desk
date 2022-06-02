@@ -197,12 +197,20 @@ class EngineerForm(ChiefForm):
 
 
 class TicketCancelForm(forms.ModelForm):
+    cancel_reason = forms.CharField(max_length=1000,
+                                    widget=widgets.TextInput(attrs={'class': 'form-control'}),
+                                    label='Причина отмены')
+
     class Meta:
         model = Ticket
         fields = ("cancel_reason",)
 
 
 class TicketCloseForm(forms.ModelForm):
+    close_commentary = forms.CharField(required=False, max_length=1000,
+                                       widget=widgets.TextInput(attrs={'class': 'form-control'}),
+                                       label='Комментарий к закрытию')
+
     class Meta:
         model = Ticket
         fields = ("close_commentary",)
