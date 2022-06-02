@@ -2,6 +2,7 @@
 {% load static %}
 {% load mptt_tags %}
 {% block title %}Заявка{% endblock %}
+
 {% block content %}
     <div class="mt-2">
         <a href="{% url "ticket:ticket_update" ticket.id %}" class="btn btn-primary">Редактировать</a>
@@ -12,125 +13,252 @@
         {% if not ticket_closed and is_chief %}
             <a class="btn btn-warning" href="{% url 'ticket:ticket_close' ticket.pk %}">Закрыть заявку</a>
         {% endif %}
-        <br><br>
     </div>
-    <div>
-        <h4>Заявка-{{ ticket.received_at|date:"Ymd-His"}}</h4>
-        <div class="row justify-content-between">
-            <div class="col-6">
-                <ul class="list-group">
-                    <li class="list-group-item">Оператор заполнивший
-                        заявку: {{ ticket.operator.first_name }} {{ ticket.operator.last_name }}</li>
-                    <li class="list-group-item">Объект обслуживания: {{ ticket.service_object }}</li>
-                    <li class="list-group-item">Приоритет: {{ ticket.priority }}</li>
-                    <li class="list-group-item">Тип заявки: {{ ticket.type }}</li>
-                    <li class="list-group-item">Статус заявки: {{ ticket.status }}</li>
-                    <li class="list-group-item">Уровень обслуживания: {{ ticket.service_level }}</li>
-                    <li class="list-group-item">Департамент: {{ ticket.department }}</li>
-                    <li class="list-group-item">Дата создания заявки: {{ ticket.created_at }}</li>
-                    <li class="list-group-item">Дата изменения заявки: {{ ticket.updated_at }}</li>
-                    <li class="list-group-item">Дата получения заявки: {{ ticket.received_at }}</li>
-                    {% if ticket.desired_to %}
-                        <li class="list-group-item">Желаемая дата исполнения: {{ ticket.desired_to }}</li>
-                    {% endif %}
-                    <nav id="nav">
-                    <ul class="ul-list">
-                        <li>
-                            <a href="#"><i class="bi bi-plus-circle pe-1"></i>Работы</a>
-                            <ul>
-                                {% recursetree ticket.works.all %}
-                                    <li>
-                                        {{ node.name }}
-                                        {% if not node.is_leaf_node %}
-                                            <ul class="children">
-                                                {{ children }}
-                                            </ul>
-                                        {% endif %}
-                                    </li>
-                                {% endrecursetree %}
-                            </ul>
-                        </li>
-                    </ul>
-                    </nav>
-                </ul>
-            </div>
-            <div class="col-6">
-                <ul class="list-group">
-                <nav id="nav">
-                    <ul class="ul-list">
-                        <li>
-                            <a href="#"><i class="bi bi-plus-circle pe-1"></i>Проблемная область</a>
-                            <ul>
-                                {% recursetree ticket.problem_areas.all %}
-                                    <li>
-                                        {{ node.name }}
-                                        {% if not node.is_leaf_node %}
-                                            <ul class="children">
-                                                {{ children }}
-                                            </ul>
-                                        {% endif %}
-                                    </li>
-                                {% endrecursetree %}
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-                    {% if ticket.description %}
-                        <li class="list-group-item">Описание: <pre>{{ ticket.description }}</pre></li>
-                    {% endif %}
-                    <li class="list-group-item">Исполнитель: {{ ticket.executor.last_name|default:"Не указан" }}
-                    {{ ticket.executor.first_name }}</li>
-                {% for ti in ticket.sparepartuser_set.all  %}
-                <li class="list-group-item">Запчасть: {{ ti.spare_part }} - Колличество: {{ ti.quantity }}</li>
-                {% endfor %}
-                    <li class="list-group-item">Водитель: {{ ticket.driver.last_name|default:"Не указан" }}
-                     {{ ticket.driver.first_name }}</li>
-                    <li class="list-group-item">Дата начала работ:
-                        {{ ticket.work_started_at|default:"Не указана" }}</li>
-                    <li class="list-group-item">Дата окончания работ:
-                        {{ ticket.work_finished_at|default:"Не указана" }}</li>
-                    <li class="list-group-item">Дата начала поездки:
-                        {{ ticket.ride_started_at|default:"Не указана" }}</li>
-                    <li class="list-group-item">Дата окончания поездки:
-                        {{ ticket.ride_finished_at|default:"Не указана" }}</li>
-                    {% if ticket.cancel_reason %}
-                        <li class="list-group-item">Причина отмены заявки:
-                            {{ ticket.cancel_reason }}</li>
-                    {% endif %}
-                    {% if ticket.close_commentary %}
-                        <li class="list-group-item">Комментарий к закрытию заявки:
-                            {{ ticket.close_commentary }}</li>
-                    {% endif %}
-                    {% if ticket.work_done %}
-                        <li class="list-group-item">Проделанная работа по заявке:
-                            <pre>{{ ticket.work_done }}</pre></li>
-                    {% endif %}
-                    <li class="list-group-item">Дата закрытия заявки:
-                        {{ ticket.closed_at|default:"Еще не закрыта" }}</li>
-                    <li class="list-group-item" id="remaining_time">Ожидаемая дата окончания
-                        работы: {{ expected_time_to_finish }}</li>
-                </ul>
 
-                {% if time_difference %}
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <div class="progress w-25">
-                                <div class="progress-bar" id="progress_bar" data-id="{{ ticket.id }}"
-                                     data-time-url="{% url "ticket:ticket_time_bar" ticket.pk %}" role="progressbar"
-                                     style=""
-                                     aria-valuenow="25"
-                                     aria-valuemin="0"
-                                     aria-valuemax="100">{{ time_difference }} раб.час
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                {% endif %}
+    {#                    <li class="list-group-item">Тип заявки: {{ ticket.type }}</li>#}
+    {#                    <nav id="nav">#}
+    {#                    <ul class="ul-list">#}
+    {#                        <li>#}
+    {#                            <a href="#"><i class="bi bi-plus-circle pe-1"></i>Работы</a>#}
+    {#                            <ul>#}
+    {#                                {% recursetree ticket.works.all %}#}
+    {#                                    <li>#}
+    {#                                        {{ node.name }}#}
+    {#                                        {% if not node.is_leaf_node %}#}
+    {#                                            <ul class="children">#}
+    {#                                                {{ children }}#}
+    {#                                            </ul>#}
+    {#                                        {% endif %}#}
+    {#                                    </li>#}
+    {#                                {% endrecursetree %}#}
+    {#                            </ul>#}
+    {#                        </li>#}
+    {#                    </ul>#}
+    {#                    </nav>#}
+    {#                </ul>#}
+    {#            </div>#}
+    {#            <div class="col-6">#}
+    {#                <ul class="list-group">#}
+    {#                <nav id="nav">#}
+    {#                    <ul class="ul-list">#}
+    {#                        <li>#}
+    {#                            <a href="#"><i class="bi bi-plus-circle pe-1"></i>Проблемная область</a>#}
+    {#                            <ul>#}
+    {#                                {% recursetree ticket.problem_areas.all %}#}
+    {#                                    <li>#}
+    {#                                        {{ node.name }}#}
+    {#                                        {% if not node.is_leaf_node %}#}
+    {#                                            <ul class="children">#}
+    {#                                                {{ children }}#}
+    {#                                            </ul>#}
+    {#                                        {% endif %}#}
+    {#                                    </li>#}
+    {#                                {% endrecursetree %}#}
+    {#                            </ul>#}
+    {#                        </li>#}
+    {#                    </ul>#}
+    {#                </nav>#}
+    {#                    {% if ticket.description %}#}
+    {#                        <li class="list-group-item">Описание: <pre>{{ ticket.description }}</pre></li>#}
+    {#                    {% endif %}#}
+    {#                    <li class="list-group-item">Исполнитель: {{ ticket.executor.last_name|default:"Не указан" }}#}
+    {#                    {{ ticket.executor.first_name }}</li>#}
+    {#                {% for ti in ticket.sparepartuser_set.all  %}#}
+    {#                <li class="list-group-item">Запчасть: {{ ti.spare_part }} - Колличество: {{ ti.quantity }}</li>#}
+    {#                {% endfor %}#}
+    {#                    <li class="list-group-item">Водитель: {{ ticket.driver.last_name|default:"Не указан" }}#}
+    {#                     {{ ticket.driver.first_name }}</li>#}
+    {#                    <li class="list-group-item">Дата начала работ:#}
+    {#                        {{ ticket.work_started_at|default:"Не указана" }}</li>#}
+    {#                    <li class="list-group-item">Дата окончания работ:#}
+    {#                        {{ ticket.work_finished_at|default:"Не указана" }}</li>#}
+    {#                    <li class="list-group-item">Дата начала поездки:#}
+    {#                        {{ ticket.ride_started_at|default:"Не указана" }}</li>#}
+    {#                    <li class="list-group-item">Дата окончания поездки:#}
+    {#                        {{ ticket.ride_finished_at|default:"Не указана" }}</li>#}
+    {#                    {% if ticket.cancel_reason %}#}
+    {#                        <li class="list-group-item">Причина отмены заявки:#}
+    {#                            {{ ticket.cancel_reason }}</li>#}
+    {#                    {% endif %}#}
+    {#                    {% if ticket.close_commentary %}#}
+    {#                        <li class="list-group-item">Комментарий к закрытию заявки:#}
+    {#                            {{ ticket.close_commentary }}</li>#}
+    {#                    {% endif %}#}
+    {#                    {% if ticket.work_done %}#}
+    {#                        <li class="list-group-item">Проделанная работа по заявке:#}
+    {#                            <pre>{{ ticket.work_done }}</pre></li>#}
+    {#                    {% endif %}#}
+    {#                    <li class="list-group-item">Дата закрытия заявки:#}
+    {#                        {{ ticket.closed_at|default:"Еще не закрыта" }}</li>#}
+    {#                    <li class="list-group-item" id="remaining_time">Ожидаемая дата окончания#}
+    {#                        работы: {{ expected_time_to_finish }}</li>#}
+    {#                </ul>#}
+    {##}
+    {#                {% if time_difference %}#}
+    {#                    <ul class="list-group">#}
+    {#                        <li class="list-group-item">#}
+    {#                            <div class="progress w-25">#}
+    {#                                <div class="progress-bar" id="progress_bar" data-id="{{ ticket.id }}"#}
+    {#                                     data-time-url="{% url "ticket:ticket_time_bar" ticket.pk %}" role="progressbar"#}
+    {#                                     style=""#}
+    {#                                     aria-valuenow="25"#}
+    {#                                     aria-valuemin="0"#}
+    {#                                     aria-valuemax="100">{{ time_difference }} раб.час#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                        </li>#}
+    {#                    </ul>#}
+    {#                {% endif %}#}
+    {##}
+    {#            </div>#}
+    {#        </div>#}
+    {##}
+    {#    </div>#}
 
-            </div>
+    <div class="py-2" id="icon-grid">
+        <div class="alert alert-light fs-4 mb-0 text-dark" role="alert">
+            Заявка-{{ ticket.received_at|date:"Ymd-His" }}
+            <p class="text-muted" style="font-size: 12px">создана: {{ ticket.created_at }} &
+                автор: {{ ticket.operator.get_full_name }}</p>
         </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-2">
+            <div class="col d-flex align-items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
+                     class="bi bi-pc text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
+                    <path d="M5 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H5Zm.5 14a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1Zm2 0a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1ZM5 1.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5ZM5.5 3h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1Z"/>
+                </svg>
+                <div>
+                    <h5 class="fw-bold mb-0">Объект обслуживания</h5>
+                    <p style="white-space: pre-line">{{ ticket.service_object }}
+                        Адрес: {{ ticket.service_object.address|default:"Не указан" }}</p>
+                </div>
+            </div>
 
+            <div class="col d-flex align-items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
+                     class="bi bi-graph-up-arrow text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"/>
+                </svg>
+                <div>
+                    <h5 class="fw-bold mb-0">Приоритет завки</h5>
+                    <p>{% if ticket.priority.name == 'Низкий' or ticket.priority.name == 'Средний' %}
+                        <span class="badge bg-warning text-dark">{{ ticket.priority }}</span>
+                    {% else %}
+                        <span class="badge bg-danger">{{ ticket.priority }}</span>
+                    {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="col d-flex align-items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
+                     class="bi bi-list-stars text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"/>
+                    <path d="M2.242 2.194a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.256-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53zm0 4a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.255-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53zm0 4a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.255-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53z"/>
+                </svg>
+                <div>
+                    <h5 class="fw-bold mb-0">Уровень обслуживания</h5>
+                    <p>{{ ticket.service_level }}</p>
+                </div>
+            </div>
+
+            <div class="col d-flex align-items-start">
+                <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
+                    <use xlink:href="#home"></use>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
+                     class="bi bi-lightning-charge text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
+                    <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z"/>
+                </svg>
+                <div>
+                    <h5 class="fw-bold mb-0">Статус заявки</h5>
+                    <p>{% if ticket.status.name == 'Подготовленный' %}
+                        <span class="badge rounded-pill bg-info text-dark">{{ ticket.status }}</span>
+                    {% elif ticket.status.name == 'Назначенный' %}
+                        <span class="badge rounded-pill bg-warning text-dark">{{ ticket.status }}</span>
+                    {% elif ticket.status.name == 'На исполнении' %}
+                        <span class="badge rounded-pill bg-primary">{{ ticket.status }}</span>
+                    {% elif ticket.status.name == 'Исполненный' %}
+                        <span class="badge rounded-pill bg-success">{{ ticket.status }}</span>
+                    {% elif ticket.status.name == 'Неопределенный' %}
+                        <span class="badge rounded-pill bg-danger">{{ ticket.status }}</span>
+                    {% elif ticket.status.name == 'Завершенный' %}
+                        <span class="badge rounded-pill bg-dark">{{ ticket.status }}</span>
+                    {% elif ticket.status.name == 'Отмененный' %}
+                        <span class="badge rounded-pill bg-secondary">{{ ticket.status }}</span>
+                    {% else %}
+                        {{ ticket.status }}
+                    {% endif %}</p>
+                </div>
+            </div>
+
+            <div class="col d-flex align-items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
+                     class="bi bi-calendar3 text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
+                    <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                    <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+                <div>
+                    <h5 class="fw-bold mb-0">Дата получения заявки</h5>
+                    <p>{{ ticket.received_at }}</p>
+                </div>
+            </div>
+
+            {% if ticket.desired_to %}
+                <div class="col d-flex align-items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
+                         class="bi bi-calendar3 text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
+                        <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                        <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                    </svg>
+                    <div>
+                        <h5 class="fw-bold mb-0">Желаемая дата исполнения</h5>
+                        <p>{{ ticket.desired_to }}</p>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="col d-flex align-items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
+                     class="bi bi-hash text-muted flex-shrink-0 me-3"
+                     viewBox="0 0 16 16">
+                    <path d="M8.39 12.648a1.32 1.32 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1.06 1.06 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.512.512 0 0 0-.523-.516.539.539 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532 0 .312.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531 0 .313.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242l-.515 2.492zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z"/>
+                </svg>
+                <div>
+                    <h5 class="fw-bold mb-0">Тип заявки</h5>
+                    <p>{{ ticket.type }}</p>
+                </div>
+            </div>
+
+            <div class="col d-flex align-items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
+                     class="bi bi-person-square text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"/>
+                </svg>
+                <div>
+                    <h5 class="fw-bold mb-0">Назначенный инженер</h5>
+                    <p>{{ ticket.executor.get_full_name|default:"Не назначен" }}</p>
+                </div>
+            </div>
+
+            <div class="col d-flex align-items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.75em" height="1.75em" fill="currentColor"
+                     class="bi bi-person-square text-muted flex-shrink-0 me-3" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"/>
+                </svg>
+                <div>
+                    <h5 class="fw-bold mb-0">Назначенный водитель</h5>
+                    <p>{{ ticket.driver.get_full_name|default:"Не назначен" }}</p>
+                </div>
+            </div>
+
+        </div>
     </div>
-    <br>
-<script type="text/javascript" src="{% static 'js/works_and_problems.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/works_and_problems.js' %}"></script>
 {% endblock %}
+

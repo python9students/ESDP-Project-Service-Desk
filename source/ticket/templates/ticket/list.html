@@ -9,7 +9,7 @@
     </form>
 
     {% if object_list %}
-        <table class="table table-hover">
+        <table class="table table-hover table-bordered">
             <thead>
             <tr>
                 <th scope="col">Заявка</th>
@@ -23,7 +23,7 @@
             <tbody>
             {% for ticket in tickets|dictsort:"id" reversed %}
                 <tr>
-                    <td class="{% if ticket.priority|capfirst == 'Высокий' %}
+                    <td class="{% if ticket.priority.name == 'Высокий' or ticket.priority.name == 'Critical Level' %}
                 table-danger
                 {% else %}
                 table-warning
@@ -32,7 +32,24 @@
                     <td>{{ ticket.received_at }}</td>
                     <td>{{ ticket.client }}</td>
                     <td>{{ ticket.service_object }}</td>
-                    <td>{{ ticket.status }}</td>
+                    <td>{% if ticket.status.name == 'Подготовленный' %}
+                        <span class="badge rounded-pill bg-info text-dark">{{ ticket.status }}</span>
+                        {% elif ticket.status.name == 'Назначенный'%}
+                        <span class="badge rounded-pill bg-warning text-dark">{{ ticket.status }}</span>
+                        {% elif ticket.status.name == 'На исполнении'%}
+                        <span class="badge rounded-pill bg-primary">{{ ticket.status }}</span>
+                        {% elif ticket.status.name == 'Исполненный'%}
+                        <span class="badge rounded-pill bg-success">{{ ticket.status }}</span>
+                        {% elif ticket.status.name == 'Неопределенный'%}
+                        <span class="badge rounded-pill bg-danger">{{ ticket.status }}</span>
+                        {% elif ticket.status.name == 'Завершенный'%}
+                        <span class="badge rounded-pill bg-dark">{{ ticket.status }}</span>
+                        {% elif ticket.status.name == 'Отмененный'%}
+                        <span class="badge rounded-pill bg-secondary">{{ ticket.status }}</span>
+                    {% else %}
+                        {{ ticket.status }}
+                    {% endif %}
+                    </td>
                     <td>
                         <div class="progress">
                             <div class="progress-bar progress_list" data-id="{{ ticket.id }}"
