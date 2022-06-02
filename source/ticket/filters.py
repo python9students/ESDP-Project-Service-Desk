@@ -1,8 +1,8 @@
 import django_filters
 from django.forms import DateInput
 from django_filters import DateFilter, ModelChoiceFilter
-
-from ticket.models import Ticket, SparePartUser, User
+from ticket.models.spare_part import SparePartUser
+from ticket.models.ticket import Ticket, User
 
 
 class TicketFilter(django_filters.FilterSet):

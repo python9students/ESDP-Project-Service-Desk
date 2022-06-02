@@ -1,12 +1,17 @@
 from django.utils.translation import gettext as _
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
-from ticket.models import Work, ProblemArea, Ticket, ContractFiles, Contract, SparePartUser, Client, ServiceObject, \
-    TicketPriority, TicketType, ServiceLevel, Department
 from django.forms import widgets, BaseModelForm, modelformset_factory
 from django.utils import timezone
 from mptt.forms import TreeNodeMultipleChoiceField
 from django import forms
+
+from ticket.models.client import Client
+from ticket.models.contract import Contract, ContractFiles
+from ticket.models.other import Department
+from ticket.models.service_object import ServiceObject, ServiceLevel
+from ticket.models.spare_part import SparePartUser
+from ticket.models.ticket import TicketPriority, TicketType, Work, ProblemArea, Ticket
 
 User = get_user_model()
 

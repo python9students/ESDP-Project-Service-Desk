@@ -5,11 +5,11 @@ from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from ticket.filters import TicketFilter
-from ticket.models import Ticket, TicketStatus, ServiceObject, Work, ProblemArea
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
 from django.urls import reverse
 
-
+from ticket.models.service_object import ServiceObject
+from ticket.models.ticket import Ticket, TicketStatus, Work, ProblemArea
 from ticket.views.ticket_custom_datetime_functions import buisnesstimedelta_function
 
 User = get_user_model()
