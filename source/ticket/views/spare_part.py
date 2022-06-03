@@ -68,7 +68,7 @@ class SparePartUserListView(LoginRequiredMixin, ListView):
     model = SparePartUser
     template_name = 'spare_part/list.html'
     context_object_name = 'spare_parts'
-    paginate_by = 8
+    paginate_by = 6
     paginate_orphans = 0
 
     def get_queryset(self):

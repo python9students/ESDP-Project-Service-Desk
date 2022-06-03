@@ -1,7 +1,7 @@
 from django.utils.translation import gettext as _
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
-from django.forms import widgets, BaseModelForm, modelformset_factory
+from django.forms import widgets, BaseModelForm, modelformset_factory, Select, NumberInput
 from django.utils import timezone
 from mptt.forms import TreeNodeMultipleChoiceField
 from django import forms
@@ -241,7 +241,11 @@ class SparePartAssignForm(forms.ModelForm):
 
 
 SparePartAssignFormSet = modelformset_factory(SparePartUser, form=SparePartAssignForm,
-                                              fields=['spare_part', 'quantity'], extra=6)
+                                              fields=['spare_part', 'quantity'], extra=6, max_num=6,
+                                              widgets={
+                                                  'spare_part': Select(attrs={'class': 'form-select form-select-sm'}),
+                                                  'quantity': NumberInput(attrs={'class': 'form-control form-control-sm'})}
+                                              )
 
 
 class SparePartUserListForm(forms.ModelForm):

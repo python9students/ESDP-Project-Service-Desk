@@ -2,25 +2,34 @@
 {% block title %}Назначение запчастей{% endblock %}
 {% block nav %} {% endblock %}
 {% block content %}
-    <br>
-    <h3>Назначить запчасти к Заявка-{{ ticket.received_at|date:"Ymd-His"}} и инженера {{ ticket.executor.get_full_name}}</h3>
+    <div class="py-2" id="icon-grid">
+        <div class="alert alert-light fs-4 mb-0 text-dark" role="alert">
+            Заявка-{{ ticket.received_at|date:"Ymd-His" }}
+            <p class="text-muted" style="font-size: 12px">создана: {{ ticket.created_at }} &
+                автор: {{ ticket.operator.get_full_name }} #
+                инженер: {{ ticket.executor.get_full_name|default:'не назначен' }}</p>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-2">
+
+        </div>
+    </div>
     <form method="post">
         {% csrf_token %}
-        <div class="">
+        <div class="row">
             {{ formset.management_form }}
             {% for form in formset %}
                 {% if form.errors %}
-                <div class="spare " style="border: 2px solid red">
+                <div class="spare col-md-6" style="border: 2px solid red">
                     <p><label class="text-danger" for="{{ form.id_for_label }}">{{ form.label }} {{ form }}</label></p>
                 </div>
-                    {% else %}
-                    <div class="spare">
+                {% else %}
+                <div class="spare col-md-6">
                     <p><label class="form-control" for="{{ form.id_for_label }}">{{ form.label }} {{ form }}</label></p>
                 </div>
                 {% endif %}
             {% endfor %}
         </div>
-        <input type="submit" class="btn btn-success mt-3" value="Сохранить">
+        <input type="submit" class="btn btn-info mt-3" value="Назначить">
 
     </form>
     <style>
