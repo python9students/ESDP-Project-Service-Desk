@@ -5,7 +5,7 @@
 
     <form class="form-control" method="get">
     {{ filter.form }}
-    <button class="btn btn-success btn-sm" type="submit">поиск</button>
+    &nbsp; <button style="margin-bottom: 2px" class="btn btn-outline-success btn-sm" type="submit">Фильтровать</button>
     </form>
 
     {% if object_list %}
@@ -33,7 +33,7 @@
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                         <a href="{% url "ticket:spare_part_update" spare_part.pk %}" class="btn btn-warning">Установить</a>
-                        <a href="{% url "ticket:spare_part_return_warehouse" spare_part.pk %}" class="btn btn-success">Возвратить</a>
+                        <a href="{% url "ticket:spare_part_return_warehouse" spare_part.pk %}" class="btn btn-success">Вернуть</a>
                     </div>
                 </td>
             </tr>
