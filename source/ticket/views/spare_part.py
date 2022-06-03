@@ -8,7 +8,8 @@ from django.views.generic import CreateView, ListView, UpdateView
 
 from ticket.filters import SparePartUserFilter
 from ticket.forms import SparePartAssignForm, SparePartAssignFormSet, SparePartInstall
-from ticket.models import SparePartUser, SparePart, Ticket
+from ticket.models.spare_part import SparePartUser, SparePart
+from ticket.models.ticket import Ticket
 
 
 class SparePartAssignCreateView(LoginRequiredMixin, CreateView):
@@ -67,6 +68,8 @@ class SparePartUserListView(LoginRequiredMixin, ListView):
     model = SparePartUser
     template_name = 'spare_part/list.html'
     context_object_name = 'spare_parts'
+    paginate_by = 6
+    paginate_orphans = 0
 
     def get_queryset(self):
         spare_parts = super().get_queryset().order_by('-created_at')
@@ -75,7 +78,7 @@ class SparePartUserListView(LoginRequiredMixin, ListView):
                 self.request.user.has_perm('ticket.see_engineer_spare_parts')\
                 and not self.request.user.is_superuser:
             return spare_parts.filter(engineer=self.request.user).filter(query)
-        return spare_parts
+        return SparePartUserFilter(self.request.GET, queryset=spare_parts).qs
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)

@@ -1,4 +1,3 @@
-from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
@@ -7,10 +6,14 @@ from django.contrib import admin
 from ticket.forms import ContractAdminForm
 from mptt.admin import MPTTModelAdmin
 from datetime import datetime, date
-from ticket.models import (CompanyType, ServiceObjectType, ServiceObjectModel, Country, Region, City, Client,
-                           ServiceObject, TicketType, TicketStatus, TicketPriority, Work, ProblemArea, Department,
-                           ServiceLevel, Ticket, CriterionType, ContractStatus, ContractType, Contract, ContractFiles,
-                           SparePart, Condition, SupplierCompany, SparePartUser, User, )
+from ticket.models.client import CompanyType
+from ticket.models.contract import ContractStatus, ContractType, ContractFiles, Contract
+from ticket.models.service_object import ServiceObjectType, ServiceObjectModel, ServiceLevel, CriterionType, \
+    ServiceObject
+from ticket.models.other import City, Country, Region, Department
+from ticket.models.client import Client
+from ticket.models.spare_part import SupplierCompany, SparePartUser, SparePart, Condition
+from ticket.models.ticket import TicketPriority, TicketStatus, TicketType, Work, ProblemArea, Ticket, User
 
 admin.site.register(CompanyType)
 admin.site.register(ServiceObjectType)

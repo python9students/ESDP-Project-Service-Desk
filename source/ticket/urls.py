@@ -16,7 +16,7 @@ ticket_urlpatterns = [
     path('<int:pk>/close/', TicketCloseView.as_view(), name='ticket_close'),
     path('chief_info/', ChiefInfoDetailView.as_view(), name='chief_info'),
     path('<int:pk>/ticket_time/', TicketTimeView.as_view(), name='ticket_time_bar'),
-    path('<int:pk>/add-spare-part/', SparePartAssignCreateView.as_view(), name='spare_part_assign_create'),
+    path('<int:pk>/assign-spare-part/', SparePartAssignCreateView.as_view(), name='spare_part_assign_create'),
     path('<int:pk>/return-spare-part/', SparePartReturnToWarehouse.as_view(), name='spare_part_return_warehouse'),
     path('<int:pk>/install-spare-part/', SparePartInstallation.as_view(), name='spare_part_update'),
 ]

@@ -5,11 +5,11 @@ from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from ticket.filters import TicketFilter
-from ticket.models import Ticket, TicketStatus, ServiceObject, Work, ProblemArea
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
 from django.urls import reverse
 
-
+from ticket.models.service_object import ServiceObject
+from ticket.models.ticket import Ticket, TicketStatus, Work, ProblemArea
 from ticket.views.ticket_custom_datetime_functions import buisnesstimedelta_function
 
 User = get_user_model()
@@ -189,11 +189,12 @@ class ChiefInfoDetailView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        username = User.objects.all()
-        driver_tickets = Ticket.objects.filter(driver__in=username).filter(
-            Q(status__name='На исполнении') | Q(status__name='Назначенный'))
-        executor_tickets = Ticket.objects.filter(executor__in=username).filter(
-            Q(status__name='На исполнении') | Q(status__name='Назначенный'))
-        context['driver_tickets'] = driver_tickets
-        context['executor_tickets'] = executor_tickets
+        tickets_driver = Ticket.objects.values('driver')
+        usernames = User.objects.filter(id__in=tickets_driver).values('id', 'last_name', 'first_name')
+        tickets = Ticket.objects.filter((Q(status__name="На исполнении") | Q(status__name='Назначенный')))
+        print(tickets_driver)
+        print(usernames)
+        context['tickets'] = tickets
+        context['tickets_driver'] = tickets_driver
+        context['usernames'] = usernames
         return context

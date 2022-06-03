@@ -1,12 +1,17 @@
 from django.utils.translation import gettext as _
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
-from ticket.models import Work, ProblemArea, Ticket, ContractFiles, Contract, SparePartUser, Client, ServiceObject, \
-    TicketPriority, TicketType, ServiceLevel, Department
-from django.forms import widgets, BaseModelForm, modelformset_factory
+from django.forms import widgets, BaseModelForm, modelformset_factory, Select, NumberInput
 from django.utils import timezone
 from mptt.forms import TreeNodeMultipleChoiceField
 from django import forms
+
+from ticket.models.client import Client
+from ticket.models.contract import Contract, ContractFiles
+from ticket.models.other import Department
+from ticket.models.service_object import ServiceObject, ServiceLevel
+from ticket.models.spare_part import SparePartUser
+from ticket.models.ticket import TicketPriority, TicketType, Work, ProblemArea, Ticket
 
 User = get_user_model()
 
@@ -192,12 +197,20 @@ class EngineerForm(ChiefForm):
 
 
 class TicketCancelForm(forms.ModelForm):
+    cancel_reason = forms.CharField(max_length=1000,
+                                    widget=widgets.TextInput(attrs={'class': 'form-control'}),
+                                    label='Причина отмены')
+
     class Meta:
         model = Ticket
         fields = ("cancel_reason",)
 
 
 class TicketCloseForm(forms.ModelForm):
+    close_commentary = forms.CharField(required=False, max_length=1000,
+                                       widget=widgets.TextInput(attrs={'class': 'form-control'}),
+                                       label='Комментарий к закрытию')
+
     class Meta:
         model = Ticket
         fields = ("close_commentary",)
@@ -228,7 +241,11 @@ class SparePartAssignForm(forms.ModelForm):
 
 
 SparePartAssignFormSet = modelformset_factory(SparePartUser, form=SparePartAssignForm,
-                                              fields=['spare_part', 'quantity'], extra=6)
+                                              fields=['spare_part', 'quantity'], extra=6, max_num=6,
+                                              widgets={
+                                                  'spare_part': Select(attrs={'class': 'form-select form-select-sm'}),
+                                                  'quantity': NumberInput(attrs={'class': 'form-control form-control-sm'})}
+                                              )
 
 
 class SparePartUserListForm(forms.ModelForm):
