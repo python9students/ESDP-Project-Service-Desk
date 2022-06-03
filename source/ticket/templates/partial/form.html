@@ -1,4 +1,5 @@
 {% load mptt_tags %}
+{% load static %}
 {% if not fields_only %}
     {% csrf_token %}
 {% endif %}
@@ -22,12 +23,16 @@
     </div>
     <div class="col-md-6">
         <label for="{{ form.works.id_for_label }}">{{ form.works.label }}</label>
-        <div class="form-select" style="max-height: 15rem; overflow-y: auto">
+        {% for error in form.works.errors %}
+            <p class="text-danger">{{ error }} Выберите оба поля - <strong>Работы</strong> и <strong>Проблемные
+                области</strong>, для корректной работы!</p>
+        {% endfor %}
+        <div class="form-control" style="max-height: 15rem; overflow-y: auto">
             {% recursetree works %}
                 <li style="list-style: none">
                     {% if node.is_leaf_node %}
                         <label for="works-{{ node.id }}">
-                            <input type="checkbox" name="works" value="{{ node.id }}" id="works-{{ node.id }}"
+                            <input class="form-check-input" type="checkbox" name="works" value="{{ node.id }}" id="works-{{ node.id }}"
                                    {% if node in form.initial.works %}checked{% endif %}>
                             {{ node.name }}</label>
                     {% else %}
@@ -50,12 +55,16 @@
             {% endrecursetree %}
         </div>
         <label for="{{ form.problem_areas.id_for_label }}">{{ form.problem_areas.label }}</label>
-        <div class="form-select" style="max-height: 15rem; overflow-y: auto">
+        {% for error in form.problem_areas.errors %}
+            <p class="text-danger">{{ error }} Выберите оба поля - <strong>Работы</strong> и <strong>Проблемные
+                области</strong>, для корректной работы!</p>
+        {% endfor %}
+        <div class="form-control" style="max-height: 15rem; overflow-y: auto">
             {% recursetree problem_areas %}
                 <li style="list-style: none">
                     {% if node.is_leaf_node %}
                         <label for="problem-{{ node.id }}">
-                            <input type="checkbox" name="problem_areas" value="{{ node.id }}" id="problem-{{ node.id }}"
+                            <input  class="form-check-input" type="checkbox" name="problem_areas" value="{{ node.id }}" id="problem-{{ node.id }}"
                                    {% if node in form.initial.problem_areas %}checked{% endif %}>
                             {{ node.name }}</label>
                     {% else %}
