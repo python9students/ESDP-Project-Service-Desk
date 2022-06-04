@@ -2,9 +2,11 @@
 {% load static %}
 {% block title %}Информация о работниках{% endblock %}
 {% block content %}
-    <h1>Водители:</h1>
+    <h2 class="mt-5">Водители:</h2>
+    <span class="placeholder col-12 placeholder-xs"></span>
+
     {% for username in usernames %}
-        <nav class="navbar navbar-expand-lg navbar-warning bg-warning mb-1">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown"
@@ -18,7 +20,7 @@
                                data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ username.first_name }} {{ username.last_name }}
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <ul class="dropdown-menu dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><a class="dropdown-item" href="#">
                                     {% for ticket in tickets %}
                                         {% if ticket.driver.last_name == username.last_name %}
@@ -73,10 +75,11 @@
             </div>
         </nav>
     {% endfor %}
+    <br><h2 class="mt-2">Исполнители:</h2>
+    <span class="placeholder col-12 placeholder-xs"></span>
 
-<br><h1>Исполнители:</h1>
     {% for username in usernames %}
-        <nav class="navbar navbar-expand-lg navbar-warning bg-info mb-1">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown"
@@ -90,10 +93,10 @@
                                data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ username.first_name }} {{ username.last_name }}
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <ul class="dropdown-menu dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><a class="dropdown-item" href="#">
                                     {% for ticket in tickets %}
-                                        {% if ticket.executor.last_name == username.last_name%}
+                                        {% if ticket.executor.last_name == username.last_name %}
                                             <table class="table table-hover">
                                                 <thead>
                                                 <tr>
@@ -144,4 +147,27 @@
             </div>
         </nav>
     {% endfor %}
+    <style>
+        .navbar {
+            background-color: #F1F2F2;
+            border-radius: 13px;
+            margin-bottom: 3px;
+        }
+
+        .dropdown-menu {
+            border-radius: 20px;
+            border-color: #BCBEC0;
+            width: 1271px;
+        }
+
+        .nav-link {
+            color: #2F3538;
+        }
+
+        .placeholder {
+            border-radius: 30px;
+            margin-bottom: 20px;
+        }
+
+    </style>
 {% endblock %}
