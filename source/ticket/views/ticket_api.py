@@ -2,7 +2,7 @@ from datetime import datetime
 from django.http import JsonResponse
 from django.views import View
 
-from ticket.models.ticket import Ticket
+from ticket.models import Ticket
 
 
 class TicketTimeView(View):

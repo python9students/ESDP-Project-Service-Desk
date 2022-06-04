@@ -8,8 +8,7 @@ from ticket.filters import TicketFilter
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
 from django.urls import reverse
 
-from ticket.models.service_object import ServiceObject
-from ticket.models.ticket import Ticket, TicketStatus, Work, ProblemArea
+from ticket.models import Ticket, TicketStatus, Work, ProblemArea, ServiceObject
 from ticket.views.ticket_custom_datetime_functions import buisnesstimedelta_function
 
 User = get_user_model()

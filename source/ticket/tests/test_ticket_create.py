@@ -1,15 +1,10 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 
-from ticket.models import (User,
-                           Ticket,
-                           TicketStatus,
-                           TicketPriority,
-                           TicketType,
-                           ServiceLevel,
-                           Department,
-                           Work,
-                           ProblemArea)
+from models import (User, Ticket,
+                    TicketStatus, TicketPriority,
+                    TicketType, ServiceLevel,
+                    Department, Work, ProblemArea)
 
 
 class TicketTests(TestCase):
@@ -55,7 +50,7 @@ class TicketTests(TestCase):
                                             priority=priority,
                                             type=type_,
                                             service_level=service_level,
-                                            department=department,)
+                                            department=department, )
         test_ticket.works.add(works)
         test_ticket.problem_areas.add(problem_areas)
         test_ticket.save()

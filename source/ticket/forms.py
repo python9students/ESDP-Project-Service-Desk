@@ -1,19 +1,14 @@
 from django.utils.translation import gettext as _
 from django.core.exceptions import ValidationError
-from django.contrib.auth import get_user_model
 from django.forms import widgets, BaseModelForm, modelformset_factory, Select, NumberInput
 from django.utils import timezone
 from mptt.forms import TreeNodeMultipleChoiceField
 from django import forms
 
-from ticket.models.client import Client
-from ticket.models.contract import Contract, ContractFiles
-from ticket.models.other import Department
-from ticket.models.service_object import ServiceObject, ServiceLevel
-from ticket.models.spare_part import SparePartUser
-from ticket.models.ticket import TicketPriority, TicketType, Work, ProblemArea, Ticket
-
-User = get_user_model()
+from ticket.models import (Client, Contract, ContractFiles,
+                           Department, ServiceObject, ServiceLevel,
+                           SparePartUser, TicketPriority, TicketType,
+                           Work, ProblemArea, Ticket, User)
 
 
 class TicketFormValidationMixin(BaseModelForm):
@@ -244,7 +239,8 @@ SparePartAssignFormSet = modelformset_factory(SparePartUser, form=SparePartAssig
                                               fields=['spare_part', 'quantity'], extra=6, max_num=6,
                                               widgets={
                                                   'spare_part': Select(attrs={'class': 'form-select form-select-sm'}),
-                                                  'quantity': NumberInput(attrs={'class': 'form-control form-control-sm'})}
+                                                  'quantity': NumberInput(
+                                                      attrs={'class': 'form-control form-control-sm'})}
                                               )
 
 

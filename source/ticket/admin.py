@@ -5,15 +5,12 @@ from django.shortcuts import get_object_or_404
 from django.contrib import admin
 from ticket.forms import ContractAdminForm
 from mptt.admin import MPTTModelAdmin
-from datetime import datetime, date
-from ticket.models.client import CompanyType
-from ticket.models.contract import ContractStatus, ContractType, ContractFiles, Contract
-from ticket.models.service_object import ServiceObjectType, ServiceObjectModel, ServiceLevel, CriterionType, \
-    ServiceObject
-from ticket.models.other import City, Country, Region, Department
-from ticket.models.client import Client
-from ticket.models.spare_part import SupplierCompany, SparePartUser, SparePart, Condition
-from ticket.models.ticket import TicketPriority, TicketStatus, TicketType, Work, ProblemArea, Ticket, User
+from datetime import date
+from ticket.models import (CompanyType, ContractStatus, ContractType, ContractFiles,
+                           Contract, ServiceObjectType, ServiceObjectModel, ServiceLevel,
+                           CriterionType, ServiceObject, City, Country, Region, Department,
+                           Client, SupplierCompany, SparePartUser, SparePart, Condition,
+                           TicketPriority, TicketStatus, TicketType, Work, ProblemArea, Ticket, User)
 
 admin.site.register(CompanyType)
 admin.site.register(ServiceObjectType)

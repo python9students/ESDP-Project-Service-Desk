@@ -3,8 +3,8 @@ from ticket.views import (TicketCreateView, TicketListView,
                           TicketDetailView, TicketUpdateView,
                           TicketCancelView, TicketCloseView,
                           ChiefInfoDetailView, SparePartUserListView,
-                          SparePartAssignCreateView, TicketTimeView)
-from ticket.views.spare_part import SparePartReturnToWarehouse, SparePartInstallation
+                          SparePartAssignCreateView, TicketTimeView,
+                          SparePartReturnToWarehouse, SparePartInstallation)
 
 app_name = 'ticket'
 

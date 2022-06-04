@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Country(models.Model):
     """
     Модель для создания стран

@@ -2,9 +2,9 @@ import django_filters
 from django.forms import DateInput, Select
 from django_filters import DateFilter, ModelChoiceFilter
 
-from ticket.models.client import Client
-from ticket.models.spare_part import SparePartUser, SparePart
-from ticket.models.ticket import Ticket, User, TicketStatus
+from ticket.models import (Client, SparePartUser,
+                           SparePart, Ticket,
+                           User, TicketStatus)
 
 
 class TicketFilter(django_filters.FilterSet):

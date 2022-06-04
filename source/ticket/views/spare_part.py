@@ -8,8 +8,7 @@ from django.views.generic import CreateView, ListView, UpdateView
 
 from ticket.filters import SparePartUserFilter
 from ticket.forms import SparePartAssignForm, SparePartAssignFormSet, SparePartInstall
-from ticket.models.spare_part import SparePartUser, SparePart
-from ticket.models.ticket import Ticket
+from ticket.models import SparePartUser, SparePart, Ticket
 
 
 class SparePartAssignCreateView(LoginRequiredMixin, CreateView):
