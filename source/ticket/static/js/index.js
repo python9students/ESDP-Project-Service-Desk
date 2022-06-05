@@ -38,7 +38,7 @@ async function ProgressBar() {
     if (remaining_percentage > 100) {
         progress_bar_tag.style.background = 'red';
         progress_bar_tag.textContent = "-" + progress_bar_tag.textContent;
-    }else{
+    } else {
         progress_bar_tag.style.background = 'green'
     }
 }
@@ -82,15 +82,15 @@ async function ProgressBarList() {
         let remaining_percentage = 100 - percentage
         progress_list[i].style = `width: ${remaining_percentage}%`
 
-        if(remaining_percentage > 90){
-        progress_list[i].style.background = "red";
-        progress_list[i].textContent = "-" + progress_list[i].textContent + "раб.час";
-        }else if(remaining_percentage > 0.1){
-                progress_list[i].style.background = "green"
-                progress_list[i].textContent = progress_list[i].textContent + "раб.час"
-            }
-
+        if (remaining_percentage > 90) {
+            progress_list[i].style.background = "red";
+            progress_list[i].textContent = "-" + progress_list[i].textContent + "раб.час";
+        } else if (remaining_percentage > 0.1) {
+            progress_list[i].style.background = "green"
+            progress_list[i].textContent = progress_list[i].textContent + "раб.час"
         }
+
+    }
 
 }
 
@@ -98,15 +98,29 @@ async function ProgressBarList() {
 let service_object = document.getElementById('id_service_object')
 service_object.addEventListener("change", getTime)
 
-async function getTime(){
+async function getTime() {
     let url = `http://localhost:8000/service_object/${service_object.value}/detail/`
     console.log(url)
     let data = await make_request(url)
-    console.log(data)
-    let time_to_finish = document.getElementById('time-to-finish')
-    console.log(time_to_finish)
-    if (data.time_to_finish !== 'None'){
-        time_to_finish.innerText = `Время за которое надо закончить работу по договору: ${data.time_to_finish} ч/м/с`}
+    if (data.time_to_finish !== 'None') {
+        p_tag_time_to_finish = document.createElement('p')
+        p_tag_time_to_finish.innerText = `Время за которое надо закончить работу по договору: ${data.time_to_finish} ч/м/с`
+        p_tag_time_to_finish.style.background = "green"
+        p_tag_time_to_finish.style.color = "white"
+        p_tag_time_to_finish.style.padding = "10px"
+        p_tag_time_to_finish.id = "p_tag_time_to_fix"
+        if (document.getElementById('p_tag_time_to_fix')) {
+            document.getElementById('p_tag_time_to_fix').remove()
+            let time_to_finish = document.getElementById('time-to-finish')
+            time_to_finish.appendChild(p_tag_time_to_finish)
+        } else {
+            let time_to_finish = document.getElementById('time-to-finish')
+            time_to_finish.appendChild(p_tag_time_to_finish)
+        }
+    }else {
+        document.getElementById('p_tag_time_to_fix').remove()
+    }
+
 }
 
 
