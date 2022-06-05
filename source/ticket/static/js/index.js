@@ -32,14 +32,22 @@ async function ProgressBar() {
 
 
     let percentage = (remaining_time / received_and_end_date) * 100
-    let remaining_percentage = 100 - percentage
+    console.log(percentage)
+    // let remaining_percentage = 100 - percentage
     let progress_bar_tag = document.getElementById("progress_bar")
-    progress_bar_tag.style = `width: ${remaining_percentage}%`
-    if (remaining_percentage > 100) {
-        progress_bar_tag.style.background = 'red';
-        progress_bar_tag.textContent = "-" + progress_bar_tag.textContent;
-    } else {
+    progress_bar_tag.style = `width: ${percentage}%`
+    if (percentage >= 100) {
+        progress_bar_tag.style.background = 'white';
+        // progress_bar_tag.textContent = "-" + progress_bar_tag.textContent;
+    } else if (percentage >= 40 | percentage === 100) {
         progress_bar_tag.style.background = 'green'
+    } else if (percentage >= 15) {
+        progress_bar_tag.style.background = 'yellow'
+        progress_bar_tag.style.color = 'red'
+    } else {
+        progress_bar_tag.style.background = 'red'
+        progress_bar_tag.style.color = "blue"
+        progress_bar_tag.textContent = "-" + progress_bar_tag.textContent;
     }
 }
 
@@ -79,15 +87,26 @@ async function ProgressBarList() {
 
 
         let percentage = (remaining_time / received_and_end_date) * 100
-        let remaining_percentage = 100 - percentage
-        progress_list[i].style = `width: ${remaining_percentage}%`
+        progress_list[i].style = `width: ${percentage}%`
 
-        if (remaining_percentage > 90) {
-            progress_list[i].style.background = "red";
-            progress_list[i].textContent = "-" + progress_list[i].textContent + "раб.час";
-        } else if (remaining_percentage > 0.1) {
+        if (percentage >= 100) {
+            progress_list[i].style.background = 'white'
+            // progress_list[i].textContent = "-" + progress_list[i].textContent + "раб.час";
+        } else if (percentage >= 40) {
             progress_list[i].style.background = "green"
             progress_list[i].textContent = progress_list[i].textContent + "раб.час"
+        } else if (percentage >= 15) {
+            progress_list[i].style.background = 'yellow'
+            progress_list[i].style.color = 'red'
+            progress_list[i].textContent = progress_list[i].textContent + "раб.час"
+        } else if (percentage === 0){
+            progress_list[i].style.background = null
+            progress_list[i].style.color = null
+            // progress_list[i].textContent = "-" + progress_list[i].textContent + "раб.час";
+        } else if (percentage < 0){
+            progress_list[i].style.background = 'red'
+            progress_list[i].style.color = "blue"
+            progress_list[i].textContent = "-" + progress_list[i].textContent + "раб.час";
         }
 
     }
@@ -117,7 +136,7 @@ async function getTime() {
             let time_to_finish = document.getElementById('time-to-finish')
             time_to_finish.appendChild(p_tag_time_to_finish)
         }
-    }else {
+    } else {
         document.getElementById('p_tag_time_to_fix').remove()
     }
 
