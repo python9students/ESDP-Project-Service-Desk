@@ -5,6 +5,7 @@ from ticket.views import (TicketCreateView, TicketListView,
                           ChiefInfoDetailView, SparePartUserListView,
                           SparePartAssignCreateView, TicketTimeView,
                           SparePartReturnToWarehouse, SparePartInstallation)
+from ticket.views.ticket_api import ServiceObjectDetailView
 
 app_name = 'ticket'
 
@@ -25,4 +26,5 @@ urlpatterns = [
     path('', TicketListView.as_view(), name='ticket_list'),
     path('ticket/', include(ticket_urlpatterns)),
     path('spare-parts/', SparePartUserListView.as_view(), name='spare_parts_list'),
+    path('service_object/<int:pk>/detail/', ServiceObjectDetailView.as_view(), name='service_object_detail_view')
 ]

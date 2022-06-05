@@ -95,5 +95,20 @@ async function ProgressBarList() {
 }
 
 
+let service_object = document.getElementById('id_service_object')
+service_object.addEventListener("change", getTime)
+
+async function getTime(){
+    let url = `http://localhost:8000/service_object/${service_object.value}/detail/`
+    console.log(url)
+    let data = await make_request(url)
+    console.log(data)
+    let time_to_finish = document.getElementById('time-to-finish')
+    console.log(time_to_finish)
+    if (data.time_to_finish !== 'None'){
+        time_to_finish.innerText = `Время за которое надо закончить работу по договору: ${data.time_to_finish} ч/м/с`}
+}
+
+
 
 
