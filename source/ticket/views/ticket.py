@@ -1,6 +1,11 @@
+from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
+from django.core.mail import send_mail, EmailMessage
+from django.shortcuts import redirect
+from django.template.loader import get_template
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.contrib.auth import get_user_model
 from django.db.models import Q
@@ -179,6 +184,19 @@ class TicketCloseView(UpdateView):
     def form_valid(self, form):
         self.object.status = TicketStatus.objects.get(name='Завершенный')
         self.object.save()
+        context = {'ticket': self.object}
+        subject = f'Отчет по работе по заявке над сервисным объектом: {self.object.service_object}'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = ['faralostik@yandex.ru', ]
+        message = get_template('mail/mail.html').render(context)
+        msg = EmailMessage(subject, message, email_from, recipient_list)
+        msg.content_subtype = 'html'
+        if not self.object.work_done:
+            messages.info(self.request, f'У этой заявки еще не заполнены проделланные работы, отредактируйте и '
+                                        f'возвращайтесь закрывать заявку')
+            return redirect('ticket:ticket_update', pk=self.kwargs.get("pk"))
+        else:
+            msg.send()
         return super().form_valid(form)
 
 

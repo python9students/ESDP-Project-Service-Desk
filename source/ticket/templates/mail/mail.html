@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-2">
+
+            <div class="">
+                <div>
+                    <h5 class="fw-bold mb-0">Объект обслуживания:</h5>
+                    <p style="white-space: pre-line">Объект: {{ ticket.service_object }}
+                        Клиент: {{ ticket.service_object.client.name }}
+                        Адрес: {{ ticket.service_object.address|default:"Не указан" }}</p>
+                </div>
+            </div>
+
+            <div class="">
+                <h5>Проделанные работы:</h5>
+                <pre>{{ ticket.work_done }}</pre>
+            </div>
+
+            <div>
+                <h5>Сотрудник тех-отдела компании BS/2:</h5>
+                <p>{{ ticket.operator.get_full_name }}</p>
+            </div>
+</div>
+{% endblock %}
