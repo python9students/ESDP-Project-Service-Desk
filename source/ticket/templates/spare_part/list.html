@@ -4,43 +4,45 @@
     <br>
 
     <form class="form-control" method="get">
-    {{ filter.form }}
-    &nbsp; <button style="margin-bottom: 2px" class="btn btn-outline-success btn-sm" type="submit">Фильтровать</button>
+        {{ filter.form }}
+        &nbsp;
+        <button style="margin-bottom: 2px" class="btn btn-outline-success btn-sm" type="submit">Фильтровать</button>
     </form>
 
     {% if object_list %}
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th scope="col">Запчасть</th>
-            <th scope="col">Дата назначения</th>
-            <th scope="col">Назначена кем</th>
-            <th scope="col">Назначена кому</th>
-            <th scope="col">В количестве</th>
-            <th scope="col">Статус</th>
-            <th scope="col">Действие</th>
-        </tr>
-        </thead>
-        <tbody>
-         {% for spare_part in spare_parts|dictsort:"id" reversed %}
+        <table class="table table-hover">
+            <thead>
             <tr>
-                <td >{{ spare_part.spare_part }}</td>
-                <td>{{ spare_part.created_at }}</td>
-                <td>{{ spare_part.assigned_by.last_name }} {{ spare_part.assigned_by.first_name }}</td>
-                <td>{{ spare_part.engineer.last_name }} {{ spare_part.engineer.first_name }}</td>
-                <td>{{ spare_part.quantity }}</td>
-                <td>{{ spare_part.get_status_display }}</td>
-                <td>
-                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        <a href="{% url "ticket:spare_part_update" spare_part.pk %}" class="btn btn-warning">Установить</a>
-                        <a href="{% url "ticket:spare_part_return_warehouse" spare_part.pk %}" class="btn btn-success">Вернуть</a>
-                    </div>
-                </td>
+                <th scope="col">Запчасть</th>
+                <th scope="col">Дата назначения</th>
+                <th scope="col">Назначена кем</th>
+                <th scope="col">Назначена кому</th>
+                <th scope="col">В количестве</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Действие</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-        {% else %}
+            </thead>
+            <tbody>
+            {% for spare_part in spare_parts|dictsort:"id" reversed %}
+                <tr>
+                    <td>{{ spare_part.spare_part }}</td>
+                    <td>{{ spare_part.created_at }}</td>
+                    <td>{{ spare_part.assigned_by.last_name }} {{ spare_part.assigned_by.first_name }}</td>
+                    <td>{{ spare_part.engineer.last_name }} {{ spare_part.engineer.first_name }}</td>
+                    <td>{{ spare_part.quantity }}</td>
+                    <td>{{ spare_part.get_status_display }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                            <a href="{% url "ticket:spare_part_update" spare_part.pk %}" class="btn btn-warning">Установить</a>
+                            <a href="{% url "ticket:spare_part_return_warehouse" spare_part.pk %}"
+                               class="btn btn-success">Вернуть</a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
         <h2>запчастей пока нет...</h2>
     {% endif %}
     {% if is_paginated %}

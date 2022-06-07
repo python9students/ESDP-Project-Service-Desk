@@ -18,7 +18,6 @@ class TicketTimeView(View):
         )
 
 
-
 class ServiceObjectDetailView(View):
     def get(self, *args, **kwargs):
         service_object = ServiceObject.objects.get(id=self.kwargs.get('pk'))

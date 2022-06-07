@@ -7,7 +7,7 @@ def buisnesstimedelta_function(object_):
         end_time=datetime.time(18),
         working_days=[0, 1, 2, 3, 4],
         tz=pytz.timezone('Asia/Bishkek'))
-    businesshrs = businesstimedelta.Rules([workday])
+    businesshours = businesstimedelta.Rules([workday])
     expected_time_to_finish = object_.expected_finish_date
-    time_difference = businesshrs.difference(datetime.datetime.now(), expected_time_to_finish)
+    time_difference = businesshours.difference(datetime.datetime.now(), expected_time_to_finish)
     return time_difference

@@ -22,7 +22,8 @@ class SparePartAssignCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         ticket = get_object_or_404(Ticket, pk=self.kwargs.get("pk"))
         context = super(SparePartAssignCreateView, self).get_context_data(**kwargs)
-        context['formset'] = SparePartAssignFormSet(queryset=SparePartUser.objects.filter(ticket_id=ticket.id, engineer_id=ticket.executor))
+        context['formset'] = SparePartAssignFormSet(
+            queryset=SparePartUser.objects.filter(ticket_id=ticket.id, engineer_id=ticket.executor))
         context['ticket'] = ticket
         return context
 
@@ -74,7 +75,7 @@ class SparePartUserListView(LoginRequiredMixin, ListView):
         spare_parts = super().get_queryset().order_by('-created_at')
         query = Q(status="assigned") | Q(status="set")
         if self.request.user.has_perm('ticket.see_engineer_tickets') and \
-                self.request.user.has_perm('ticket.see_engineer_spare_parts')\
+                self.request.user.has_perm('ticket.see_engineer_spare_parts') \
                 and not self.request.user.is_superuser:
             return spare_parts.filter(engineer=self.request.user).filter(query)
         return SparePartUserFilter(self.request.GET, queryset=spare_parts).qs
