@@ -32,8 +32,6 @@ async function ProgressBar() {
 
 
     let percentage = (remaining_time / received_and_end_date) * 100
-    console.log(percentage)
-    // let remaining_percentage = 100 - percentage
     let progress_bar_tag = document.getElementById("progress_bar")
     progress_bar_tag.style = `width: ${percentage}%`
     if (percentage >= 100) {
@@ -49,20 +47,6 @@ async function ProgressBar() {
         progress_bar_tag.style.color = "blue"
         progress_bar_tag.textContent = "-" + progress_bar_tag.textContent;
     }
-}
-
-
-function msToTime(duration) {
-    let milliseconds = parseInt((duration % 1000) / 100),
-        seconds = Math.floor((duration / 1000) % 60),
-        minutes = Math.floor((duration / (1000 * 60)) % 60),
-        hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-
-    hours = (hours < 10) ? "0" + hours : hours;
-    minutes = (minutes < 10) ? "0" + minutes : minutes;
-    seconds = (seconds < 10) ? "0" + seconds : seconds;
-
-    return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
 }
 
 

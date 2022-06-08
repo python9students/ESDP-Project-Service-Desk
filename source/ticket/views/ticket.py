@@ -101,7 +101,7 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
         if str(self.object.status) == 'Завершенный':
             ticket_closed = True
         if ticket.expected_finish_date:
-            '''Устанавливаю правило рабочего дня чтобы получить разницу между начальным и финальнымы днями'''
+            '''Устанавливаю правило рабочего дня чтобы получить разницу между начальным и финальными днями'''
             time_difference = buisnesstimedelta_function(ticket)
             expected_time_to_finish = ticket.expected_finish_date
             context['time_difference'] = time_difference.hours

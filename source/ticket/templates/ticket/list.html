@@ -5,7 +5,8 @@
 
     <form class="form-control" method="get">
         {{ filter.form }}
-        &nbsp; <button style="margin-bottom: 2px" class="btn btn-outline-success btn-sm" type="submit">Фильтровать</button>
+        &nbsp;
+        <button style="margin-bottom: 2px" class="btn btn-outline-success btn-sm" type="submit">Фильтровать</button>
     </form>
 
     {% if object_list %}
@@ -28,23 +29,24 @@
                 {% else %}
                 table-warning
                 {% endif %}">
-                        <a href="{% url 'ticket:ticket_detail' ticket.pk %}">Заявка-{{ ticket.received_at|date:"Ymd-His"}}</a></td>
+                        <a href="{% url 'ticket:ticket_detail' ticket.pk %}">Заявка-{{ ticket.received_at|date:"Ymd-His"}}</a>
+                    </td>
                     <td>{{ ticket.received_at }}</td>
                     <td>{{ ticket.client }}</td>
                     <td>{{ ticket.service_object }}</td>
                     <td>{% if ticket.status.name == 'Подготовленный' %}
                         <span class="badge rounded-pill bg-info text-dark">{{ ticket.status }}</span>
-                        {% elif ticket.status.name == 'Назначенный'%}
+                    {% elif ticket.status.name == 'Назначенный' %}
                         <span class="badge rounded-pill bg-warning text-dark">{{ ticket.status }}</span>
-                        {% elif ticket.status.name == 'На исполнении'%}
+                    {% elif ticket.status.name == 'На исполнении' %}
                         <span class="badge rounded-pill bg-primary">{{ ticket.status }}</span>
-                        {% elif ticket.status.name == 'Исполненный'%}
+                    {% elif ticket.status.name == 'Исполненный' %}
                         <span class="badge rounded-pill bg-success">{{ ticket.status }}</span>
-                        {% elif ticket.status.name == 'Неопределенный'%}
+                    {% elif ticket.status.name == 'Неопределенный' %}
                         <span class="badge rounded-pill bg-secondary">{{ ticket.status }}</span>
-                        {% elif ticket.status.name == 'Завершенный'%}
+                    {% elif ticket.status.name == 'Завершенный' %}
                         <span class="badge rounded-pill bg-dark">{{ ticket.status }}</span>
-                        {% elif ticket.status.name == 'Отмененный'%}
+                    {% elif ticket.status.name == 'Отмененный' %}
                         <span class="badge rounded-pill bg-danger">{{ ticket.status }}</span>
                     {% else %}
                         {{ ticket.status }}
