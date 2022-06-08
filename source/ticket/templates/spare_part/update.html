@@ -5,7 +5,7 @@
     <br>
     <h1>Добавить сервисный объект</h1>
     <form action="{% url "ticket:spare_part_update" spare_part.pk %}" method="post">
-        {% include 'partial/form.html' with button_text="Сохранить" %}
+        {% include 'partial/autoform.html' with button_text="Установить" %}
         <a class="btn btn-primary mt-3" href="{% url 'ticket:spare_parts_list' %}">Назад</a>
     </form>
     <br>
