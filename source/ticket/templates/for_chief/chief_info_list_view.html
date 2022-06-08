@@ -24,18 +24,19 @@
                                 <li><a class="dropdown-item" href="#">
                                     {% for ticket in tickets %}
                                         {% if ticket.driver.last_name == username.last_name %}
-                                            <table class="table table-hover table-bordered">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">Заявка</th>
-                                                    <th scope="col">Дата получения</th>
-                                                    <th scope="col">Клиент</th>
-                                                    <th scope="col">Объект</th>
-                                                    <th scope="col">Статус</th>
-                                                    <th scope="col">Прогресс</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
+                                            {% if tickets %}
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">Заявка</th>
+                                                        <th scope="col">Дата получения</th>
+                                                        <th scope="col">Клиент</th>
+                                                        <th scope="col">Объект</th>
+                                                        <th scope="col">Статус</th>
+                                                        <th scope="col">Прогресс</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
                                                     <tr>
                                                         <td class="{% if ticket.priority.name == 'Высокий' or ticket.priority.name == 'Critical Level' %}
                 table-danger
@@ -79,11 +80,13 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                </tbody>
-                                            </table>
+                                                    </tbody>
+                                                </table>
+                                            {% else %}
+                                                <h2>Заявок пока нет...</h2>
+                                            {% endif %}
                                         {% endif %}
                                     {% endfor %}
-
                                 </a></li>
                             </ul>
                         </li>
@@ -114,18 +117,19 @@
                                 <li><a class="dropdown-item" href="#">
                                     {% for ticket in tickets %}
                                         {% if ticket.executor.last_name == username.last_name %}
-                                            <table class="table table-hover table-bordered">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">Заявка</th>
-                                                    <th scope="col">Дата получения</th>
-                                                    <th scope="col">Клиент</th>
-                                                    <th scope="col">Объект</th>
-                                                    <th scope="col">Статус</th>
-                                                    <th scope="col">Прогресс</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
+                                            {% if tickets %}
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">Заявка</th>
+                                                        <th scope="col">Дата получения</th>
+                                                        <th scope="col">Клиент</th>
+                                                        <th scope="col">Объект</th>
+                                                        <th scope="col">Статус</th>
+                                                        <th scope="col">Прогресс</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
                                                     <tr>
                                                         <td class="{% if ticket.priority.name == 'Высокий' or ticket.priority.name == 'Critical Level' %}
                 table-danger
@@ -169,8 +173,11 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                </tbody>
-                                            </table>
+                                                    </tbody>
+                                                </table>
+                                            {% else %}
+                                                <h2>Заявок пока нет...</h2>
+                                            {% endif %}
                                         {% endif %}
                                     {% endfor %}
                                 </a></li>
