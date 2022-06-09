@@ -47,6 +47,14 @@ MYSQL_PASSWORD=password
 
 SECRET_KEY=secret_key
 
+EMAIL_HOST=smtp_host
+
+EMAIL_HOST_USER=email_of_host_user
+
+EMAIL_HOST_PASSWORD=password
+
+EMAIL_PORT=port
+
 
 Чтобы запустить сервер выполните:
 
