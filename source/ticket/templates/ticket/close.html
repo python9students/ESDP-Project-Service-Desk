@@ -38,5 +38,11 @@
         <input type="submit" class="btn btn-dark btn-sm mt-3 mx-1" value="Закрыть">
         <a href="{% url "ticket:ticket_detail" ticket.pk %}"
            class="btn btn-success btn-sm mt-3" style="float: left">Не закрывать</a>
+        <br><br>
+        <div class="mb-3 form-check">
+            <input type="hidden" value="Yes" name="send_email">
+            <input type="checkbox" value="No" class="form-check-input" name="send_email">
+            <label class="form-check-label" for="exampleCheck1">Не уведомлять клиента письмом</label>
+        </div>
     </form>
 {% endblock %}
