@@ -56,6 +56,17 @@ class ContractAdmin(admin.ModelAdmin):
         super().save_related(request, form, formsets, change)
         form.save_files(form.instance)
 
+    def change_view(self, request, object_id, form_url="", extra_context=None):
+        contract = get_object_or_404(Contract, id=object_id)
+        contract_status = ContractStatus.objects.get(name="Закрытый")
+        if contract.valid_until:
+            if contract.valid_until < date.today():
+                contract.status = contract_status
+                contract.save()
+                return super(ContractAdmin, self).change_view(request, object_id, form_url,
+                                                                   extra_context=extra_context)
+        return super(ContractAdmin, self).change_view(request, object_id, form_url, extra_context=extra_context)
+
 
 @admin.register(ServiceObject)
 class ServiceObjectAdmin(admin.ModelAdmin):
