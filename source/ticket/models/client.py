@@ -11,6 +11,7 @@ class Client(models.Model):
     website = models.URLField(max_length=255, blank=True, validators=[
         RegexValidator(r'[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)')],
                               verbose_name='Вебсайт')
+    email = models.EmailField(verbose_name='E-mail')
     type = models.ForeignKey('ticket.CompanyType', on_delete=models.PROTECT, verbose_name='Тип компании',
                              related_name='clients')
     address = models.CharField(max_length=255, blank=True, verbose_name='Адрес')

@@ -190,7 +190,8 @@ class TicketCloseView(UpdateView):
                 context = {'ticket': self.object}
                 subject = f'Отчет по работе по заявке над сервисным объектом: {self.object.service_object}'
                 email_from = settings.EMAIL_HOST_USER
-                recipient_list = ['faralost@gmail.com', ]
+                recipient = self.object.client.email
+                recipient_list = [recipient, ]
                 message = get_template('mail/mail.html').render(context)
                 msg = EmailMessage(subject, message, email_from, recipient_list)
                 msg.content_subtype = 'html'
