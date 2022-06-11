@@ -1,10 +1,8 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 
-from models import (User, Ticket,
-                    TicketStatus, TicketPriority,
-                    TicketType, ServiceLevel,
-                    Department, Work, ProblemArea)
+from ticket.models import ServiceLevel, Department
+from ticket.models.ticket import User, TicketStatus, TicketPriority, TicketType, Work, ProblemArea, Ticket
 
 
 class TicketTests(TestCase):
