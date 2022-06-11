@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 import datetime, businesstimedelta, pytz
 
+from django.utils import timezone
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
@@ -53,10 +54,16 @@ class Ticket(models.Model):
     expected_finish_date = models.DateTimeField(null=True, default=None, verbose_name='Ожидаемая дата завершения')
 
     def __str__(self):
-        return f'Заявка-{self.received_at.strftime("%Y%m%d-%H%M%S")}'
+        return f'Заявка-{self.convert_to_localtime(self.received_at)}'
 
     def get_absolute_url(self):
         return reverse('ticket:ticket_detail', kwargs={'pk': self.pk})
+
+    def convert_to_localtime(self, utctime):
+        fmt = "%Y%m%d-%H%M%S"
+        utc = utctime.replace(tzinfo=pytz.UTC)
+        localtz = utc.astimezone(timezone.get_current_timezone())
+        return localtz.strftime(fmt)
 
     @property
     def buisnesstimedelta_function(self):

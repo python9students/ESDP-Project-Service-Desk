@@ -29,7 +29,7 @@
                 {% else %}
                 table-warning
                 {% endif %}">
-                        <a href="{% url 'ticket:ticket_detail' ticket.pk %}">Заявка-{{ ticket.received_at|date:"Ymd-His"}}</a>
+                        <a href="{% url 'ticket:ticket_detail' ticket.pk %}">{{ ticket}}</a>
                     </td>
                     <td>{{ ticket.received_at }}</td>
                     <td>{{ ticket.client }}</td>
