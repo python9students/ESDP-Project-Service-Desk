@@ -4,6 +4,11 @@
     {% csrf_token %}
 {% endif %}
 <div class="row justify-content-between">
+    {% for field in form %}
+        {% for error in field.errors %}
+            <p class="text-danger">{{ error }}</p>
+        {% endfor %}
+    {% endfor %}
     <p class="text-success bg-dark">Оператор:</p>
     <div class="col-md-6">
         <label for="{{ form.client.id_for_label }}">{{ form.client.label }}</label>{{ form.client }}
@@ -33,7 +38,8 @@
                 <li style="list-style: none">
                     {% if node.is_leaf_node %}
                         <label for="works-{{ node.id }}">
-                            <input class="form-check-input" type="checkbox" name="works" value="{{ node.id }}" id="works-{{ node.id }}"
+                            <input class="form-check-input" type="checkbox" name="works" value="{{ node.id }}"
+                                   id="works-{{ node.id }}"
                                    {% if node in form.initial.works %}checked{% endif %}>
                             {{ node.name }}</label>
                     {% else %}
@@ -65,7 +71,8 @@
                 <li style="list-style: none">
                     {% if node.is_leaf_node %}
                         <label for="problem-{{ node.id }}">
-                            <input  class="form-check-input" type="checkbox" name="problem_areas" value="{{ node.id }}" id="problem-{{ node.id }}"
+                            <input class="form-check-input" type="checkbox" name="problem_areas" value="{{ node.id }}"
+                                   id="problem-{{ node.id }}"
                                    {% if node in form.initial.problem_areas %}checked{% endif %}>
                             {{ node.name }}</label>
                     {% else %}
