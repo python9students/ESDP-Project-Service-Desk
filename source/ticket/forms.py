@@ -1,3 +1,4 @@
+import pytz
 from django.utils.translation import gettext as _
 from django.core.exceptions import ValidationError
 from django.forms import widgets, BaseModelForm, modelformset_factory, Select, NumberInput
@@ -153,28 +154,34 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance:
-            self.initial['received_at'] = self.instance.received_at.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.received_at else None
-            self.initial['desired_to'] = self.instance.desired_to.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.desired_to else None
-            self.initial['closed_at'] = self.instance.closed_at.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.closed_at else None
-            self.initial['work_started_at'] = self.instance.work_started_at.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.work_started_at else None
-            self.initial['work_finished_at'] = self.instance.work_finished_at.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.work_finished_at else None
-            self.initial['ride_started_at'] = self.instance.ride_started_at.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.ride_started_at else None
-            self.initial['ride_finished_at'] = self.instance.ride_finished_at.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.ride_finished_at else None
-            self.initial['expected_finish_date'] = self.instance.expected_finish_date.strftime(
-                '%Y-%m-%dT%H:%M') if self.instance.expected_finish_date else None
+            self.initial['received_at'] = self.convert_to_localtime(self.instance.received_at)\
+                if self.instance.received_at else None
+            self.initial['desired_to'] = self.convert_to_localtime(self.instance.desired_to)\
+                if self.instance.desired_to else None
+            self.initial['closed_at'] = self.convert_to_localtime(self.instance.closed_at)\
+                if self.instance.closed_at else None
+            self.initial['work_started_at'] = self.convert_to_localtime(self.instance.work_started_at)\
+                if self.instance.work_started_at else None
+            self.initial['work_finished_at'] = self.convert_to_localtime(self.instance.work_finished_at)\
+                if self.instance.work_finished_at else None
+            self.initial['ride_started_at'] = self.convert_to_localtime(self.instance.ride_started_at)\
+                if self.instance.ride_started_at else None
+            self.initial['ride_finished_at'] = self.convert_to_localtime(self.instance.ride_finished_at)\
+                if self.instance.ride_finished_at else None
+            self.initial['expected_finish_date'] = self.convert_to_localtime(self.instance.expected_finish_date)\
+                if self.instance.expected_finish_date else None
         self.fields['executor'].label_from_instance = lambda obj: "%s" % obj.get_full_name()
         self.fields['driver'].label_from_instance = lambda obj: "%s" % obj.get_full_name()
 
     class Meta:
         model = Ticket
         exclude = ("cancel_reason", "closed_at", "operator", "status", "close_commentary",)
+
+    def convert_to_localtime(self, utctime):
+        fmt = '%Y-%m-%dT%H:%M'
+        utc = utctime.replace(tzinfo=pytz.UTC)
+        localtz = utc.astimezone(timezone.get_current_timezone())
+        return localtz.strftime(fmt)
 
 
 class EngineerForm(ChiefForm):
