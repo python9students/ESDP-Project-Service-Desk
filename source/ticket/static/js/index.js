@@ -20,6 +20,7 @@ if (document.getElementById('progress_bar')) {
 async function ProgressBar() {
     let url = document.getElementById('progress_bar').dataset.timeUrl
     let data = await make_request(url)
+    console.log(data)
     let converted_expected_finish_date = new Date(data.expected_time_to_finish_work);
     let converted_received_at_date = new Date(data.ticket_received_at)
     let converted_date_time_now = new Date(data.date_time_now)
@@ -103,8 +104,8 @@ service_object.addEventListener("change", getTime)
 
 async function getTime() {
     let url = `http://localhost:8000/service_object/${service_object.value}/detail/`
-    console.log(url)
     let data = await make_request(url)
+    console.log(data)
     if (data.time_to_finish !== 'None') {
         p_tag_time_to_finish = document.createElement('p')
         p_tag_time_to_finish.innerText = `Время за которое надо закончить работу по договору: ${data.time_to_finish} ч/м/с`
