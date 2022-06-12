@@ -35,7 +35,7 @@
                                 Запчасти
                             </a>
                         </li>
-                        {% if not user.groups.all.0|slugify == 'engineers' %}
+                        {% if perms.ticket.see_chief_tickets %}
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="{% url 'ticket:ticket_create' %}">Создать
                                     заявку</a>

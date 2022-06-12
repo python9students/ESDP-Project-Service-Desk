@@ -72,7 +72,8 @@ class SparePartUserListView(LoginRequiredMixin, ListView):
     paginate_orphans = 0
 
     def get_queryset(self):
-        spare_parts = super().get_queryset().order_by('-created_at')
+        spare_parts = super().get_queryset().select_related(
+            'assigned_by', 'engineer', 'ticket', 'service_object', 'spare_part').order_by('-created_at')
         query = Q(status="assigned") | Q(status="set")
         if self.request.user.has_perm('ticket.see_engineer_tickets') and \
                 self.request.user.has_perm('ticket.see_engineer_spare_parts') \

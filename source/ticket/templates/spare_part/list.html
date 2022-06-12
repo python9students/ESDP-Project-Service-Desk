@@ -28,8 +28,8 @@
                 <tr>
                     <td>{{ spare_part.spare_part }}</td>
                     <td>{{ spare_part.created_at }}</td>
-                    <td>{{ spare_part.assigned_by.last_name }} {{ spare_part.assigned_by.first_name }}</td>
-                    <td>{{ spare_part.engineer.last_name }} {{ spare_part.engineer.first_name }}</td>
+                    <td>{{ spare_part.assigned_by.get_full_name }}</td>
+                    <td>{{ spare_part.engineer.get_full_name }}</td>
                     <td><a href="{% url 'ticket:ticket_detail' spare_part.ticket.pk %}">{{ spare_part.ticket }}</a></td>
                     <td>{{ spare_part.quantity }}</td>
                     <td>{{ spare_part.get_status_display }}</td>

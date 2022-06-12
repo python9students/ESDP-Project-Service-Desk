@@ -6,13 +6,13 @@
 {% block content %}
     <div class="mt-2">
         <a href="{% url "ticket:ticket_update" ticket.id %}" class="btn btn-primary">Редактировать</a>
-        {% if not user.groups.all.0|slugify == 'engineers' %}
+        {% if perms.ticket.see_chief_tickets %}
             <a href="{% url "ticket:spare_part_assign_create" ticket.id %}" class="btn btn-info">Назначить запчасти</a>
         {% endif %}
-        {% if not ticket_canceled and is_chief %}
+        {% if not ticket.status.name == 'Отмененный' and perms.ticket.see_chief_tickets %}
             <a class="btn btn-danger" href="{% url 'ticket:ticket_cancel' ticket.pk %}">Отменить заявку</a>
         {% endif %}
-        {% if not ticket_closed and is_chief %}
+        {% if not ticket.status.name == 'Завершенный' and perms.ticket.see_chief_tickets %}
             <a class="btn btn-dark" href="{% url 'ticket:ticket_close' ticket.pk %}">Закрыть заявку</a>
         {% endif %}
     </div>
