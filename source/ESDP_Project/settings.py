@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'mptt',
     'behave_django',
     'django_filters',
+    'debug_toolbar',
 
     # Custom Applications
     'accounts',
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'ESDP_Project.urls'
@@ -143,6 +145,10 @@ MEDIA_URL = '/uploads/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 MPTT_ADMIN_LEVEL_INDENT = 20
 
