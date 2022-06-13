@@ -4,7 +4,7 @@ from django.views import View
 
 from ticket.models import Ticket, ServiceObject
 
-
+#  filling up with new datas
 class TicketTimeView(View):
     def get(self, *args, **kwargs):
         ticket = Ticket.objects.get(id=self.kwargs.get('pk'))
