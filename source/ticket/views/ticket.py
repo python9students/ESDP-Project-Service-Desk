@@ -1,9 +1,8 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import EmailMessage
 from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
@@ -102,12 +101,9 @@ class TicketUpdateView(LoginRequiredMixin, UpdateView):
     context_object_name = 'ticket'
 
     def get_form(self, form_class=None):
-        admin_group = Group.objects.get(name='admins')
-        chief_group = Group.objects.get(name='chiefs')
-        engineer_group = Group.objects.get(name='engineers')
-        if chief_group in self.request.user.groups.all() or admin_group in self.request.user.groups.all():
+        if self.request.user.groups.filter(Q(name='chiefs') | Q(name='admins')).exists():
             self.form_class = ChiefForm
-        elif engineer_group in self.request.user.groups.all():
+        elif self.request.user.groups.filter(name='engineers').exists():
             self.form_class = EngineerForm
         return super().get_form()
 
@@ -138,11 +134,18 @@ class TicketCancelView(UpdateView):
     template_name = 'ticket/cancel.html'
     form_class = TicketCancelForm
 
+    def get_queryset(self):
+        self.queryset = super().get_queryset().select_related(
+            'service_object', 'operator', 'service_object__client', 'status')
+        return self.queryset
+
+    def get_object(self, queryset=None):
+        return super().get_object(queryset=self.queryset)
+
     def get(self, request, *args, **kwargs):
-        chief_group = Group.objects.get(name='chiefs')
-        if chief_group not in self.request.user.groups.all():
+        if not self.request.user.groups.filter(name='chiefs').exists():
             raise PermissionDenied
-        if str(self.get_object().status) == 'Отмененный':
+        if self.get_object().status == 'Отмененный':
             raise PermissionDenied
         return super().get(request, *args, **kwargs)
 
@@ -157,11 +160,18 @@ class TicketCloseView(UpdateView):
     template_name = 'ticket/close.html'
     form_class = TicketCloseForm
 
+    def get_queryset(self):
+        self.queryset = super().get_queryset().select_related(
+            'service_object', 'operator', 'service_object__client', 'status')
+        return self.queryset
+
+    def get_object(self, queryset=None):
+        return super().get_object(queryset=self.queryset)
+
     def get(self, request, *args, **kwargs):
-        chief_group = Group.objects.get(name='chiefs')
-        if chief_group not in self.request.user.groups.all():
+        if not self.request.user.groups.filter(name='chiefs').exists():
             raise PermissionDenied
-        if str(self.get_object().status) == 'Завершенный':
+        if self.get_object().status.name == 'Завершенный':
             raise PermissionDenied
         return super().get(request, *args, **kwargs)
 
