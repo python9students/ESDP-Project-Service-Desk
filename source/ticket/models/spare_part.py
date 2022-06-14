@@ -30,6 +30,7 @@ class SparePart(models.Model):
         verbose_name = 'Запчасть'
         verbose_name_plural = 'Запчасти'
         db_table = 'spare_part'
+        unique_together = ('serial_number',)
 
 
 class Condition(models.Model):

@@ -46,6 +46,9 @@ class SparePartAssignCreateView(LoginRequiredMixin, CreateView):
             if instance.quantity == 0:
                 messages.warning(self.request, f'Вы не можете назначить запчастей в количестве: 0')
                 return render(self.request, 'spare_part/assign_create.html', {'formset': formset})
+            elif instance.spare_part_id:
+                messages.warning(self.request, f'Такая запчасть с серийным номером уже назначена!')
+                return render(self.request, 'spare_part/assign_create.html', {'formset': formset})
             elif spare_part.quantity > 0 and spare_part.quantity >= instance.quantity:
                 instance.assigned_by = self.request.user
                 instance.ticket = ticket
