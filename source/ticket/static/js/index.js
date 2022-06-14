@@ -92,7 +92,10 @@ async function ProgressBarList() {
 
 
         }else if (data.ticket_status === "Завершенный"){
-            document.getElementById(data.ticket_id).remove()
+            let element = document.getElementById(data.ticket_id)
+
+            console.log(element)
+            element.remove()
 
         }
     }
