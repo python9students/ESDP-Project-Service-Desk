@@ -53,7 +53,7 @@
                     {% endif %}
                     </td>
                     <td>
-                        <div class="progress">
+                        <div class="progress" id={{ticket.id}}>
                             <div class="progress-bar progress_list" data-id="{{ ticket.id }}"
                                  data-time-url="{% url "ticket:ticket_time_bar" ticket.pk %}" role="progressbar"
                                  style=""

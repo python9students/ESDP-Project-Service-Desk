@@ -20,7 +20,6 @@ if (document.getElementById('progress_bar')) {
 async function ProgressBar() {
     let url = document.getElementById('progress_bar').dataset.timeUrl
     let data = await make_request(url)
-    console.log(data)
     let converted_expected_finish_date = new Date(data.expected_time_to_finish_work);
     let converted_received_at_date = new Date(data.ticket_received_at)
     let converted_date_time_now = new Date(data.date_time_now)
@@ -60,73 +59,71 @@ async function ProgressBarList() {
     for (i = 0; i < progress_list.length; i++) {
         let url = progress_list[i].dataset.timeUrl
         let data = await make_request(url)
-        let converted_expected_finish_date = new Date(data.expected_time_to_finish_work);
-        let converted_received_at_date = new Date(data.ticket_received_at)
-        let converted_date_time_now = new Date(data.date_time_now)
+        if (data.ticket_status !== "Завершенный") {
+            let converted_expected_finish_date = new Date(data.expected_time_to_finish_work);
+            let converted_received_at_date = new Date(data.ticket_received_at)
+            let converted_date_time_now = new Date(data.date_time_now)
 
 
-        let remaining_time = converted_expected_finish_date - converted_date_time_now
+            let remaining_time = converted_expected_finish_date - converted_date_time_now
+
+            let received_and_end_date = converted_expected_finish_date - converted_received_at_date
+
+            let percentage = (remaining_time / received_and_end_date) * 100
+            progress_list[i].style = `width: ${percentage}%`
+
+            if (percentage >= 100) {
+                progress_list[i].style.background = 'white'
+            } else if (percentage >= 40) {
+                progress_list[i].style.background = "green"
+                progress_list[i].textContent = progress_list[i].textContent + "раб.час"
+            } else if (percentage >= 15) {
+                progress_list[i].style.background = 'yellow'
+                progress_list[i].style.color = 'red'
+                progress_list[i].textContent = progress_list[i].textContent + "раб.час"
+            } else if (percentage === 0) {
+                progress_list[i].style.background = null
+                progress_list[i].style.color = null
+            } else if (percentage < 0) {
+                progress_list[i].style.background = 'red'
+                progress_list[i].style.color = "blue"
+                progress_list[i].textContent = "-" + progress_list[i].textContent + "раб.час";
+            }
 
 
-        let received_and_end_date = converted_expected_finish_date - converted_received_at_date
+        }else if (data.ticket_status === "Завершенный"){
+            document.getElementById(data.ticket_id).remove()
 
-
-        let percentage = (remaining_time / received_and_end_date) * 100
-        progress_list[i].style = `width: ${percentage}%`
-
-        if (percentage >= 100) {
-            progress_list[i].style.background = 'white'
-            // progress_list[i].textContent = "-" + progress_list[i].textContent + "раб.час";
-        } else if (percentage >= 40) {
-            progress_list[i].style.background = "green"
-            progress_list[i].textContent = progress_list[i].textContent + "раб.час"
-        } else if (percentage >= 15) {
-            progress_list[i].style.background = 'yellow'
-            progress_list[i].style.color = 'red'
-            progress_list[i].textContent = progress_list[i].textContent + "раб.час"
-        } else if (percentage === 0){
-            progress_list[i].style.background = null
-            progress_list[i].style.color = null
-            // progress_list[i].textContent = "-" + progress_list[i].textContent + "раб.час";
-        } else if (percentage < 0){
-            progress_list[i].style.background = 'red'
-            progress_list[i].style.color = "blue"
-            progress_list[i].textContent = "-" + progress_list[i].textContent + "раб.час";
         }
-
     }
-
+    console.log(progress_list)
 }
 
 
-let service_object = document.getElementById('id_service_object')
-service_object.addEventListener("change", getTime)
+if (document.getElementById('id_service_object')) {
+    let service_object = document.getElementById('id_service_object')
+    service_object.addEventListener("change", getTime)
 
-async function getTime() {
-    let url = `http://localhost:8000/service_object/${service_object.value}/detail/`
-    let data = await make_request(url)
-    console.log(data)
-    if (data.time_to_finish !== 'None') {
-        p_tag_time_to_finish = document.createElement('p')
-        p_tag_time_to_finish.innerText = `Время за которое надо закончить работу по договору: ${data.time_to_finish} ч/м/с`
-        p_tag_time_to_finish.style.background = "green"
-        p_tag_time_to_finish.style.color = "white"
-        p_tag_time_to_finish.style.padding = "10px"
-        p_tag_time_to_finish.id = "p_tag_time_to_fix"
-        if (document.getElementById('p_tag_time_to_fix')) {
-            document.getElementById('p_tag_time_to_fix').remove()
-            let time_to_finish = document.getElementById('time-to-finish')
-            time_to_finish.appendChild(p_tag_time_to_finish)
+    async function getTime() {
+        let url = `http://localhost:8000/service_object/${service_object.value}/detail/`;
+        let data = await make_request(url);
+        if (data.time_to_finish !== 'None') {
+            p_tag_time_to_finish = document.createElement('p')
+            p_tag_time_to_finish.innerText = `Время за которое надо закончить работу по договору: ${data.time_to_finish} ч/м/с`
+            p_tag_time_to_finish.style.background = "green"
+            p_tag_time_to_finish.style.color = "white"
+            p_tag_time_to_finish.style.padding = "10px"
+            p_tag_time_to_finish.id = "p_tag_time_to_fix"
+            if (document.getElementById('p_tag_time_to_fix')) {
+                document.getElementById('p_tag_time_to_fix').remove()
+                let time_to_finish = document.getElementById('time-to-finish')
+                time_to_finish.appendChild(p_tag_time_to_finish)
+            } else {
+                let time_to_finish = document.getElementById('time-to-finish')
+                time_to_finish.appendChild(p_tag_time_to_finish)
+            }
         } else {
-            let time_to_finish = document.getElementById('time-to-finish')
-            time_to_finish.appendChild(p_tag_time_to_finish)
+            document.getElementById('p_tag_time_to_fix').remove()
         }
-    } else {
-        document.getElementById('p_tag_time_to_fix').remove()
     }
-
 }
-
-
-
-
