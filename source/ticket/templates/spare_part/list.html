@@ -30,7 +30,11 @@
                     <td>{{ spare_part.created_at }}</td>
                     <td>{{ spare_part.assigned_by.last_name }} {{ spare_part.assigned_by.first_name }}</td>
                     <td>{{ spare_part.engineer.last_name }} {{ spare_part.engineer.first_name }}</td>
-                    <td><a href="{% url 'ticket:ticket_detail' spare_part.ticket.pk %}">{{ spare_part.ticket }}</a></td>
+                    {% if spare_part.ticket.pk %}
+                        <td><a href="{% url 'ticket:ticket_detail' spare_part.ticket.pk %}">{{ spare_part.ticket }}</a></td>
+                    {% else %}
+                        <td>Нет заявки</td>
+                    {% endif %}
                     <td>{{ spare_part.quantity }}</td>
                     <td>{{ spare_part.get_status_display }}</td>
                     <td>
