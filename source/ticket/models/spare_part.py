@@ -10,7 +10,7 @@ class SparePart(models.Model):
     """
     SPARE_PART_CHOICES = [('pc', 'шт'), ('unit', 'узел')]
 
-    serial_number = models.CharField(max_length=100, unique=True, verbose_name='Серийный №')
+    serial_number = models.CharField(max_length=100, unique=True, verbose_name='Серийный №', blank=True)
     name = models.CharField(max_length=100, verbose_name='Название')
     product_code = models.CharField(max_length=100, verbose_name='Код продукта')
     quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
