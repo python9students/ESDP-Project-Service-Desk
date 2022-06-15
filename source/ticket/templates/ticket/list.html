@@ -2,14 +2,12 @@
 {% block title %}Заявки{% endblock %}
 {% block content %}
     <br>
-
-    <form class="form-control" method="get">
-        {{ filter.form }}
-        &nbsp;
-        <button style="margin-bottom: 2px" class="btn btn-outline-success btn-sm" type="submit">Фильтровать</button>
-    </form>
-
     {% if object_list %}
+        <form class="form-control" method="get">
+            {{ filter.form }}
+            &nbsp;
+            <button style="margin-bottom: 2px" class="btn btn-outline-success btn-sm" type="submit">Фильтровать</button>
+        </form>
         <table class="table table-hover table-bordered">
             <thead>
             <tr>
@@ -24,12 +22,14 @@
             <tbody>
             {% for ticket in tickets|dictsort:"id" reversed %}
                 <tr>
-                    <td class="{% if ticket.priority.name == 'Высокий' or ticket.priority.name == 'Critical Level' %}
+                    <td class="{% if ticket.priority.name == 'Высокий' %}
                 table-danger
+                {% elif ticket.priority.name == 'Critical Level' %}
+                table-dark
                 {% else %}
                 table-warning
                 {% endif %}">
-                        <a href="{% url 'ticket:ticket_detail' ticket.pk %}">{{ ticket}}</a>
+                        <a href="{% url 'ticket:ticket_detail' ticket.pk %}">{{ ticket }}</a>
                     </td>
                     <td>{{ ticket.received_at }}</td>
                     <td>{{ ticket.client }}</td>
@@ -53,7 +53,7 @@
                     {% endif %}
                     </td>
                     <td>
-                        <div class="progress">
+                        <div class="progress" id={{ ticket.id }}>
                             <div class="progress-bar progress_list" data-id="{{ ticket.id }}"
                                  data-time-url="{% url "ticket:ticket_time_bar" ticket.pk %}" role="progressbar"
                                  style=""
@@ -68,7 +68,8 @@
             </tbody>
         </table>
     {% else %}
-        <h2>Заявок пока нет...</h2>
+        <br>
+        <h4>Заявок пока нет...</h4>
     {% endif %}
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
