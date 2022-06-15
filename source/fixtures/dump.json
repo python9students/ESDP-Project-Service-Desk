@@ -1,5 +1,150 @@
 [
 {
+  "model": "ticket.ticket",
+  "pk": 1,
+  "fields": {
+    "client": 11,
+    "service_object": 14,
+    "priority": 4,
+    "type": 1,
+    "status": 1,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-06-15T15:34:16.371Z",
+    "updated_at": "2022-06-15T15:58:16.878Z",
+    "received_at": "2022-06-15T15:33:00Z",
+    "desired_to": null,
+    "operator": 13,
+    "description": "заявка для теста с новыми данными\r\nдля вывода в детали",
+    "executor": 11,
+    "driver": 11,
+    "closed_at": null,
+    "ride_started_at": "2022-06-15T16:47:00Z",
+    "work_started_at": "2022-06-15T17:47:00Z",
+    "work_finished_at": "2022-06-15T18:48:00Z",
+    "ride_finished_at": "2022-06-15T19:48:00Z",
+    "cancel_reason": "",
+    "close_commentary": "тест закрытия без отправки письма",
+    "work_done": "1 - сделал это \r\n2 - сделал то \r\n3 - проверил то",
+    "expected_finish_date": "2022-06-17T15:36:00Z",
+    "works": [
+      8,
+      6
+    ],
+    "problem_areas": [
+      13
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 2,
+  "fields": {
+    "client": 12,
+    "service_object": 12,
+    "priority": 2,
+    "type": 1,
+    "status": 6,
+    "service_level": 2,
+    "department": 1,
+    "created_at": "2022-06-15T15:34:57.020Z",
+    "updated_at": "2022-06-15T15:39:04.836Z",
+    "received_at": "2022-06-15T15:34:00Z",
+    "desired_to": null,
+    "operator": 13,
+    "description": "",
+    "executor": 10,
+    "driver": 10,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "work_done": "",
+    "expected_finish_date": null,
+    "works": [
+      8
+    ],
+    "problem_areas": [
+      12
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 3,
+  "fields": {
+    "client": 11,
+    "service_object": 15,
+    "priority": 3,
+    "type": 4,
+    "status": 6,
+    "service_level": 2,
+    "department": 1,
+    "created_at": "2022-06-15T15:35:38.251Z",
+    "updated_at": "2022-06-15T15:38:38.874Z",
+    "received_at": "2022-06-15T15:35:00Z",
+    "desired_to": null,
+    "operator": 13,
+    "description": "",
+    "executor": 10,
+    "driver": 10,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "work_done": "",
+    "expected_finish_date": "2022-06-16T07:36:00Z",
+    "works": [
+      8
+    ],
+    "problem_areas": [
+      11
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 4,
+  "fields": {
+    "client": 12,
+    "service_object": 13,
+    "priority": 1,
+    "type": 1,
+    "status": 3,
+    "service_level": 3,
+    "department": 1,
+    "created_at": "2022-06-15T16:05:45.714Z",
+    "updated_at": "2022-06-15T16:05:45.726Z",
+    "received_at": "2022-05-30T16:05:00Z",
+    "desired_to": null,
+    "operator": 13,
+    "description": "",
+    "executor": null,
+    "driver": null,
+    "closed_at": null,
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "work_done": "",
+    "expected_finish_date": null,
+    "works": [
+      8
+    ],
+    "problem_areas": [
+      10
+    ]
+  }
+},
+{
   "model": "ticket.ticketpriority",
   "pk": 1,
   "fields": {
@@ -595,7 +740,7 @@
     "type": 1,
     "is_installed": true,
     "active_from": "2022-04-11T06:00:00Z",
-    "address": "г. Кант, Военный городок №1, в/ч 20022, здание №7",
+    "address": "Военный городок №1, в/ч 20022, здание №7",
     "country": 3,
     "region": 1,
     "city": 9,
