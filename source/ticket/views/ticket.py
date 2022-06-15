@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import EmailMessage
 from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
@@ -204,7 +204,7 @@ class ChiefInfoDetailView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         tickets = Ticket.objects.select_related(
-            'driver', 'priority', 'client', 'service_object', 'status', 'executor', ).filter(
+            'driver', 'priority', 'client', 'service_object', 'status', 'executor', 'service_object__city').filter(
             (Q(status__name="На исполнении") | Q(status__name='Назначенный')))
         context['tickets'] = tickets
         active_executor_tickets = Count('executor_tickets', filter=Q(

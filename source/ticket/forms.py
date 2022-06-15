@@ -154,22 +154,22 @@ class ChiefForm(forms.ModelForm, TicketFormValidationMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance:
-            self.initial['received_at'] = self.convert_to_localtime(self.instance.received_at)\
-                if self.instance.received_at else None
-            self.initial['desired_to'] = self.convert_to_localtime(self.instance.desired_to)\
-                if self.instance.desired_to else None
-            self.initial['closed_at'] = self.convert_to_localtime(self.instance.closed_at)\
-                if self.instance.closed_at else None
-            self.initial['work_started_at'] = self.convert_to_localtime(self.instance.work_started_at)\
-                if self.instance.work_started_at else None
-            self.initial['work_finished_at'] = self.convert_to_localtime(self.instance.work_finished_at)\
-                if self.instance.work_finished_at else None
-            self.initial['ride_started_at'] = self.convert_to_localtime(self.instance.ride_started_at)\
-                if self.instance.ride_started_at else None
-            self.initial['ride_finished_at'] = self.convert_to_localtime(self.instance.ride_finished_at)\
-                if self.instance.ride_finished_at else None
-            self.initial['expected_finish_date'] = self.convert_to_localtime(self.instance.expected_finish_date)\
-                if self.instance.expected_finish_date else None
+            self.initial['received_at'] = self.convert_to_localtime(
+                self.instance.received_at) if self.instance.received_at else None
+            self.initial['desired_to'] = self.convert_to_localtime(
+                self.instance.desired_to) if self.instance.desired_to else None
+            self.initial['closed_at'] = self.convert_to_localtime(
+                self.instance.closed_at) if self.instance.closed_at else None
+            self.initial['work_started_at'] = self.convert_to_localtime(
+                self.instance.work_started_at) if self.instance.work_started_at else None
+            self.initial['work_finished_at'] = self.convert_to_localtime(
+                self.instance.work_finished_at) if self.instance.work_finished_at else None
+            self.initial['ride_started_at'] = self.convert_to_localtime(
+                self.instance.ride_started_at) if self.instance.ride_started_at else None
+            self.initial['ride_finished_at'] = self.convert_to_localtime(
+                self.instance.ride_finished_at) if self.instance.ride_finished_at else None
+            self.initial['expected_finish_date'] = self.convert_to_localtime(
+                self.instance.expected_finish_date) if self.instance.expected_finish_date else None
         self.fields['executor'].label_from_instance = lambda obj: "%s" % obj.get_full_name()
         self.fields['driver'].label_from_instance = lambda obj: "%s" % obj.get_full_name()
 
@@ -255,10 +255,3 @@ class SparePartUserListForm(forms.ModelForm):
     class Meta:
         model = SparePartUser
         fields = "__all__"
-
-
-class SparePartInstall(forms.ModelForm):
-    class Meta:
-        model = SparePartUser
-        fields = ['service_object']
-        exclude = ['spare_part', 'engineer', 'quantity', 'created_at', 'assigned_by', 'ticket', 'status']

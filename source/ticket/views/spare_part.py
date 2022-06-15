@@ -4,10 +4,9 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import View
-from django.views.generic import CreateView, ListView, UpdateView
-
+from django.views.generic import CreateView, ListView
 from ticket.filters import SparePartUserFilter
-from ticket.forms import SparePartAssignForm, SparePartAssignFormSet, SparePartInstall
+from ticket.forms import SparePartAssignForm, SparePartAssignFormSet
 from ticket.models import SparePartUser, SparePart, Ticket
 
 
