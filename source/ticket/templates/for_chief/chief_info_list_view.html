@@ -6,7 +6,7 @@
         <br><h2 class="mt-2">Исполнители:</h2>
     <span class="placeholder col-12 placeholder-xs"></span>
 
-    {% for username in usernames %}
+    {% for executor in executor_users %}
         <nav class="navbar2 navbar-expand-lg">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -19,20 +19,20 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ username.first_name }} {{ username.last_name }}
+                                {{ executor.get_full_name }} ({{ executor.num_tickets }})
                             </a>
                             <ul class="dropdown-menu dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><a class="dropdown-item" href="#">
-                                    {% for ticket in tickets %}
-                                        {% if ticket.executor.last_name == username.last_name %}
+                                     {% for ticket in tickets %}
+                                        {% if ticket.executor.last_name == executor.last_name %}
                                             {% if tickets %}
                                                 <table class="table table-hover table-bordered">
                                                     <thead>
                                                     <tr>
                                                         <th scope="col">Заявка</th>
-                                                        <th scope="col">Дата получения</th>
                                                         <th scope="col">Клиент</th>
                                                         <th scope="col">Объект</th>
+                                                        <th scope="col">Адрес</th>
                                                         <th scope="col">Статус</th>
                                                         <th scope="col">Прогресс</th>
                                                     </tr>
@@ -46,9 +46,9 @@
                 {% endif %}">
                                                             <a href="{% url 'ticket:ticket_detail' ticket.pk %}">Заявка-{{ ticket.received_at|date:"Ymd-His"}}</a>
                                                         </td>
-                                                        <td>{{ ticket.received_at }}</td>
                                                         <td>{{ ticket.client }}</td>
                                                         <td>{{ ticket.service_object }}</td>
+                                                        <td>{{ ticket.service_object.city }}, {{ ticket.service_object.address }}</td>
                                                         <td>{% if ticket.status.name == 'Подготовленный' %}
                                                             <span class="badge rounded-pill bg-info text-dark">{{ ticket.status }}</span>
                                                         {% elif ticket.status.name == 'Назначенный' %}
@@ -83,7 +83,7 @@
                                                     </tr>
                                                     </tbody>
                                                 </table>
-                                            {% else %}
+                                         {% else %}
                                                 <h2>Заявок пока нет...</h2>
                                             {% endif %}
                                         {% endif %}
@@ -99,7 +99,7 @@
         <h2 class="mt-5">Водители:</h2>
     <span class="placeholder col-12 placeholder-xs"></span>
 
-    {% for username in usernames %}
+    {% for driver in driver_users %}
         <nav class="navbar2 navbar-expand-lg">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -112,12 +112,12 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ username.first_name }} {{ username.last_name }}
+                                {{ driver.get_full_name }} ({{ driver.num_tickets }})
                             </a>
                             <ul class="dropdown-menu dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><a class="dropdown-item" href="#">
                                     {% for ticket in tickets %}
-                                        {% if ticket.driver.last_name == username.last_name %}
+                                        {% if ticket.driver.last_name == driver.last_name %}
                                             {% if tickets %}
                                                 <table class="table table-hover table-bordered">
                                                     <thead>
@@ -126,6 +126,7 @@
                                                         <th scope="col">Дата получения</th>
                                                         <th scope="col">Клиент</th>
                                                         <th scope="col">Объект</th>
+                                                        <th scope="col">Адрес</th>
                                                         <th scope="col">Статус</th>
                                                         <th scope="col">Прогресс</th>
                                                     </tr>
@@ -142,6 +143,7 @@
                                                         <td>{{ ticket.received_at }}</td>
                                                         <td>{{ ticket.client }}</td>
                                                         <td>{{ ticket.service_object }}</td>
+                                                        <td>{{ ticket.service_object.city }}, {{ ticket.service_object.address }}</td>
                                                         <td>{% if ticket.status.name == 'Подготовленный' %}
                                                             <span class="badge rounded-pill bg-info text-dark">{{ ticket.status }}</span>
                                                         {% elif ticket.status.name == 'Назначенный' %}

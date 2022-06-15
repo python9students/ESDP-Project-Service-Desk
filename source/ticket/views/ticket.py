@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.contrib.auth import get_user_model
-from django.db.models import Q
+from django.db.models import Q, Count
 from ticket.filters import TicketFilter
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
 from django.urls import reverse
@@ -208,10 +208,14 @@ class ChiefInfoDetailView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        tickets_driver = Ticket.objects.values('driver')
-        usernames = User.objects.filter(id__in=tickets_driver).values('id', 'last_name', 'first_name')
         tickets = Ticket.objects.filter((Q(status__name="На исполнении") | Q(status__name='Назначенный')))
         context['tickets'] = tickets
-        context['tickets_driver'] = tickets_driver
-        context['usernames'] = usernames
+        active_executor_tickets = Count('executor_tickets', filter=Q(
+            executor_tickets__status__name__in=['Назначенный', 'На исполнении']))
+        executor_users = User.objects.filter(executor_tickets__in=tickets).annotate(num_tickets=active_executor_tickets)
+        context['executor_users'] = executor_users
+        active_driver_tickets = Count('driver_tickets', filter=Q(
+            driver_tickets__status__name__in=['Назначенный', 'На исполнении']))
+        driver_users = User.objects.filter(driver_tickets__in=tickets).annotate(num_tickets=active_driver_tickets)
+        context['driver_users'] = driver_users
         return context
