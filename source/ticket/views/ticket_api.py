@@ -10,8 +10,6 @@ class TicketTimeView(View):
         ticket = Ticket.objects.get(id=self.kwargs.get('pk'))
         if ticket.status != "Завершенный":
             expected_time_to_finish_work = ticket.expected_finish_date
-            print(ticket.status)
-
             return JsonResponse(
                 {"ticket_received_at": ticket.received_at,
                  "expected_time_to_finish_work": expected_time_to_finish_work,

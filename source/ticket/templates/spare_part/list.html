@@ -3,13 +3,12 @@
 {% block content %}
     <br>
 
-    <form class="form-control" method="get">
-        {{ filter.form }}
-        &nbsp;
-        <button style="margin-bottom: 2px" class="btn btn-outline-success btn-sm" type="submit">Фильтровать</button>
-    </form>
-
     {% if object_list %}
+        <form class="form-control" method="get">
+            {{ filter.form }}
+            &nbsp;
+            <button style="margin-bottom: 2px" class="btn btn-outline-success btn-sm" type="submit">Фильтровать</button>
+        </form>
         <table class="table table-hover">
             <thead>
             <tr>
@@ -31,7 +30,8 @@
                     <td>{{ spare_part.assigned_by.last_name }} {{ spare_part.assigned_by.first_name }}</td>
                     <td>{{ spare_part.engineer.last_name }} {{ spare_part.engineer.first_name }}</td>
                     {% if spare_part.ticket.pk %}
-                        <td><a href="{% url 'ticket:ticket_detail' spare_part.ticket.pk %}">{{ spare_part.ticket }}</a></td>
+                        <td><a href="{% url 'ticket:ticket_detail' spare_part.ticket.pk %}">{{ spare_part.ticket }}</a>
+                        </td>
                     {% else %}
                         <td>Нет заявки</td>
                     {% endif %}
@@ -49,7 +49,8 @@
             </tbody>
         </table>
     {% else %}
-        <h2>запчастей пока нет...</h2>
+        <br>
+        <h4>Назначенных запчастей пока нет...</h4>
     {% endif %}
     {% if is_paginated %}
         {% include 'partial/pagination_spare_part.html' %}

@@ -9,7 +9,7 @@
         {% if not user.groups.all.0|slugify == 'engineers' %}
             <a href="{% url "ticket:spare_part_assign_create" ticket.id %}" class="btn btn-info">Назначить запчасти</a>
         {% endif %}
-        {% if not ticket_canceled and is_chief %}
+        {% if not ticket_canceled and not ticket_closed and is_chief %}
             <a class="btn btn-danger" href="{% url 'ticket:ticket_cancel' ticket.pk %}">Отменить заявку</a>
         {% endif %}
         {% if not ticket_closed and is_chief %}
@@ -34,7 +34,8 @@
                 <div>
                     <h5 class="fw-bold mb-0">Объект обслуживания</h5>
                     <p style="white-space: pre-line">{{ ticket.service_object }}
-                        ({{ ticket.service_object.client.short_name }})
+                        *{{ ticket.service_object.criterion }}*
+                        {{ ticket.service_object.client.short_name }} (г.{{ ticket.service_object.city }})
                         {{ ticket.service_object.address|default:"Не указан" }}</p>
                 </div>
             </div>
@@ -128,7 +129,7 @@
                 </svg>
                 <div>
                     <h5 class="fw-bold mb-0">Уровень обслуживания</h5>
-                    <p>{{ ticket.service_level }}</p>
+                    <p style="white-space: pre-line">{{ ticket.service_level }}
                 </div>
             </div>
 

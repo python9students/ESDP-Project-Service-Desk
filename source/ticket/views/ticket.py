@@ -25,10 +25,9 @@ class TicketListView(LoginRequiredMixin, ListView):
     context_object_name = 'tickets'
     paginate_by = 10
     paginate_orphans = 0
-    ordering = ['-received_at']
 
     def get_queryset(self):
-        tickets = super().get_queryset()
+        tickets = super().get_queryset().order_by('-received_at')
         if self.request.user.has_perm('ticket.see_engineer_tickets') and not self.request.user.is_superuser:
             return tickets.filter(status__in=[2, 6, 7]).filter(executor=self.request.user)
         return TicketFilter(self.request.GET, queryset=tickets).qs
@@ -212,8 +211,6 @@ class ChiefInfoDetailView(ListView):
         tickets_driver = Ticket.objects.values('driver')
         usernames = User.objects.filter(id__in=tickets_driver).values('id', 'last_name', 'first_name')
         tickets = Ticket.objects.filter((Q(status__name="На исполнении") | Q(status__name='Назначенный')))
-        print(tickets_driver)
-        print(usernames)
         context['tickets'] = tickets
         context['tickets_driver'] = tickets_driver
         context['usernames'] = usernames
