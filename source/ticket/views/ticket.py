@@ -6,6 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail, EmailMessage
 from django.shortcuts import redirect
 from django.template.loader import get_template
+from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.contrib.auth import get_user_model
 from django.db.models import Q, Count
@@ -183,6 +184,7 @@ class TicketCloseView(UpdateView):
     def form_valid(self, form):
         if self.object.work_done:
             self.object.status = TicketStatus.objects.get(name='Завершенный')
+            self.object.closed_at = timezone.now()
             self.object.save()
             send_client_email = self.request.POST.get('send_email')
             if send_client_email == 'Yes':
