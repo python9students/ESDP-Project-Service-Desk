@@ -5,6 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMessage
 from django.shortcuts import redirect
 from django.template.loader import get_template
+from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.contrib.auth import get_user_model
 from django.db.models import Q, Count
@@ -108,15 +109,20 @@ class TicketUpdateView(LoginRequiredMixin, UpdateView):
         return super().get_form()
 
     def form_valid(self, form):
-        if self.object.executor and self.object.driver and not self.object.ride_started_at:
-            self.object.status = TicketStatus.objects.get(name='Назначенный')
-        elif self.object.ride_started_at:
-            self.object.status = TicketStatus.objects.get(name='На исполнении')
-            self.object.save()
-        if self.object.ride_started_at and self.object.work_started_at and \
-                self.object.work_finished_at and self.object.ride_finished_at:
-            self.object.status = TicketStatus.objects.get(name='Исполненный')
-            self.object.save()
+        if not self.object.status.name == 'Завершенный':
+            if self.object.executor and self.object.driver and not self.object.ride_started_at:
+                self.object.status = TicketStatus.objects.get(name='Назначенный')
+            elif self.object.ride_started_at:
+                self.object.status = TicketStatus.objects.get(name='На исполнении')
+                self.object.save()
+            elif not self.object.ride_started_at and not self.object.executor or not self.object.driver:
+                self.object.status = TicketStatus.objects.get(name='Подготовленный')
+                self.object.save()
+            if (self.object.ride_started_at and self.object.work_started_at and
+                    self.object.work_finished_at and self.object.ride_finished_at):
+                self.object.status = TicketStatus.objects.get(name='Исполненный')
+                self.object.save()
+            return super().form_valid(form)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -178,6 +184,7 @@ class TicketCloseView(UpdateView):
     def form_valid(self, form):
         if self.object.work_done:
             self.object.status = TicketStatus.objects.get(name='Завершенный')
+            self.object.closed_at = timezone.now()
             self.object.save()
             send_client_email = self.request.POST.get('send_email')
             if send_client_email == 'Yes':
