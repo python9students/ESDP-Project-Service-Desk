@@ -128,15 +128,17 @@ class TicketUpdateView(LoginRequiredMixin, UpdateView):
         return super().get_form()
 
     def form_valid(self, form):
-        if self.object.executor and self.object.driver and not self.object.ride_started_at:
-            self.object.status = TicketStatus.objects.get(name='Назначенный')
-        elif self.object.ride_started_at:
-            self.object.status = TicketStatus.objects.get(name='На исполнении')
-            self.object.save()
-        if self.object.ride_started_at and self.object.work_started_at and \
-                self.object.work_finished_at and self.object.ride_finished_at:
-            self.object.status = TicketStatus.objects.get(name='Исполненный')
-            self.object.save()
+        if not self.object.status.name == 'Завершенный':
+            if self.object.executor and self.object.driver and not self.object.ride_started_at:
+                self.object.status = TicketStatus.objects.get(name='Назначенный')
+            elif self.object.ride_started_at:
+                self.object.status = TicketStatus.objects.get(name='На исполнении')
+                self.object.save()
+            if self.object.ride_started_at and self.object.work_started_at and \
+                    self.object.work_finished_at and self.object.ride_finished_at:
+                self.object.status = TicketStatus.objects.get(name='Исполненный')
+                self.object.save()
+            return super().form_valid(form)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
