@@ -87,12 +87,12 @@ WSGI_APPLICATION = 'ESDP_Project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('MYSQL_DATABASE'),
-        'USER': os.environ.get('MYSQL_USERNAME'),
-        'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
-        'HOST': os.environ.get('MYSQL_HOST'),
-        'PORT': os.environ.get('MYSQL_PORT'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ESDP',
+        'USER': 'faralost',
+        'PASSWORD': 'FaraLostCfc6969',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
