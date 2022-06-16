@@ -88,11 +88,11 @@ WSGI_APPLICATION = 'ESDP_Project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ESDP',
-        'USER': 'faralost',
-        'PASSWORD': 'FaraLostCfc6969',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.environ.get('POSTGRESQL_DATABASE'),
+        'USER': os.environ.get('POSTGRESQL_USERNAME'),
+        'PASSWORD': os.environ.get('POSTGRESQL_PASSWORD'),
+        'HOST': os.environ.get('POSTGRESQL_HOST'),
+        'PORT': os.environ.get('POSTGRESQL_PORT'),
     }
 }
 
