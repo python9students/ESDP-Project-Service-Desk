@@ -47,15 +47,15 @@ class SparePartAssignCreateView(LoginRequiredMixin, CreateView):
                 messages.error(self.request, f'Вы не можете назначить запчастей в количестве: 0')
                 return render(self.request, 'spare_part/assign_create.html', {'formset': formset, 'ticket': ticket})
             elif spare_part.quantity > 0 and spare_part.quantity >= instance.quantity:
+                for s in SparePartUser.objects.all():
+                    if s.spare_part_id == instance.spare_part_id:
+                        messages.error(self.request, f'Такая запчасть с серийным номером уже назначена!')
+                        return render(self.request, 'spare_part/assign_create.html',
+                                      {'formset': formset, 'ticket': ticket})
                 instance.assigned_by = self.request.user
                 instance.ticket = ticket
                 instance.engineer = ticket.executor
                 spare_part.quantity -= instance.quantity
-                for s in SparePartUser.objects.all():
-                    if s.spare_part_id:
-                        messages.error(self.request, f'Такая запчасть с серийным номером уже назначена!')
-                        return render(self.request, 'spare_part/assign_create.html',
-                                      {'formset': formset, 'ticket': ticket})
                 spare_part.save()
                 instance.save()
                 messages.success(self.request, f'Запчасти успешно назначены!')
