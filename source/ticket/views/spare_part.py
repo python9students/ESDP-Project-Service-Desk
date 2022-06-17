@@ -48,7 +48,7 @@ class SparePartAssignCreateView(LoginRequiredMixin, CreateView):
                 return render(self.request, 'spare_part/assign_create.html', {'formset': formset, 'ticket': ticket})
             elif spare_part.quantity > 0 and spare_part.quantity >= instance.quantity:
                 for s in SparePartUser.objects.all():
-                    if s.spare_part_id == instance.spare_part_id:
+                    if s.spare_part_id == instance.spare_part_id and s.ticket_id == ticket.id:
                         messages.error(self.request, f'Такая запчасть с серийным номером уже назначена!')
                         return render(self.request, 'spare_part/assign_create.html',
                                       {'formset': formset, 'ticket': ticket})
@@ -100,7 +100,7 @@ class SparePartReturnToWarehouse(View):
             spare_part.status = 'returned'
             spare_part.save()
             messages.success(self.request, f'Запчасть успешно возвращена на склад!')
-        elif spare_part.quantity == 0:
+        elif spare_part.status == 'returned':
             messages.error(self.request, f'Невозможно вернуть на склад, так как эта запчасть уже возвращена!')
         elif spare_part.status == 'set':
             messages.error(self.request, f'Невозможно вернуть на склад, так как эта запчасть уже установлена!')
@@ -120,9 +120,10 @@ class SparePartInstallation(View):
         if spare_part.status == 'assigned':
             if spare_part.service_object:
                 spare_part.status = 'set'
+                spare_part.quantity -= 1
                 spare_part.save()
                 messages.success(self.request, f'Запчасть успешно установлена на объект {spare_part.service_object}!')
-        if spare_part.status == 'set':
+        elif spare_part.status == 'set':
             messages.error(self.request, f'Невозможно установить, так как эта запчасть уже установлена!')
         if spare_part.status == 'returned':
             messages.error(self.request, f'Невозможно установить, так как эта запчасть уже возвращена!')
