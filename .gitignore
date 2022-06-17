@@ -11,3 +11,4 @@ uploads
 settings_local.py
 .env
 .python-version
+.env.prod
