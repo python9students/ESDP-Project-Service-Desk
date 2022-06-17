@@ -5,9 +5,8 @@
     {% if tickets %}
         <br><h2 class="mt-2">Исполнители:</h2>
     <span class="placeholder col-12 placeholder-xs"></span>
-
     {% for executor in executor_users %}
-        <nav class="navbar2 navbar-expand-lg">
+        <nav class="navbar2 navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown"
@@ -26,15 +25,16 @@
                                      {% for ticket in tickets %}
                                         {% if ticket.executor.last_name == executor.last_name %}
                                             {% if tickets %}
+                                                <div class="">
                                                 <table class="table table-hover table-bordered">
                                                     <thead>
                                                     <tr>
                                                         <th scope="col">Заявка</th>
-                                                        <th scope="col">Клиент</th>
-                                                        <th scope="col">Объект</th>
-                                                        <th scope="col">Адрес</th>
-                                                        <th scope="col">Статус</th>
-                                                        <th scope="col">Прогресс</th>
+                                                        <th class="d-none d-xl-table-cell" scope="col">Клиент</th>
+                                                        <th class="d-none d-lg-table-cell" scope="col">Объект</th>
+                                                        <th class="d-none d-md-table-cell" scope="col">Адрес</th>
+                                                        <th class="d-none d-sm-table-cell" scope="col">Статус</th>
+                                                        <th class="d-none d-xl-table-cell" scope="col">Прогресс</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -46,10 +46,10 @@
                 {% endif %}">
                                                             <a href="{% url 'ticket:ticket_detail' ticket.pk %}">Заявка-{{ ticket.received_at|date:"Ymd-His"}}</a>
                                                         </td>
-                                                        <td>{{ ticket.client }}</td>
-                                                        <td>{{ ticket.service_object }}</td>
-                                                        <td>{{ ticket.service_object.city }}, {{ ticket.service_object.address }}</td>
-                                                        <td>{% if ticket.status.name == 'Подготовленный' %}
+                                                        <td class="d-none d-xl-table-cell">{{ ticket.client }}</td>
+                                                        <td class="d-none d-lg-table-cell">{{ ticket.service_object }}</td>
+                                                        <td class="d-none d-md-table-cell">{{ ticket.service_object.city }}, {{ ticket.service_object.address }}</td>
+                                                        <td class="d-none d-sm-table-cell">{% if ticket.status.name == 'Подготовленный' %}
                                                             <span class="badge rounded-pill bg-info text-dark">{{ ticket.status }}</span>
                                                         {% elif ticket.status.name == 'Назначенный' %}
                                                             <span class="badge rounded-pill bg-warning text-dark">{{ ticket.status }}</span>
@@ -67,7 +67,7 @@
                                                             {{ ticket.status }}
                                                         {% endif %}
                                                         </td>
-                                                        <td>
+                                                        <td class="d-none d-xl-table-cell">
                                                             <div class="progress">
                                                                 <div class="progress-bar progress_list"
                                                                      data-id="{{ ticket.id }}"
@@ -83,6 +83,7 @@
                                                     </tr>
                                                     </tbody>
                                                 </table>
+                                                </div>
                                          {% else %}
                                                 <h2>Заявок пока нет...</h2>
                                             {% endif %}
@@ -100,7 +101,7 @@
     <span class="placeholder col-12 placeholder-xs"></span>
 
     {% for driver in driver_users %}
-        <nav class="navbar2 navbar-expand-lg">
+        <nav class="navbar2 navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown"
@@ -119,16 +120,16 @@
                                     {% for ticket in tickets %}
                                         {% if ticket.driver.last_name == driver.last_name %}
                                             {% if tickets %}
+                                                <div class="">
                                                 <table class="table table-hover table-bordered">
                                                     <thead>
                                                     <tr>
                                                         <th scope="col">Заявка</th>
-                                                        <th scope="col">Дата получения</th>
-                                                        <th scope="col">Клиент</th>
-                                                        <th scope="col">Объект</th>
-                                                        <th scope="col">Адрес</th>
-                                                        <th scope="col">Статус</th>
-                                                        <th scope="col">Прогресс</th>
+                                                        <th class="d-none d-xl-table-cell" scope="col">Клиент</th>
+                                                        <th class="d-none d-lg-table-cell" scope="col">Объект</th>
+                                                        <th class="d-none d-md-table-cell" scope="col">Адрес</th>
+                                                        <th class="d-none d-sm-table-cell" scope="col">Статус</th>
+                                                        <th class="d-none d-xl-table-cell" scope="col">Прогресс</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -140,11 +141,10 @@
                 {% endif %}">
                                                             <a href="{% url 'ticket:ticket_detail' ticket.pk %}">Заявка-{{ ticket.received_at|date:"Ymd-His"}}</a>
                                                         </td>
-                                                        <td>{{ ticket.received_at }}</td>
-                                                        <td>{{ ticket.client }}</td>
-                                                        <td>{{ ticket.service_object }}</td>
-                                                        <td>{{ ticket.service_object.city }}, {{ ticket.service_object.address }}</td>
-                                                        <td>{% if ticket.status.name == 'Подготовленный' %}
+                                                        <td class="d-none d-xl-table-cell">{{ ticket.client }}</td>
+                                                        <td class="d-none d-lg-table-cell">{{ ticket.service_object }}</td>
+                                                        <td class="d-none d-md-table-cell">{{ ticket.service_object.city }}, {{ ticket.service_object.address }}</td>
+                                                        <td class="d-none d-sm-table-cell">{% if ticket.status.name == 'Подготовленный' %}
                                                             <span class="badge rounded-pill bg-info text-dark">{{ ticket.status }}</span>
                                                         {% elif ticket.status.name == 'Назначенный' %}
                                                             <span class="badge rounded-pill bg-warning text-dark">{{ ticket.status }}</span>
@@ -162,7 +162,7 @@
                                                             {{ ticket.status }}
                                                         {% endif %}
                                                         </td>
-                                                        <td>
+                                                        <td class="d-none d-xl-table-cell">
                                                             <div class="progress">
                                                                 <div class="progress-bar progress_list"
                                                                      data-id="{{ ticket.id }}"
@@ -178,6 +178,7 @@
                                                     </tr>
                                                     </tbody>
                                                 </table>
+                                                </div>
                                             {% else %}
                                                 <h2>Заявок пока нет...</h2>
                                             {% endif %}
@@ -205,7 +206,7 @@
         .dropdown-menu {
             border-radius: 20px;
             border-color: #BCBEC0;
-            width: 1271px;
+            min-width: 200px;
         }
 
         .nav-link {

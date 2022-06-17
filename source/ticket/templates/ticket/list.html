@@ -8,15 +8,16 @@
             &nbsp;
             <button style="margin-bottom: 2px" class="btn btn-outline-success btn-sm" type="submit">Фильтровать</button>
         </form>
+        <div class="">
         <table class="table table-hover table-bordered">
             <thead>
             <tr>
                 <th scope="col">Заявка</th>
-                <th scope="col">Дата получения</th>
-                <th scope="col">Клиент</th>
-                <th scope="col">Объект</th>
+                <th class="d-none d-md-table-cell" scope="col">Дата получения</th>
+                <th class="d-none d-sm-table-cell" scope="col">Клиент</th>
+                <th class="d-none d-md-table-cell" scope="col">Объект</th>
                 <th scope="col">Статус</th>
-                <th scope="col">Прогресс</th>
+                <th class="d-none d-md-table-cell" scope="col">Прогресс</th>
             </tr>
             </thead>
             <tbody>
@@ -31,9 +32,9 @@
                 {% endif %}">
                         <a href="{% url 'ticket:ticket_detail' ticket.pk %}">{{ ticket }}</a>
                     </td>
-                    <td>{{ ticket.received_at }}</td>
-                    <td>{{ ticket.client }}</td>
-                    <td>{{ ticket.service_object }}</td>
+                    <td class="d-none d-md-table-cell">{{ ticket.received_at }}</td>
+                    <td class="d-none d-sm-table-cell">{{ ticket.client }}</td>
+                    <td class="d-none d-md-table-cell">{{ ticket.service_object }}</td>
                     <td>{% if ticket.status.name == 'Подготовленный' %}
                         <span class="badge rounded-pill bg-info text-dark">{{ ticket.status }}</span>
                     {% elif ticket.status.name == 'Назначенный' %}
@@ -52,7 +53,7 @@
                         {{ ticket.status }}
                     {% endif %}
                     </td>
-                    <td>
+                    <td class="d-none d-md-table-cell">
                         <div class="progress" id={{ ticket.id }}>
                             <div class="progress-bar progress_list" data-id="{{ ticket.id }}"
                                  data-time-url="{% url "ticket:ticket_time_bar" ticket.pk %}" role="progressbar"
@@ -67,6 +68,7 @@
             {% endfor %}
             </tbody>
         </table>
+        </div>
     {% else %}
         <br>
         <h4>Заявок пока нет...</h4>

@@ -38,7 +38,7 @@ class SparePartAssignCreateView(LoginRequiredMixin, CreateView):
         ticket = get_object_or_404(Ticket, pk=self.kwargs.get("pk"))
         if not ticket.executor:
             messages.error(self.request, f'У этой заявки еще не назначен инженер, назначьте инженера и '
-                                        f'возвращайтесь назначать запчасти')
+                                         f'возвращайтесь назначать запчасти')
             return redirect('ticket:ticket_detail', pk=self.kwargs.get("pk"))
         instances = formset.save(commit=False)
         for instance in instances:
@@ -49,7 +49,7 @@ class SparePartAssignCreateView(LoginRequiredMixin, CreateView):
             elif spare_part.quantity > 0 and spare_part.quantity >= instance.quantity:
                 for s in SparePartUser.objects.all():
                     if s.spare_part_id == instance.spare_part_id and s.ticket_id == ticket.id:
-                        messages.error(self.request, f'Такая запчасть с серийным номером уже назначена!')
+                        messages.error(self.request, f'Назначать запчасти с одинаковыми серийными номерами нельзя!')
                         return render(self.request, 'spare_part/assign_create.html',
                                       {'formset': formset, 'ticket': ticket})
                 instance.assigned_by = self.request.user
@@ -99,7 +99,7 @@ class SparePartReturnToWarehouse(View):
             spare_part.quantity = 0
             spare_part.status = 'returned'
             spare_part.save()
-            messages.success(self.request, f'Запчасть успешно возвращена на склад!')
+            messages.success(self.request, f'Запчасть {spare_part_warehouse} успешно возвращена на склад!')
         elif spare_part.status == 'returned':
             messages.error(self.request, f'Невозможно вернуть на склад, так как эта запчасть уже возвращена!')
         elif spare_part.status == 'set':
@@ -107,6 +107,8 @@ class SparePartReturnToWarehouse(View):
         else:
             spare_part.quantity -= 1
             spare_part.save()
+            messages.success(self.request,
+                             f'Запчасть {spare_part_warehouse} в количестве: *1* успешно возвращена на склад!')
         spare_part_warehouse.quantity += 1
         spare_part_warehouse.save()
         return redirect('ticket:spare_parts_list')
@@ -116,17 +118,22 @@ class SparePartInstallation(View):
     def get(self, request, *args, **kwargs):
         spare_part = SparePartUser.objects.get(pk=kwargs.get('pk'))
         ticket = Ticket.objects.get(pk=spare_part.ticket_id)
-        spare_part.service_object_id = ticket.service_object.id
-        if spare_part.status == 'assigned':
-            if spare_part.service_object:
-                spare_part.status = 'set'
-                spare_part.quantity -= 1
-                spare_part.save()
-                messages.success(self.request, f'Запчасть успешно установлена на объект {spare_part.service_object}!')
-        elif spare_part.status == 'set':
+        if (spare_part.status == 'assigned' or spare_part.status == 'set') and spare_part.quantity == 1:
+            spare_part.status = 'set'
+            spare_part.service_object = ticket.service_object
+            spare_part.quantity -= 1
+            spare_part.save()
+            messages.success(self.request,
+                             f'Запчасть {spare_part.spare_part} успешно установлена '
+                             f'на объект {spare_part.service_object}!')
+        elif (spare_part.status == 'assigned' or spare_part.status == 'set') and spare_part.quantity > 1:
+            spare_part.quantity -= 1
+            spare_part.service_object = ticket.service_object
+            spare_part.save()
+            messages.success(self.request, f'Запчасть {spare_part.spare_part} в количестве *1*'
+                                           f'успешно установлена на объект {spare_part.service_object}!')
+        if spare_part.status == 'set':
             messages.error(self.request, f'Невозможно установить, так как эта запчасть уже установлена!')
         if spare_part.status == 'returned':
             messages.error(self.request, f'Невозможно установить, так как эта запчасть уже возвращена!')
         return redirect('ticket:spare_parts_list')
-
-
