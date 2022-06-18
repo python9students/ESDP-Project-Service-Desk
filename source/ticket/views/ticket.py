@@ -112,7 +112,8 @@ class TicketUpdateView(LoginRequiredMixin, UpdateView):
         if not self.object.status.name == 'Завершенный':
             if self.object.executor and self.object.driver and not self.object.ride_started_at:
                 self.object.status = TicketStatus.objects.get(name='Назначенный')
-            elif self.object.ride_started_at:
+                self.object.save()
+            elif self.object.ride_started_at and self.object.executor and self.object.driver:
                 self.object.status = TicketStatus.objects.get(name='На исполнении')
                 self.object.save()
             elif not self.object.ride_started_at and not self.object.executor or not self.object.driver:
