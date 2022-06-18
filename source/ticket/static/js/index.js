@@ -20,32 +20,40 @@ if (document.getElementById('progress_bar')) {
 async function ProgressBar() {
     let url = document.getElementById('progress_bar').dataset.timeUrl
     let data = await make_request(url)
-    let converted_expected_finish_date = new Date(data.expected_time_to_finish_work);
-    let converted_received_at_date = new Date(data.ticket_received_at)
-    let converted_date_time_now = new Date(data.date_time_now)
+    console.log(data)
 
-
-    let remaining_time = converted_expected_finish_date - converted_date_time_now
-
-
-    let received_and_end_date = converted_expected_finish_date - converted_received_at_date
-
-
-    let percentage = (remaining_time / received_and_end_date) * 100
-    let progress_bar_tag = document.getElementById("progress_bar")
-    progress_bar_tag.style = `width: ${percentage}%`
-    if (percentage >= 100) {
-        progress_bar_tag.style.background = 'white';
-        // progress_bar_tag.textContent = "-" + progress_bar_tag.textContent;
-    } else if (percentage >= 40 | percentage === 100) {
-        progress_bar_tag.style.background = 'green'
-    } else if (percentage >= 15) {
-        progress_bar_tag.style.background = 'yellow'
-        progress_bar_tag.style.color = 'red'
+    if (data.ticket_status === "Завершенный") {
+        let element = document.getElementById(data.ticket_id)
+        element.remove()
     } else {
-        progress_bar_tag.style.background = 'red'
-        progress_bar_tag.style.color = "blue"
-        progress_bar_tag.textContent = "-" + progress_bar_tag.textContent;
+
+        let converted_expected_finish_date = new Date(data.expected_time_to_finish_work);
+        let converted_received_at_date = new Date(data.ticket_received_at)
+        let converted_date_time_now = new Date(data.date_time_now)
+
+
+        let remaining_time = converted_expected_finish_date - converted_date_time_now
+
+
+        let received_and_end_date = converted_expected_finish_date - converted_received_at_date
+
+
+        let percentage = (remaining_time / received_and_end_date) * 100
+        let progress_bar_tag = document.getElementById("progress_bar")
+        progress_bar_tag.style = `width: ${percentage}%`
+        if (percentage >= 100) {
+            progress_bar_tag.style.background = 'white';
+            // progress_bar_tag.textContent = "-" + progress_bar_tag.textContent;
+        } else if (percentage >= 40 | percentage === 100) {
+            progress_bar_tag.style.background = 'green'
+        } else if (percentage >= 15) {
+            progress_bar_tag.style.background = 'yellow'
+            progress_bar_tag.style.color = 'red'
+        } else {
+            progress_bar_tag.style.background = 'red'
+            progress_bar_tag.style.color = "blue"
+            progress_bar_tag.textContent = "-" + progress_bar_tag.textContent;
+        }
     }
 }
 
@@ -91,10 +99,8 @@ async function ProgressBarList() {
             }
 
 
-        }else if (data.ticket_status === "Завершенный"){
+        } else if (data.ticket_status === "Завершенный") {
             let element = document.getElementById(data.ticket_id)
-
-            console.log(element)
             element.remove()
 
         }
