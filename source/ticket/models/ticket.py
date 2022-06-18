@@ -173,3 +173,4 @@ class ProblemArea(MPTTModel):
         verbose_name = 'Проблемная область'
         verbose_name_plural = 'Проблемные области'
         db_table = 'problem_area'
+
