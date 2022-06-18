@@ -1,7 +1,6 @@
-from django.contrib.auth import get_user_model
 from django.db import models
 
-User = get_user_model()
+from ticket.models.ticket import User
 
 
 class SparePart(models.Model):
@@ -10,7 +9,7 @@ class SparePart(models.Model):
     """
     SPARE_PART_CHOICES = [('pc', 'шт'), ('unit', 'узел')]
 
-    serial_number = models.CharField(max_length=100, unique=True, verbose_name='Серийный №', blank=True)
+    serial_number = models.CharField(max_length=100, unique=True, verbose_name='Серийный №', blank=True, null=True)
     name = models.CharField(max_length=100, verbose_name='Название')
     product_code = models.CharField(max_length=100, verbose_name='Код продукта')
     quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')

@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from django.urls import reverse
+from django.utils import timezone
 
 from ticket.models import ServiceLevel, Department
 from ticket.models.ticket import User, TicketStatus, TicketPriority, TicketType, Work, ProblemArea, Ticket
@@ -41,6 +42,8 @@ class TicketTests(TestCase):
         problem_areas = ProblemArea.objects.create(name='Printers')
         problem_areas.save()
 
+        received_at = timezone.now()
+
         # создаем саму заявку
         test_ticket = Ticket.objects.create(operator=operator,
                                             description='some description...',
@@ -48,7 +51,8 @@ class TicketTests(TestCase):
                                             priority=priority,
                                             type=type_,
                                             service_level=service_level,
-                                            department=department, )
+                                            department=department,
+                                            received_at=received_at)
         test_ticket.works.add(works)
         test_ticket.problem_areas.add(problem_areas)
         test_ticket.save()

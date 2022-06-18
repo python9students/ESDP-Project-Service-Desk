@@ -31,7 +31,7 @@ class TicketFilter(django_filters.FilterSet):
 
     class Meta:
         model = Ticket
-        fields = ['client', 'status']
+        fields = []
 
     def sort_by_order(self, queryset, name, value):
         expression = 'received_at' if value == 'ascending' else '-received_at'
@@ -59,7 +59,7 @@ class SparePartUserFilter(django_filters.FilterSet):
 
     class Meta:
         model = SparePartUser
-        fields = ['spare_part', 'assigned_by', 'engineer', 'ticket', 'status']
+        fields = []
 
     def __init__(self, *args, **kwargs):
         super(SparePartUserFilter, self).__init__(*args, **kwargs)

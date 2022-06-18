@@ -2,23 +2,31 @@
 {% block title %}Запчасти{% endblock %}
 {% block content %}
     <br>
-
+    <style>
+    @media screen and (max-width:456px) {
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+  }
+}
+    </style>
     {% if object_list %}
         <form class="form-control" method="get">
             {{ filter.form }}
             &nbsp;
             <button style="margin-bottom: 2px" class="btn btn-outline-success btn-sm" type="submit">Фильтровать</button>
         </form>
-        <table class="table table-hover">
+        <div class="">
+        <table class="table table-hover table-bordered">
             <thead>
             <tr>
                 <th scope="col">Запчасть</th>
-                <th scope="col">Дата назначения</th>
-                <th scope="col">Назначена кем</th>
-                <th scope="col">Назначена кому</th>
-                <th scope="col">Заявка</th>
-                <th scope="col">Количество</th>
-                <th scope="col">Статус</th>
+                <th class="d-none d-xl-table-cell" scope="col">Дата назначения</th>
+                <th class="d-none d-lg-table-cell" scope="col">Назначена кем</th>
+                <th class="d-none d-md-table-cell" scope="col">Назначена кому</th>
+                <th class="d-none d-lg-table-cell" scope="col">Заявка</th>
+                <th scope="col">Кол-во</th>
+                <th class="d-none d-sm-table-cell" scope="col">Статус</th>
                 <th scope="col">Действие</th>
             </tr>
             </thead>
@@ -26,20 +34,20 @@
             {% for spare_part in spare_parts|dictsort:"id" reversed %}
                 <tr>
                     <td>{{ spare_part.spare_part }}</td>
-                    <td>{{ spare_part.created_at }}</td>
-                    <td>{{ spare_part.assigned_by.last_name }} {{ spare_part.assigned_by.first_name }}</td>
-                    <td>{{ spare_part.engineer.last_name }} {{ spare_part.engineer.first_name }}</td>
+                    <td class="d-none d-xl-table-cell">{{ spare_part.created_at }}</td>
+                    <td class="d-none d-lg-table-cell">{{ spare_part.assigned_by.last_name }} {{ spare_part.assigned_by.first_name }}</td>
+                    <td class="d-none d-md-table-cell">{{ spare_part.engineer.last_name }} {{ spare_part.engineer.first_name }}</td>
                     {% if spare_part.ticket.pk %}
-                        <td><a href="{% url 'ticket:ticket_detail' spare_part.ticket.pk %}">{{ spare_part.ticket }}</a>
+                        <td class="d-none d-lg-table-cell"><a href="{% url 'ticket:ticket_detail' spare_part.ticket.pk %}">{{ spare_part.ticket }}</a>
                         </td>
                     {% else %}
                         <td>Нет заявки</td>
                     {% endif %}
                     <td>{{ spare_part.quantity }}</td>
-                    <td>{{ spare_part.get_status_display }}</td>
+                    <td class="d-none d-sm-table-cell">{{ spare_part.get_status_display }}</td>
                     <td>
-                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                            <a href="{% url "ticket:spare_part_update" spare_part.pk %}" class="btn btn-warning">Установить</a>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">
+                            <a href="{% url "ticket:spare_part_install" spare_part.pk %}" class="btn btn-warning ">Установить</a>
                             <a href="{% url "ticket:spare_part_return_warehouse" spare_part.pk %}"
                                class="btn btn-success">Вернуть</a>
                         </div>
@@ -48,6 +56,7 @@
             {% endfor %}
             </tbody>
         </table>
+        </div>
     {% else %}
         <br>
         <h4>Назначенных запчастей пока нет...</h4>

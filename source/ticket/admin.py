@@ -64,7 +64,7 @@ class ContractAdmin(admin.ModelAdmin):
                 contract.status = contract_status
                 contract.save()
                 return super(ContractAdmin, self).change_view(request, object_id, form_url,
-                                                                   extra_context=extra_context)
+                                                              extra_context=extra_context)
         return super(ContractAdmin, self).change_view(request, object_id, form_url, extra_context=extra_context)
 
 

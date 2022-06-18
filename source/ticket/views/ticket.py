@@ -1,9 +1,8 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import EmailMessage
 from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.utils import timezone
@@ -26,9 +25,10 @@ class TicketListView(LoginRequiredMixin, ListView):
     context_object_name = 'tickets'
     paginate_by = 10
     paginate_orphans = 0
+    ordering = ['-received_at']
 
     def get_queryset(self):
-        tickets = super().get_queryset().order_by('-received_at')
+        tickets = super().get_queryset().select_related('status', 'client', 'service_object', 'priority')
         if self.request.user.has_perm('ticket.see_engineer_tickets') and not self.request.user.is_superuser:
             return tickets.filter(status__in=[2, 6, 7]).filter(executor=self.request.user)
         return TicketFilter(self.request.GET, queryset=tickets).qs
@@ -50,12 +50,9 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         return super(TicketCreateView, self).form_valid(form)
 
     def get_form(self, form_class=None):
-        admin_group = Group.objects.get(name='admins')
-        chief_group = Group.objects.get(name='chiefs')
-        engineer_group = Group.objects.get(name='engineers')
-        if chief_group in self.request.user.groups.all() or admin_group in self.request.user.groups.all():
+        if self.request.user.groups.filter(Q(name='chiefs') | Q(name='admins')).exists():
             self.form_class = ChiefForm
-        elif engineer_group in self.request.user.groups.all():
+        elif self.request.user.groups.filter(name='engineers').exists():
             self.form_class = EngineerForm
         return super().get_form()
 
@@ -72,10 +69,7 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         return reverse("ticket:ticket_detail", kwargs={"pk": self.object.pk})
 
     def get(self, request, *args, **kwargs):
-        user = self.request.user
-        group = user.groups.get(user=user)
-        engineers = Group.objects.filter(name='engineers')
-        if group in engineers:
+        if self.request.user.groups.filter(name='engineers').exists():
             raise PermissionDenied
         return super().get(request, *args, **kwargs)
 
@@ -85,30 +79,20 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
     template_name = 'ticket/detail.html'
     context_object_name = 'ticket'
 
+    def get_queryset(self):
+        return super().get_queryset().select_related(
+            'type', 'operator', 'service_object__client', 'priority', 'service_level', 'status',
+            'executor', 'driver', ).prefetch_related(
+            'works', 'problem_areas')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        ticket = Ticket.objects.get(pk=self.kwargs.get('pk'))
-        ticket_canceled = False
-        ticket_closed = False
-        is_chief = False
-        user = self.request.user
-        group = user.groups.get(user=user)
-        chiefs = Group.objects.filter(name='chiefs')
-        if group in chiefs:
-            is_chief = True
-        if str(self.object.status) == 'Отмененный':
-            ticket_canceled = True
-        if str(self.object.status) == 'Завершенный':
-            ticket_closed = True
-        if ticket.expected_finish_date:
+        if self.object.expected_finish_date:
             '''Устанавливаю правило рабочего дня чтобы получить разницу между начальным и финальными днями'''
-            time_difference = buisnesstimedelta_function(ticket)
-            expected_time_to_finish = ticket.expected_finish_date
+            time_difference = buisnesstimedelta_function(self.object)
+            expected_time_to_finish = self.object.expected_finish_date
             context['time_difference'] = time_difference.hours
             context['expected_time_to_finish'] = expected_time_to_finish
-        context['ticket_canceled'] = ticket_canceled
-        context['ticket_closed'] = ticket_closed
-        context['is_chief'] = is_chief
         return context
 
 
@@ -118,12 +102,9 @@ class TicketUpdateView(LoginRequiredMixin, UpdateView):
     context_object_name = 'ticket'
 
     def get_form(self, form_class=None):
-        admin_group = Group.objects.get(name='admins')
-        chief_group = Group.objects.get(name='chiefs')
-        engineer_group = Group.objects.get(name='engineers')
-        if chief_group in self.request.user.groups.all() or admin_group in self.request.user.groups.all():
+        if self.request.user.groups.filter(Q(name='chiefs') | Q(name='admins')).exists():
             self.form_class = ChiefForm
-        elif engineer_group in self.request.user.groups.all():
+        elif self.request.user.groups.filter(name='engineers').exists():
             self.form_class = EngineerForm
         return super().get_form()
 
@@ -131,7 +112,8 @@ class TicketUpdateView(LoginRequiredMixin, UpdateView):
         if not self.object.status.name == 'Завершенный':
             if self.object.executor and self.object.driver and not self.object.ride_started_at:
                 self.object.status = TicketStatus.objects.get(name='Назначенный')
-            elif self.object.ride_started_at:
+                self.object.save()
+            elif self.object.ride_started_at and self.object.executor and self.object.driver:
                 self.object.status = TicketStatus.objects.get(name='На исполнении')
                 self.object.save()
             elif not self.object.ride_started_at and not self.object.executor or not self.object.driver:
@@ -159,11 +141,18 @@ class TicketCancelView(UpdateView):
     template_name = 'ticket/cancel.html'
     form_class = TicketCancelForm
 
+    def get_queryset(self):
+        self.queryset = super().get_queryset().select_related(
+            'service_object', 'operator', 'service_object__client', 'status')
+        return self.queryset
+
+    def get_object(self, queryset=None):
+        return super().get_object(queryset=self.queryset)
+
     def get(self, request, *args, **kwargs):
-        chief_group = Group.objects.get(name='chiefs')
-        if chief_group not in self.request.user.groups.all():
+        if not self.request.user.groups.filter(name='chiefs').exists():
             raise PermissionDenied
-        if str(self.get_object().status) == 'Отмененный':
+        if self.get_object().status == 'Отмененный':
             raise PermissionDenied
         return super().get(request, *args, **kwargs)
 
@@ -178,11 +167,18 @@ class TicketCloseView(UpdateView):
     template_name = 'ticket/close.html'
     form_class = TicketCloseForm
 
+    def get_queryset(self):
+        self.queryset = super().get_queryset().select_related(
+            'service_object', 'operator', 'service_object__client', 'status')
+        return self.queryset
+
+    def get_object(self, queryset=None):
+        return super().get_object(queryset=self.queryset)
+
     def get(self, request, *args, **kwargs):
-        chief_group = Group.objects.get(name='chiefs')
-        if chief_group not in self.request.user.groups.all():
+        if not self.request.user.groups.filter(name='chiefs').exists():
             raise PermissionDenied
-        if str(self.get_object().status) == 'Завершенный':
+        if self.get_object().status.name == 'Завершенный':
             raise PermissionDenied
         return super().get(request, *args, **kwargs)
 
@@ -215,7 +211,9 @@ class ChiefInfoDetailView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        tickets = Ticket.objects.filter((Q(status__name="На исполнении") | Q(status__name='Назначенный')))
+        tickets = Ticket.objects.select_related(
+            'driver', 'priority', 'client', 'service_object', 'status', 'executor', 'service_object__city').filter(
+            (Q(status__name="На исполнении") | Q(status__name='Назначенный')))
         context['tickets'] = tickets
         active_executor_tickets = Count('executor_tickets', filter=Q(
             executor_tickets__status__name__in=['Назначенный', 'На исполнении']))
