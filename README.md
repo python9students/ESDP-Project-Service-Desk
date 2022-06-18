@@ -35,17 +35,12 @@ pip install -r requirements.txt
 
 Создайте в директории с проектом файл .env и заполните по примеру:
 
-MYSQL_DATABASE=db_name
-
-MYSQL_USERNAME=username
-
-MYSQL_HOST=host
-
-MYSQL_PORT=port
-
-MYSQL_PASSWORD=password
 
 SECRET_KEY=secret_key
+
+DEBUG=(1 for True, 0 for False)
+
+DJANGO_ALLOWED_HOSTS=''
 
 EMAIL_HOST=smtp_host
 
@@ -54,6 +49,18 @@ EMAIL_HOST_USER=email_of_host_user
 EMAIL_HOST_PASSWORD=password
 
 EMAIL_PORT=port
+
+POSTGRES_DB=db_name
+
+POSTGRES_USER=db_user_name
+
+POSTGRES_PASSWORD=db_user_password
+
+POSTGRES_PORT=db_port
+
+POSTGRES_HOST=db_host
+
+DATABASE=postgres
 
 
 Чтобы запустить сервер выполните:
