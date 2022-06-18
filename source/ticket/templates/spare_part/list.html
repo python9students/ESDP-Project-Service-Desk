@@ -47,7 +47,7 @@
                     <td class="d-none d-sm-table-cell">{{ spare_part.get_status_display }}</td>
                     <td>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">
-                            <a href="{% url "ticket:spare_part_update" spare_part.pk %}" class="btn btn-warning ">Установить</a>
+                            <a href="{% url "ticket:spare_part_install" spare_part.pk %}" class="btn btn-warning ">Установить</a>
                             <a href="{% url "ticket:spare_part_return_warehouse" spare_part.pk %}"
                                class="btn btn-success">Вернуть</a>
                         </div>
