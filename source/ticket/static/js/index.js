@@ -1,10 +1,8 @@
 async function make_request(url, method = 'GET') {
     let response = await fetch(url, {method})
     if (response.ok) {
-        console.log('OK')
         return await response.json();
     } else {
-        console.log('Not Successful')
         let error = new Error(response.statusText);
         error.response = response;
         throw error;
@@ -20,7 +18,6 @@ if (document.getElementById('progress_bar')) {
 async function ProgressBar() {
     let url = document.getElementById('progress_bar').dataset.timeUrl
     let data = await make_request(url)
-    console.log(data)
 
     if (data.ticket_status === "Завершенный") {
         let element = document.getElementById(data.ticket_id)
@@ -43,7 +40,6 @@ async function ProgressBar() {
         progress_bar_tag.style = `width: ${percentage}%`
         if (percentage >= 100) {
             progress_bar_tag.style.background = 'white';
-            // progress_bar_tag.textContent = "-" + progress_bar_tag.textContent;
         } else if (percentage >= 40 | percentage === 100) {
             progress_bar_tag.style.background = 'green'
         } else if (percentage >= 15) {
@@ -105,7 +101,6 @@ async function ProgressBarList() {
 
         }
     }
-    console.log(progress_list)
 }
 
 
@@ -114,7 +109,7 @@ if (document.getElementById('id_service_object')) {
     service_object.addEventListener("change", getTime)
 
     async function getTime() {
-        let url = `http://localhost:8000/service_object/${service_object.value}/detail/`;
+        let url = `http://http://188.166.9.203/service_object/${service_object.value}/detail/`;
         let data = await make_request(url);
         if (data.time_to_finish !== 'None') {
             p_tag_time_to_finish = document.createElement('p')
