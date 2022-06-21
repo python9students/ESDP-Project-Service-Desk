@@ -298,7 +298,7 @@
                     {% elif ticket.buisnesstimedelta_function <= 3 and percentage > 0 %}
                     bg-danger
                     {% else %}
-                    bg-danger
+                    bg-dark
                     {% endif %}" role="progressbar"
                          style="{% if percentage < 0 %}width:100%
                              {% else %}width:{{ percentage|add:0 }}%{% endif %}"

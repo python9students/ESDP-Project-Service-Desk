@@ -67,7 +67,7 @@
                     {% elif ticket.buisnesstimedelta_function <= 3 and ticket.get_percentage > 0 %}
                     bg-danger
                     {% else %}
-                    bg-danger
+                    bg-dark
                     {% endif %}" role="progressbar"
                          style="{% if ticket.get_percentage < 0 %}width:100%
                              {% else %}width:{{ ticket.get_percentage|add:0 }}%{% endif %}"
