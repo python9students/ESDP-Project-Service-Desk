@@ -4,6 +4,7 @@
 {% block title %}Заявка{% endblock %}
 
 {% block content %}
+
     <div class="mt-2">
         <a href="{% url "ticket:ticket_update" ticket.id %}" class="btn btn-primary">Редактировать</a>
         {% if perms.ticket.see_chief_tickets %}
@@ -283,17 +284,30 @@
             </ul>
         </div>
     </div>
-
-    {% if time_difference %}
+    {% if not ticket.status.name == 'Завершенный' and ticket.expected_finish_date%}
         <ul class="list-group">
             <li class="list-group-item">
-                <div class="progress w-100" id={{ ticket.id }}>
-                    <div class="progress-bar" id="progress_bar" data-id="{{ ticket.id }}"
-                         data-time-url="{% url "ticket:ticket_time_bar" ticket.pk %}" role="progressbar"
-                         style=""
-                         aria-valuenow="25"
-                         aria-valuemin="0"
-                         aria-valuemax="100">{{ time_difference }} раб.час
+                <div class="progress">
+                    <div class="progress-bar
+                    {% if ticket.buisnesstimedelta_function >= 12 and percentage > 0 %}
+                    bg-success
+                    {% elif ticket.buisnesstimedelta_function < 12 and ticket.buisnesstimedelta_function > 6 and percentage > 0%}
+                    bg-info
+                    {% elif ticket.buisnesstimedelta_function <= 6 and ticket.buisnesstimedelta_function > 3 and percentage > 0 %}
+                    bg-warning
+                    {% elif ticket.buisnesstimedelta_function <= 3 and percentage > 0 %}
+                    bg-danger
+                    {% else %}
+                    bg-danger
+                    {% endif %}" role="progressbar"
+                         style="{% if percentage < 0 %}width:100%
+                             {% else %}width:{{ percentage|add:0 }}%{% endif %}"
+                         aria-valuenow="25" aria-valuemin="0"
+                         aria-valuemax="100">
+                        {% if percentage < 0 %}
+                        -
+                        {% endif %}
+                        {{ ticket.buisnesstimedelta_function}} раб.час
                     </div>
                 </div>
             </li>

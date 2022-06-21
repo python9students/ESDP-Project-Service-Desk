@@ -68,6 +68,14 @@ class Ticket(models.Model):
         return localtz.strftime(fmt)
 
     @property
+    def get_percentage(self):
+        if self.expected_finish_date and self.received_at:
+            remaining_date = self.expected_finish_date - datetime.datetime.now().replace(tzinfo=timezone.get_current_timezone())
+            received_and_end_date = self.expected_finish_date - self.received_at
+            percentage = remaining_date / received_and_end_date * 100
+            return percentage
+
+    @property
     def buisnesstimedelta_function(self):
         if self.expected_finish_date:
             workday = businesstimedelta.WorkDayRule(

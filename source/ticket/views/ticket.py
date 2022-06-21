@@ -1,14 +1,18 @@
+import datetime
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMessage
+from django.db import connection
+from django.db.models.functions import Cast
 from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.contrib.auth import get_user_model
-from django.db.models import Q, Count
+from django.db.models import Q, Count, F, FloatField, ExpressionWrapper, IntegerField, DateTimeField, DurationField
 from ticket.filters import TicketFilter
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
 from django.urls import reverse
@@ -83,16 +87,15 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
         return super().get_queryset().select_related(
             'type', 'operator', 'service_object__client', 'priority', 'service_level', 'status',
             'executor', 'driver', ).prefetch_related(
-            'works', 'problem_areas')
+            'works', 'problem_areas').annotate(
+            remaining_date=F('expected_finish_date') - datetime.datetime.now()).annotate(
+            received_and_end_date=F('expected_finish_date') - F('received_at')
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.object.expected_finish_date:
-            '''Устанавливаю правило рабочего дня чтобы получить разницу между начальным и финальными днями'''
-            time_difference = buisnesstimedelta_function(self.object)
-            expected_time_to_finish = self.object.expected_finish_date
-            context['time_difference'] = time_difference.hours
-            context['expected_time_to_finish'] = expected_time_to_finish
+            context['percentage'] = self.object.remaining_date / self.object.received_and_end_date * 100
         return context
 
 
