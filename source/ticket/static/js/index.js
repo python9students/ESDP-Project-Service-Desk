@@ -15,7 +15,7 @@ if (document.getElementById('id_service_object')) {
     service_object.addEventListener("change", getTime)
 
     async function getTime() {
-        let url = `http://http://188.166.9.203/service_object/${service_object.value}/detail/`;
+        let url = `http://188.166.9.203/service_object/${service_object.value}/detail/`;
         let data = await make_request(url);
         if (data.time_to_finish !== 'None') {
             p_tag_time_to_finish = document.createElement('p')
