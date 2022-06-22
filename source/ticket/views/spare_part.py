@@ -78,7 +78,7 @@ class SparePartUserListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         spare_parts = super().get_queryset().select_related(
             'assigned_by', 'engineer', 'ticket', 'service_object', 'spare_part').order_by('-created_at')
-        query = Q(status="assigned") | Q(status="set")
+        query = Q(status="assigned")
         if self.request.user.has_perm('ticket.see_engineer_tickets') and \
                 self.request.user.has_perm('ticket.see_engineer_spare_parts') \
                 and not self.request.user.is_superuser:
@@ -132,8 +132,8 @@ class SparePartInstallation(View):
             spare_part.save()
             messages.success(self.request, f'Запчасть {spare_part.spare_part} в количестве *1*'
                                            f'успешно установлена на объект {spare_part.service_object}!')
-        if spare_part.status == 'set':
+        elif spare_part.status == 'set':
             messages.error(self.request, f'Невозможно установить, так как эта запчасть уже установлена!')
-        if spare_part.status == 'returned':
+        elif spare_part.status == 'returned':
             messages.error(self.request, f'Невозможно установить, так как эта запчасть уже возвращена!')
         return redirect('ticket:spare_parts_list')
