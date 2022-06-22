@@ -100,10 +100,6 @@ class SparePartReturnToWarehouse(View):
             spare_part.status = 'returned'
             spare_part.save()
             messages.success(self.request, f'Запчасть {spare_part_warehouse} успешно возвращена на склад!')
-        elif spare_part.status == 'returned':
-            messages.error(self.request, f'Невозможно вернуть на склад, так как эта запчасть уже возвращена!')
-        elif spare_part.status == 'set':
-            messages.error(self.request, f'Невозможно вернуть на склад, так как эта запчасть уже установлена!')
         else:
             spare_part.quantity -= 1
             spare_part.save()
@@ -111,6 +107,10 @@ class SparePartReturnToWarehouse(View):
                              f'Запчасть {spare_part_warehouse} в количестве: *1* успешно возвращена на склад!')
         spare_part_warehouse.quantity += 1
         spare_part_warehouse.save()
+        if spare_part.status == 'returned':
+            messages.error(self.request, f'Невозможно вернуть на склад, так как эта запчасть уже возвращена!')
+        if spare_part.status == 'set':
+            messages.error(self.request, f'Невозможно вернуть на склад, так как эта запчасть уже установлена!')
         return redirect('ticket:spare_parts_list')
 
 
