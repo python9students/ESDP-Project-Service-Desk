@@ -25,4 +25,8 @@ urlpatterns = [
 ]
 
 
+admin.site.site_header = "Service Desk"
+admin.site.site_title = "Service Desk Admin Portal"
+admin.site.index_title = "Welcome to Service Desk Admin Portal!"
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
