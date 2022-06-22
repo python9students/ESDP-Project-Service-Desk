@@ -300,7 +300,7 @@
                     {% else %}
                     bg-dark
                     {% endif %}" role="progressbar"
-                         style="{% if percentage < 0 %}width:100%
+                         style="{% if percentage < 0 or ticket.buisnesstimedelta_function == 0 %}width:100%
                              {% else %}width:{{ percentage|add:0 }}%{% endif %}"
                          aria-valuenow="25" aria-valuemin="0"
                          aria-valuemax="100">
