@@ -5,20 +5,17 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMessage
-from django.db import connection
-from django.db.models.functions import Cast
 from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.contrib.auth import get_user_model
-from django.db.models import Q, Count, F, FloatField, ExpressionWrapper, IntegerField, DateTimeField, DurationField
+from django.db.models import Q, Count, F
 from ticket.filters import TicketFilter
 from ticket.forms import ChiefForm, EngineerForm, TicketCancelForm, TicketCloseForm
 from django.urls import reverse
 
 from ticket.models import Ticket, TicketStatus, Work, ProblemArea, ServiceObject
-from ticket.views.ticket_custom_datetime_functions import buisnesstimedelta_function
 
 User = get_user_model()
 
