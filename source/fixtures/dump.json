@@ -80,25 +80,25 @@
     "service_object": 15,
     "priority": 3,
     "type": 4,
-    "status": 6,
+    "status": 1,
     "service_level": 2,
     "department": 1,
     "created_at": "2022-06-15T15:35:38.251Z",
-    "updated_at": "2022-06-15T15:38:38.874Z",
+    "updated_at": "2022-06-22T12:16:07.966Z",
     "received_at": "2022-06-15T15:35:00Z",
     "desired_to": null,
     "operator": 13,
     "description": "",
     "executor": 10,
     "driver": 10,
-    "closed_at": null,
+    "closed_at": "2022-06-22T12:16:07.958Z",
     "ride_started_at": null,
     "work_started_at": null,
     "work_finished_at": null,
     "ride_finished_at": null,
     "cancel_reason": "",
     "close_commentary": "",
-    "work_done": "",
+    "work_done": "yes \r\nand \r\nno",
     "expected_finish_date": "2022-06-16T07:36:00Z",
     "works": [
       8
@@ -299,17 +299,17 @@
     "service_object": 15,
     "priority": 2,
     "type": 1,
-    "status": 3,
+    "status": 6,
     "service_level": 2,
     "department": 1,
     "created_at": "2022-06-20T20:29:31.707Z",
-    "updated_at": "2022-06-20T20:29:31.734Z",
+    "updated_at": "2022-06-24T09:21:25.288Z",
     "received_at": "2022-06-20T13:27:00Z",
     "desired_to": null,
     "operator": 13,
     "description": "",
-    "executor": null,
-    "driver": null,
+    "executor": 10,
+    "driver": 10,
     "closed_at": null,
     "ride_started_at": null,
     "work_started_at": null,
@@ -407,19 +407,19 @@
     "service_object": 14,
     "priority": 2,
     "type": 1,
-    "status": 3,
+    "status": 2,
     "service_level": 1,
     "department": 1,
     "created_at": "2022-06-21T17:52:42.837Z",
-    "updated_at": "2022-06-21T17:52:42.863Z",
+    "updated_at": "2022-06-22T13:21:36.231Z",
     "received_at": "2022-06-21T17:52:00Z",
     "desired_to": null,
     "operator": 8,
     "description": "",
-    "executor": null,
-    "driver": null,
+    "executor": 10,
+    "driver": 10,
     "closed_at": null,
-    "ride_started_at": null,
+    "ride_started_at": "2022-06-22T13:21:00Z",
     "work_started_at": null,
     "work_finished_at": null,
     "ride_finished_at": null,
@@ -430,6 +430,79 @@
     "works": [
       10,
       5
+    ],
+    "problem_areas": [
+      5
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 13,
+  "fields": {
+    "client": 14,
+    "service_object": 19,
+    "priority": 2,
+    "type": 3,
+    "status": 1,
+    "service_level": 1,
+    "department": 1,
+    "created_at": "2022-06-24T09:27:41.728Z",
+    "updated_at": "2022-06-24T09:30:56.205Z",
+    "received_at": "2022-06-24T09:27:00Z",
+    "desired_to": null,
+    "operator": 13,
+    "description": "",
+    "executor": null,
+    "driver": null,
+    "closed_at": "2022-06-24T09:30:54.715Z",
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "",
+    "work_done": "проделали ничего \r\nзакрыли для теста",
+    "expected_finish_date": "2022-06-28T09:27:00Z",
+    "works": [
+      10
+    ],
+    "problem_areas": [
+      5,
+      7
+    ]
+  }
+},
+{
+  "model": "ticket.ticket",
+  "pk": 14,
+  "fields": {
+    "client": 14,
+    "service_object": 19,
+    "priority": 2,
+    "type": 1,
+    "status": 1,
+    "service_level": 2,
+    "department": 1,
+    "created_at": "2022-06-24T09:40:09.201Z",
+    "updated_at": "2022-06-24T09:55:10.060Z",
+    "received_at": "2022-06-23T09:40:00Z",
+    "desired_to": null,
+    "operator": 13,
+    "description": "",
+    "executor": null,
+    "driver": null,
+    "closed_at": "2022-06-24T09:55:08.375Z",
+    "ride_started_at": null,
+    "work_started_at": null,
+    "work_finished_at": null,
+    "ride_finished_at": null,
+    "cancel_reason": "",
+    "close_commentary": "тест закрытия с письмом на почту",
+    "work_done": "1.тест\r\n2.тест",
+    "expected_finish_date": "2022-06-27T09:40:00Z",
+    "works": [
+      10
     ],
     "problem_areas": [
       5
@@ -854,7 +927,7 @@
     "serial_number": "5404A30326",
     "name": "THERMOSTAT 110/220 VOLT",
     "product_code": "00284502000",
-    "quantity": 1,
+    "quantity": 0,
     "measure_unit": "pc",
     "created_at": "2022-06-15T06:43:32.272Z",
     "condition": 1,
@@ -924,7 +997,7 @@
     "serial_number": "01750035768",
     "name": "thickness measuring shaft assy.",
     "product_code": "01750035768",
-    "quantity": 10,
+    "quantity": 7,
     "measure_unit": "pc",
     "created_at": "2022-06-15T06:48:28.666Z",
     "condition": 1,
@@ -1047,6 +1120,34 @@
     "assigned_by": 8,
     "ticket": 2,
     "service_object": 12,
+    "status": "set"
+  }
+},
+{
+  "model": "ticket.sparepartuser",
+  "pk": 12,
+  "fields": {
+    "spare_part": 8,
+    "engineer": 10,
+    "quantity": 0,
+    "created_at": "2022-06-22T13:18:13.949Z",
+    "assigned_by": 13,
+    "ticket": 12,
+    "service_object": 14,
+    "status": "set"
+  }
+},
+{
+  "model": "ticket.sparepartuser",
+  "pk": 13,
+  "fields": {
+    "spare_part": 13,
+    "engineer": 10,
+    "quantity": 0,
+    "created_at": "2022-06-22T13:19:07.257Z",
+    "assigned_by": 13,
+    "ticket": 12,
+    "service_object": 14,
     "status": "set"
   }
 },
@@ -1188,6 +1289,26 @@
     "guarantee_valid_from": null,
     "guarantee_valid_until": null,
     "time_to_fix_problem": "08:00:00"
+  }
+},
+{
+  "model": "ticket.serviceobject",
+  "pk": 19,
+  "fields": {
+    "serial_number": "693452891 ADM",
+    "model": 9,
+    "client": 14,
+    "type": 3,
+    "is_installed": true,
+    "active_from": "2022-05-02T09:26:14Z",
+    "address": "Герцена 123",
+    "country": 3,
+    "region": 1,
+    "city": 5,
+    "criterion": 1,
+    "guarantee_valid_from": "2022-03-01",
+    "guarantee_valid_until": "2023-02-10",
+    "time_to_fix_problem": "12:00:00"
   }
 },
 {
@@ -1523,6 +1644,21 @@
     "email": "info@dcb.kg",
     "type": 3,
     "address": "ул. Исанова, 81-83",
+    "country": 3,
+    "region": 1,
+    "city": 5
+  }
+},
+{
+  "model": "ticket.client",
+  "pk": 14,
+  "fields": {
+    "name": "Банк Python-9 Team-3",
+    "short_name": "Python-9",
+    "website": "",
+    "email": "faralost@mail.ru",
+    "type": 1,
+    "address": "Малдыбаева 7",
     "country": 3,
     "region": 1,
     "city": 5
